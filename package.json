@@ -1,0 +1,20 @@
+{
+  "name": "nextfeatherstest3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publishherokuall": "npm run publishheroku --prefix server && npm run publishheroku --prefix client-web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slnd94/nextfeatherstest3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slnd94/nextfeatherstest3/issues"
+  },
+  "homepage": "https://github.com/slnd94/nextfeatherstest3#readme"
+}
