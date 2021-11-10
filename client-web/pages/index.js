@@ -75,14 +75,14 @@ export default function Home({ outputProp }) {
 }
 
 export const getServerSideProps = async () => {
-  // const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
-  // const data = await req.json();
-  // console.log('data', data)
+  const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
+  const data = await req.json();
+  console.log('data', data)
   return {
     props: {
       outputProp: {
-        name: 'hi',
-        code: 'ok'
+        name: data.name,
+        code: data.code
       }
     }
   }
