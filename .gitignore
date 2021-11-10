@@ -144,10 +144,10 @@ data/
 /client-web/yarn-error.log*
 
 # local env files
-/client-web.env.local
-/client-web.env.development.local
-/client-web.env.test.local
-/client-web.env.production.local
+/client-web/.env.local
+/client-web/.env.development.local
+/client-web/.env.test.local
+/client-web/.env.production.local
 
 # vercel
 /client-web/.vercel

@@ -1,9 +1,14 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 
-export default function Home() {
-  // test comment
+export default function Home({ outputProp }) {
+  useEffect(() => {
+    console.log('hiya hiya');
+    console.log(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +19,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://nextjs.org">Next.js!  {JSON.stringify(outputProp)}</a>
         </h1>
 
         <p className={styles.description}>
@@ -67,4 +72,18 @@ export default function Home() {
       </footer>
     </div>
   )
+}
+
+export const getServerSideProps = async () => {
+  const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
+  const data = await req.json();
+  console.log('data', data)
+  return {
+    props: {
+      outputProp: {
+        name: data.name,
+        code: data.code
+      }
+    }
+  }
 }
