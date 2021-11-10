@@ -4,8 +4,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p $PORT",
+    "lint": "next lint",
+    "publishheroku": "cd ../ && git subtree push --prefix client-web herokunextfeatherstest3-web master || true"
   },
   "dependencies": {
     "next": "12.0.3",
