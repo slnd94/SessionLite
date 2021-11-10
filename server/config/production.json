@@ -1,4 +1,5 @@
 {
   "host": "nextfeatherstest-3-server-app.feathersjs.com",
-  "port": "PORT"
+  "port": "PORT",
+  "mongodb": "MONGO_URI"
 }
