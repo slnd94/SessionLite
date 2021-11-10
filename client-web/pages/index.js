@@ -77,6 +77,7 @@ export default function Home({ outputProp }) {
 export const getServerSideProps = async () => {
   const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
   const data = await req.json();
+  console.log(`the api base url is ${process.env.NEXT_PUBLIC_BASE_URL}`)
   console.log('data', data)
   return {
     props: {
