@@ -84,7 +84,8 @@ export const getServerSideProps = async () => {
       outputProp: {
         name: data.name,
         code: data.code,
-        test: 'test'
+        test: 'test',
+        another: 'huh'
       }
     }
   }
