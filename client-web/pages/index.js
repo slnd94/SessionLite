@@ -1,13 +1,51 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
+import api from '../utils/api';
+
+
 
 export default function Home({ outputProp }) {
-  useEffect(() => {
+  const [users, setUsers] = useState();
+  const [user, setUser] = useState();
+
+  useEffect(async () => {
+    const response = await api({
+      method: 'post',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/authentication`,
+      params: {
+        strategy: 'local',
+        email: 'lt@example.com',
+        password: 'secret'
+      }
+    });
+
+    localStorage.authToken = response.data.accessToken;
+
+    const usersData = await api({
+      method: 'get',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/users`
+    });
+    console.log('heyhey', usersData.data)
+    setUsers(usersData.data);
+
     console.log('hiya hiya');
     console.log(`${process.env.NEXT_PUBLIC_BASE_URL}`);
-  }, [])
+
+  }, []);
+
+  useEffect(async () => {
+    if (users?.data) {  
+      console.log('users data is ', users)
+      const userData = await api({
+        method: 'get',
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/users/${users.data[0]._id}`
+      });
+
+      setUser(userData.data);
+    }
+  }, [users]);
 
   return (
     <div className={styles.container}>
@@ -25,12 +63,14 @@ export default function Home({ outputProp }) {
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
+          <br />Users: {JSON.stringify(users)};
         </p>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
             <p>Find in-depth information about Next.js features and API.</p>
+            <br />User data: {JSON.stringify(user)};
           </a>
 
           <a href="https://nextjs.org/learn" className={styles.card}>
@@ -77,8 +117,8 @@ export default function Home({ outputProp }) {
 export const getServerSideProps = async () => {
   const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
   const data = await req.json();
-  console.log(`the api base url is ${process.env.NEXT_PUBLIC_BASE_URL}`)
-  console.log('data', data)
+  // console.log(`the api base url is ${process.env.NEXT_PUBLIC_BASE_URL}`)
+  // console.log('data', data)
   return {
     props: {
       outputProp: {
