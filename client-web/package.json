@@ -9,6 +9,7 @@
     "publishheroku": "cd ../ && git subtree push --prefix client-web herokunextfeatherstest3-web master || true"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^2.0.1",
     "next": "12.0.3",
