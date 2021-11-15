@@ -2,6 +2,9 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
+
+const name = require('./name.model');
+
 module.exports = function (app) {
   const modelName = 'users';
   const mongooseClient = app.get('mongooseClient');
@@ -10,6 +13,7 @@ module.exports = function (app) {
     email: { type: String, unique: true, lowercase: true },
     password: { type: String },
   
+    name: { type: name },
   
   }, {
     timestamps: true

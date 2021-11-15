@@ -15,7 +15,8 @@ const authReducer = (state, action) => {
         errorMessage: '',
         token: action.payload.accessToken,
         user: {
-          email: action.payload.user.email
+          email: action.payload.user.email,
+          name: action.payload.user.name
         }
       };
     case 'clear_error_message':
