@@ -25,7 +25,7 @@ function SigninForm({ onSubmit }) {
       </FormGroup>
       <FormGroup>
         <Label for="password">
-          Email
+          Password
         </Label>
         <Input
           id="password"
