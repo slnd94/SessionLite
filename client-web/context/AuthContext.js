@@ -10,7 +10,14 @@ const authReducer = (state, action) => {
     case 'add_error':
       return { ...state, errorMessage: action.payload };
     case 'signin':
-      return { errorMessage: '', token: action.payload };
+      return {
+        ...state,
+        errorMessage: '',
+        token: action.payload.accessToken,
+        user: {
+          email: action.payload.user.email
+        }
+      };
     case 'clear_error_message':
       return { ...state, errorMessage: '' };
     case 'signout':
@@ -65,8 +72,12 @@ const signin = dispatch => async ({ email, password }) => {
       }
     });
 
+    console.log('datata', response.data)
+
+    const token = response.data.accessToken;
+
     localStorage.authToken = response.data.accessToken;
-    dispatch({ type: 'signin', payload: response.data.accessToken });
+    dispatch({ type: 'signin', payload: response.data});
     // router.push('/');
     // navigate('TrackList');
   } catch (err) {

@@ -30,19 +30,19 @@ export default function Signin() {
   )
 }
 
-export const getServerSideProps = async () => {
-  const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
-  const data = await req.json();
-  // console.log(`the api base url is ${process.env.NEXT_PUBLIC_BASE_URL}`)
-  // console.log('data', data)
-  return {
-    props: {
-      outputProp: {
-        name: data.name,
-        code: data.code,
-        test: 'test',
-        another: 'huh'
-      }
-    }
-  }
-}
+// export const getServerSideProps = async () => {
+//   const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
+//   const data = await req.json();
+//   // console.log(`the api base url is ${process.env.NEXT_PUBLIC_BASE_URL}`)
+//   // console.log('data', data)
+//   return {
+//     props: {
+//       outputProp: {
+//         name: data.name,
+//         code: data.code,
+//         test: 'test',
+//         another: 'huh'
+//       }
+//     }
+//   }
+// }

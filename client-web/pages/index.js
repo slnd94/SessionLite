@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import styles from '../styles/Home.module.scss'
 import api from '../utils/api';
-
-
+import Link from 'next/link';
 
 export default function Home({ outputProp }) {
   const [users, setUsers] = useState();
@@ -55,6 +54,11 @@ export default function Home({ outputProp }) {
         Get started by editing{' '}
         <code className={styles.code}>pages/index.js</code>
         <br />Users: {JSON.stringify(users)};
+      </p>
+
+      <p className={styles.description}>
+        Sign in:
+        <Link href="/signin">Sign in</Link>
       </p>
 
       <div className={styles.grid}>
