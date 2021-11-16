@@ -1,6 +1,6 @@
 import '../styles/globals.scss'
 import '../styles/bootstrap.scss'
-// import 'bootstrap/dist/css/bootstrap.css';
+import '../styles/components/iconText.scss'
 import { Provider as AuthProvider } from '../context/AuthContext';
 import Layout from '../components/Layout';
 

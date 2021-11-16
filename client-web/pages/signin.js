@@ -7,13 +7,7 @@ import SigninForm from '../components/SigninForm';
 
 export default function Signin() {
   const { state, signin } = useContext(Context);
-
-  // const signIn = async () => {
-  //   signin({
-  //     email: 'lt@example.com',
-  //     password: 'secret'
-  //   });
-  // };
+  
   return (
     <>
       <div className="row">
@@ -22,27 +16,10 @@ export default function Signin() {
             onSubmit={signin}
           />
         </div>
+        <div className="col-6">
+          hi
+        </div>
       </div>
-      <p>
-        token: {state.token}
-      </p>
     </>
   )
 }
-
-// export const getServerSideProps = async () => {
-//   const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
-//   const data = await req.json();
-//   // console.log(`the api base url is ${process.env.NEXT_PUBLIC_BASE_URL}`)
-//   // console.log('data', data)
-//   return {
-//     props: {
-//       outputProp: {
-//         name: data.name,
-//         code: data.code,
-//         test: 'test',
-//         another: 'huh'
-//       }
-//     }
-//   }
-// }

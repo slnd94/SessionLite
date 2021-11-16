@@ -1,0 +1,15 @@
+.icon-text {
+  white-space: nowrap;
+  .icon-text-icon {
+    width: 1.8em;
+    text-align: center;
+    display: inline-block;
+    // svg {
+    //   margin-left: 0.5rem;
+    // }
+  }
+  .icon-text-text {
+    display: inline-block;
+    margin: 0rem 0.2em;
+  }
+}

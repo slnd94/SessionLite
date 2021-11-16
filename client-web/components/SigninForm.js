@@ -41,10 +41,6 @@ function SigninForm({ onSubmit }) {
       }}>
         Submit
       </Button>
-
-      <div>hi there</div>
-      <div>{email}</div>
-      <div>{password}</div>
     </Form>
   )
 }
