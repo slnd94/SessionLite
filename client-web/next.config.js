@@ -1,4 +1,5 @@
 const path = require('path');
+const { i18n } = require('./next-i18next.config');
 
 module.exports = {
   reactStrictMode: true,
@@ -7,5 +8,6 @@ module.exports = {
   },
   env: {
     NEXT_PUBLIC_BASE_URL: process.env.API_BASE_URL
-  }
+  },
+  i18n
 }

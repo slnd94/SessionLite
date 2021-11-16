@@ -1,0 +1,30 @@
+{
+  "Are you sure?": "Are you sure?",
+  "Yes": "Yes",
+  "No": "No",
+  "Today": "Today",
+  "Search": "Search",
+  "Sort": "Sort",
+  "Sort by": "Sort by",
+  "Ascending": "Ascending",
+  "Descending": "Descending",
+  "Save": "Save",
+  "Back": "Back",
+  "Previous": "Previous",
+  "Next": "Next",
+  "Add": "Add",
+  "New": "New",
+  "Change": "Change",
+  "Edit": "Edit",
+  "Remove": "Remove",
+  "Confirm": "Confirm",
+  "Welcome to the application": "Welcome to the application (translated)",
+  "index": {
+    "Welcome to the application": "Welcome to the application nested (translated)"
+  },
+  "auth": {
+    "Sign up": "Sign up",
+    "Sign in": "Sign in",
+    "Sign out": "Sign out"
+  }
+}

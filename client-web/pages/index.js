@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react'
 import styles from '../styles/Home.module.scss'
 import api from '../utils/api';
 import Link from 'next/link';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
-export default function Home({ outputProp }) {
+export default function Home() {
   const [users, setUsers] = useState();
   const [user, setUser] = useState();
+  const { t } = useTranslation('common');
 
   useEffect(async () => {
     const response = await api({
@@ -47,7 +50,7 @@ export default function Home({ outputProp }) {
   return (
     <>
       <h1 className={styles.title}>
-        Welcome to <a href="https://nextjs.org">Next.js!  {JSON.stringify(outputProp)}</a>
+        {t('index.Welcome to the application')}  
       </h1>
 
       <p className={styles.description}>
@@ -95,19 +98,10 @@ export default function Home({ outputProp }) {
   )
 }
 
-export const getServerSideProps = async () => {
-  const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
-  const data = await req.json();
-  // console.log(`the api base url is ${process.env.NEXT_PUBLIC_BASE_URL}`)
-  // console.log('data', data)
+export const getServerSideProps = async ({ locale }) => {
   return {
     props: {
-      outputProp: {
-        name: data.name,
-        code: data.code,
-        test: 'test',
-        another: 'huh'
-      }
+      ...(await serverSideTranslations(locale, ['common'])),
     }
   }
 }
