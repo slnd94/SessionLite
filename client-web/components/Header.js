@@ -43,7 +43,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
           <NavbarBrand>{brandName}</NavbarBrand>
         </Link>
         <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar right>
+        <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <Link href="/signin" passHref>              
               <NavItem>
