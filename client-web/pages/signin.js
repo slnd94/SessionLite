@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import { Context } from '../context/AuthContext';
 import SigninForm from '../components/SigninForm';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Signin() {
   const { state, signin } = useContext(Context);
@@ -22,4 +23,12 @@ export default function Signin() {
       </div>
     </>
   )
+}
+
+export const getServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    }
+  }
 }

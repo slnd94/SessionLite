@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
+import { useTranslation } from 'next-i18next';
 
 function SigninForm({ onSubmit }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { t } = useTranslation('common');
 
   const submitForm = () => {
     console.log({email, password})
@@ -39,7 +41,7 @@ function SigninForm({ onSubmit }) {
         e.preventDefault;
         onSubmit({email, password});
       }}>
-        Submit
+        {t('auth.Sign in')}
       </Button>
     </Form>
   )

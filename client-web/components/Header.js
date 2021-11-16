@@ -5,7 +5,7 @@ import {
   Collapse,
   Navbar,
   NavbarBrand,
-  NavbarToggler,
+  NavbarToggler, 
   Nav,
   NavItem,
   UncontrolledDropdown,
@@ -17,10 +17,12 @@ import { getFullName } from '../helpers/nameHelpers';
 import { icons, FontAwesomeIcon } from '../utils/fontAwesome/fontAwesome';
 import IconText from './IconText';
 import styles from '../styles/Header.module.scss'
+import { useTranslation } from 'next-i18next';
 
 function Header({ brandName, requestLogout, openLogin, openSignup }) {
   const [isOpen, setIsOpen] = useState(false)
   const {state: { user: authUser }} = useContext(AuthContext);
+  const { t } = useTranslation('common');
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -34,7 +36,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
       });
   }
 
-  const t = (term) => term;
+  // const t = (term) => term;
 
   return (
     <div>
@@ -49,7 +51,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
               <NavItem>
                 <Button
                   color="secondary">
-                  {t('auth.Sign In')}
+                  {t('auth.Sign in')}
                 </Button>
               </NavItem>
             </Link>
@@ -71,7 +73,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                   <DropdownItem tag={Link} href=" " onClick={() => this.logout()}>
                     <IconText
                       icon={'logout'}
-                      text={t('auth.Log Out')}
+                      text={t('auth.Sign out')}
                     />
                   </DropdownItem>
                 </DropdownMenu>

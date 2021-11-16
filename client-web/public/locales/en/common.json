@@ -18,9 +18,8 @@
   "Edit": "Edit",
   "Remove": "Remove",
   "Confirm": "Confirm",
-  "Welcome to the application": "Welcome to the application (translated)",
   "index": {
-    "Welcome to the application": "Welcome to the application nested (translated)"
+    "Welcome to the application": "Welcome to the application (translated)"
   },
   "auth": {
     "Sign up": "Sign up",
