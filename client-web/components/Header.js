@@ -42,7 +42,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
 
   return (
     <div>
-      <Navbar className="fixed-top navbar-light bg-light" color="faded" expand="sm">
+      <Navbar className="fixed-top navbar-dark bg-primary" color="faded" expand="sm">
         <Link href="/" passHref>
           <NavbarBrand>{brandName}</NavbarBrand>
         </Link>

@@ -15,24 +15,24 @@ function SigninForm({ onSubmit }) {
     <Form>
       <FormGroup>
         <Label for="email">
-          Email
+          {t('auth.Email')}
         </Label>
         <Input
           id="email"
           name="email"
-          placeholder="Email"
+          placeholder={t('auth.Email')}
           type="email"
           onChange={(e) => {setEmail(e.target.value)}}
         />
       </FormGroup>
       <FormGroup>
         <Label for="password">
-          Password
+          {t('auth.Password')}
         </Label>
         <Input
           id="password"
           name="password"
-          placeholder="Password"
+          placeholder={t('auth.Password')}
           type="password"
           onChange={(e) => {setPassword(e.target.value)}}
         />

@@ -24,6 +24,8 @@
   "auth": {
     "Sign up": "Sign up",
     "Sign in": "Sign in",
-    "Sign out": "Sign out"
+    "Sign out": "Sign out",
+    "Email": "Email",
+    "Password": "Password"
   }
 }
