@@ -18,7 +18,7 @@ export default function Signin() {
           />
         </div>
         <div className="col-6">
-          hi
+          
         </div>
       </div>
     </>

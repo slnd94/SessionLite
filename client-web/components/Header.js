@@ -7,12 +7,14 @@ import {
   NavbarBrand,
   NavbarToggler, 
   Nav,
+  NavLink,
   NavItem,
+  // NavbarText,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
-  Button } from 'reactstrap';
+  DropdownItem
+} from 'reactstrap';
 import { getFullName } from '../helpers/nameHelpers';
 import { icons, FontAwesomeIcon } from '../utils/fontAwesome/fontAwesome';
 import IconText from './IconText';
@@ -40,21 +42,20 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
 
   return (
     <div>
-      <Navbar className="fixed-top navbar-dark bg-dark" color="faded" light expand="xs">
+      <Navbar className="fixed-top navbar-light bg-light" color="faded" expand="sm">
         <Link href="/" passHref>
           <NavbarBrand>{brandName}</NavbarBrand>
         </Link>
         <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="ml-auto" navbar>
-            <Link href="/signin" passHref>              
-              <NavItem>
-                <Button
-                  color="secondary">
+        <Collapse className="d-flex" isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>            
+            <NavItem>
+              <Link href="/signin" passHref>  
+                <NavLink>
                   {t('auth.Sign in')}
-                </Button>
-              </NavItem>
-            </Link>
+                </NavLink>
+              </Link>
+            </NavItem>
             {authUser
               ? <UncontrolledDropdown nav inNavBar>
                 <DropdownToggle nav>
@@ -81,6 +82,9 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
               : null
             }
           </Nav>
+          {/* <NavbarText>
+            Simple Text
+          </NavbarText> */}
         </Collapse>
       </Navbar>
     </div>
