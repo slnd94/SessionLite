@@ -20,8 +20,7 @@ export default function Home() {
           ? <div>Hi, {authUser.name.given}</div>
           : <Link href="/signin">{t('auth.Sign in')}</Link>
         }
-      </p>
-      
+      </p>      
     </>
   )
 }

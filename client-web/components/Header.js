@@ -48,18 +48,15 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse className="d-flex" isOpen={isOpen} navbar>
-          <Nav className="ml-auto" navbar>            
-            <NavItem>
-              <Link href="/signin" passHref>  
-                <NavLink>
-                  {t('auth.Sign in')}
-                </NavLink>
-              </Link>
-            </NavItem>
+          <Nav className="ml-auto" navbar>
             {authUser
-              ? <UncontrolledDropdown nav inNavBar>
+              ? <UncontrolledDropdown nav>
                 <DropdownToggle nav>
-                  <FontAwesomeIcon icon={icons.user} />
+                  <IconText
+                    icon={'user'}
+                    text={t('auth.User')}
+                  />
+                  {/* <FontAwesomeIcon icon={icons.user} /> */}
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem tag={Link} href="/user/profile">
@@ -79,7 +76,13 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              : null
+              : <NavItem>
+                <Link href="/signin" passHref>  
+                  <NavLink>
+                    {t('auth.Sign in')}
+                  </NavLink>
+                </Link>
+              </NavItem>
             }
           </Nav>
           {/* <NavbarText>
