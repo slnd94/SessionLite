@@ -15,16 +15,13 @@ export default function Home() {
         {t('index.Welcome to the application')}  
       </h1>
 
-      {authUser
-        ? <p className={styles.description}>
-          Hi, {authUser.name.given}
-        </p>
-        : null
-      }
-
       <p className={styles.description}>
-        <Link href="/signin">{t('auth.Sign in')}</Link>
+        {authUser
+          ? <div>Hi, {authUser.name.given}</div>
+          : <Link href="/signin">{t('auth.Sign in')}</Link>
+        }
       </p>
+      
     </>
   )
 }
