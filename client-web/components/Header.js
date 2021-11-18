@@ -44,7 +44,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
     <div>
       <Navbar className="fixed-top navbar-dark bg-primary" color="faded" expand="sm">
         <Link href="/" passHref>
-          <NavbarBrand>{brandName}</NavbarBrand>
+          hi{/* <NavbarBrand>{brandName}</NavbarBrand> */}
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse className="d-flex" isOpen={isOpen} navbar>

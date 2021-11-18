@@ -27,6 +27,9 @@
     "Sign out": "Sign out",
     "Email": "Email",
     "Password": "Password", 
-    "User": "User"
+    "User": "User",
+    "Email is required": "Email is required",
+    "Password is required": "Password is required",
+    "Password must have at least 8 characters": "Password must have at least 8 characters"
   }
 }

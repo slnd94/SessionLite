@@ -1,50 +1,66 @@
-import React, { useState } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
+import React from "react";
+import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap'
+import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from 'next-i18next';
 
-function SigninForm({ onSubmit }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function SignInForm({ onSubmit }) {
+  const { handleSubmit, control, formState: { errors }, handleErrors } = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  });
+
   const { t } = useTranslation('common');
 
-  const submitForm = () => {
-    console.log({email, password})
-  }
+  const formRules = {
+    email: { required: t('auth.Email is required') },
+    password: {
+      required: t('auth.Password is required'),
+      minLength: {
+        value: 6,
+        message: t('auth.Password must have at least 8 characters')
+      }
+    }
+  };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label for="email">
-          {t('auth.Email')}
-        </Label>
-        <Input
-          id="email"
+        <Label>{t('auth.Email')}</Label>
+        <Controller
           name="email"
-          placeholder={t('auth.Email')}
-          type="email"
-          onChange={(e) => {setEmail(e.target.value)}}
+          control={control}
+          rules={formRules.email}
+          render={({ field: { ref, ...field } }) => 
+            <Input
+              {...field}
+              type="email"
+              innerRef={ref}
+            />
+          }
         />
+        {errors?.email ? <span style={{color: 'red'}}>{errors.email.message}</span> : null}
       </FormGroup>
       <FormGroup>
-        <Label for="password">
-          {t('auth.Password')}
-        </Label>
-        <Input
-          id="password"
+        <Label>{t('auth.Password')}</Label>
+        <Controller
           name="password"
-          placeholder={t('auth.Password')}
-          type="password"
-          onChange={(e) => {setPassword(e.target.value)}}
+          control={control}
+          rules={formRules.password}
+          render={({ field: { ref, ...field } }) => 
+            <Input
+              {...field}
+              type="password"
+              innerRef={ref}
+            />
+          }
         />
+        {errors?.password ? <span style={{color: 'red'}}>{errors.password.message}</span> : null}
       </FormGroup>
-      <Button onClick={(e) => {
-        e.preventDefault;
-        onSubmit({email, password});
-      }}>
-        {t('auth.Sign in')}
-      </Button>
+      <Button color="primary" type="submit">{t('auth.Sign in')}</Button>
     </Form>
-  )
+  );
 }
 
-export default SigninForm
+export default SignInForm
