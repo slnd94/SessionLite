@@ -1,10 +1,10 @@
 import React from "react";
-import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap'
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from 'next-i18next';
 
 function SignInForm({ onSubmit }) {
-  const { handleSubmit, control, formState: { errors }, handleErrors } = useForm({
+  const { handleSubmit, control, formState: { errors } } = useForm({
     defaultValues: {
       email: '',
       password: ''
