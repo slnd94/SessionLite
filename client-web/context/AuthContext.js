@@ -3,7 +3,6 @@ import createDataContext from './createDataContext';
 // import trackerApi from '../api/tracker';
 // import { navigate } from '../navigationRef';
 import api from '../utils/api';
-import { useRouter } from 'next/router';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -22,7 +21,7 @@ const authReducer = (state, action) => {
     case 'clear_error_message':
       return { ...state, errorMessage: '' };
     case 'signout':
-      return { token: null, errorMessage: '' };
+      return { token: null, errorMessage: '', user: null };
     default:
       return state;
   }
@@ -89,9 +88,10 @@ const signin = dispatch => async ({ email, password }) => {
 };
 
 const signout = dispatch => async () => {
-  await AsyncStorage.removeItem('token');
+  // delete the token
+  delete localStorage.authToken;
   dispatch({ type: 'signout' });
-  navigate('loginFlow');
+  // navigate('loginFlow');
 };
 
 const { Provider, Context } = createDataContext(

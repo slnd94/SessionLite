@@ -20,11 +20,13 @@ import { icons, FontAwesomeIcon } from '../utils/fontAwesome/fontAwesome';
 import IconText from './IconText';
 import styles from '../styles/Header.module.scss'
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 function Header({ brandName, requestLogout, openLogin, openSignup }) {
   const [isOpen, setIsOpen] = useState(false)
-  const {state: { user: authUser }} = useContext(AuthContext);
+  const { state: { user: authUser }, signout } = useContext(AuthContext);
   const { t } = useTranslation('common');
+  const router = useRouter();
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -59,21 +61,28 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                   {/* <FontAwesomeIcon icon={icons.user} /> */}
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem tag={Link} href="/user/profile">
-                    <IconText
-                      icon={'user'}
-                      text={authUser.name
-                        ? getFullName(authUser.name)
-                        : authUser.email
-                      }
-                    />
-                  </DropdownItem>
-                  <DropdownItem tag={Link} href=" " onClick={() => this.logout()}>
-                    <IconText
-                      icon={'logout'}
-                      text={t('auth.Sign out')}
-                    />
-                  </DropdownItem>
+                  <Link href="/user/profile" passHref> 
+                    <DropdownItem>
+                      <IconText
+                        icon={'user'}
+                        text={authUser.name
+                          ? getFullName(authUser.name)
+                          : authUser.email
+                        }
+                      />    
+                    </DropdownItem>                
+                  </Link>
+                  <Link href=" "> 
+                    <DropdownItem onClick={async () => {
+                      await signout();
+                      router.push({ pathname: '/signedout' });
+                    }}>
+                      <IconText
+                        icon={'logout'}
+                        text={t('auth.Sign out')}
+                      />
+                    </DropdownItem>                
+                  </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
               : <NavItem>
