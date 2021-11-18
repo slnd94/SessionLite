@@ -60,9 +60,6 @@ const signup = dispatch => async ({ email, password }) => {
 
 const signin = dispatch => async ({ email, password }) => {
   try {
-    console.log('tohere1')
-    // const response = await trackerApi.post('/signin', { email, password });
-    // await AsyncStorage.setItem('token', response.data.token);
     const response = await api({
       method: 'post',
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/authentication`,
@@ -72,19 +69,21 @@ const signin = dispatch => async ({ email, password }) => {
         password
       }
     });
+    if (response.status >= 200 && response.status < 300) {
+      // store the token
+      const token = response.data.accessToken;
 
-    console.log('datata', response.data)
-
-    const token = response.data.accessToken;
-
-    localStorage.authToken = response.data.accessToken;
-    dispatch({ type: 'signin', payload: response.data});
+      localStorage.authToken = response.data.accessToken;
+      dispatch({ type: 'signin', payload: response.data});
+    } else {
+      throw response;
+    }
     // router.push('/');
     // navigate('TrackList');
   } catch (err) {
     dispatch({
       type: 'add_error',
-      payload: 'Something went wrong with sign in'
+      payload: err?.response?.data?.message ? err.response.data.message :'Something went wrong with sign in'
     });
   }
 };
@@ -102,3 +101,5 @@ const { Provider, Context } = createDataContext(
 );
 
 export { Provider, Context };
+
+

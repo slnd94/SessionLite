@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default ({ method, url, params, headers = {}, responseType, suppressAuthHeader = false }) => {
+export default async ({ method, url, params, headers = {}, responseType, suppressAuthHeader = false }) => {
   const body = method === 'get' ? 'params' : 'data';
 
   const authHeaders = localStorage.authToken && !suppressAuthHeader ? {
@@ -12,17 +12,24 @@ export default ({ method, url, params, headers = {}, responseType, suppressAuthH
     ...headers
   };
   
-  return axios.request({
-    method,
-    url,
-    responseType: responseType || null,
-    [body]: params || {},
-    headers: combinedHeaders
-  })
-    .then(function (response) {
-      return response;
-    })
-    .catch(function (error) {
-      return error;
+  try {
+    const response = await axios.request({
+      method,
+      url,
+      responseType: responseType || null,
+      [body]: params || {},
+      headers: combinedHeaders
     });
+    return response;
+  } catch(err) {
+    return err;
+  }
+
+  // return response;
+  //   .then(function (response) {
+  //     return response;
+  //   })
+  //   .catch(function (error) {
+  //     return error;
+  //   });
 };

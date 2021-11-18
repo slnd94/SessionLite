@@ -30,6 +30,7 @@
     "User": "User",
     "Email is required": "Email is required",
     "Password is required": "Password is required",
-    "Password must have at least 8 characters": "Password must have at least 8 characters"
+    "Password must have at least 8 characters": "Password must have at least 8 characters",
+    "Invalid login": "Invalid login"
   }
 }

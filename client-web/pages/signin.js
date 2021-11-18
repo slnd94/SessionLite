@@ -1,18 +1,26 @@
 import { useState, useEffect, useContext } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
+import { Alert } from 'reactstrap';
 import styles from '../styles/Home.module.scss'
 import { Context } from '../context/AuthContext';
 import SigninForm from '../components/SigninForm';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 export default function Signin() {
-  const { state, signin } = useContext(Context);
+  const { state: { errorMessage }, signin } = useContext(Context);
+
+  const { t } = useTranslation('common');
   
   return (
     <>
       <div className="row">
         <div className="col-6">
+          {errorMessage
+            ? <Alert color="danger">
+              {t(`auth.${errorMessage}`)}
+            </Alert>
+            : null
+          }
           <SigninForm 
             onSubmit={signin}
           />
