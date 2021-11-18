@@ -31,6 +31,8 @@
     "Email is required": "Email is required",
     "Password is required": "Password is required",
     "Password must have at least 8 characters": "Password must have at least 8 characters",
-    "Invalid login": "Invalid login"
+    "Invalid login": "Invalid login",
+    "You have successfully signed in": "You have successfully signed in",
+    "You have successfully signed out": "You have successfully signed out"
   }
 }

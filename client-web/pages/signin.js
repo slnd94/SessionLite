@@ -5,11 +5,12 @@ import { Context } from '../context/AuthContext';
 import SigninForm from '../components/SigninForm';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 export default function Signin() {
   const { state: { errorMessage }, signin } = useContext(Context);
-
   const { t } = useTranslation('common');
+  const router = useRouter();
   
   return (
     <>
@@ -22,7 +23,10 @@ export default function Signin() {
             : null
           }
           <SigninForm 
-            onSubmit={signin}
+            onSubmit={async (data) => {
+              await signin(data);
+              router.push({ pathname: '/signedin' });
+            }}
           />
         </div>
         <div className="col-6">

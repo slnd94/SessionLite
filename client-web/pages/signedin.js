@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 
-export default function SignedOut() {
+export default function SignedIn() {
   const { t } = useTranslation('common');
   const {state: { user: authUser }} = useContext(AuthContext);
 
   return (
     <>
       <h1 className={styles.title}>
-        {t('auth.You have successfully signed out')}  
+        {t('auth.You have successfully signed in')}  
       </h1>
 
       <p className={styles.description}>

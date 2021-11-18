@@ -46,7 +46,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
     <div>
       <Navbar className="fixed-top navbar-dark bg-primary" color="faded" expand="sm">
         <Link href="/" passHref>
-          hi{/* <NavbarBrand>{brandName}</NavbarBrand> */}
+          <NavbarBrand>{brandName}</NavbarBrand>
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse className="d-flex" isOpen={isOpen} navbar>
@@ -58,7 +58,6 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                     icon={'user'}
                     text={t('auth.User')}
                   />
-                  {/* <FontAwesomeIcon icon={icons.user} /> */}
                 </DropdownToggle>
                 <DropdownMenu>
                   <Link href="/user/profile" passHref> 
@@ -94,9 +93,6 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
               </NavItem>
             }
           </Nav>
-          {/* <NavbarText>
-            Simple Text
-          </NavbarText> */}
         </Collapse>
       </Navbar>
     </div>
