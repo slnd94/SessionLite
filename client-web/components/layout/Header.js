@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {
   Collapse,
   Navbar,
-  NavbarBrand,
+  // NavbarBrand,
   NavbarToggler, 
   Nav,
   NavLink,
@@ -16,7 +16,6 @@ import {
   DropdownItem
 } from 'reactstrap';
 import { getFullName } from '../../helpers/nameHelpers';
-import { icons, FontAwesomeIcon } from '../../utils/fontAwesome/fontAwesome';
 import IconText from '../IconText';
 import styles from '../../styles/Header.module.scss'
 import { useTranslation } from 'next-i18next';
@@ -32,21 +31,13 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
     setIsOpen(!isOpen);
   }
 
-  const logout = () => {
-    return requestLogout()
-      .then(() => {
-        // this.props.history.push('/');
-        // toastr.info(t('auth.Logged Out'), t('auth.You have logged out'));
-      });
-  }
-
-  // const t = (term) => term;
-
   return (
     <div>
       <Navbar className="fixed-top navbar-dark bg-primary" color="faded" expand="sm">
         <Link href="/" passHref>
-          <NavbarBrand>{brandName}</NavbarBrand>
+          <a className="navbar-brand">
+            {brandName}
+          </a>
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse className="d-flex" isOpen={isOpen} navbar>
@@ -71,7 +62,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                       />    
                     </DropdownItem>                
                   </Link>
-                  <Link href=" "> 
+                  <Link href=" " passHref> 
                     <DropdownItem onClick={async () => {
                       const request = await signout();
                       if (request.success) {

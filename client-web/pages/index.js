@@ -17,7 +17,7 @@ export default function Home() {
 
       <p className={styles.description}>
         {authUser
-          ? <div>Hi, {authUser.name.given}</div>
+          ? <span>Hi, {authUser.name.given}</span>
           : <Link href="/signin">{t('auth.Sign in')}</Link>
         }
       </p>
