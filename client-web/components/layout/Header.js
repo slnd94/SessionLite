@@ -22,8 +22,9 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
 function Header({ brandName, requestLogout, openLogin, openSignup }) {
-  const [isOpen, setIsOpen] = useState(false)
   const { state: { user: authUser }, signout } = useContext(AuthContext);
+  const [isOpen, setIsOpen] = useState(false)
+  const [processing, setProcessing] = useState(false)
   const { t } = useTranslation('common');
   const router = useRouter();
 
@@ -40,53 +41,59 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
           </a>
         </Link>
         <NavbarToggler onClick={toggle} />
-        <Collapse className="d-flex" isOpen={isOpen} navbar>
-          <Nav className="ml-auto" navbar>
-            {authUser
-              ? <UncontrolledDropdown nav>
-                <DropdownToggle nav>
-                  <IconText
-                    icon={'user'}
-                    text={t('auth.User')}
-                  />
-                </DropdownToggle>
-                <DropdownMenu>
-                  <Link href="/user/profile" passHref> 
-                    <DropdownItem>
-                      <IconText
-                        icon={'user'}
-                        text={authUser.name
-                          ? getFullName(authUser.name)
-                          : authUser.email
+        {processing
+          ? <span>processing</span>
+          : <Collapse className="d-flex" isOpen={isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              {authUser
+                ? <UncontrolledDropdown nav>
+                  <DropdownToggle nav>
+                    <IconText
+                      icon={'user'}
+                      text={t('auth.User')}
+                    />
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <Link href="/user/profile" passHref> 
+                      <DropdownItem>
+                        <IconText
+                          icon={'user'}
+                          text={authUser.name
+                            ? getFullName(authUser.name)
+                            : authUser.email
+                          }
+                        />    
+                      </DropdownItem>                
+                    </Link>
+                    <Link href=" " passHref> 
+                      <DropdownItem onClick={async () => {
+                        setProcessing(true);
+                        const request = await signout();
+                        if (request.success) {
+                          router.push({ pathname: '/signedout' });
                         }
-                      />    
-                    </DropdownItem>                
+                        setProcessing(false);
+                      }}>
+                        <IconText
+                          icon={'logout'}
+                          text={t('auth.Sign out')}
+                        />
+                      </DropdownItem>                
+                    </Link>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                : <NavItem>
+                  <Link href="/signin" passHref>  
+                    <NavLink>
+                      {t('auth.Sign in')}
+                    </NavLink>
                   </Link>
-                  <Link href=" " passHref> 
-                    <DropdownItem onClick={async () => {
-                      const request = await signout();
-                      if (request.success) {
-                        router.push({ pathname: '/signedout' });
-                      }
-                    }}>
-                      <IconText
-                        icon={'logout'}
-                        text={t('auth.Sign out')}
-                      />
-                    </DropdownItem>                
-                  </Link>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              : <NavItem>
-                <Link href="/signin" passHref>  
-                  <NavLink>
-                    {t('auth.Sign in')}
-                  </NavLink>
-                </Link>
-              </NavItem>
-            }
-          </Nav>
-        </Collapse>
+                </NavItem>
+              }
+            </Nav>
+          </Collapse>
+        }
+        
       </Navbar>
     </div>
   )

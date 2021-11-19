@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 
 export default function Signin() {
   const { state: { errorMessage }, signin } = useContext(Context);
+  const [ processing, setProcessing ] = useState(false);
   const { t } = useTranslation('common');
   const router = useRouter();
   
@@ -23,11 +24,14 @@ export default function Signin() {
             : null
           }
           <SigninForm 
+            processing={processing}
             onSubmit={async (data) => {
+              setProcessing(true);
               const request = await signin(data);
               if(request.success) {
                 router.push({ pathname: '/signedin' });
               }
+              setProcessing(false);
             }}
           />
         </div>

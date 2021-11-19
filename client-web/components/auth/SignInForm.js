@@ -3,7 +3,7 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from 'next-i18next';
 
-function SignInForm({ onSubmit }) {
+function SignInForm({ onSubmit, processing }) {
   const { handleSubmit, control, formState: { errors } } = useForm({
     defaultValues: {
       email: '',
@@ -58,7 +58,8 @@ function SignInForm({ onSubmit }) {
         />
         {errors?.password ? <span style={{color: 'red'}}>{errors.password.message}</span> : null}
       </FormGroup>
-      <Button color="primary" type="submit">{t('auth.Sign in')}</Button>
+      
+      {processing ? <span>processing...</span> : <Button color="primary" type="submit">{t('auth.Sign in')}</Button>}
     </Form>
   );
 }
