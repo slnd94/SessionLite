@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Context as AuthContext } from '../context/AuthContext';
+import { Context as AuthContext } from '../../context/AuthContext';
 import Link from 'next/link';
 import {
   Collapse,
@@ -15,10 +15,10 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
-import { getFullName } from '../helpers/nameHelpers';
-import { icons, FontAwesomeIcon } from '../utils/fontAwesome/fontAwesome';
-import IconText from './IconText';
-import styles from '../styles/Header.module.scss'
+import { getFullName } from '../../helpers/nameHelpers';
+import { icons, FontAwesomeIcon } from '../../utils/fontAwesome/fontAwesome';
+import IconText from '../IconText';
+import styles from '../../styles/Header.module.scss'
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
@@ -73,8 +73,10 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                   </Link>
                   <Link href=" "> 
                     <DropdownItem onClick={async () => {
-                      await signout();
-                      router.push({ pathname: '/signedout' });
+                      const request = await signout();
+                      if (request.success) {
+                        router.push({ pathname: '/signedout' });
+                      }
                     }}>
                       <IconText
                         icon={'logout'}

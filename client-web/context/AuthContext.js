@@ -74,6 +74,7 @@ const signin = dispatch => async ({ email, password }) => {
 
       localStorage.authToken = response.data.accessToken;
       dispatch({ type: 'signin', payload: response.data});
+      return { success: true };
     } else {
       throw response;
     }
@@ -84,6 +85,7 @@ const signin = dispatch => async ({ email, password }) => {
       type: 'add_error',
       payload: err?.response?.data?.message ? err.response.data.message :'Something went wrong with sign in'
     });
+    return { success: false };
   }
 };
 
@@ -91,6 +93,7 @@ const signout = dispatch => async () => {
   // delete the token
   delete localStorage.authToken;
   dispatch({ type: 'signout' });
+  return { success: true };
   // navigate('loginFlow');
 };
 

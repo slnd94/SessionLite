@@ -1,7 +1,7 @@
 import Header from './Header'
 import Footer from './Footer'
 import Head from 'next/head'
-import styles from '../styles/Layout.module.scss'
+import styles from '../../styles/Layout.module.scss'
 
 export default function Layout({ children, brandName }) {
   return (    

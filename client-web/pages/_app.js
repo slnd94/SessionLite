@@ -3,7 +3,7 @@ import '../styles/bootstrap.scss'
 import '../styles/components/iconText.scss'
 import { appWithTranslation } from 'next-i18next';
 import { Provider as AuthProvider } from '../context/AuthContext';
-import Layout from '../components/Layout';
+import Layout from '../components/layout/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
