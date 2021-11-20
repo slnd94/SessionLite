@@ -15,6 +15,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
+import Loader from '../Loader';
 import { getFullName } from '../../helpers/nameHelpers';
 import IconText from '../IconText';
 import styles from '../../styles/Header.module.scss'
@@ -42,7 +43,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
         </Link>
         <NavbarToggler onClick={toggle} />
         {processing
-          ? <span>processing</span>
+          ? <Loader />
           : <Collapse className="d-flex" isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
               {authUser
@@ -50,19 +51,13 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                   <DropdownToggle nav>
                     <IconText
                       icon={'user'}
-                      text={t('auth.User')}
+                      text={''}
                     />
                   </DropdownToggle>
                   <DropdownMenu>
                     <Link href="/user/profile" passHref> 
                       <DropdownItem>
-                        <IconText
-                          icon={'user'}
-                          text={authUser.name
-                            ? getFullName(authUser.name)
-                            : authUser.email
-                          }
-                        />    
+                        Profile  
                       </DropdownItem>                
                     </Link>
                     <Link href=" " passHref> 
@@ -74,10 +69,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                         }
                         setProcessing(false);
                       }}>
-                        <IconText
-                          icon={'logout'}
-                          text={t('auth.Sign out')}
-                        />
+                        {t('auth.Sign out')}
                       </DropdownItem>                
                     </Link>
                   </DropdownMenu>

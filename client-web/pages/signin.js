@@ -19,7 +19,7 @@ export default function Signin() {
         <div className="col-6">
           {errorMessage
             ? <Alert color="danger">
-              {t(`auth.${errorMessage}`)}
+              {t(`auth.There was a problem with your sign in`)}
             </Alert>
             : null
           }
@@ -30,8 +30,9 @@ export default function Signin() {
               const request = await signin(data);
               if(request.success) {
                 router.push({ pathname: '/signedin' });
+              } else {
+                setProcessing(false);
               }
-              setProcessing(false);
             }}
           />
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
+import Loader from '../Loader';
 import { useTranslation } from 'next-i18next';
 
 function SignInForm({ onSubmit, processing }) {
@@ -19,7 +20,7 @@ function SignInForm({ onSubmit, processing }) {
       required: t('auth.Password is required'),
       minLength: {
         value: 6,
-        message: t('auth.Password must have at least 6 characters')
+        message: t('auth.Password must have at least <num> characters')
       }
     }
   };
@@ -65,7 +66,7 @@ function SignInForm({ onSubmit, processing }) {
         </FormFeedback>
       </FormGroup>
       
-      {processing ? <span>processing...</span> : <Button color="primary" type="submit">{t('auth.Sign in')}</Button>}
+      {processing ? <Loader /> : <Button color="primary" type="submit">{t('auth.Sign in')}</Button>}
     </Form>
   );
 }
