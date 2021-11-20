@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { Alert } from 'reactstrap';
 import styles from '../styles/Home.module.scss'
 import { Context } from '../context/AuthContext';
-import SigninForm from '../components/auth/SigninForm';
+import SignInForm from '../components/auth/SignInForm';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -23,7 +23,7 @@ export default function Signin() {
             </Alert>
             : null
           }
-          <SigninForm 
+          <SignInForm 
             processing={processing}
             onSubmit={async (data) => {
               setProcessing(true);
