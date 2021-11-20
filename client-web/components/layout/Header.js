@@ -44,8 +44,8 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
         <NavbarToggler onClick={toggle} />
         {processing
           ? <Loader />
-          : <Collapse className="d-flex" isOpen={isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+          : <Collapse isOpen={isOpen} navbar>
+            <Nav navbar>
               {authUser
                 ? <UncontrolledDropdown nav>
                   <DropdownToggle nav>
@@ -80,7 +80,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                       {t('auth.Sign in')}
                     </NavLink>
                   </Link>
-                </NavItem>
+                </NavItem>                
               }
             </Nav>
           </Collapse>
