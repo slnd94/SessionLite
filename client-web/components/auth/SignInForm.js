@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from 'next-i18next';
 
@@ -37,10 +37,13 @@ function SignInForm({ onSubmit, processing }) {
               {...field}
               type="email"
               innerRef={ref}
+              invalid={!!errors?.email}
             />
           }
         />
-        {errors?.email ? <span style={{color: 'red'}}>{errors.email.message}</span> : null}
+        <FormFeedback>
+          {errors?.email?.message && errors.email.message}
+        </FormFeedback>
       </FormGroup>
       <FormGroup>
         <Label>{t('auth.Password')}</Label>
@@ -53,10 +56,13 @@ function SignInForm({ onSubmit, processing }) {
               {...field}
               type="password"
               innerRef={ref}
+              invalid={!!errors?.password}
             />
           }
         />
-        {errors?.password ? <span style={{color: 'red'}}>{errors.password.message}</span> : null}
+        <FormFeedback>
+          {errors?.password?.message && errors.password.message}
+        </FormFeedback>
       </FormGroup>
       
       {processing ? <span>processing...</span> : <Button color="primary" type="submit">{t('auth.Sign in')}</Button>}
