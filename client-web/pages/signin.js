@@ -16,7 +16,7 @@ export default function Signin() {
   return (
     <>
       <div className="row">
-        <div className="col-6">
+        <div className="col-12 col-sm-6">
           {errorMessage
             ? <Alert color="danger">
               {t(`auth.There was a problem with your sign in`)}
@@ -36,8 +36,8 @@ export default function Signin() {
             }}
           />
         </div>
-        <div className="col-6">
-          
+        <div className="col-sm-6 d-none d-sm-block">
+          Branded image/artwork here
         </div>
       </div>
     </>
