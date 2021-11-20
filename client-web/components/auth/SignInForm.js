@@ -19,7 +19,7 @@ function SignInForm({ onSubmit, processing }) {
       required: t('auth.Password is required'),
       minLength: {
         value: 6,
-        message: t('auth.Password must have at least 8 characters')
+        message: t('auth.Password must have at least 6 characters')
       }
     }
   };
