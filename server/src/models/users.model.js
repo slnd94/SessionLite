@@ -14,6 +14,10 @@ module.exports = function (app) {
     password: { type: String },
   
     name: { type: name },
+
+    locked: { type: Boolean, default: false },
+    
+    sysAdmin: { type: Boolean, default: false }  
   
   }, {
     timestamps: true

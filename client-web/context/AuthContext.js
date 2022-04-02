@@ -41,19 +41,38 @@ const clearErrorMessage = dispatch => () => {
   dispatch({ type: 'clear_error_message' });
 };
 
-const signup = dispatch => async ({ email, password }) => {
+const signup = dispatch => async ({ firstName, lastName, email, password }) => {
   try {
-    const response = await trackerApi.post('/signup', { email, password });
-    localStorage.authToken = response.data.accessToken;
-    // await AsyncStorage.setItem('token', response.data.token);
-    dispatch({ type: 'signin', payload: response.data.token });
-    router.push('/');
+    const response = await api({
+      method: 'post',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/users`,
+      params: {
+        name: {
+          given: firstName,
+          family: lastName
+        }, 
+        email,
+        password
+      }
+    });
+    if (response.status >= 200 && response.status < 300) {
+      // store the token
+      const token = response.data.accessToken;
+
+      localStorage.authToken = response.data.accessToken;
+      dispatch({ type: 'signin', payload: response.data});
+      return { success: true };
+    } else {
+      throw response;
+    }
+    // router.push('/');
     // navigate('TrackList');
   } catch (err) {
     dispatch({
       type: 'add_error',
-      payload: 'Something went wrong with sign up'
+      payload: err?.response?.data?.message ? err.response.data.message :'Something went wrong with sign up'
     });
+    return { success: false };
   }
 };
 

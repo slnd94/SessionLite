@@ -28,11 +28,19 @@
     "Email": "Email",
     "Password": "Password", 
     "User": "User",
+    "First Name": "First Name",
+    "Last Name": "Last Name",
     "Email is required": "Email is required",
     "Password is required": "Password is required",
     "Password must have at least <num> characters": "Password must have at least 6 characters",
+    "First name is required": "First name is required",
+    "Last name is required": "Last name is required",
+    "There was a problem with your sign up": "There was a problem with your sign up",
+    "You have successfully signed up": "You have successfully signed up",
     "There was a problem with your sign in": "There was a problem with your sign in",
     "You have successfully signed in": "You have successfully signed in",
-    "You have successfully signed out": "You have successfully signed out"
+    "You have successfully signed out": "You have successfully signed out",
+    "Already have an account?": "Already have an account?",
+    "Need an account?": "Need an account?"
   }
 }

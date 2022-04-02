@@ -18,7 +18,10 @@ export default function Home() {
       <p className={styles.description}>
         {authUser
           ? <span>Hi, {authUser.name.given}</span>
-          : <Link href="/signin">{t('auth.Sign in')}</Link>
+          : <>
+            <Link href="/signin">{t('auth.Sign in')}</Link> <br />
+            <Link href="/signup">{t('auth.Sign up')}</Link>
+          </>
         }
       </p>
       
