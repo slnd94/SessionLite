@@ -10,18 +10,25 @@ const beforeCreateUsers = require('../../hooks/before-create-users');
 
 const protectUserSysAdminWrite = require('../../hooks/protect-user-sys-admin-write');
 
+const authorizeUserAdmin = require('../../hooks/authorize-user-admin');
+
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt') ],
+    find: [authenticate('jwt'), authorizeUserAdmin()],
+    get: [authenticate('jwt'), authorizeUserAdmin()],
     create: [(context) => {
       // this will retain our access to the unhashed pw,
       // so we can authenticate the user in the "after create" hook
       context.data.unhashedPassword = context.data.password;
     }, hashPassword('password'), beforeCreateUsers(), protectUserSysAdminWrite()],
     update: [ hashPassword('password'),  authenticate('jwt'), protectUserSysAdminWrite() ],
-    patch: [ hashPassword('password'),  authenticate('jwt'), protectUserSysAdminWrite() ],
+    patch: [
+      hashPassword('password'),
+      authenticate('jwt'),
+      protectUserSysAdminWrite(),
+      authorizeUserAdmin()
+    ],
     remove: [ authenticate('jwt'), protectUserSysAdminWrite() ]
   },
 
