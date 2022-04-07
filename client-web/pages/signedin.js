@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next';
 
 export default function SignedIn() {
   const { t } = useTranslation('common');
-  const {state: { user: authUser }} = useContext(AuthContext);
+  const {state: { auth }} = useContext(AuthContext);
 
   return (
     <>
@@ -16,9 +16,14 @@ export default function SignedIn() {
       </h1>
 
       <p className={styles.description}>
-        {authUser
-          ? <span>Hi, {authUser.name.given}</span>
-          : <Link href="/signin">{t('auth.Sign in')}</Link>
+        {auth?.status === 'SIGNED_IN'
+          ? <span>Hi, {auth.user.name.given}</span>
+          : (auth?.status === 'SIGNED_OUT'
+            ? <>
+                <Link href="/signin">{t('auth.Sign in')}</Link>
+              </>
+            : <></>             
+          )
         }
       </p>
       

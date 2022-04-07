@@ -7,7 +7,7 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   env: {
-    NEXT_PUBLIC_BASE_URL: process.env.API_BASE_URL
+    NEXT_PUBLIC_API_URL: process.env.API_BASE_URL
   },
   i18n
 }
