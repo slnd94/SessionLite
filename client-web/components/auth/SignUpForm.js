@@ -7,6 +7,8 @@ import { useTranslation } from 'next-i18next';
 function SignInForm({ onSubmit, processing }) {
   const { handleSubmit, control, formState: { errors } } = useForm({
     defaultValues: {
+      firstName: '',
+      lastName: '',
       email: '',
       password: ''
     }
