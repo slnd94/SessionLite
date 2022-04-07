@@ -1,3 +1,4 @@
+import App from "next/app";
 import '../styles/globals.scss'
 import '../styles/bootstrap.scss'
 import '../styles/components/iconText.scss'

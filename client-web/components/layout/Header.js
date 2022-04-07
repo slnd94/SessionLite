@@ -18,12 +18,12 @@ import {
 import Loader from '../Loader';
 import { getFullName } from '../../helpers/nameHelpers';
 import IconText from '../IconText';
-import styles from '../../styles/Header.module.scss'
+import styles from '../../styles/Header.module.scss';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
-function Header({ brandName, requestLogout, openLogin, openSignup }) {
-  const { state: { user: authUser }, signout } = useContext(AuthContext);
+function Header({ brandName, requestLogout, openLogin, openSignup }) { 
+  const { state: { auth }, signout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false)
   const [processing, setProcessing] = useState(false)
   const { t } = useTranslation('common');
@@ -46,7 +46,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
           ? <Loader />
           : <Collapse isOpen={isOpen} navbar>
             <Nav navbar>
-              {authUser
+              {auth?.status === 'SIGNED_IN'
                 ? <UncontrolledDropdown nav>
                   <DropdownToggle nav>
                     <IconText
@@ -74,13 +74,16 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                     </Link>
                   </DropdownMenu>
                 </UncontrolledDropdown>
-                : <NavItem>
-                  <Link href="/signin" passHref>  
-                    <NavLink>
-                      {t('auth.Sign in')}
-                    </NavLink>
-                  </Link>
-                </NavItem>                
+                : (auth?.status === 'SIGNED_OUT'
+                  ? <NavItem>
+                      <Link href="/signin" passHref>  
+                        <NavLink>
+                          {t('auth.Sign in')}
+                        </NavLink>
+                      </Link>
+                    </NavItem>   
+                  : <></>             
+                )
               }
             </Nav>
           </Collapse>

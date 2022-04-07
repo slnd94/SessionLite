@@ -1,16 +1,18 @@
 import axios from 'axios';
+import { parseCookies } from 'nookies'
 
-export default async ({ method, url, params, headers = {}, responseType, suppressAuthHeader = false }) => {
+export default async ({ method, url, params, accessToken, headers = {}, responseType, suppressAuthHeader = false }) => {
   const body = method === 'get' ? 'params' : 'data';
-
-  const authHeaders = localStorage.authToken && !suppressAuthHeader ? {
-    Authorization: `Bearer ${localStorage.authToken}`
-  } : {};
-
-  const combinedHeaders = {
-    ...authHeaders,
-    ...headers
-  };
+  
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`;
+  } else {
+    // if auth header not already provided, look in client cookies
+    const cookies = parseCookies({});
+    if (cookies?.accessToken && !suppressAuthHeader) {
+      headers.Authorization = `Bearer ${cookies.accessToken}`;
+    }
+  }
   
   try {
     const response = await axios.request({
@@ -18,7 +20,7 @@ export default async ({ method, url, params, headers = {}, responseType, suppres
       url,
       responseType: responseType || null,
       [body]: params || {},
-      headers: combinedHeaders
+      headers
     });
     return response;
   } catch(err) {
