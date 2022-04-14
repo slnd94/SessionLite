@@ -28,11 +28,11 @@ $green:   #0db357 !default;
 $teal:    #20c997 !default;
 $cyan:    #4d9ace !default;
 
-$charcoal:   rgb(89, 94, 99) !default;
+$charcoal:   rgb(50, 51, 56) !default;
 $water:   #4E5D6C !default;
 $brown:     rgb(108, 89, 78);
 
-$primary:       $purple !default;
+$primary:       $water !default;
 $secondary:     $charcoal !default;
 $success:       $primary !default;
 $success-light: lighten($success, 58%) !default;
@@ -40,15 +40,15 @@ $info:          $blue !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $danger-light: lighten($danger, 38%) !default;
-$light:         lighten($secondary, 50%) !default;
-$lighter:       lighten($secondary, 55%) !default;
-$lightest:       lighten($secondary, 60%) !default;
-$dark:          $secondary !default;
+$dark:          $charcoal !default;
+$light:         lighten($dark, 25%) !default;
+$lighter:       lighten($dark, 50%) !default;
+$lightest:       lighten($dark, 75%) !default;
 
 // // Body
 
 $body-bg:                   $white !default;
-$body-color:                $gray-700 !default;
+$body-color:                $gray-900 !default;
 $body-color-light:          lighten($body-color, 30%) !default;
 // $body-color:                #2B3E50 !default;
 $font-size-base:            1.1rem;
@@ -80,24 +80,26 @@ $table-hover-bg:              rgba($white,.075) !default;
 
 // // Dropdowns
 
-$dropdown-bg:                       $secondary !default;
+$dropdown-bg:                       $lightest !default;
 $dropdown-divider-bg:               rgba($black,.15) !default;
 
-$dropdown-link-color:               $white !default;
+$dropdown-link-color:               $dark !default;
 $dropdown-link-hover-color:         $dropdown-link-color !default;
-$dropdown-link-hover-bg:            $table-hover-bg !default;
+$dropdown-link-hover-bg:            $lighter !default;
 $dropdown-link-active-bg:           $blue !default;
 
 // // Links
 
-$link-color:                        $primary !default;
+$link-color:                        $blue !default;
 
 // // Navs
 
 // $nav-link-disabled-color:           rgba(255,255,255,.4) !default;
+$nav-link-hover-color:           $dark !default;
 
 // $nav-tabs-border-color:             $secondary !default;
-// $nav-tabs-link-active-color:        $body-color !default;
+$nav-tabs-link-hover-color:        $light !default;
+$nav-tabs-link-active-color:        $body-color !default;
 // $nav-tabs-link-active-border-color: $secondary !default;
 
 // // Navbar

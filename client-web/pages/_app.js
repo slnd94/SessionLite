@@ -1,5 +1,4 @@
 import App from "next/app";
-import '../styles/bootstrap.scss'
 import '../styles/globals.scss'
 import { appWithTranslation } from 'next-i18next';
 import { Provider as AuthProvider } from '../context/AuthContext';
