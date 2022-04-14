@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { Context as AuthContext } from '../context/AuthContext';
-import styles from '../styles/Home.module.scss'
+import styles from '../styles/Profile.module.scss'
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -26,11 +26,11 @@ export default function SignedIn() {
 
   return (
     <>
-      <h1 className={styles.title}>
+      <h1 className="title">
         {t('profile.Profile')}  
       </h1>
 
-      <p className={styles.description}>
+      <p>
         {auth?.status === 'SIGNED_IN'
           ? <div>
               <div className="row">

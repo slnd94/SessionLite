@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { Alert } from 'reactstrap';
-import styles from '../styles/Home.module.scss'
+import styles from '../styles/Signup.module.scss'
 import { Context } from '../context/AuthContext';
 import SignUpForm from '../components/auth/SignUpForm';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
