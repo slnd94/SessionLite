@@ -43,7 +43,8 @@
     "Already have an account?": "Already have an account?",
     "Need an account?": "Need an account?"
   },
-  "profile": {
+  "user": {
+    "User": "User",
     "Profile": "Profile",
     "Account": "Account",
     "Settings": "Settings",

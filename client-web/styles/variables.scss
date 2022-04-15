@@ -41,8 +41,8 @@ $warning:       $yellow !default;
 $danger:        $red !default;
 $danger-light: lighten($danger, 38%) !default;
 $dark:          $charcoal !default;
-$light:         lighten($dark, 25%) !default;
-$lighter:       lighten($dark, 50%) !default;
+$light:         lighten($dark, 50%) !default;
+$lighter:       lighten($dark, 62.5%) !default;
 $lightest:       lighten($dark, 75%) !default;
 
 // // Body

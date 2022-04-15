@@ -55,9 +55,9 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                     />
                   </DropdownToggle>
                   <DropdownMenu>
-                    <Link href="/profile" passHref> 
+                    <Link href="/user/profile" passHref> 
                       <DropdownItem>
-                        Profile  
+                        User Profile
                       </DropdownItem>                
                     </Link>
                     <Link href=" " passHref> 

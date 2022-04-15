@@ -6,7 +6,7 @@
   overflow-x: scroll;
   .nav-link {
     color: $body-color-light;
-    padding: 0.5rem 0.3rem;
+    padding: 0.5rem 1rem;
     // min-width: 110px;
     background-color: $white;
     // border-bottom: 2px solid $light;
@@ -14,15 +14,15 @@
       color: $body-color-light;
     }
     &:hover {
-      background-color: $lightest;
+      background-color: $lighter;
     }
     &.active {
-      background-color: $lighter;
+      background-color: $lightest;
       color: $body-color;
-      font-weight: bold;
+      font-weight: 500;
       border-bottom: 2px solid $body-color;
       svg {
-        color: $primary;
+        color: $link-color;
       }
     }
   }
@@ -47,22 +47,22 @@
 
   .nav-link {
     color: $body-color-light;
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem 1rem;
     background-color: $white;
     border-bottom: none;
     svg {
       color: $body-color-light;
     }
     &:hover {
-      background-color: $lightest;
+      background-color: $lighter;
     }
     &.active {
-      background-color: $lighter;
+      background-color: $lightest;
       color: $body-color;
-      font-weight: bold;
+      font-weight: 500;
       border-bottom: none;
       svg {
-        color: $primary;
+        color: $link-color;
       }
     }
   }
