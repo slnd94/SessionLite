@@ -141,8 +141,7 @@ const signin = dispatch => async ({ email, password }) => {
 
 const signout = dispatch => async () => {
   // delete the token
-  console.log('heyhey')
-  destroyCookie(null, 'accessToken')
+  destroyCookie(null, 'accessToken', { path: '/' })
   dispatch({ type: 'signout' });
   return { success: true };
 };
