@@ -7,20 +7,24 @@
   .nav-link {
     color: $body-color-light;
     padding: 0.5rem 1rem;
-    // min-width: 110px;
     background-color: $white;
-    // border-bottom: 2px solid $light;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-color: $white;
     svg {
       color: $body-color-light;
     }
     &:hover {
-      background-color: $lighter;
+      background-color: $lightest;
+      border-color: $lightest;
     }
     &.active {
       background-color: $lightest;
       color: $body-color;
       font-weight: 500;
-      border-bottom: 2px solid $body-color;
+      border-color: $light;
       svg {
         color: $link-color;
       }
@@ -41,7 +45,6 @@
     padding: 0.5rem 0.5rem;
     margin-bottom: 0;
     font-size: 1rem;
-    // color: $dropdown-header-color;
     white-space: nowrap;
   }
 
@@ -49,25 +52,27 @@
     color: $body-color-light;
     padding: 0.5rem 1rem;
     background-color: $white;
-    border-bottom: none;
+    border-color: $white;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-radius: 0px;
     svg {
       color: $body-color-light;
     }
     &:hover {
-      background-color: $lighter;
+      background-color: $lightest;
+      border-color: $lightest;
     }
     &.active {
       background-color: $lightest;
       color: $body-color;
       font-weight: 500;
-      border-bottom: none;
+      border-color: $light;
       svg {
         color: $link-color;
       }
     }
   }
-
-  // svg {
-  //   margin-right: .8rem;
-  // }
 }
