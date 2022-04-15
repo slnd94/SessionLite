@@ -1,0 +1,78 @@
+
+// navs
+.nav {
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  .nav-link {
+    color: $body-color-light;
+    padding: 0.5rem 1rem;
+    background-color: $white;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-color: $white;
+    svg {
+      color: $body-color-light;
+    }
+    &:hover {
+      background-color: $lightest;
+      border-color: $lightest;
+    }
+    &.active {
+      background-color: $lightest;
+      color: $body-color;
+      font-weight: 500;
+      border-color: $light;
+      svg {
+        color: $link-color;
+      }
+    }
+  }
+}
+
+.nav-pills {
+  .divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: $lighter;
+  }
+
+  .header {
+    display: block;
+    padding: 0.5rem 0.5rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .nav-link {
+    color: $body-color-light;
+    padding: 0.5rem 1rem;
+    background-color: $white;
+    border-color: $white;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-radius: 0px;
+    svg {
+      color: $body-color-light;
+    }
+    &:hover {
+      background-color: $lightest;
+      border-color: $lightest;
+    }
+    &.active {
+      background-color: $lightest;
+      color: $body-color;
+      font-weight: 500;
+      border-color: $light;
+      svg {
+        color: $link-color;
+      }
+    }
+  }
+}

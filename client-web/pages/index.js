@@ -11,11 +11,11 @@ export default function Home() {
 
   return (
     <>
-      <h1 className={styles.title}>
+      <h1 className="title">
         {t('index.Welcome to the application')}  
       </h1>
 
-      <p className={styles.description}>
+      <p>
         {auth?.status === 'SIGNED_IN'
           ? <span>Hi, {auth.user.name.given}</span>
           : (auth?.status === 'SIGNED_OUT'

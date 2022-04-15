@@ -42,5 +42,12 @@
     "You have successfully signed out": "You have successfully signed out",
     "Already have an account?": "Already have an account?",
     "Need an account?": "Need an account?"
+  },
+  "user": {
+    "User": "User",
+    "Profile": "Profile",
+    "Account": "Account",
+    "Settings": "Settings",
+    "Cart": "Cart"
   }
 }
