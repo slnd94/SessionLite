@@ -76,3 +76,21 @@
     }
   }
 }
+
+
+// header/navbar
+.navbar {
+  .nav-link {
+    color: $lighter;
+    &:hover {
+      color: $white;
+    }
+    svg {
+      font-size: 3.6rem;
+      color: $lighter;
+      &:hover {
+        color: $white;
+      }
+    }    
+  }
+}
