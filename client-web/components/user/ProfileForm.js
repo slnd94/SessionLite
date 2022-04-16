@@ -16,15 +16,15 @@ function ProfileForm({ onSubmit, processing, defaults: { email, firstName, lastN
   const { t } = useTranslation('common');
 
   const formRules = {
-    firstName: { required: t('auth.First name is required') },
-    lastName: { required: t('auth.Last name is required') },
-    email: { required: t('auth.Email is required') }
+    firstName: { required: t('user.First name is required') },
+    lastName: { required: t('user.Last name is required') },
+    email: { required: t('user.Email is required') }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label>{t('auth.Email')}</Label>
+        <Label>{t('user.Email')}</Label>
         <Controller
           name="email"
           control={control}
@@ -44,7 +44,7 @@ function ProfileForm({ onSubmit, processing, defaults: { email, firstName, lastN
         </FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label>{t('auth.First Name')}</Label>
+        <Label>{t('user.First Name')}</Label>
         <Controller
           name="firstName"
           control={control}
@@ -63,7 +63,7 @@ function ProfileForm({ onSubmit, processing, defaults: { email, firstName, lastN
         </FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label>{t('auth.Last Name')}</Label>
+        <Label>{t('user.Last Name')}</Label>
         <Controller
           name="lastName"
           control={control}

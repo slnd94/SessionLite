@@ -47,6 +47,17 @@
     "User": "User",
     "Profile": "Profile",
     "Account": "Account",
+    "Email": "Email",
+    "Password": "Password", 
+    "First Name": "First Name",
+    "Last Name": "Last Name",
+    "Email is required": "Email is required",
+    "Password is required": "Password is required",
+    "Password must have at least <num> characters": "Password must have at least 6 characters",
+    "First name is required": "First name is required",
+    "Last name is required": "Last name is required",
+    "There was a problem with updating your profile": "There was a problem with updating your profile",
+    "Save": "Save",
     "Settings": "Settings",
     "Cart": "Cart"
   }

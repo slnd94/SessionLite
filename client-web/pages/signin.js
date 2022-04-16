@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { Alert } from 'reactstrap';
 import styles from '../styles/Signin.module.scss'
-import { Context } from '../context/AuthContext';
+import { Context as AuthContext } from '../context/AuthContext';
 import SignInForm from '../components/auth/SignInForm';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 export default function Signin() {
-  const { state: { errorMessage }, signin } = useContext(Context);
+  const { state: { errorMessage }, signin } = useContext(AuthContext);
   const [ processing, setProcessing ] = useState(false);
   const { t } = useTranslation('common');
   const router = useRouter();
