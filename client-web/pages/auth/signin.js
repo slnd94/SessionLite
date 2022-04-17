@@ -1,15 +1,15 @@
 import { useState, useEffect, useContext } from 'react'
 import { Alert } from 'reactstrap';
-import styles from '../styles/Signup.module.scss'
-import { Context } from '../context/AuthContext';
-import SignUpForm from '../components/auth/SignUpForm';
+import styles from '../../styles/Signin.module.scss'
+import { Context as AuthContext } from '../../context/AuthContext';
+import SignInForm from '../../components/auth/SignInForm';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-export default function Signup() {
-  const { state: { errorMessage }, signup } = useContext(Context);
+export default function Signin() {
+  const { state: { errorMessage }, signin } = useContext(AuthContext);
   const [ processing, setProcessing ] = useState(false);
   const { t } = useTranslation('common');
   const router = useRouter();
@@ -24,21 +24,21 @@ export default function Signup() {
             </Alert>
             : null
           }
-          <SignUpForm 
+          <SignInForm 
             processing={processing}
             onSubmit={async (data) => {
               setProcessing(true);
-              const request = await signup(data);
+              const request = await signin(data);
               if(request.success) {
-                router.push({ pathname: '/signedin' });
+                router.push({ pathname: '/auth/signedin' });
               } else {
                 setProcessing(false);
               }
             }}
           />
           <div style={{marginTop: '10px'}}>
-            <span style={{marginRight: '10px'}}>{t(`auth.Already have an account?`)}</span>
-            <Link href="/signin">{t('auth.Sign in')}</Link>
+            <span style={{marginRight: '10px'}}>{t(`auth.Need an account?`)}</span>
+            <Link href="/auth/signup">{t('auth.Sign up')}</Link>
           </div>
         </div>
         <div className="col-sm-6 d-none d-sm-block">

@@ -39,7 +39,7 @@ export default function Profile() {
               />
             : (auth?.status === 'SIGNED_OUT'
               ? <>
-                  <Link href="/signin">{t('auth.Sign in')}</Link>
+                  <Link href="/auth/signin">{t('auth.Sign in')}</Link>
                 </>
               : <></>             
             )

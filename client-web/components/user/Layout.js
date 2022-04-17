@@ -42,7 +42,7 @@ export default function Layout({ children, activeTab}) {
           </>
         : (auth?.status === 'SIGNED_OUT'
           ? <>
-              <Link href="/signin">{t('auth.Sign in')}</Link>
+              <Link href="/auth/signin">{t('auth.Sign in')}</Link>
             </>
           : <></>             
         )

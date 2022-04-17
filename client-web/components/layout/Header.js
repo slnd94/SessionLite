@@ -65,7 +65,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                         setProcessing(true);
                         const request = await signout();
                         if (request.success) {
-                          router.push({ pathname: '/signedout' });
+                          router.push({ pathname: '/auth/signedout' });
                         }
                         setProcessing(false);
                       }}>
@@ -76,7 +76,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                 </UncontrolledDropdown>
                 : (auth?.status === 'SIGNED_OUT'
                   ? <NavItem>
-                      <Link href="/signin" passHref>  
+                      <Link href="/auth/signin" passHref>  
                         <NavLink>
                           {t('auth.Sign in')}
                         </NavLink>

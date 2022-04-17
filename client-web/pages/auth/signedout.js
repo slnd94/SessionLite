@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
-import { Context as AuthContext } from '../context/AuthContext';
-import styles from '../styles/Signedin.module.scss'
+import { Context as AuthContext } from '../../context/AuthContext';
+import styles from '../../styles/Signedin.module.scss'
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -20,7 +20,7 @@ export default function SignedOut() {
           ? <span>Hi, {auth.user.name.given}</span>
           : (auth?.status === 'SIGNED_OUT'
             ? <>
-                <Link href="/signin">{t('auth.Sign in')}</Link>
+                <Link href="/auth/signin">{t('auth.Sign in')}</Link>
               </>
             : <></>             
           )
