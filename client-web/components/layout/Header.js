@@ -60,6 +60,11 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                         User Profile
                       </DropdownItem>                
                     </Link>
+                    <Link href="/user/cart" passHref> 
+                      <DropdownItem>
+                        Cart
+                      </DropdownItem>                
+                    </Link>
                     <Link href=" " passHref> 
                       <DropdownItem onClick={async () => {
                         setProcessing(true);
