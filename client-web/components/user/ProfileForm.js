@@ -35,7 +35,7 @@ function ProfileForm({ onSubmit, processing, defaults: { email, firstName, lastN
               type="email"
               innerRef={ref}
               invalid={!!errors?.email}
-              disabled 
+              disabled
             />
           }
         />

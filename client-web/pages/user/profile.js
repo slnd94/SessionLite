@@ -4,6 +4,7 @@ import { Context as AuthContext } from '../../context/AuthContext';
 import { Context as UserContext } from '../../context/UserContext';
 import { useState, useContext } from 'react'
 import Link from 'next/link';
+import { Alert } from 'reactstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import styles from '../../styles/User.module.scss'
@@ -13,6 +14,7 @@ export default function Profile() {
   const { state: { auth }, getAuth } = useContext(AuthContext);
   const { state: { }, updateUserProfile } = useContext(UserContext);
   const [ processing, setProcessing ] = useState(false);
+  const [ success, setSuccess ] = useState(false);
 
   return (    
     <div>
@@ -32,8 +34,10 @@ export default function Profile() {
                   if(request.success) {
                     getAuth();
                     setProcessing(false);
+                    setSuccess(true);
                   } else {
                     setProcessing(false);
+                    setSuccess(false);
                   }
                 }}
               />
@@ -43,6 +47,12 @@ export default function Profile() {
                 </>
               : <></>             
             )
+          }
+          {success
+            ? <Alert color="success">
+              {t(`user.User profile updated`)}
+            </Alert>
+            : null
           }
         </div>
       </Layout>
