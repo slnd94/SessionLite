@@ -80,17 +80,19 @@
 
 // header/navbar
 .navbar {
-  .nav-link {
-    color: $lighter;
-    &:hover {
-      color: $white;
-    }
-    svg {
-      font-size: 3.6rem;
+  .navbar-nav {
+    .nav-link {
       color: $lighter;
       &:hover {
-        color: $white;
+        color: $white !important;
       }
-    }    
+      svg {
+        font-size: 3.6rem;
+        color: $lighter;
+        &:hover {
+          color: $white;
+        }
+      }    
+    }
   }
 }

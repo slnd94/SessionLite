@@ -52,7 +52,7 @@ export default function Profile() {
             )
           }
           {success
-            ? <Alert color="success">
+            ? <Alert color="success" fade={false}>
               {t(`user.User profile updated`)}
             </Alert>
             : null

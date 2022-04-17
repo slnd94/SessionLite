@@ -17,7 +17,10 @@ export default function SignedIn() {
 
       <p>
         {auth?.status === 'SIGNED_IN'
-          ? <span>Hi, {auth.user.name.given}</span>
+          ? <>
+              <div>Hi, {auth.user.name.given}</div>
+              <div><Link href="/user/profile">{t('auth.Your profile')}</Link></div>
+            </>
           : (auth?.status === 'SIGNED_OUT'
             ? <>
                 <Link href="/auth/signin">{t('auth.Sign in')}</Link>
