@@ -2,14 +2,17 @@ import App from "next/app";
 import '../styles/globals.scss'
 import { appWithTranslation } from 'next-i18next';
 import { Provider as AuthProvider } from '../context/AuthContext';
+import { Provider as UserProvider } from '../context/UserContext';
 import Layout from '../components/layout/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <Layout brandName="Hello Brand">
-        <Component {...pageProps} />
-      </Layout>
+      <UserProvider>
+        <Layout brandName="Hello Brand">
+          <Component {...pageProps} />
+        </Layout>
+      </UserProvider>
     </AuthProvider>
   )
 }

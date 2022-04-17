@@ -3,6 +3,7 @@
 @import './variables';
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/flatly/bootswatch";
+@import './components/alert';
 @import './components/nav';
 @import './components/iconText';
 
@@ -22,7 +23,7 @@ body {
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 2rem;
+  font-size: 1.6rem;
   margin-bottom: 2rem;
 }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { Context as AuthContext } from '../context/AuthContext';
 import styles from '../styles/Home.module.scss'
 import Link from 'next/link';
@@ -20,8 +20,8 @@ export default function Home() {
           ? <span>Hi, {auth.user.name.given}</span>
           : (auth?.status === 'SIGNED_OUT'
             ? <>
-                <Link href="/signin">{t('auth.Sign in')}</Link> <br />
-                <Link href="/signup">{t('auth.Sign up')}</Link>
+                <Link href="/auth/signin">{t('auth.Sign in')}</Link> <br />
+                <Link href="/auth/signup">{t('auth.Sign up')}</Link>
               </>
             : <></>             
           )

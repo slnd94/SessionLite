@@ -30,7 +30,7 @@ export default function Layout({ prefix, subRoutes }) {
         ))}
       </Nav>
 
-      <Nav vertical pills className="d-none d-md-block">
+      <Nav vertical pills className="d-none d-md-block" style={{ marginTop: '0px' }}>
         {subRoutes.map(subRoute => (
           <NavItem key={subRoute.slug}>
             <Link href={`/${prefix}/${subRoute.slug}`} passHref> 

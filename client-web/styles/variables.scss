@@ -34,7 +34,7 @@ $brown:     rgb(108, 89, 78);
 
 $primary:       $water !default;
 $secondary:     $charcoal !default;
-$success:       $primary !default;
+$success:       $green !default;
 $success-light: lighten($success, 58%) !default;
 $info:          $blue !default;
 $warning:       $yellow !default;
@@ -51,7 +51,7 @@ $body-bg:                   $white !default;
 $body-color:                $gray-900 !default;
 $body-color-light:          lighten($body-color, 30%) !default;
 // $body-color:                #2B3E50 !default;
-$font-size-base:            1.1rem;
+$font-size-base:            1rem;
 
 // // Components
 
@@ -106,7 +106,7 @@ $nav-tabs-link-active-color:        $body-color !default;
 
 // $navbar-padding-y:                  0.25rem !default;
 
-// $navbar-dark-color:                 rgba($white,.75) !default;
+$navbar-dark-color:                 $lighter !default;
 // $navbar-dark-hover-color:           $white !default;
 
 // // Pagination

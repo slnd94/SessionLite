@@ -4,6 +4,7 @@ import styles from '../../styles/User.module.scss'
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import ManagementNav from '../layout/ManagementNav';
+import { getFullName } from '../../helpers/nameHelpers';
 
 export default function Layout({ children, activeTab}) {
   const { t } = useTranslation('common');
@@ -27,7 +28,7 @@ export default function Layout({ children, activeTab}) {
       {auth?.status === 'SIGNED_IN'
         ? <>
             <h1 className="title">
-              {auth.user.name.given}
+              {getFullName(auth.user.name)}
             </h1>
             <div>
               <div className="row">
@@ -42,7 +43,7 @@ export default function Layout({ children, activeTab}) {
           </>
         : (auth?.status === 'SIGNED_OUT'
           ? <>
-              <Link href="/signin">{t('auth.Sign in')}</Link>
+              <Link href="/auth/signin">{t('auth.Sign in')}</Link>
             </>
           : <></>             
         )
