@@ -35,6 +35,9 @@ export default function Profile() {
                     getAuth();
                     setProcessing(false);
                     setSuccess(true);
+                    setTimeout(() => {
+                      setSuccess(false);
+                   }, 3000)
                   } else {
                     setProcessing(false);
                     setSuccess(false);
