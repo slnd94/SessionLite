@@ -2,7 +2,7 @@ import Layout from '../../components/user/Layout';
 import ProfileForm from '../../components/user/ProfileForm';
 import { Context as AuthContext } from '../../context/AuthContext';
 import { Context as UserContext } from '../../context/UserContext';
-import { useEffect, useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';

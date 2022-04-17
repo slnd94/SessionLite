@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { Context as AuthContext } from '../context/AuthContext';
 import styles from '../styles/Home.module.scss'
 import Link from 'next/link';
