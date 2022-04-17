@@ -20,6 +20,11 @@ export default function Layout({ children, activeTab}) {
       slug: 'account',
       icon: 'account',
       label: 'Account'
+    },
+    {
+      slug: 'cart',
+      icon: 'cart',
+      label: 'Cart'
     }
   ];
 
