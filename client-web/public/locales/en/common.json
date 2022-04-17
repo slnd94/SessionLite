@@ -48,6 +48,7 @@
     "User": "User",
     "Profile": "Profile",
     "Account": "Account",
+    "Cart": "Cart",
     "Email": "Email",
     "Password": "Password", 
     "First Name": "First Name",
@@ -60,7 +61,6 @@
     "There was a problem with updating your profile": "There was a problem with updating your profile",
     "User profile updated": "User profile updated",
     "Save": "Save",
-    "Settings": "Settings",
-    "Cart": "Cart"
+    "Settings": "Settings"
   }
 }
