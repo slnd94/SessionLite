@@ -14,22 +14,18 @@ export default function SignedIn() {
       <h1 className="title">
         {t('auth.You have successfully signed in')}  
       </h1>
-
-      <p>
-        {auth?.status === 'SIGNED_IN'
+      {auth?.status === 'SIGNED_IN'
+        ? <>
+            <div>Hi, {auth.user.name.given}</div>
+            <div><Link href="/user/profile">{t('auth.Your profile')}</Link></div>
+          </>
+        : (auth?.status === 'SIGNED_OUT'
           ? <>
-              <div>Hi, {auth.user.name.given}</div>
-              <div><Link href="/user/profile">{t('auth.Your profile')}</Link></div>
+              <Link href="/auth/signin">{t('auth.Sign in')}</Link>
             </>
-          : (auth?.status === 'SIGNED_OUT'
-            ? <>
-                <Link href="/auth/signin">{t('auth.Sign in')}</Link>
-              </>
-            : <></>             
-          )
-        }
-      </p>
-      
+          : <></>             
+        )
+      }      
     </>
   )
 }

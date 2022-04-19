@@ -7,20 +7,46 @@ import Link from 'next/link';
 import { Alert } from 'reactstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import api from '../../utils/api';
 import styles from '../../styles/User.module.scss'
 
 export default function Profile() {
   const { t } = useTranslation('common');
   const { state: { auth }, getAuth } = useContext(AuthContext);
-  const { state: { profile }, updateUserProfile, getUserProfile } = useContext(UserContext);
+  const { state: {  }, updateUserProfile, getUserProfile } = useContext(UserContext);
+  const [ profile, setProfile ] = useState(null);
   const [ processing, setProcessing ] = useState(false);
   const [ success, setSuccess ] = useState(false);
-  
-  useEffect(() => {
+
+  useEffect(() => {   
     if (auth?.user) {
-      getUserProfile({ id: auth.user._id });
+      let isSubscribed = true;
+
+      // declare the async data fetching function
+      const fetchProfile = async () => {
+        const response = await api({ 
+          method: 'get',
+          url: `${process.env.NEXT_PUBLIC_API_URL}/user-profile/${auth.user._id}`
+        });
+      
+        if (response.status >= 200 && response.status < 300) {
+          setProfile(response.data);
+          return { success: true };
+        } else {
+          setProfile(null);
+          return { success: false };
+        }
+      }
+    
+      // call the function
+      fetchProfile()
+        // make sure to catch any error
+        .catch(console.error);
+
+      // cancel any future `setProfile`
+      return () => isSubscribed = false;
     }
-  }, [auth])
+  }, [auth]);
 
   return (    
     <div>
@@ -40,7 +66,7 @@ export default function Profile() {
                   if(request.success) {
                     // update the auth context, since user object likely needs update
                     getAuth();
-                    
+
                     setProcessing(false);
                     setSuccess(true);
                     setTimeout(() => {
