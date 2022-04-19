@@ -1,11 +1,15 @@
 import createDataContext from './createDataContext';
 import api from '../utils/api';
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
 const userReducer = (state, action) => {
   switch (action.type) {
     case 'add_error':
       return { ...state, errorMessage: action.payload };
+    case 'get_user_profile':
+      return {
+        ...state,
+        profile: action.payload.profile
+      };
     case 'update_user_profile':
       return {
         ...state,
@@ -20,6 +24,21 @@ const userReducer = (state, action) => {
 
 const clearErrorMessage = dispatch => () => {
   dispatch({ type: 'clear_error_message' });
+};
+
+const getUserProfile = dispatch => async ({ id }) => {
+  const response = await api({ 
+    method: 'get',
+    url: `${process.env.NEXT_PUBLIC_API_URL}/user-profile/${id}`
+  });
+
+  if (response.status >= 200 && response.status < 300) {
+    dispatch({ type: 'get_user_profile', payload: { profile: response.data }});
+    return { success: true };
+  } else {
+    dispatch({ type: 'get_user_profile', payload: { profile: null }});
+    return { success: false };
+  }
 };
 
 const updateUserProfile = dispatch => async ({ firstName, lastName, id }) => {
@@ -51,7 +70,7 @@ const updateUserProfile = dispatch => async ({ firstName, lastName, id }) => {
 
 const { Provider, Context } = createDataContext(
   userReducer,
-  { updateUserProfile, clearErrorMessage },
+  { getUserProfile, updateUserProfile, clearErrorMessage },
   { token: null, errorMessage: '' }
 );
 

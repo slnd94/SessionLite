@@ -10,7 +10,7 @@ export default function Layout({ children, brandName }) {
   
   useEffect(() => {
     getAuth();
-  }, [])
+  }, []);
 
   return (    
     <div className={styles.container}> 

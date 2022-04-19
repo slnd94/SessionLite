@@ -8,6 +8,12 @@ exports.UserProfile = class UserProfile {
     this.app = app;
   }
 
+  async get (id, params) {
+    return this.app.service('users')
+      .get(id, params)
+      .then(res => res);
+  }
+
   async patch (id, data, params) {
     const { sysAdminUser } = params;
 

@@ -2,7 +2,7 @@ import Layout from '../../components/user/Layout';
 import ProfileForm from '../../components/user/ProfileForm';
 import { Context as AuthContext } from '../../context/AuthContext';
 import { Context as UserContext } from '../../context/UserContext';
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link';
 import { Alert } from 'reactstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -12,21 +12,27 @@ import styles from '../../styles/User.module.scss'
 export default function Profile() {
   const { t } = useTranslation('common');
   const { state: { auth }, getAuth } = useContext(AuthContext);
-  const { state: { }, updateUserProfile } = useContext(UserContext);
+  const { state: { profile }, updateUserProfile, getUserProfile } = useContext(UserContext);
   const [ processing, setProcessing ] = useState(false);
   const [ success, setSuccess ] = useState(false);
+  
+  useEffect(() => {
+    if (auth?.user) {
+      getUserProfile({ id: auth.user._id });
+    }
+  }, [auth])
 
   return (    
     <div>
       <Layout>
         <div>
-          {auth?.status === 'SIGNED_IN'
+          {auth?.status === 'SIGNED_IN' && profile
             ? <ProfileForm 
                 processing={processing}
                 defaults={{
-                  email: auth.user.email,
-                  firstName: auth.user.name.given,
-                  lastName: auth.user.name.family
+                  email: profile.email,
+                  firstName: profile.name.given,
+                  lastName: profile.name.family
                 }}
                 onSubmit={async (data) => {
                   setProcessing(true);
