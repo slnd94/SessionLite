@@ -57,12 +57,18 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                   <DropdownMenu>
                     <Link href="/user/profile" passHref> 
                       <DropdownItem>
-                        User Profile
+                        {getFullName(auth.user.name)}
+                      </DropdownItem>                
+                    </Link> 
+                    <DropdownItem divider />
+                    <Link href="/user/profile" passHref> 
+                      <DropdownItem>
+                        Your Profile
                       </DropdownItem>                
                     </Link>
                     <Link href="/user/cart" passHref> 
                       <DropdownItem>
-                        Cart
+                        Your Cart
                       </DropdownItem>                
                     </Link>
                     <Link href=" " passHref> 

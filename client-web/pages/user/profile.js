@@ -38,7 +38,9 @@ export default function Profile() {
                   setProcessing(true);
                   const request = await updateUserProfile({ ...data, id: auth.user._id });
                   if(request.success) {
+                    // update the auth context, since user object likely needs update
                     getAuth();
+                    
                     setProcessing(false);
                     setSuccess(true);
                     setTimeout(() => {
