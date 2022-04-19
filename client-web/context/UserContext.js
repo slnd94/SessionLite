@@ -1,6 +1,5 @@
 import createDataContext from './createDataContext';
 import api from '../utils/api';
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
 const userReducer = (state, action) => {
   switch (action.type) {

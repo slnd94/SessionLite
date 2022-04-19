@@ -25,7 +25,7 @@ const authReducer = (state, action) => {
     case 'clear_error_message':
       return { ...state, errorMessage: '' };
     case 'signout':
-      return { accessToken: null, errorMessage: '', auth: { status: 'SIGNED_OUT', user: null } };
+      return { ...state, accessToken: null, errorMessage: '', auth: { status: 'SIGNED_OUT', user: null } };
     default:
       return state;
   }
@@ -48,11 +48,14 @@ const getAuth = dispatch => async () => {
       dispatch({ type: 'get_auth', payload: { status: 'SIGNED_IN', user: response.data }});
       return { success: true };
     } else {
-      dispatch({ type: 'get_auth', payload: { status: 'SIGNED_OUT', user: null }});
+      // delete the token and ensure user signed out
+      destroyCookie(null, 'accessToken', { path: '/' })
+      dispatch({ type: 'signout' });
       return { success: false };
     }
   } else {
-    dispatch({ type: 'get_auth', payload: { status: 'SIGNED_OUT', user: null }});
+    // ensure user signed out
+    dispatch({ type: 'signout' });
     return { success: true };
   }  
 };

@@ -26,12 +26,4 @@ export default async ({ method, url, params, accessToken, headers = {}, response
   } catch(err) {
     return err;
   }
-
-  // return response;
-  //   .then(function (response) {
-  //     return response;
-  //   })
-  //   .catch(function (error) {
-  //     return error;
-  //   });
 };
