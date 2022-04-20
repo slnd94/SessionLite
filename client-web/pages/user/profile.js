@@ -13,10 +13,14 @@ import styles from '../../styles/User.module.scss'
 export default function Profile() {
   const { t } = useTranslation('common');
   const { state: { auth }, getAuth } = useContext(AuthContext);
-  const { state: {  }, updateUserProfile } = useContext(UserContext);
+  const { state: { errorMessage }, updateUserProfile, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
   const [ profile, setProfile ] = useState(null);
   const [ processing, setProcessing ] = useState(false);
   const [ success, setSuccess ] = useState(false);
+
+  useEffect(() => {   
+    clearUserErrorMessage();
+  }, []);
 
   useEffect(() => {   
     if (auth?.user) {
@@ -91,6 +95,12 @@ export default function Profile() {
               {success
                 ? <Alert color="success" fade={false}>
                   {t(`user.User profile updated`)}
+                </Alert>
+                : null
+              }
+              {errorMessage?.length
+                ? <Alert color="danger" fade={false}>
+                  {t(`user.${errorMessage}`)}
                 </Alert>
                 : null
               }

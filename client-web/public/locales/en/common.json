@@ -33,6 +33,7 @@
     "Email is required": "Email is required",
     "Password is required": "Password is required",
     "Password must have at least <num> characters": "Password must have at least 6 characters",
+    "Passwords must match": "Passwords must match",
     "First name is required": "First name is required",
     "Last name is required": "Last name is required",
     "There was a problem with your sign up": "There was a problem with your sign up",
@@ -65,6 +66,8 @@
     "Last name is required": "Last name is required",
     "There was a problem with updating your profile": "There was a problem with updating your profile",
     "User profile updated": "User profile updated",
+    "User account updated": "User account updated",
+    "Invalid current password": "Invalid current password",
     "Save": "Save",
     "Settings": "Settings"
   }

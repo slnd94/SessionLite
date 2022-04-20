@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
 import Loader from '../Loader';
 import { useTranslation } from 'next-i18next';
 
 function AccountForm({ onSubmit, processing, defaults: {} }) {
-  const { handleSubmit, control, formState: { errors } } = useForm({
-    defaultValues: {}
+  const { handleSubmit, control, watch, formState: { errors } } = useForm({
+    defaultValues: {
+      currentPassword: '',
+      newPassword: '',
+      confirmNewPassword: ''
+    }
   });
+  const password = useRef({});
+  password.current = watch("newPassword", "");
 
   const { t } = useTranslation('common');
 
@@ -25,7 +31,8 @@ function AccountForm({ onSubmit, processing, defaults: {} }) {
       minLength: {
         value: 6,
         message: t('auth.Password must have at least <num> characters')
-      }
+      },
+      validate: value => value === password.current || t('auth.Passwords must match')
     }
   };
 

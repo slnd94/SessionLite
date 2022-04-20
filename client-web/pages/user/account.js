@@ -2,7 +2,7 @@ import Layout from '../../components/user/Layout';
 import AccountForm from '../../components/user/AccountForm';
 import { Context as AuthContext } from '../../context/AuthContext';
 import { Context as UserContext } from '../../context/UserContext';
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Link from 'next/link';
 import { Alert } from 'reactstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -11,10 +11,14 @@ import styles from '../../styles/User.module.scss'
 
 export default function Profile() {
   const { t } = useTranslation('common');
-  const { state: { auth }, getAuth } = useContext(AuthContext);
-  const { state: {  }, updateUserAccount } = useContext(UserContext);
+  const { state: { auth } } = useContext(AuthContext);
+  const { state: { errorMessage }, updateUserAccount, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
   const [ processing, setProcessing ] = useState(false);
   const [ success, setSuccess ] = useState(false);
+
+  useEffect(() => {   
+    clearUserErrorMessage();
+  }, []);
 
   return (    
     <div>
@@ -52,6 +56,12 @@ export default function Profile() {
               {success
                 ? <Alert color="success" fade={false}>
                   {t(`user.User account updated`)}
+                </Alert>
+                : null
+              }
+              {errorMessage?.length
+                ? <Alert color="danger" fade={false}>
+                  {t(`user.${errorMessage}`)}
                 </Alert>
                 : null
               }
