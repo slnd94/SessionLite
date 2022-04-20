@@ -13,10 +13,14 @@ import styles from '../../styles/User.module.scss'
 export default function Profile() {
   const { t } = useTranslation('common');
   const { state: { auth }, getAuth } = useContext(AuthContext);
-  const { state: {  }, updateUserProfile, getUserProfile } = useContext(UserContext);
+  const { state: { errorMessage }, updateUserProfile, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
   const [ profile, setProfile ] = useState(null);
   const [ processing, setProcessing ] = useState(false);
   const [ success, setSuccess ] = useState(false);
+
+  useEffect(() => {   
+    clearUserErrorMessage();
+  }, []);
 
   useEffect(() => {   
     if (auth?.user) {
@@ -52,45 +56,56 @@ export default function Profile() {
     <div>
       <Layout>
         <div>
-          {auth?.status === 'SIGNED_IN' && profile
-            ? <ProfileForm 
-                processing={processing}
-                defaults={{
-                  email: profile.email,
-                  firstName: profile.name.given,
-                  lastName: profile.name.family
-                }}
-                onSubmit={async (data) => {
-                  setProcessing(true);
-                  const request = await updateUserProfile({ ...data, id: auth.user._id });
-                  if(request.success) {
-                    // update the auth context, since user object likely needs update
-                    getAuth();
+          <div className="row mt-3 mt-md-0">
+            <div className="col-md-8">
+            <h5 className={'title'}>{t('user.Your Profile')}</h5>
+              {auth?.status === 'SIGNED_IN' && profile
+                ? <ProfileForm 
+                    processing={processing}
+                    defaults={{
+                      email: profile.email,
+                      firstName: profile.name.given,
+                      lastName: profile.name.family
+                    }}
+                    onSubmit={async (data) => {
+                      setProcessing(true);
+                      const request = await updateUserProfile({ ...data, id: auth.user._id });
+                      if(request.success) {
+                        // update the auth context, since user object likely needs update
+                        getAuth();
 
-                    setProcessing(false);
-                    setSuccess(true);
-                    setTimeout(() => {
-                      setSuccess(false);
-                   }, 3000)
-                  } else {
-                    setProcessing(false);
-                    setSuccess(false);
-                  }
-                }}
-              />
-            : (auth?.status === 'SIGNED_OUT'
-              ? <>
-                  <Link href="/auth/signin">{t('auth.Sign in')}</Link>
-                </>
-              : <></>             
-            )
-          }
-          {success
-            ? <Alert color="success" fade={false}>
-              {t(`user.User profile updated`)}
-            </Alert>
-            : null
-          }
+                        setProcessing(false);
+                        setSuccess(true);
+                        setTimeout(() => {
+                          setSuccess(false);
+                      }, 3000)
+                      } else {
+                        setProcessing(false);
+                        setSuccess(false);
+                      }
+                    }}
+                  />
+                : (auth?.status === 'SIGNED_OUT'
+                  ? <>
+                      <Link href="/auth/signin">{t('auth.Sign in')}</Link>
+                    </>
+                  : <></>             
+                )
+              }
+              {success
+                ? <Alert color="success" fade={false}>
+                  {t(`user.User profile updated`)}
+                </Alert>
+                : null
+              }
+              {errorMessage?.length
+                ? <Alert color="danger" fade={false}>
+                  {t(`user.${errorMessage}`)}
+                </Alert>
+                : null
+              }
+            </div>
+          </div>
         </div>
       </Layout>
     </div>

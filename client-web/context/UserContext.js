@@ -10,6 +10,11 @@ const userReducer = (state, action) => {
         ...state,
         errorMessage: ''
       };
+    case 'update_user_account':
+      return {
+        ...state,
+        errorMessage: ''
+      };
     case 'clear_error_message':
       return { ...state, errorMessage: '' };
     default:
@@ -48,9 +53,34 @@ const updateUserProfile = dispatch => async ({ firstName, lastName, id }) => {
   }
 };
 
+const updateUserAccount = dispatch => async ({ currentPassword, newPassword, id }) => {
+  try {
+    const response = await api({
+      method: 'patch',
+      url: `${process.env.NEXT_PUBLIC_API_URL}/user-account/${id}`,
+      params: {
+        currentPassword,
+        newPassword
+      }
+    });
+    if (response.status >= 200 && response.status < 300) {
+      dispatch({ type: 'update_user_account', payload: {}});
+      return { success: true };
+    } else {
+      throw response;
+    }
+  } catch (err) {
+    dispatch({
+      type: 'add_error',
+      payload: err?.response?.data?.message ? err.response.data.message :'Something went wrong with updating your account'
+    });
+    return { success: false };
+  }
+};
+
 const { Provider, Context } = createDataContext(
   userReducer,
-  { updateUserProfile, clearErrorMessage },
+  { updateUserProfile, updateUserAccount, clearErrorMessage },
   { token: null, errorMessage: '' }
 );
 
