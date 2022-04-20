@@ -1,14 +1,63 @@
-import Layout from '../../components/user/Layout'
+import Layout from '../../components/user/Layout';
+import AccountForm from '../../components/user/AccountForm';
 import { Context as AuthContext } from '../../context/AuthContext';
-import { useEffect, useContext } from 'react'
+import { Context as UserContext } from '../../context/UserContext';
+import { useState, useContext } from 'react'
+import Link from 'next/link';
+import { Alert } from 'reactstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import styles from '../../styles/Layout.module.scss'
+import { useTranslation } from 'next-i18next';
+import styles from '../../styles/User.module.scss'
 
 export default function Profile() {
+  const { t } = useTranslation('common');
+  const { state: { auth }, getAuth } = useContext(AuthContext);
+  const { state: {  }, updateUserAccount } = useContext(UserContext);
+  const [ processing, setProcessing ] = useState(false);
+  const [ success, setSuccess ] = useState(false);
+
   return (    
     <div>
       <Layout>
-        <div>account content here</div>
+        <div>
+          <div className="row mt-3 mt-md-0">
+            <div className="col-md-8">
+              <h5 className={'title'}>{t('user.Your Account')}</h5>
+              {auth?.status === 'SIGNED_IN'
+                ? <AccountForm 
+                    processing={processing}
+                    defaults={{}}
+                    onSubmit={async (data) => {
+                      setProcessing(true);
+                      const request = await updateUserAccount({ ...data, id: auth.user._id });
+                      if(request.success) {
+                        setProcessing(false);
+                        setSuccess(true);
+                        setTimeout(() => {
+                          setSuccess(false);
+                      }, 3000)
+                      } else {
+                        setProcessing(false);
+                        setSuccess(false);
+                      }
+                    }}
+                  />
+                : (auth?.status === 'SIGNED_OUT'
+                  ? <>
+                      <Link href="/auth/signin">{t('auth.Sign in')}</Link>
+                    </>
+                  : <></>             
+                )
+              }
+              {success
+                ? <Alert color="success" fade={false}>
+                  {t(`user.User account updated`)}
+                </Alert>
+                : null
+              }
+            </div>
+          </div>
+        </div>
       </Layout>
     </div>
   )
