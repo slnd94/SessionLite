@@ -56,7 +56,7 @@ export default function Profile() {
     <div>
       <Layout>
         <div>
-          <div className="row mt-3 mt-md-0">
+          <div className="row mt-3 mt-md-0 ms-0 ms-md-3">
             <div className="col-md-8">
             <h5 className={'title'}>{t('user.Your Profile')}</h5>
               {auth?.status === 'SIGNED_IN' && profile
