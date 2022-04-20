@@ -55,7 +55,7 @@ $font-size-base:            1rem;
 
 // // Components
 
-$border-radius:               3px !default;
+$border-radius:               0px !default;
 $border-radius-lg:            $border-radius !default;
 $border-radius-sm:            $border-radius !default;
 
@@ -77,6 +77,7 @@ $table-hover-bg:              rgba($white,.075) !default;
 
 // $input-group-addon-color:           $gray-400 !default;
 // $input-border-focus:                $green !default;
+// $input-border-radius:                0 !default;
 
 // // Dropdowns
 
