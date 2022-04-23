@@ -9,10 +9,14 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 export default function Signin() {
-  const { state: { errorMessage }, signin } = useContext(AuthContext);
+  const { state: { errorMessage }, signin, clearErrorMessage: clearAuthErrorMessage } = useContext(AuthContext);
   const [ processing, setProcessing ] = useState(false);
   const { t } = useTranslation('common');
   const router = useRouter();
+
+  useEffect(() => {
+    clearAuthErrorMessage();
+  }, []);
   
   return (
     <>

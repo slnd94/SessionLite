@@ -18,7 +18,7 @@ export default function Profile() {
   const [ processing, setProcessing ] = useState(false);
   const [ success, setSuccess ] = useState(false);
 
-  useEffect(() => {   
+  useEffect(() => {
     clearUserErrorMessage();
   }, []);
 
