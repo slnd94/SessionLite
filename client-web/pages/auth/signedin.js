@@ -7,7 +7,11 @@ import { useTranslation } from 'next-i18next';
 
 export default function SignedIn() {
   const { t } = useTranslation('common');
-  const {state: { auth }} = useContext(AuthContext);
+  const {state: { auth }, clearErrorMessage: clearAuthErrorMessage } = useContext(AuthContext);
+
+  useEffect(() => {
+    clearAuthErrorMessage();
+  }, []);
 
   return (
     <>
