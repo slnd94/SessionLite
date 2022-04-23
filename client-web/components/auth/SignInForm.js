@@ -28,7 +28,7 @@ function SignInForm({ onSubmit, processing }) {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label>{t('auth.Emaily')}</Label>
+        <Label>{t('auth.Email')}</Label>
         <Controller
           name="email"
           control={control}
