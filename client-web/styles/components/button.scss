@@ -14,6 +14,15 @@
     @include media-breakpoint-down(sm) {
       &.btn-block-sm-down {
         display: block;
+        margin-top: 2rem;
+        width: 100%;
+      }
+    }
+  
+    @include media-breakpoint-down(md) {
+      &.btn-block-md-down {
+        display: block;
+        margin-top: 2rem;
         width: 100%;
       }
     }
