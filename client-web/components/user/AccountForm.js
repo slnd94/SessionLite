@@ -96,7 +96,12 @@ function AccountForm({ onSubmit, processing, defaults: {} }) {
         </FormFeedback>
       </FormGroup>
       
-      {processing ? <Loader /> : <Button color="primary" type="submit">{t('user.Save')}</Button>}
+      {processing 
+        ? <Loader /> 
+        : <Button className={'btn-block-sm-down'} color="primary" type="submit">
+            {t('user.Save')}
+          </Button>
+      }
     </Form>
   );
 }

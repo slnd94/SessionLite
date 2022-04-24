@@ -1,0 +1,21 @@
+.btn {
+    &.btn-success {
+      color: $white;
+    }
+    &.btn-primary {
+      color: $white;
+    }
+    // padding: 0.375rem 1rem .375rem .75rem;
+  
+    svg {
+      font-size: 1rem;
+    }
+  
+    @include media-breakpoint-down(sm) {
+      &.btn-block-sm-down {
+        display: block;
+        width: 100%;
+      }
+    }
+  
+  }
