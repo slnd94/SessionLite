@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {
   Collapse,
   Navbar,
-  // NavbarBrand,
+  NavbarBrand,
   NavbarToggler, 
   Nav,
   NavLink,
@@ -35,23 +35,20 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
 
   return (
     <div>
-      <Navbar className="fixed-top navbar-dark bg-primary" color="faded" expand="sm">
-        <Link href="/" passHref>
-          <a className="navbar-brand">
-            {brandName}
-          </a>
-        </Link>
+      <Navbar className="navbar-dark bg-primary" color="faded" expand="sm">
         <NavbarToggler onClick={toggle} />
+        <NavbarBrand href="/" className="mr-auto">{brandName}</NavbarBrand>
         {processing
           ? <Loader />
           : <Collapse isOpen={isOpen} navbar>
             <Nav navbar>
               {auth?.status === 'SIGNED_IN'
-                ? <UncontrolledDropdown nav>
+                ?  
+                <UncontrolledDropdown nav>
                   <DropdownToggle nav>
                     <IconText
                       icon={'user'}
-                      text={''}
+                      text={getFullName(auth.user.name)}
                     />
                   </DropdownToggle>
                   <DropdownMenu>
