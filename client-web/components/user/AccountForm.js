@@ -12,6 +12,7 @@ function AccountForm({ onSubmit, processing, defaults: {} }) {
       confirmNewPassword: ''
     }
   });
+  
   const password = useRef({});
   password.current = watch("newPassword", "");
 

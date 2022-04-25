@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
 import Loader from '../Loader';
 import { useTranslation } from 'next-i18next';
 
 function SignInForm({ onSubmit, processing }) {
-  const { handleSubmit, control, formState: { errors } } = useForm({
+  const { handleSubmit, control, watch, formState: { errors } } = useForm({
     defaultValues: {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      confirmPassword: ''
     }
   });
+
+  const password = useRef({});
+  password.current = watch("password", "");
 
   const { t } = useTranslation('common');
 
@@ -26,6 +30,14 @@ function SignInForm({ onSubmit, processing }) {
         value: 6,
         message: t('auth.Password must have at least <num> characters')
       }
+    },
+    confirmPassword: {
+      required: t('auth.Password is required'),
+      minLength: {
+        value: 6,
+        message: t('auth.Password must have at least <num> characters')
+      },
+      validate: value => value === password.current || t('auth.Passwords must match')
     }
   };
 
@@ -105,6 +117,25 @@ function SignInForm({ onSubmit, processing }) {
         />
         <FormFeedback>
           {errors?.password?.message && errors.password.message}
+        </FormFeedback>
+      </FormGroup>
+      <FormGroup>
+        <Label>{t('auth.Confirm Password')}</Label>
+        <Controller
+          name="confirmPassword"
+          control={control}
+          rules={formRules.confirmPassword}
+          render={({ field: { ref, ...field } }) => 
+            <Input
+              {...field}
+              type="password"
+              innerRef={ref}
+              invalid={!!errors?.confirmPassword}
+            />
+          }
+        />
+        <FormFeedback>
+          {errors?.confirmPassword?.message && errors.confirmPassword.message}
         </FormFeedback>
       </FormGroup>
 
