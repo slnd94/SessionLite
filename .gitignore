@@ -110,6 +110,10 @@ $RECYCLE.BIN/
 lib/
 data/
 
+# App config
+development.json
+dev.js
+
 
 
 

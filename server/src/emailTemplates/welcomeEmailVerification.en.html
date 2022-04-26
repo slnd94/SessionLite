@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <title>Order Confirmation</title>
+
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', Verdana, Geneva, sans-serif;
+      }
+  
+      table,
+      td,
+      tr {
+        vertical-align: top;
+        border-collapse: collapse;
+      }
+  
+      * {
+        line-height: inherit;
+      }
+  
+      a[x-apple-data-detectors=true] {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+    </style>
+    <style id="media-query" type="text/css">
+      @media (max-width: 670px) {
+  
+        .block-grid,
+        .col {
+          min-width: 320px !important;
+          max-width: 100% !important;
+          display: block !important;
+        }
+  
+        .block-grid {
+          width: 100% !important;
+        }
+  
+        .col {
+          width: 100% !important;
+        }
+  
+        .col>div {
+          margin: 0 auto;
+        }
+  
+        img.fullwidth,
+        img.fullwidthOnMobile {
+          max-width: 100% !important;
+        }
+  
+        .no-stack .col {
+          min-width: 0 !important;
+          display: table-cell !important;
+        }
+  
+        .no-stack.two-up .col {
+          width: 50% !important;
+        }
+  
+        .no-stack .col.num4 {
+          width: 33% !important;
+        }
+  
+        .no-stack .col.num8 {
+          width: 66% !important;
+        }
+  
+        .no-stack .col.num4 {
+          width: 33% !important;
+        }
+  
+        .no-stack .col.num3 {
+          width: 25% !important;
+        }
+  
+        .no-stack .col.num6 {
+          width: 50% !important;
+        }
+  
+        .no-stack .col.num9 {
+          width: 75% !important;
+        }
+  
+        .video-block {
+          max-width: none !important;
+        }
+  
+        .mobile_hide {
+          min-height: 0px;
+          max-height: 0px;
+          max-width: 0px;
+          display: none;
+          overflow: hidden;
+          font-size: 0px;
+        }
+  
+        .desktop_hide {
+          display: block !important;
+          max-height: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="block-grid four-up no-stack"
+      style="Margin: 0 auto; padding: 10px; min-width: 320px; max-width: 650px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #FFFFFF;">
+      <div style="border-collapse: collapse;display: table;width: 100%;background-color:#FFFFFF;">
+        <div class="col num3"
+          style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; width: 162px;">
+
+          <h1>
+            <img src="{{appLogoUrl}}">
+          </h1>
+
+          <p><span style="color: #9365b8;"><span style="font-size: 24px;">Order Confirmation</span></span><span style="background-color: rgb(97, 189, 109);"><br></span></p>
+          
+          <p>Hello {{user.name.given}} {{user.name.family}},</p>
+          
+          <p>Thank you for shopping with us! &nbsp;This email is your official record of purchase. &nbsp;</p>
+          
+          <p>You should now be able to download your files by visiting the product page.  You will need to sign in to download your files.</p>
+          
+          <p>To see a list of all your purchases, visit your <a href="{{appUrl}}/user/products" rel="noopener noreferrer" target="_blank">products</a> page.</p>
+          
+          <hr>
+          
+          <p>Here are the details of your order:</p>
+          
+          <p><strong>Order placed</strong>: {{dateTime}}</p>
+          
+          <p><strong>Purchased</strong>:</p>
+          
+          <p>
+            {{#each saleItems}}
+            <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F9F9F9;">              
+              <div class="col num8" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
+                <p style="line-height: 18px; text-align: left; font-size: 16px; margin: 0;">
+                  {{this.title}}<br />
+                  <span style="font-size: 14px;">{{this.creator.name.given}}&nbsp;{{this.creator.name.family}}</span>
+                </p>
+              </div>
+              <div class="col num4" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
+                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
+                  {{this.pricePaid}}
+                </p>
+              </div>
+            </div>
+            {{/each}}
+          </p>
+
+          <p>
+            <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F9F9F9;">              
+              <div class="col num8" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
+                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
+                  Subtotal
+                </p>
+              </div>
+              <div class="col num4" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
+                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
+                  {{pricePaid.subtotal}}
+                </p>
+              </div>
+            </div>
+
+            {{#each pricePaid.taxes}}
+            <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F9F9F9;">              
+              <div class="col num8" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
+                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
+                  {{this.description}}
+                </p>
+              </div>
+              <div class="col num4" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
+                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
+                  {{this.amount}}
+                </p>
+              </div>
+            </div>
+            {{/each}}
+
+            <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F9F9F9;">              
+              <div class="col num8" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
+                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
+                  Total
+                </p>
+              </div>
+              <div class="col num4" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
+                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
+                  {{pricePaid.total}}
+                </p>
+              </div>
+            </div>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
