@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Context as AuthContext } from '../../context/AuthContext';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Collapse,
   Navbar,
@@ -37,7 +38,9 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
     <div>
       <Navbar className="navbar-dark bg-primary" color="faded" expand="sm">
         <NavbarToggler onClick={toggle} />
-        <NavbarBrand href="/" className="mr-auto">{brandName}</NavbarBrand>
+        <NavbarBrand href="/" className="mr-auto">
+          <Image src="/images/siteLogoSmall.png" alt={brandName} width={160} height={20} />
+        </NavbarBrand>
         {processing
           ? <Loader />
           : <Collapse isOpen={isOpen} navbar>

@@ -12,6 +12,8 @@ const protectUserSysAdminWrite = require('../../hooks/protect-user-sys-admin-wri
 
 const authorizeUserAdmin = require('../../hooks/authorize-user-admin');
 
+const sendWelcomeVerificationEmail = require('../../hooks/send-welcome-verification-email');
+
 module.exports = {
   before: {
     all: [],
@@ -47,7 +49,8 @@ module.exports = {
       protect('password', 'sysAdmin')
     ],
     create: [
-      authenticateUserOnSignup(),
+      sendWelcomeVerificationEmail(),
+      authenticateUserOnSignup(), 
       // Always must be the last hook
       protect('password', 'sysAdmin')
     ],

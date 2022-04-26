@@ -12,7 +12,7 @@ function Footer() {
       >
         Powered by{' '}
         <span className={styles.logo}>
-          <Image src="/logoSmall.png" alt="Traverston Logo" width={160} height={20} />
+          <Image src="/images/poweredByLogoSmall.png" alt="Traverston Logo" width={160} height={20} />
         </span>
       </a>
     </footer>
