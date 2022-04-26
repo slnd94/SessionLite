@@ -8,7 +8,7 @@ module.exports = (options = {}) => {
     // send welcome/verification email to user
     context.app.service('emails')
       .create({
-        template: 'WeebleOrderConfirmation',
+        template: context.app.get('welcomeVerificationEmailTemplate'),
         destination: context.data.email,
         data: {                  
           user: {

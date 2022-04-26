@@ -6,7 +6,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     const { sysAdminUser } = context.params;
     if(context.params.provider && !sysAdminUser) {
       if(context.data) {
-        delete context.data.sysAdmin;
+        delete context.data.emailVerificationKey;
       }
     }
     return context;
