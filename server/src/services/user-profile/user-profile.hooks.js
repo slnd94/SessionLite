@@ -22,27 +22,27 @@ module.exports = {
     all: [],
     find: [
       // Always must be the last hook
-      protect('password')
+      protect('password', 'sysAdmin', 'emailVerificationKey')
     ],
     get: [
       // Always must be the last hook
-      protect('password')
+      protect('password', 'sysAdmin', 'emailVerificationKey')
     ],
     create: [
       // Always must be the last hook
-      protect('password')
+      protect('password', 'sysAdmin', 'emailVerificationKey')
     ],
     update: [
       // Always must be the last hook
-      protect('password')
+      protect('password', 'sysAdmin', 'emailVerificationKey')
     ],
     patch: [
       // Always must be the last hook
-      protect('password')
+      protect('password', 'sysAdmin', 'emailVerificationKey')
     ],
     remove: [
       // Always must be the last hook
-      protect('password')
+      protect('password', 'sysAdmin', 'emailVerificationKey')
     ]
   },
 
