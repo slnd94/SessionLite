@@ -80,6 +80,9 @@
 
 // header/navbar
 .navbar {
+  .navbar-brand {
+    padding-bottom: 0;
+  }
   .navbar-toggler {
     padding:0;
     border: 0;
