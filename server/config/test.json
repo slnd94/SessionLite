@@ -1,4 +1,13 @@
 {
   "port": "PORT",
-  "mongodb": "MONGO_URI"
+  "mongodb": "MONGO_URI",
+  "appWebBaseUrl": "appWebBaseUrl",
+  "appName": "appName",
+  "privacyPolicyUrl": "privacyPolicyUrl",
+  "appPrimaryColor": "appPrimaryColor",
+  "emailAccessKeyId": "emailAccessKeyId",
+  "emailSecretAccessKey": "emailSecretAccessKey",
+  "emailRegion": "emailRegion",
+  "emailSourceAddress": "emailSourceAddress",
+  "welcomeVerificationEmailTemplate": "welcomeVerificationEmailTemplate"
 }
