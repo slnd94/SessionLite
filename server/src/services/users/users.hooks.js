@@ -86,7 +86,7 @@ module.exports = {
     ],
     create: [
       sendWelcomeVerificationEmail(),
-      authenticateUserOnSignup(), 
+      authenticateUserOnSignup(),
       // Always must be the last hook
       protect('password', 'sysAdmin', 'emailVerificationKey')
     ],

@@ -13,6 +13,7 @@ export default function Signin() {
   const [ processing, setProcessing ] = useState(false);
   const { t } = useTranslation('common');
   const router = useRouter();
+  const { redirect, redirectQuery } = router.query;
 
   useEffect(() => {
     clearAuthErrorMessage();
@@ -34,7 +35,11 @@ export default function Signin() {
               setProcessing(true);
               const request = await signin(data);
               if(request.success) {
-                router.push({ pathname: '/auth/signedin' });
+                if (redirect) {
+                  router.push({ pathname: redirect, query: redirectQuery || {} });
+                } else {
+                  router.push({ pathname: '/auth/signedin' });
+                }                
               } else {
                 setProcessing(false);
               }
