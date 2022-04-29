@@ -123,84 +123,15 @@
             <img src="{{appLogoUrl}}">
           </h1>
 
-          <p><span style="color: #9365b8;"><span style="font-size: 24px;">Order Confirmation</span></span><span style="background-color: rgb(97, 189, 109);"><br></span></p>
+          <p><span color="#{{appPrimaryColor}}"><span style="font-size: 24px;">Order Confirmation</span></span><span style="background-color: rgb(97, 189, 109);"><br></span></p>
           
           <p>Hello {{user.name.given}} {{user.name.family}},</p>
           
-          <p>Thank you for shopping with us! &nbsp;This email is your official record of purchase. &nbsp;</p>
+          <p>Welcome to {{appName}}!</p>
           
-          <p>You should now be able to download your files by visiting the product page.  You will need to sign in to download your files.</p>
+          <p>Before you begin, you will need to verify your email address.</p>
           
-          <p>To see a list of all your purchases, visit your <a href="{{appUrl}}/user/products" rel="noopener noreferrer" target="_blank">products</a> page.</p>
-          
-          <hr>
-          
-          <p>Here are the details of your order:</p>
-          
-          <p><strong>Order placed</strong>: {{dateTime}}</p>
-          
-          <p><strong>Purchased</strong>:</p>
-          
-          <p>
-            {{#each saleItems}}
-            <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F9F9F9;">              
-              <div class="col num8" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
-                <p style="line-height: 18px; text-align: left; font-size: 16px; margin: 0;">
-                  {{this.title}}<br />
-                  <span style="font-size: 14px;">{{this.creator.name.given}}&nbsp;{{this.creator.name.family}}</span>
-                </p>
-              </div>
-              <div class="col num4" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
-                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
-                  {{this.pricePaid}}
-                </p>
-              </div>
-            </div>
-            {{/each}}
-          </p>
-
-          <p>
-            <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F9F9F9;">              
-              <div class="col num8" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
-                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
-                  Subtotal
-                </p>
-              </div>
-              <div class="col num4" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
-                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
-                  {{pricePaid.subtotal}}
-                </p>
-              </div>
-            </div>
-
-            {{#each pricePaid.taxes}}
-            <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F9F9F9;">              
-              <div class="col num8" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
-                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
-                  {{this.description}}
-                </p>
-              </div>
-              <div class="col num4" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
-                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
-                  {{this.amount}}
-                </p>
-              </div>
-            </div>
-            {{/each}}
-
-            <div style="border-collapse: collapse;display: table;width: 100%;background-color:#F9F9F9;">              
-              <div class="col num8" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
-                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
-                  Total
-                </p>
-              </div>
-              <div class="col num4" style="max-width: 320px; min-width: 162px; display: table-cell; vertical-align: top; padding: 10px;">
-                <p style="line-height: 18px; text-align: right; font-size: 14px; margin: 0;">
-                  {{pricePaid.total}}
-                </p>
-              </div>
-            </div>
-          </p>
+          <p>Click <a href="{{emailVerificationUrl}}" rel="noopener noreferrer" target="_blank">here</a> to verify your email address.</p>
         </div>
       </div>
     </div>

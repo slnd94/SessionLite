@@ -4,27 +4,17 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
-    // console.log("🚀 ~ file: send-welcome-verification-email.js ~ line 7 ~ context", context)
     // send welcome/verification email to user
     context.app.service('emails')
       .create({
         template: context.app.get('welcomeVerificationEmailTemplate'),
         destination: context.data.email,
-        data: {                  
-          user: {
-            name: context.data.name
-          },
-          saleItems: [].map(item => ({
-            imageUrl: `${item.product.images.thumbnail}`,
-            title: item.product.title,
-            creator: item.product.creators[0],
-            pricePaid: 'hi'
-          })),
-          pricePaid: { 
-            subtotal: 'hi',
-            taxes: [],
-            total: 'hi'
-          }
+        data: {  
+          appLogoUrl: `${context.app.get('appWebBaseUrl')}/images/siteLogoSmall.png`,
+          appPrimaryColor: context.app.get('appPrimaryColor'),
+          appName: context.app.get('appName'),
+          emailVerificationUrl: `${context.app.get('appWebBaseUrl')}/verification/email/${context.data.emailVerificationKey}`,
+          privacyPolicyUrl: context.app.get('privacyPolicyUrl')
         }
       });
     return context;
