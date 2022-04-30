@@ -4,9 +4,15 @@ const { v4: uuidv4 } = require('uuid');
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
-    const testKey = `${uuidv4()}---${uuidv4()}---${uuidv4()}---${uuidv4()}---${uuidv4()}`
-    console.log("🚀 ~ file: assign-user-email-verification-key.js ~ line 8 ~ testKey", testKey)
-    context.data.emailVerificationKey = `${uuidv4()}${uuidv4()}${uuidv4()}${uuidv4()}${uuidv4()}`.replace(/-/g, "");
+    // set the expiry date time
+    const emailVerificationKeyExpiryDate = new Date();
+    emailVerificationKeyExpiryDate.setMinutes(emailVerificationKeyExpiryDate.getMinutes() + parseInt(context.app.get('emailVerificationExpiryMinutes')));
+    context.data = {
+      ...context.data,
+      emailVerified: false,
+      emailVerificationKey: `${uuidv4()}${uuidv4()}${uuidv4()}${uuidv4()}${uuidv4()}`.replace(/-/g, ""),
+      emailVerificationKeyExpiryDate
+    }
     return context;
   };
 };

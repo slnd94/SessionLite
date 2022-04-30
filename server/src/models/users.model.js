@@ -18,7 +18,8 @@ module.exports = function (app) {
     locked: { type: Boolean, default: false },
 
     emailVerified: { type: Boolean, default: false },
-    emailVerificationKey: { type: String },
+    emailVerificationKey: { type: String, required: false },
+    emailVerificationKeyExpiryDate: { type: Date, required: false },
     
     sysAdmin: { type: Boolean, default: false }  
   

@@ -14,6 +14,8 @@ exports.UserAccount = class UserAccount {
   }
 
   async patch (id, data, params) {
+    console.log({ id, data, params });
+
     if(await bcrypt.compare(data.currentPassword, params.user.password)) {
       // correct current password supplied.  Allow the update.
       // reinforce the only fields we want updated

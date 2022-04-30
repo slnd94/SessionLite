@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { Context as AuthContext } from '../../../context/AuthContext';
+import { Context as UserContext } from '../../../context/UserContext';
 import styles from '../../../styles/Signedin.module.scss'
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -8,7 +9,8 @@ import { useRouter } from 'next/router';
 
 export default function VerifyEmail() {
   const { t } = useTranslation('common');
-  const {state: { auth }, clearErrorMessage: clearAuthErrorMessage } = useContext(AuthContext);
+  const {state: { auth }, getAuth, clearErrorMessage: clearAuthErrorMessage } = useContext(AuthContext);
+  const { verifyUserEmail } = useContext(UserContext);
   const router = useRouter();
   const { key } = router.query;
 
@@ -21,12 +23,18 @@ export default function VerifyEmail() {
         }
       });
     }
+    if(auth?.status === 'SIGNED_IN' && !auth?.user?.emailVerified) {
+      verifyUserEmail({
+        id: auth.user._id,
+        key
+      });
+    }
   }, [auth]);
 
   return (
     <>
       <h1 className="title">
-        {t('auth.Verify')}  
+        {t('auth.Verify Your Email Address')}  
       </h1>
       {auth?.status === 'SIGNED_IN'
         ? <>
