@@ -9,9 +9,14 @@ exports.AuthUser = class AuthUser {
   }
 
   async find (params) {
-    return this.app.service('users')
-      // return the current authorized user
-      .get(params.user._id, {})
-      .then(result => result);
+    return {
+      _id: params.user._id,
+      name: {
+        given: params.user.name.given,
+        family: params.user.name.family
+      },
+      emailVerified: params.user.verification.emailVerified,
+      locked: params.user.locked
+    }
   }
 };

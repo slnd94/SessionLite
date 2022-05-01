@@ -13,9 +13,40 @@ exports.UserAccount = class UserAccount {
     this.app = app;
   }
 
-  async patch (id, data, params) {
-    console.log({ id, data, params });
+  async create (data, params) {
+    return this.app.service('users')
+      .create(data)
+      .then(result => {
+        // send welcome/verification email to user
+        this.app.service('emails')
+          .create({
+            template: this.app.get('welcomeVerificationEmailTemplate'),
+            destination: data.email,
+            data: {  
+              appLogoUrl: `${this.app.get('appWebBaseUrl')}/images/siteLogoSmall.png`,
+              appPrimaryColor: this.app.get('appPrimaryColor'),
+              appName: this.app.get('appName'),
+              emailVerificationUrl: `${this.app.get('appWebBaseUrl')}/verification/email/${data.verification.emailVerificationKey}`,
+              privacyPolicyUrl: this.app.get('privacyPolicyUrl')
+            }
+          });
+        return this.app.service('authentication').create({...data, strategy: 'local'}).then(res => {   
+          return {
+            user: {
+              _id: res.user._id,
+              email: res.user.email,
+              name: {                
+                given: res.user.name.given,
+                family: res.user.name.family
+              }
+            },
+            accessToken: res.accessToken
+          };
+        });
+      });
+  }
 
+  async patch (id, data, params) {
     if(await bcrypt.compare(data.currentPassword, params.user.password)) {
       // correct current password supplied.  Allow the update.
       // reinforce the only fields we want updated

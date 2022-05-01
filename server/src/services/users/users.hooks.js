@@ -4,23 +4,22 @@ const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
 
-const authenticateUserOnSignup = require('../../hooks/authenticate-user-on-signup');
-
-const beforeCreateUsers = require('../../hooks/before-create-users');
+const { iff, isProvider, keep, disallow } = require('feathers-hooks-common');
 
 const protectUserSysAdminWrite = require('../../hooks/protect-user-sys-admin-write');
 
-const protectUserEmailVerified = require('../../hooks/protect-user-email-verified');
+const protectUserEmailWrite = require('../../hooks/protect-user-email-write');
 
-const protectUserEmailVerificationKey = require('../../hooks/protect-user-email-verification-key');
+const protectUserVerificationWrite = require('../../hooks/protect-user-verification-write');
 
 const authorizeUserAdmin = require('../../hooks/authorize-user-admin');
 
-const sendWelcomeVerificationEmail = require('../../hooks/send-welcome-verification-email');
-
-const assignUserEmailVerified = require('../../hooks/assign-user-email-verified');
-
-const assignUserEmailVerificationKey = require('../../hooks/assign-user-email-verification-key');
+const keepFieldsExternal = [
+  '_id',
+  'name.family',
+  'name.given',
+  'email'
+]
 
 module.exports = {
   before: {
@@ -34,39 +33,29 @@ module.exports = {
       authorizeUserAdmin()
     ],
     create: [
-      (context) => {
-        // this will retain our access to the unhashed pw,
-        // so we can authenticate the user in the "after create" hook
-        context.data.unhashedPassword = context.data.password;
-      }, 
-      hashPassword('password'), 
-      beforeCreateUsers(), 
-      protectUserEmailVerified(),
-      protectUserEmailVerificationKey(),
-      assignUserEmailVerified(), 
-      assignUserEmailVerificationKey(),
-      protectUserSysAdminWrite()
+      iff(isProvider('external'), disallow()),
+      hashPassword('password'),  
     ],
     update: [ 
       hashPassword('password'),  
       authenticate('jwt'), 
       protectUserSysAdminWrite(),
-      protectUserEmailVerified(),
-      protectUserEmailVerificationKey()
+      protectUserVerificationWrite()
     ],
     patch: [
       hashPassword('password'),
       authenticate('jwt'),
       protectUserSysAdminWrite(),
-      protectUserEmailVerified(),
-      protectUserEmailVerificationKey(),
+      protectUserEmailWrite(),
+      protectUserVerificationWrite(),
       authorizeUserAdmin()
     ],
     remove: [ 
       authenticate('jwt'),
       protectUserSysAdminWrite(),
-      protectUserEmailVerified(),
-      protectUserEmailVerificationKey()
+      protectUserEmailWrite(),
+      protectUserSysAdminWrite(),
+      protectUserVerificationWrite()
     ]
   },
 
@@ -77,30 +66,46 @@ module.exports = {
       // protect('password')
     ],
     find: [
+      // if the call is from external source, only keep the allowed fields
+      iff(isProvider('external'), keep(...keepFieldsExternal)),
+      // protect password at all times
       // Always must be the last hook
-      protect('password', 'sysAdmin', 'emailVerificationKey')
+      protect('password')
     ],
     get: [
+      // if the call is from external source, only keep the allowed fields
+      iff(isProvider('external'), keep(...keepFieldsExternal)),
+      // protect password at all times
       // Always must be the last hook
-      protect('password', 'sysAdmin', 'emailVerificationKey')
+      protect('password')
     ],
     create: [
-      sendWelcomeVerificationEmail(),
-      authenticateUserOnSignup(),
+      // if the call is from external source, only keep the allowed fields
+      iff(isProvider('external'), keep(...keepFieldsExternal)),
+      // protect password at all times
       // Always must be the last hook
-      protect('password', 'sysAdmin', 'emailVerificationKey')
+      protect('password')
     ],
     update: [
+      // if the call is from external source, only keep the allowed fields
+      iff(isProvider('external'), keep(...keepFieldsExternal)),
+      // protect password at all times
       // Always must be the last hook
-      protect('password', 'sysAdmin', 'emailVerificationKey')
+      protect('password')
     ],
     patch: [
-      // Always must be the last 
-      protect('password', 'sysAdmin', 'emailVerificationKey')
+      // if the call is from external source, only keep the allowed fields
+      iff(isProvider('external'), keep(...keepFieldsExternal)),
+      // protect password at all times
+      // Always must be the last hook
+      protect('password')
     ],
     remove: [
+      // if the call is from external source, only keep the allowed fields
+      iff(isProvider('external'), keep(...keepFieldsExternal)),
+      // protect password at all times
       // Always must be the last hook
-      protect('password', 'sysAdmin', 'emailVerificationKey')
+      protect('password')
     ]
   },
 

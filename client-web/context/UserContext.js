@@ -105,7 +105,7 @@ const verifyUserEmail = dispatch => async ({ id, key }) => {
 const { Provider, Context } = createDataContext(
   userReducer,
   { updateUserProfile, updateUserAccount, verifyUserEmail, clearErrorMessage },
-  { token: null, errorMessage: '' }
+  { errorMessage: '' }
 );
 
 export { Provider, Context };

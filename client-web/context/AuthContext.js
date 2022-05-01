@@ -12,20 +12,18 @@ const authReducer = (state, action) => {
       return {
         ...state,
         errorMessage: '',
-        accessToken: action.payload.accessToken,
         auth: action.payload.auth
       };
     case 'signin':
       return {
         ...state,
         errorMessage: '',
-        accessToken: action.payload.accessToken,
         auth: action.payload.auth
       };
     case 'clear_error_message':
       return { ...state, errorMessage: '' };
     case 'signout':
-      return { ...state, accessToken: null, errorMessage: '', auth: { status: 'SIGNED_OUT', user: null } };
+      return { ...state, errorMessage: '', auth: { status: 'SIGNED_OUT', user: null } };
     default:
       return state;
   }
@@ -64,7 +62,7 @@ const signup = dispatch => async ({ firstName, lastName, email, password }) => {
   try {
     const response = await api({
       method: 'post',
-      url: `${process.env.NEXT_PUBLIC_API_URL}/users`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/user-account`,
       params: {
         name: {
           given: firstName,
@@ -82,7 +80,6 @@ const signup = dispatch => async ({ firstName, lastName, email, password }) => {
       });
 
       dispatch({ type: 'signup', payload: { 
-        accessToken: response.data.accessToken,
         auth: { status: 'SIGNED_IN', user: response.data.user }
       }});
       return { success: true };
@@ -117,8 +114,7 @@ const signin = dispatch => async ({ email, password }) => {
         path: '/',
       });
 
-      dispatch({ type: 'signin', payload: { 
-        accessToken: response.data.accessToken,
+      dispatch({ type: 'signin', payload: {
         auth: { status: 'SIGNED_IN', user: response.data.user }
       }});
       return { success: true };
@@ -144,7 +140,7 @@ const signout = dispatch => async () => {
 const { Provider, Context } = createDataContext(
   authReducer,
   { getAuth, signin, signout, signup, clearErrorMessage },
-  { token: null, errorMessage: '' }
+  { errorMessage: '' }
 );
 
 export { Provider, Context };

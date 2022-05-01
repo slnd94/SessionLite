@@ -5,17 +5,26 @@ const assignParamSysAdminUser = require('../../hooks/assign-param-sys-admin-user
 
 const authorizeUserAdmin = require('../../hooks/authorize-user-admin');
 
+const beforeCreateUserAccount = require('../../hooks/before-create-user-account');
+
 module.exports = {
   before: {
-    all: [ authenticate('jwt'), assignParamSysAdminUser() ],
+    all: [],
     find: [],
     get: [
-      authorizeUserAdmin()
+      authenticate('jwt'), assignParamSysAdminUser(), authorizeUserAdmin()
     ],
-    create: [],
+    create: [
+      (context) => {
+        // this will retain our access to the unhashed pw,
+        // so we can authenticate the user in the "after create" hook
+        context.data.unhashedPassword = context.data.password;
+      }, 
+      beforeCreateUserAccount()
+    ],
     update: [],
     patch: [
-      authorizeUserAdmin()
+      authenticate('jwt'), assignParamSysAdminUser(), authorizeUserAdmin()
     ],
     remove: []
   },
