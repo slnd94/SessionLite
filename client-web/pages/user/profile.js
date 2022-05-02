@@ -78,7 +78,7 @@ export default function Profile() {
                         setSuccess(true);
                         setTimeout(() => {
                           setSuccess(false);
-                      }, 3000)
+                        }, 3000)
                       } else {
                         setProcessing(false);
                         setSuccess(false);

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const { v4: uuidv4 } = require('uuid');
+const { verificationKey } = require('../../utils/userUtils');
 
 exports.UserAccountVerification = class UserAccountVerification {
   constructor (options) {
@@ -13,19 +13,38 @@ exports.UserAccountVerification = class UserAccountVerification {
   async patch (id, data, params) {
     switch(params.query?.verificationAction) {
       case 'set':
-        emailVerificationData = {
+        // set new verification key and send a fresh email to user
+
+        // set the expiry date time
+        const emailVerificationKeyExpiryDate = new Date();
+        emailVerificationKeyExpiryDate.setMinutes(emailVerificationKeyExpiryDate.getMinutes() + parseInt(this.app.get('emailVerificationExpiryMinutes')));
+        const emailVerificationData = {
           emailVerified: false,
-          emailVerificationKey: uuidv4()
+          emailVerificationKey: verificationKey(),
+          emailVerificationKeyExpiryDate
         };
         return this.app.service('users')
-          .patch(id, emailVerificationData, params)
+          .patch(id, { verification: emailVerificationData })
           .then(res => {
-            // return only the user id
-            return { _id: res._id };
+            // send welcome/verification email to user
+            this.app.service('emails')
+              .create({
+                template: this.app.get('welcomeVerificationEmailTemplate'),
+                destination: params.user.email,
+                data: {  
+                  appLogoUrl: `${this.app.get('appWebBaseUrl')}/images/siteLogoSmall.png`,
+                  appPrimaryColor: this.app.get('appPrimaryColor'),
+                  appName: this.app.get('appName'),
+                  emailVerificationUrl: `${this.app.get('appWebBaseUrl')}/verification/email/${emailVerificationData.emailVerificationKey}`,
+                  privacyPolicyUrl: this.app.get('privacyPolicyUrl')
+                }
+              });
+            return { _id: res._id, vertificationSetSuccess: true };
           });
         break;
       case 'verify':
-        console.log('date compare:', (Date.now() < params.user.verification.emailVerificationKeyExpiryDate))
+        // use the provided code to verify user's email address
+
         if (data.key.toString() === params.user.verification.emailVerificationKey.toString()
             && Date.now() < params.user.verification.emailVerificationKeyExpiryDate) {
           // valid verification key

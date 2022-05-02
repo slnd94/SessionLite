@@ -11,8 +11,9 @@ import { useRouter } from 'next/router';
 export default function VerifyEmail() {
   const { t } = useTranslation('common');
   const {state: { auth }, getAuth, clearErrorMessage: clearAuthErrorMessage } = useContext(AuthContext);
-  const { verifyUserEmail } = useContext(UserContext);
+  const { verifyUserEmail, setUserEmailVerification } = useContext(UserContext);
   const [verifiedStatus, setVerifiedStatus] = useState('');
+  const [ verificationResentSuccess, setVerificationResentSuccess ] = useState(false);
   const router = useRouter();
   const { key } = router.query;
 
@@ -32,6 +33,7 @@ export default function VerifyEmail() {
         key
       })
       .then(res => {
+        getAuth();
         if(res.verified) {
           setVerifiedStatus('SUCCESS')
         } else {
@@ -62,9 +64,26 @@ export default function VerifyEmail() {
                   <div className="mt-4">                    
                     {t('user.account.verification.The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.')}
                   </div>
-                  <Button className={'mt-4'} color="primary" onClick={() => console.log('send new email')}>
+                  <Button className={'mt-4'} color="primary" onClick={() => {
+                    setUserEmailVerification({ id: auth.user._id })
+                      .then(res => {
+                        if (res.vertificationSetSuccess) {
+                          setVerificationResentSuccess(true);
+                          setTimeout(() => {
+                            setVerificationResentSuccess(false);
+                          }, 10000)
+                        }
+                      })
+                  }}>
                     {t('user.account.verification.Send me a new email')}
                   </Button>
+
+                  {verificationResentSuccess
+                    ? <Alert color="success" fade={false}>
+                      {t(`user.Verification mail re-sent. Check your email for the new link.`)}
+                    </Alert>
+                    : null
+                  }
                 </div>
               : null
             }
