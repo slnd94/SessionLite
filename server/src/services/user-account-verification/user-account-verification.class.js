@@ -25,7 +25,9 @@ exports.UserAccountVerification = class UserAccountVerification {
           });
         break;
       case 'verify':
-        if (data.key.toString() === params.user.verification.emailVerificationKey.toString()) {
+        console.log('date compare:', (Date.now() < params.user.verification.emailVerificationKeyExpiryDate))
+        if (data.key.toString() === params.user.verification.emailVerificationKey.toString()
+            && Date.now() < params.user.verification.emailVerificationKeyExpiryDate) {
           // valid verification key
           // update the user email verification
           return this.app.service('users')

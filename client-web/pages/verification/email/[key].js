@@ -32,18 +32,11 @@ export default function VerifyEmail() {
         key
       })
       .then(res => {
-      console.log("🚀 ~ file: [key].js ~ line 35 ~ useEffect ~ res", res)
-        switch (res.verified) {
-          case true:
-            setVerifiedStatus('SUCCESS')
-            break;
-          case false:
-            setVerifiedStatus('FAILED')
-            break;
-          default:
-            setVerifiedStatus('ERROR')
-            break;
-        }        
+        if(res.verified) {
+          setVerifiedStatus('SUCCESS')
+        } else {
+          setVerifiedStatus('FAILED')
+        }      
       });
     }
   }, [auth]);
