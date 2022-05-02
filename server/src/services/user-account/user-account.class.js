@@ -26,7 +26,7 @@ exports.UserAccount = class UserAccount {
               appLogoUrl: `${this.app.get('appWebBaseUrl')}/images/siteLogoSmall.png`,
               appPrimaryColor: this.app.get('appPrimaryColor'),
               appName: this.app.get('appName'),
-              emailVerificationUrl: `${this.app.get('appWebBaseUrl')}/verification/email/${data.verification.emailVerificationKey}`,
+              emailVerificationUrl: `${this.app.get('appWebBaseUrl')}/user/verification/email/${data.verification.emailVerificationKey}`,
               privacyPolicyUrl: this.app.get('privacyPolicyUrl')
             }
           });
