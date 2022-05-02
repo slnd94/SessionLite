@@ -32,13 +32,12 @@ exports.UserAccountVerification = class UserAccountVerification {
             .patch(id, { verification: { emailVerificationKey: null, emailVerificationKeyExpiryDate: null, emailVerified: true }}, {})
             .then(result => {
               // return only the user id
-              return { _id: result._id };
+              return { _id: result._id, verified: true };
             });
         } else {
           // invalid verification key
-          console.log('NO MATH')
+          return { verified: false };
         }
-        return data;
         break;
       default:
         return data;

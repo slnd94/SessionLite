@@ -89,7 +89,7 @@ const verifyUserEmail = dispatch => async ({ id, key }) => {
     });
     if (response.status >= 200 && response.status < 300) {
       dispatch({ type: 'verify_user_email', payload: {}});
-      return { success: true };
+      return { success: true, ...response.data };
     } else {
       throw response;
     }

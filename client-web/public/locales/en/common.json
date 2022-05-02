@@ -71,6 +71,14 @@
     "User profile updated": "User profile updated",
     "User account updated": "User account updated",
     "Invalid current password": "Invalid current password",
+    "account": {
+      "verification": {
+        "Your account has been verified": "Your account has been verified",
+        "Your account could not be verified": "Your account could not be verified",
+        "The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.": "The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.",
+        "Send me a new email": "Send me a new email"
+      }
+    },    
     "Save": "Save",
     "Settings": "Settings"
   }
