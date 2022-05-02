@@ -24,7 +24,7 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
 function Header({ brandName, requestLogout, openLogin, openSignup }) { 
-  const { state: { auth }, signout } = useContext(AuthContext);
+  const { state: { auth } } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false)
   const [processing, setProcessing] = useState(false)
   const { t } = useTranslation('common');
@@ -71,16 +71,9 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                         Your Cart
                       </DropdownItem>                
                     </Link>
-                    <Link href=" " passHref> 
-                      <DropdownItem onClick={async () => {
-                        setProcessing(true);
-                        const request = await signout();
-                        if (request.success) {
-                          router.push({ pathname: '/auth/signedout' });
-                        }
-                        setProcessing(false);
-                      }}>
-                        {t('auth.Sign out')}
+                    <Link href="/auth/signout" passHref> 
+                      <DropdownItem>
+                      {t('auth.Sign out')}
                       </DropdownItem>                
                     </Link>
                   </DropdownMenu>
