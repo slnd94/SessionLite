@@ -78,10 +78,34 @@ const updateUserAccount = dispatch => async ({ currentPassword, newPassword, id 
   }
 };
 
+const verifyUserEmail = dispatch => async ({ id, key }) => {
+  try {
+    const response = await api({
+      method: 'patch',
+      url: `${process.env.NEXT_PUBLIC_API_URL}/user-account-verification/${id}?verificationAction=verify`,
+      params: {
+        key
+      }
+    });
+    if (response.status >= 200 && response.status < 300) {
+      dispatch({ type: 'verify_user_email', payload: {}});
+      return { success: true, ...response.data };
+    } else {
+      throw response;
+    }
+  } catch (err) {
+    dispatch({
+      type: 'add_error',
+      payload: err?.response?.data?.message ? err.response.data.message :'Something went wrong with updating your profile'
+    });
+    return { success: false };
+  }
+};
+
 const { Provider, Context } = createDataContext(
   userReducer,
-  { updateUserProfile, updateUserAccount, clearErrorMessage },
-  { token: null, errorMessage: '' }
+  { updateUserProfile, updateUserAccount, verifyUserEmail, clearErrorMessage },
+  { errorMessage: '' }
 );
 
 export { Provider, Context };

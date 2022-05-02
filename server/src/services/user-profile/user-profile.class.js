@@ -10,8 +10,17 @@ exports.UserProfile = class UserProfile {
 
   async get (id, params) {
     return this.app.service('users')
-      .get(id, params)
-      .then(res => res);
+      .get(id)
+      .then(res => {
+        return {
+          _id: res._id,
+          email: res.email,
+          name: {
+            given: res.name.given,
+            family: res.name.family
+          }
+        }
+      });
   }
 
   async patch (id, data, params) {

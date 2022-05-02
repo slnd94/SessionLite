@@ -23,10 +23,25 @@ exports.UserAccountVerification = class UserAccountVerification {
             // return only the user id
             return { _id: res._id };
           });
+        break;
       case 'verify':
-        return data;
+        if (data.key.toString() === params.user.verification.emailVerificationKey.toString()) {
+          // valid verification key
+          // update the user email verification
+          return this.app.service('users')
+            .patch(id, { verification: { emailVerificationKey: null, emailVerificationKeyExpiryDate: null, emailVerified: true }}, {})
+            .then(result => {
+              // return only the user id
+              return { _id: result._id, verified: true };
+            });
+        } else {
+          // invalid verification key
+          return { verified: false };
+        }
+        break;
       default:
         return data;
+        break;
     }
   }
 };

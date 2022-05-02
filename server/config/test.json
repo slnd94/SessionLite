@@ -9,5 +9,6 @@
   "emailSecretAccessKey": "emailSecretAccessKey",
   "emailRegion": "emailRegion",
   "emailSourceAddress": "emailSourceAddress",
-  "welcomeVerificationEmailTemplate": "welcomeVerificationEmailTemplate"
+  "welcomeVerificationEmailTemplate": "welcomeVerificationEmailTemplate",
+  "emailVerificationExpiryMinutes": "emailVerificationExpiryMinutes"
 }
