@@ -18,7 +18,9 @@ const keepFieldsExternal = [
   '_id',
   'name.family',
   'name.given',
-  'email'
+  'email',
+  'verification',
+  'locked'
 ]
 
 module.exports = {

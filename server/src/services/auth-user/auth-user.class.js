@@ -11,6 +11,7 @@ exports.AuthUser = class AuthUser {
   async find (params) {
     return {
       _id: params.user._id,
+      email: params.user.email,
       name: {
         given: params.user.name.given,
         family: params.user.name.family
