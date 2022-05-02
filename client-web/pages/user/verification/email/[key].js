@@ -47,7 +47,7 @@ export default function VerifyEmail() {
     <div className="row mt-3 mt-md-0 ms-md-3">
       {auth?.status === 'SIGNED_IN'
         ? <>
-            {verifiedStatus === 'SUCCESS'
+            {auth.user.isVerified
               ? <div className="col-md-8">
                   <Alert color="success" fade={false}>
                     {t(`user.account.verification.Your account has been verified`)}
