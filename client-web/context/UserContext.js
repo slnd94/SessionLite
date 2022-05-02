@@ -96,7 +96,29 @@ const verifyUserEmail = dispatch => async ({ id, key }) => {
   } catch (err) {
     dispatch({
       type: 'add_error',
-      payload: err?.response?.data?.message ? err.response.data.message :'Something went wrong with updating your profile'
+      payload: err?.response?.data?.message ? err.response.data.message :'Something went wrong with verifying your email'
+    });
+    return { success: false };
+  }
+};
+
+const setUserEmailVerification = dispatch => async ({ id }) => {
+  try {
+    const response = await api({
+      method: 'patch',
+      url: `${process.env.NEXT_PUBLIC_API_URL}/user-account-verification/${id}?verificationAction=set`,
+      params: {}
+    });
+    if (response.status >= 200 && response.status < 300) {
+      dispatch({ type: 'set_user_email_verification', payload: {}});
+      return { success: true, ...response.data };
+    } else {
+      throw response;
+    }
+  } catch (err) {
+    dispatch({
+      type: 'add_error',
+      payload: err?.response?.data?.message ? err.response.data.message :'Something went wrong with updating your email verification'
     });
     return { success: false };
   }
@@ -104,7 +126,7 @@ const verifyUserEmail = dispatch => async ({ id, key }) => {
 
 const { Provider, Context } = createDataContext(
   userReducer,
-  { updateUserProfile, updateUserAccount, verifyUserEmail, clearErrorMessage },
+  { updateUserProfile, updateUserAccount, verifyUserEmail, setUserEmailVerification, clearErrorMessage },
   { errorMessage: '' }
 );
 

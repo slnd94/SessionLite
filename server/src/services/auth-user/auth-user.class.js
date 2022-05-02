@@ -15,8 +15,8 @@ exports.AuthUser = class AuthUser {
         given: params.user.name.given,
         family: params.user.name.family
       },
-      emailVerified: params.user.verification.emailVerified,
-      locked: params.user.locked
+      isVerified: params.user.verification.emailVerified,
+      isLocked: params.user.locked
     }
   }
 };
