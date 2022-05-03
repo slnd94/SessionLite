@@ -25,8 +25,10 @@ const keepFieldsExternal = [
 
 module.exports = {
   before: {
-    all: [],
+    all: [
+    ],
     find: [
+      iff(isProvider('external'), disallow()),
       authenticate('jwt'),
       authorizeUserAdmin()
     ],
@@ -39,12 +41,14 @@ module.exports = {
       hashPassword('password'),  
     ],
     update: [ 
+      iff(isProvider('external'), disallow()),
       hashPassword('password'),  
       authenticate('jwt'), 
       protectUserSysAdminWrite(),
       protectUserVerificationWrite()
     ],
     patch: [
+      iff(isProvider('external'), disallow()),
       hashPassword('password'),
       authenticate('jwt'),
       protectUserSysAdminWrite(),
@@ -53,6 +57,7 @@ module.exports = {
       authorizeUserAdmin()
     ],
     remove: [ 
+      iff(isProvider('external'), disallow()),
       authenticate('jwt'),
       protectUserSysAdminWrite(),
       protectUserEmailWrite(),

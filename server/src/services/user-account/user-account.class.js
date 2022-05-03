@@ -57,7 +57,7 @@ exports.UserAccount = class UserAccount {
       };
 
       return this.app.service('users')
-        .patch(id, data, params)
+        .patch(id, data)
         .then(result => {
           // return only the user id
           return { _id: result._id };

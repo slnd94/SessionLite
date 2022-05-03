@@ -26,7 +26,7 @@ export default function VerifyEmail() {
         }
       });
     }
-    if(auth?.status === 'SIGNED_IN' && !auth?.user?.isVerified) {
+    if(auth?.status === 'SIGNED_IN' && !auth?.user?.isVerified && verifiedStatus === '') {
       setVerifiedStatus('VERIFYING')
       verifyUserEmail({
         id: auth.user._id,

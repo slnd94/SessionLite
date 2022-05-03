@@ -50,7 +50,7 @@ exports.UserAccountVerification = class UserAccountVerification {
           // valid verification key
           // update the user email verification
           return this.app.service('users')
-            .patch(id, { verification: { emailVerificationKey: null, emailVerificationKeyExpiryDate: null, emailVerified: true }}, {})
+            .patch(id, { verification: { emailVerificationKey: null, emailVerificationKeyExpiryDate: null, emailVerified: true }})
             .then(result => {
               // return only the user id
               return { _id: result._id, verified: true };
