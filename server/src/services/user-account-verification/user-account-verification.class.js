@@ -35,7 +35,7 @@ exports.UserAccountVerification = class UserAccountVerification {
                   appLogoUrl: `${this.app.get('appWebBaseUrl')}/images/siteLogoSmall.png`,
                   appPrimaryColor: this.app.get('appPrimaryColor'),
                   appName: this.app.get('appName'),
-                  emailVerificationUrl: `${this.app.get('appWebBaseUrl')}/verification/email/${emailVerificationData.emailVerificationKey}`,
+                  emailVerificationUrl: `${this.app.get('appWebBaseUrl')}/user/verification/email/${emailVerificationData.emailVerificationKey}`,
                   privacyPolicyUrl: this.app.get('privacyPolicyUrl')
                 }
               });
@@ -50,7 +50,7 @@ exports.UserAccountVerification = class UserAccountVerification {
           // valid verification key
           // update the user email verification
           return this.app.service('users')
-            .patch(id, { verification: { emailVerificationKey: null, emailVerificationKeyExpiryDate: null, emailVerified: true }}, {})
+            .patch(id, { verification: { emailVerificationKey: null, emailVerificationKeyExpiryDate: null, emailVerified: true }})
             .then(result => {
               // return only the user id
               return { _id: result._id, verified: true };
