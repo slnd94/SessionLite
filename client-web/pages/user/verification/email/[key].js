@@ -49,18 +49,20 @@ export default function VerifyEmail() {
         ? <>
             {auth.user.isVerified
               ? <div className="col-md-8">
-                  <Alert color="success" fade={false}>
+                  <h3 color="success" fade={false}>
                     {t(`user.account.verification.Your account has been verified`)}
-                  </Alert>
-                  <div><Link href="/user/profile">{t('auth.Your profile')}</Link></div>
+                  </h3>
+                  {t(`user.account.verification.Thanks for verifying your account. What would you like to do next?`)}
+                  <div><Link href="/user/profile">{t('user.Manage your profile')}</Link></div>
+                  <div><Link href="/">{t('Browse content')}</Link></div>
                 </div>
               : null
             }
             {verifiedStatus === 'FAILED'
               ? <div className="col-md-8">
-                  <Alert color="danger" fade={false}>
+                  <h3 color="danger" fade={false}>
                     {t(`user.account.verification.Your account could not be verified`)}
-                  </Alert>
+                  </h3>
                   <div className="mt-4">                    
                     {t('user.account.verification.The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.')}
                   </div>
@@ -79,8 +81,8 @@ export default function VerifyEmail() {
                   </Button>
 
                   {verificationResentSuccess
-                    ? <Alert color="success" fade={false}>
-                      {t(`user.Verification mail re-sent. Check your email for the new link.`)}
+                    ? <Alert className="mt-4" color="success" fade={false}>
+                      {t(`user.account.verification.Verification mail re-sent. Check your email for the new link.`)}
                     </Alert>
                     : null
                   }
