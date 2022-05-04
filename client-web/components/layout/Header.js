@@ -37,13 +37,13 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
   return (
     <div>
       <Navbar className="navbar-dark bg-primary" color="faded" expand="sm">
-        <NavbarToggler onClick={toggle} />
         <NavbarBrand href="/" className="mr-auto">
           <Image src="/images/siteLogoSmall.png" alt={brandName} width={160} height={20} />
         </NavbarBrand>
+        <NavbarToggler onClick={toggle} />
         {processing
           ? <Loader />
-          : <Collapse isOpen={isOpen} navbar>
+          : <Collapse isOpen={isOpen} navbar className="justify-content-sm-end">
             <Nav navbar>
               {auth?.status === 'SIGNED_IN'
                 ?  
