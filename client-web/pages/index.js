@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <h1 className="title">
-        {t('index.Welcome to the application')}  
+        {t('index.Welcome to')}&nbsp;{process.env.NEXT_APP_NAME}
       </h1>
 
       <p>

@@ -20,7 +20,8 @@
   "Confirm": "Confirm",
   "Browse content": "Browse content",
   "index": {
-    "Welcome to the application": "Welcome to the application (translated)"
+    "Welcome to the application": "Welcome to the application (translated)",
+    "Welcome to": "Welcome to"
   },
   "auth": {
     "Sign up": "Sign up",
