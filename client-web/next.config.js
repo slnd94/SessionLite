@@ -8,7 +8,7 @@ module.exports = {
   },
   env: {
     NEXT_PUBLIC_API_URL: process.env.API_BASE_URL,
-    NEXT_APP_NAME: process.env.NEXT_APP_NAME
+    NEXT_APP_NAME: process.env.APP_NAME
   },
   i18n
 }
