@@ -40,13 +40,15 @@
     "Last name is required": "Last name is required",
     "There was a problem with your sign up": "There was a problem with your sign up",
     "You have successfully signed up": "You have successfully signed up",
+    "Thanks for signing up": "Thanks for signing up",
     "There was a problem with your sign in": "There was a problem with your sign in",
-    "You have successfully signed in": "You have successfully signed in",
-    "You have successfully signed out": "You have successfully signed out",
+    "You are signed in": "You are signed in",
+    "You are signed out": "You are signed out",
     "Already have an account?": "Already have an account?",
     "Need an account?": "Need an account?",
     "Verify Your Email Address": "Verify Your Email Address",
-    "Your profile": "Your profile"
+    "Your profile": "Your profile",
+    "What's next?": "What's next?"
   },
   "user": {
     "User": "User",
@@ -75,12 +77,13 @@
     "Invalid current password": "Invalid current password",
     "account": {
       "verification": {
+        "We will need to verify your account. You should receive an email with a verification link.": "We will need to verify your account. You should receive an email with a verification link.",
         "Your account has been verified": "Your account has been verified",
         "Your account could not be verified": "Your account could not be verified",
         "The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.": "The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.",
         "Send me a new email": "Send me a new email",
         "Verification mail re-sent. Check your email for the new link.": "Verification mail re-sent. Check your email for the new link.",
-        "Thanks for verifying your account. What would you like to do next?": "Thanks for verifying your account. What would you like to do next?"
+        "Thanks for verifying your account. What's next?": "Thanks for verifying your account. What's next?"
       }
     },    
     "Save": "Save",
