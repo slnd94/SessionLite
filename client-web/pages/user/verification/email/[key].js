@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import { Context as AuthContext } from '../../../../context/AuthContext';
 import { Context as UserContext } from '../../../../context/UserContext';
-import styles from '../../../../styles/Signedin.module.scss'
+import styles from '../../../../styles/User.module.scss'
+import IconText from '../../../../components/IconText';
 import Link from 'next/link';
 import { Alert, Button } from 'reactstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -49,18 +50,23 @@ export default function VerifyEmail() {
         ? <>
             {auth.user.isVerified
               ? <div className="col-md-8">
-                  <h3 color="success" fade={false}>
+                  <h4 color="success" fade={false}>
                     {t(`user.account.verification.Your account has been verified`)}
-                  </h3>
-                  {t(`user.account.verification.Thanks for verifying your account. What would you like to do next?`)}
-                  <div><Link href="/user/profile">{t('user.Manage your profile')}</Link></div>
-                  <div><Link href="/">{t('Browse content')}</Link></div>
+                  </h4>
+                  <h6>
+                    {t(`auth.What's next?`)}
+                  </h6>
+                  <p>
+                    <Link href="/user/profile">{t('user.Manage your profile')}</Link><br />
+                    <Link href="/">{t('Browse content')}</Link>
+                  </p>
                 </div>
               : null
             }
             {verifiedStatus === 'FAILED'
               ? <div className="col-md-8">
                   <h3 color="danger" fade={false}>
+                    
                     {t(`user.account.verification.Your account could not be verified`)}
                   </h3>
                   <div className="mt-4">                    
@@ -90,12 +96,7 @@ export default function VerifyEmail() {
               : null
             }
           </>
-        : (auth?.status === 'SIGNED_OUT'
-          ? <>
-              <Link href="/auth/signin">{t('auth.Sign in')}</Link>
-            </>
-          : <></>             
-        )
+        : <></>
       }      
     </div>
   )

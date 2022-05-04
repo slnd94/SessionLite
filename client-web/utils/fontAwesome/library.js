@@ -11,6 +11,7 @@ import faEdit from '@fortawesome/fontawesome-free-solid/faEdit';
 import faChartBar from '@fortawesome/fontawesome-free-solid/faChartBar';
 import faBoxOpen from '@fortawesome/fontawesome-free-solid/faBoxOpen';
 import faCalendarAlt from '@fortawesome/fontawesome-free-regular/faCalendarAlt';
+import faCheckCircle from '@fortawesome/fontawesome-free-solid/faCheckCircle';
 
 fontawesome.library.add(
   faSearch,
@@ -23,5 +24,6 @@ fontawesome.library.add(
   faEdit,
   faChartBar,
   faBoxOpen,
-  faCalendarAlt
+  faCalendarAlt,
+  faCheckCircle
 );
