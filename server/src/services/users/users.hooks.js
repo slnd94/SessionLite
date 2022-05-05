@@ -19,7 +19,7 @@ const keepFieldsExternal = [
   'name.family',
   'name.given',
   'email',
-  'verification',
+  'verification.emailVerified',
   'locked'
 ]
 

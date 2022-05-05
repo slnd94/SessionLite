@@ -32,16 +32,9 @@ exports.UserAccount = class UserAccount {
           });
 
         // authenticate the user so we can send them an access token
-        return this.app.service('authentication').create({...data, strategy: 'local'}).then(res => {   
+        return this.app.service('authentication').create({...data, strategy: 'local'}).then(res => {
           return {
-            user: {
-              _id: res.user._id,
-              email: res.user.email,
-              name: {                
-                given: res.user.name.given,
-                family: res.user.name.family
-              }
-            },
+            user: res.user,
             accessToken: res.accessToken
           };
         });
