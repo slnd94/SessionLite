@@ -5,6 +5,7 @@ import { Context as UserContext } from '../../context/UserContext';
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link';
 import { Alert } from 'reactstrap';
+import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import api from '../../utils/api';
@@ -71,6 +72,9 @@ export default function Profile() {
                       setProcessing(true);
                       const request = await updateUserProfile({ ...data, id: auth.user._id });
                       if(request.success) {
+                        toast(t(`user.User profile updated`), {
+                          type: 'success'
+                        });
                         // update the auth context, since user object likely needs update
                         getAuth();
 
@@ -91,12 +95,6 @@ export default function Profile() {
                     </>
                   : <></>             
                 )
-              }
-              {success
-                ? <Alert color="success" fade={false}>
-                  {t(`user.User profile updated`)}
-                </Alert>
-                : null
               }
               {errorMessage?.length
                 ? <Alert color="danger" fade={false}>

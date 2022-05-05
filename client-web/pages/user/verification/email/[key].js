@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react'
 import { Context as AuthContext } from '../../../../context/AuthContext';
 import { Context as UserContext } from '../../../../context/UserContext';
 import styles from '../../../../styles/User.module.scss'
-import IconText from '../../../../components/IconText';
 import Link from 'next/link';
 import { Alert, Button } from 'reactstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
