@@ -50,6 +50,11 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                 <UncontrolledDropdown nav>
                   <DropdownToggle nav>
                     <IconText
+                      className="d-none d-sm-inline"
+                      icon={'user'}
+                    />
+                    <IconText
+                      className="d-inline d-sm-none"
                       icon={'user'}
                       text={getFullName(auth.user.name)}
                     />

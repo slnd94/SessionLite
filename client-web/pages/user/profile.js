@@ -72,20 +72,17 @@ export default function Profile() {
                       setProcessing(true);
                       const request = await updateUserProfile({ ...data, id: auth.user._id });
                       if(request.success) {
+                        // update the auth context, since user object likely needs update
+                        getAuth();
+                        // remove processing loader
+                        setProcessing(false);
+                        // notify user
                         toast(t(`user.User profile updated`), {
                           type: 'success'
                         });
-                        // update the auth context, since user object likely needs update
-                        getAuth();
-
-                        setProcessing(false);
-                        setSuccess(true);
-                        setTimeout(() => {
-                          setSuccess(false);
-                        }, 3000)
                       } else {
+                        // remove preocessing loader
                         setProcessing(false);
-                        setSuccess(false);
                       }
                     }}
                   />

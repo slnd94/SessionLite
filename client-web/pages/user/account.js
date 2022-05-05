@@ -35,11 +35,14 @@ export default function Profile() {
                       setProcessing(true);
                       const request = await updateUserAccount({ ...data, id: auth.user._id });
                       if(request.success) {
+                        // remove processing loader
+                        setProcessing(false);
+                        // notify user
                         toast(t(`user.User account updated`), {
                           type: 'success'
                         });
-                        setProcessing(false);
                       } else {
+                        // remove processing loader
                         setProcessing(false);
                       }
                     }}
