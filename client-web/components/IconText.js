@@ -5,7 +5,7 @@ import { icons, FontAwesomeIcon } from '../utils/fontAwesome/fontAwesome';
 const IconText = props => {
   return (
     <div
-      className={'icon-text'}
+      className={`icon-text ${props.className}`}
       style={{...props.style, whiteSpace: 'nowrap', display: 'inline-block'}}
     >
       {props.icon &&
