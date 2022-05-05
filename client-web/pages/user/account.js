@@ -5,6 +5,7 @@ import { Context as UserContext } from '../../context/UserContext';
 import { useState, useContext, useEffect } from 'react'
 import Link from 'next/link';
 import { Alert } from 'reactstrap';
+import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import styles from '../../styles/User.module.scss'
@@ -14,7 +15,6 @@ export default function Profile() {
   const { state: { auth } } = useContext(AuthContext);
   const { state: { errorMessage }, updateUserAccount, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
   const [ processing, setProcessing ] = useState(false);
-  const [ success, setSuccess ] = useState(false);
 
   useEffect(() => {   
     clearUserErrorMessage();
@@ -35,14 +35,12 @@ export default function Profile() {
                       setProcessing(true);
                       const request = await updateUserAccount({ ...data, id: auth.user._id });
                       if(request.success) {
+                        toast(t(`user.User account updated`), {
+                          type: 'success'
+                        });
                         setProcessing(false);
-                        setSuccess(true);
-                        setTimeout(() => {
-                          setSuccess(false);
-                      }, 3000)
                       } else {
                         setProcessing(false);
-                        setSuccess(false);
                       }
                     }}
                   />
@@ -52,12 +50,6 @@ export default function Profile() {
                     </>
                   : <></>             
                 )
-              }
-              {success
-                ? <Alert color="success" fade={false}>
-                  {t(`user.User account updated`)}
-                </Alert>
-                : null
               }
               {errorMessage?.length
                 ? <Alert color="danger" fade={false}>
