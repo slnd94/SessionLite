@@ -4,6 +4,7 @@
 // for more of what you can do here.
 
 const name = require('./name.model');
+const userCartEntry = require('./userCartEntry.model');
 
 module.exports = function (app) {
   const modelName = 'users';
@@ -11,20 +12,16 @@ module.exports = function (app) {
   const schema = new mongooseClient.Schema({
   
     email: { type: String, unique: true, lowercase: true },
-    password: { type: String },
-  
+    password: { type: String },  
     name: { type: name },
-
     locked: { type: Boolean, default: false },
-
     verification: {
       emailVerified: { type: Boolean, default: false },
       emailVerificationKey: { type: String, required: false },
       emailVerificationKeyExpiryDate: { type: Date, required: false }
-    },
-    
-    sysAdmin: { type: Boolean, default: false }  
-  
+    },    
+    sysAdmin: { type: Boolean, default: false },
+    cart: [{ type: userCartEntry }]  
   }, {
     timestamps: true
   });

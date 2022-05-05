@@ -13,7 +13,7 @@ module.exports = function (app) {
     name: { type: String, required: true },
     description: { type: String },
     features: [{ type: String }],
-    prices: [{ type: amount, required: true }],
+    prices: { type: Object, required: true },
     releaseStatus: {
       type: Number,
       min: 0,
