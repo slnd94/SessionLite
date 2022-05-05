@@ -34,7 +34,6 @@ exports.UserCarts = class UserCarts {
           ]
         }
       });
-      console.log("🚀 ~ file: user-carts.class.js ~ line 25 ~ UserCarts ~ get ~ user", user)
 
     const subtotal = {
       cents: user.cart.reduce((a, b) => +a + +b.product.prices[userCurrencyCode], 0),
