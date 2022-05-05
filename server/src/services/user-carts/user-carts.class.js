@@ -34,9 +34,10 @@ exports.UserCarts = class UserCarts {
           ]
         }
       });
+      console.log("🚀 ~ file: user-carts.class.js ~ line 25 ~ UserCarts ~ get ~ user", user)
 
     const subtotal = {
-      cents: user.cart.reduce((a, b) => +a + +b.product.prices[userCurrencyCode].cents, 0),
+      cents: user.cart.reduce((a, b) => +a + +b.product.prices[userCurrencyCode], 0),
       currencyCode: userCurrencyCode
     };
     const taxes = userTaxes.map(tax => 
@@ -84,7 +85,7 @@ exports.UserCarts = class UserCarts {
           }
         });
 
-      if (!product.prices[userCurrencyCode]?.cents) {
+      if (!product.prices[userCurrencyCode]) {
         // product is not eligible because there is no price available
         return Promise.reject(new errors.BadRequest(errorMessages.badRequest));
       }
