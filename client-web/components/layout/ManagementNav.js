@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import {
   Nav,
-  NavItem
+  NavItem,
+  Badge
 } from 'reactstrap';
 import IconText from '../IconText';
 
@@ -24,6 +25,10 @@ export default function Layout({ prefix, subRoutes }) {
                   icon={subRoute.icon}
                   text={t(`${prefix}.${subRoute.labelTabs}`)}
                 />
+                {subRoute.badge
+                  ? <Badge pill color={`${currentPath === ('/' + prefix + '/' + subRoute.slug) ? 'secondary' : 'light'}`} style={{}}>{subRoute.badge}</Badge>
+                  : <></>
+                }
               </a>
             </Link>
           </NavItem>
@@ -39,6 +44,10 @@ export default function Layout({ prefix, subRoutes }) {
                   icon={subRoute.icon}
                   text={t(`${prefix}.${subRoute.labelPills}`)}
                 />
+                {subRoute.badge
+                  ? <Badge pill color={`${currentPath === ('/' + prefix + '/' + subRoute.slug) ? 'secondary' : 'light'}`} style={{float:'right', marginTop: '2px'}}>{subRoute.badge}</Badge>
+                  : <></>
+                }
               </a>
             </Link>
           </NavItem>
