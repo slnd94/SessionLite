@@ -54,9 +54,9 @@ exports.UserCarts = class UserCarts {
     };
 
     return {
-      subtotal: subtotal,
-      taxes: taxes,
-      total: total,
+      subtotal,
+      taxes,
+      total,
       items: user.cart.sort((a, b) => a.product.name > b.product.name)
     };
   }
