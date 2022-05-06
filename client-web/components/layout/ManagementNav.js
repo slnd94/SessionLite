@@ -22,7 +22,7 @@ export default function Layout({ prefix, subRoutes }) {
               <a className={`nav-link ${currentPath === ('/' + prefix + '/' + subRoute.slug) ? 'active' : ''}`}>
                 <IconText
                   icon={subRoute.icon}
-                  text={t(`${prefix}.${subRoute.label}`)}
+                  text={t(`${prefix}.${subRoute.labelTabs}`)}
                 />
               </a>
             </Link>
@@ -37,7 +37,7 @@ export default function Layout({ prefix, subRoutes }) {
               <a className={`nav-link ${currentPath === ('/' + prefix + '/' + subRoute.slug) ? 'active' : ''}`}>
                 <IconText
                   icon={subRoute.icon}
-                  text={t(`${prefix}.${subRoute.label}`)}
+                  text={t(`${prefix}.${subRoute.labelPills}`)}
                 />
               </a>
             </Link>

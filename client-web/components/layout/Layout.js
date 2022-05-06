@@ -2,16 +2,24 @@ import Header from './Header'
 import Footer from './Footer'
 import Head from 'next/head'
 import { Context as AuthContext } from '../../context/AuthContext';
+import { Context as UserContext } from '../../context/UserContext';
 import { useEffect, useContext } from 'react'
 import { ToastContainer, Slide } from 'react-toastify';
 import styles from '../../styles/Layout.module.scss'
 
 export default function Layout({ children, brandName }) {
-  const { state: { errorMessage }, getAuth } = useContext(AuthContext);
+  const { state: { auth, errorMessage }, getAuth } = useContext(AuthContext);
+  const { getUserCart } = useContext(UserContext);
   
   useEffect(() => {
     getAuth();
   }, []);
+  
+  useEffect(() => {
+    if(auth?.status === 'SIGNED_IN') {
+      getUserCart({ id: auth.user._id });
+    }
+  }, [auth]);
 
   return (    
     <div className={styles.container}> 

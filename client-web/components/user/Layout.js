@@ -14,17 +14,20 @@ export default function Layout({ children, activeTab}) {
     {
       slug: 'profile',
       icon: 'profile',
-      label: 'Profile'
+      labelPills: t('user.Your Profile'),
+      labelTabs: t('Profile')
     },
     {
       slug: 'account',
       icon: 'account',
-      label: 'Account'
+      labelPills: t('Your Account'),
+      labelTabs: t('Account')
     },
     {
       slug: 'cart',
       icon: 'cart',
-      label: 'Cart'
+      labelPills: t('Your Cart'),
+      labelTabs: t('Cart')
     }
   ];
 
