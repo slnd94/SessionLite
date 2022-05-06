@@ -91,7 +91,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                 <NavItem>
                   <Link href="/user/cart" passHref>  
                     <NavLink>
-                      {cart?.items?.length &&
+                      {cart?.items?.length > 0 &&
                         <Badge color="info" pill style={{float:'right', marginTop: '-10px'}}>{cart.items.length}</Badge>
                       }
                       <IconText

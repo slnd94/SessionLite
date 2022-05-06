@@ -30,7 +30,7 @@ export default function Layout({ children, activeTab}) {
       icon: 'cart',
       labelPills: t('Your Cart'),
       labelTabs: t('Cart'),
-      badge: cart.items.length || false
+      badge: cart?.items.length || false
     }
   ];
 
