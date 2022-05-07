@@ -35,8 +35,10 @@ exports.UserCarts = class UserCarts {
         }
       });
 
+    const cart = user.cart || [];
+
     const subtotal = {
-      cents: user.cart.reduce((a, b) => +a + +b.product.prices[userCurrencyCode], 0),
+      cents: cart.reduce((a, b) => +a + +b.product.prices[userCurrencyCode], 0),
       currencyCode: userCurrencyCode
     };
     const taxes = userTaxes.map(tax => 
@@ -57,7 +59,7 @@ exports.UserCarts = class UserCarts {
       subtotal,
       taxes,
       total,
-      items: user.cart.sort((a, b) => a.product.name > b.product.name)
+      items: cart.sort((a, b) => a.product.name > b.product.name)
     };
   }
 

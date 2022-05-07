@@ -15,6 +15,10 @@ const userReducer = (state, action) => {
         ...state,
         errorMessage: ''
       };
+    case 'clear_user':
+      return {
+        errorMessage: ''
+      };
     case 'add_error':
       return { ...state, errorMessage: action.payload };
     case 'clear_error_message':
@@ -136,13 +140,18 @@ const getUserCart = dispatch => async ({ id }) => {
   }
 };
 
+const clearUser = dispatch => async () => {
+  dispatch({ type: 'clear_user' });
+  return { success: true };
+};
+
 const clearErrorMessage = dispatch => () => {
   dispatch({ type: 'clear_error_message' });
 };
 
 const { Provider, Context } = createDataContext(
   userReducer,
-  { updateUserProfile, updateUserAccount, verifyUserEmail, setUserEmailVerification, getUserCart, clearErrorMessage },
+  { updateUserProfile, updateUserAccount, verifyUserEmail, setUserEmailVerification, getUserCart, clearUser, clearErrorMessage },
   { errorMessage: '' }
 );
 

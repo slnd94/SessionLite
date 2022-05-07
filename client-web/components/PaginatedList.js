@@ -24,7 +24,7 @@ const shouldShowPaginationBottom = ({ items, itemsPerPage, hidePaginationForSing
 
 
 const PaginatedList = props => {
-  const [ pageNumber, setPageNumber ] = useState(false);
+  const [ pageNumber, setPageNumber ] = useState(0);
   const {
     items,
     itemPropName,
