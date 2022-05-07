@@ -16,8 +16,8 @@ const Pagination = props => {
         pageCount={pageCount}
         marginPagesDisplayed={1}
         pageRangeDisplayed={4}
-        initialPage={0}
-        containerClassName={'pagination'}
+        // initialPage={0}
+        containerClassName={`pagination ${props.customContainerClass}`}
         subContainerClassName={'pages pagination'}
         pageClassName={'page-item'}
         pageLinkClassName={'page-link'}
@@ -35,12 +35,11 @@ const Pagination = props => {
   );
 };
 
-Pagination.propTypes = {
-  icon: PropTypes.string,
-  iconContainerClass: PropTypes.string,
-  text: PropTypes.string,
-  textContainerClass: PropTypes.string,
-  style: PropTypes.object
+Pagination.propTypes = {  
+  pageCount: PropTypes.number,
+  forcePage: PropTypes.number,
+  onPageChange: PropTypes.func,
+  t: PropTypes.func
 };
 
 export default Pagination;

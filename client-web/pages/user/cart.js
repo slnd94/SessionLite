@@ -6,7 +6,7 @@ import PaginatedList from '../../components/PaginatedList';
 import UserCartItem from '../../components/user/UserCartItem';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import styles from '../../styles/Layout.module.scss'
+import styles from '../../styles/User.module.scss'
 
 export default function Cart() {
   const { t } = useTranslation('common');
@@ -24,7 +24,7 @@ export default function Cart() {
       <Layout>
         <div>
           <div className="row mt-3 mt-md-0 ms-md-3">
-            <div className="col-md-8">
+            <div className="col-md-10 section-box">
               <h5 className={'title'}>{t('user.Your Cart')}</h5>
               <PaginatedList
                 items={cart?.items.length ? cart.items.map(item => item) : []}
@@ -34,9 +34,9 @@ export default function Cart() {
                 }}
                 itemPropName={'item'}
                 itemsListedName={t('product.products')}
-                itemsPerPage={3}
+                itemsPerPage={5}
                 showPaginationTop
-                // showPaginationBottom
+                showPaginationBottom
                 hidePaginationForSinglePage
                 requestingItems={requestingCart}
                 itemNavRoute={'/products'}

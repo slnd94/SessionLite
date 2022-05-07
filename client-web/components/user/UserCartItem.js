@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 
 const UserCartItem = ({ item }) => {
   return (
-    <div>
-      {item.product.name}
+    <div className="list-item-box">
+      <h5>{item.product.name}</h5>
+      <p>{item.product.description}</p>
     </div>
   );
 };

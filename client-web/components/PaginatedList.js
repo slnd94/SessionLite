@@ -4,8 +4,6 @@ import ReactPaginate from 'react-paginate';
 import Pagination from './Pagination'
 import Loader from './Loader';
 
-
-
 const shouldShowPagination = ({ items, itemsPerPage, hidePaginationForSinglePage }) => {
   let total;
   if(Array.isArray(items)) {
@@ -64,6 +62,7 @@ const PaginatedList = props => {
             ? <Pagination
                 pageCount={renderItems.total ? Math.ceil(renderItems.total / itemsPerPage) : 0}
                 forcePage={pageNumber}
+                customContainerClass="pagination-top"
                 onPageChange={page => {
                   setPageNumber(page.selected)
                   if(props.requestItemsFunc) {
@@ -101,6 +100,7 @@ const PaginatedList = props => {
             ? <Pagination
                 pageCount={renderItems.total ? Math.ceil(renderItems.total / itemsPerPage) : 0}
                 forcePage={pageNumber}
+                customContainerClass="pagination-bottom"
                 onPageChange={page => {
                   setPageNumber(page.selected)
                   if(props.requestItemsFunc) {
@@ -120,11 +120,36 @@ const PaginatedList = props => {
 };
 
 PaginatedList.propTypes = {
-  icon: PropTypes.string,
-  iconContainerClass: PropTypes.string,
-  text: PropTypes.string,
-  textContainerClass: PropTypes.string,
-  style: PropTypes.object
+  items: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
+  itemComponent: PropTypes.func,
+  itemComponentCustomProps: PropTypes.object,
+  itemPropName: PropTypes.string,
+  itemsListedName: PropTypes.string,
+  requestItemsFunc: PropTypes.func,
+  requestingItems: PropTypes.bool,
+  itemsPerPage: PropTypes.number,
+  itemOnClick: PropTypes.func,
+  itemNavRoute: PropTypes.string,
+  showLink: PropTypes.bool,
+  showPaginationTop: PropTypes.bool,
+  showPaginationBottom: PropTypes.bool,
+  hidePaginationForSinglePage: PropTypes.bool,
+  history: PropTypes.object,
+  t: PropTypes.func,
+  onRef: PropTypes.func
+};
+
+PaginatedList.defaultProps = { 
+  items: {},
+  showPaginationTop: false,
+  showPaginationBottom: true,
+  itemsPerPage: 5,
+  itemComponentCustomProps: {},
+  showLink: true,
+  hidePaginationForSinglePage: true
 };
 
 export default PaginatedList;
