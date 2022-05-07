@@ -21,25 +21,28 @@ export default function Signup() {
   return (
     <>
       {auth?.status === 'SIGNED_OUT'
-        ? <div className="row">
+        ? <div className="row mt-4">
             <div className="col-12 col-sm-6">
-              {errorMessage
-                ? <Alert color="danger">
-                  {t(`auth.There was a problem with your sign in`)}
-                </Alert>
-                : null
-              }
-              <SignUpForm
-                processing={processing}
-                onSubmit={async (data) => {
-                  setProcessing(true);
-                  const request = await signup(data);
-                  setProcessing(false);
-                }}
-              />
-              <div style={{marginTop: '10px'}}>
-                <span style={{marginRight: '10px'}}>{t(`auth.Already have an account?`)}</span>
-                <Link href="/auth/signin">{t('auth.Sign in')}</Link>
+              <div className="section-box">
+                <h5 className={'title'}>{t('auth.Sign Up')}</h5>
+                {errorMessage
+                  ? <Alert color="danger">
+                    {t(`auth.There was a problem with your sign in`)}
+                  </Alert>
+                  : null
+                }
+                <SignUpForm
+                  processing={processing}
+                  onSubmit={async (data) => {
+                    setProcessing(true);
+                    const request = await signup(data);
+                    setProcessing(false);
+                  }}
+                />
+                <div className="mt-4">
+                  <span style={{marginRight: '10px'}}>{t(`auth.Already have an account?`)}</span>
+                  <Link href="/auth/signin">{t('auth.Sign in')}</Link>
+                </div>
               </div>
             </div>
             <div className="col-sm-6 d-none d-sm-block">

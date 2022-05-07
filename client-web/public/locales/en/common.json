@@ -24,8 +24,11 @@
     "Welcome to": "Welcome to"
   },
   "auth": {
+    "Sign Up": "Sign Up",
     "Sign up": "Sign up",
+    "Sign In": "Sign In",
     "Sign in": "Sign in",
+    "Sign Out": "Sign Out",
     "Sign out": "Sign out",
     "Email": "Email",
     "Password": "Password", 

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context as AuthContext } from '../../context/AuthContext';
+import { Context as UserContext } from '../../context/UserContext';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -10,6 +11,7 @@ import {
   Nav,
   NavLink,
   NavItem,
+  Badge,
   // NavbarText,
   UncontrolledDropdown,
   DropdownToggle,
@@ -25,6 +27,7 @@ import { useRouter } from 'next/router';
 
 function Header({ brandName, requestLogout, openLogin, openSignup }) { 
   const { state: { auth } } = useContext(AuthContext);
+  const { state: { cart } } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false)
   const [processing, setProcessing] = useState(false)
   const { t } = useTranslation('common');
@@ -47,6 +50,7 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
             <Nav navbar>
               {auth?.status === 'SIGNED_IN'
                 ?  
+                <>
                 <UncontrolledDropdown nav>
                   <DropdownToggle nav>
                     <IconText
@@ -83,6 +87,26 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
                     </Link>
                   </DropdownMenu>
                 </UncontrolledDropdown>
+
+                <NavItem>
+                  <Link href="/user/cart" passHref>  
+                    <NavLink>
+                      {cart?.items?.length > 0 &&
+                        <Badge color="info" pill style={{float:'right', marginTop: '-10px'}}>{cart.items.length}</Badge>
+                      }
+                      <IconText
+                        className="d-none d-sm-inline"
+                        icon={'cart'}
+                      />
+                      <IconText
+                        className="d-inline d-sm-none"
+                        icon={'cart'}
+                        text={t('user.Your Cart')}
+                      />
+                    </NavLink>
+                  </Link>
+                </NavItem>
+                </>
                 : (auth?.status === 'SIGNED_OUT'
                   ? <NavItem>
                       <Link href="/auth/signin" passHref>  

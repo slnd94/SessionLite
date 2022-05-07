@@ -1,0 +1,39 @@
+
+// Pagination
+.pagination {
+  float: right;
+  &.pagination-top {
+    margin-top: -64px;
+  }
+
+  .break {
+    margin: 0 .5rem;
+    font-size: 1.2rem;
+  }
+  .page-item {
+    cursor: pointer;
+    .page-link {
+      background-color: $white;
+      color: $dark;
+      border-color: $white;
+      &:focus {
+        box-shadow: 0 0 0 0;
+      }
+    }
+    &.active {
+      .page-link {
+        // border-color: $dark;
+        background-color: $dark;
+        color: $white;
+      }
+    }
+    &.disabled {
+      cursor: default;
+      .page-link {
+        // background-color: $lighter;
+        color: $light;
+      }
+    }
+  }
+}
+

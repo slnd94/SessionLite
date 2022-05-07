@@ -23,32 +23,35 @@ export default function Signin() {
   return (
     <>
       {auth?.status === 'SIGNED_OUT'
-        ? <div className="row">
+        ? <div className="row mt-4">
             <div className="col-12 col-sm-6">
-              {errorMessage
-                ? <Alert color="danger">
-                  {t(`auth.There was a problem with your sign in`)}
-                </Alert>
-                : null
-              }
-              <SignInForm 
-                processing={processing}
-                onSubmit={async (data) => {
-                  setProcessing(true);
-                  const request = await signin(data);
-                  if(request.success) {
-                    setProcessing(false);
-                    if (redirect) {
-                      router.push({ pathname: redirect, query: redirectQuery || {} });
+              <div className="section-box">
+                <h5 className={'title'}>{t('auth.Sign In')}</h5>
+                {errorMessage
+                  ? <Alert color="danger">
+                    {t(`auth.There was a problem with your sign in`)}
+                  </Alert>
+                  : null
+                }
+                <SignInForm 
+                  processing={processing}
+                  onSubmit={async (data) => {
+                    setProcessing(true);
+                    const request = await signin(data);
+                    if(request.success) {
+                      setProcessing(false);
+                      if (redirect) {
+                        router.push({ pathname: redirect, query: redirectQuery || {} });
+                      }
+                    } else {
+                      setProcessing(false);
                     }
-                  } else {
-                    setProcessing(false);
-                  }
-                }}
-              />
-              <div style={{marginTop: '10px'}}>
-                <span style={{marginRight: '10px'}}>{t(`auth.Need an account?`)}</span>
-                <Link href="/auth/signup">{t('auth.Sign up')}</Link>
+                  }}
+                />
+                <div className="mt-4">
+                  <span style={{marginRight: '10px'}}>{t(`auth.Need an account?`)}</span>
+                  <Link href="/auth/signup">{t('auth.Sign up')}</Link>
+                </div>
               </div>
             </div>
             <div className="col-sm-6 d-none d-sm-block">

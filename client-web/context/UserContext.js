@@ -3,8 +3,8 @@ import api from '../utils/api';
 
 const userReducer = (state, action) => {
   switch (action.type) {
-    case 'add_error':
-      return { ...state, errorMessage: action.payload };
+    case 'get_user_cart':
+      return { ...state, ...action.payload };
     case 'update_user_profile':
       return {
         ...state,
@@ -15,15 +15,17 @@ const userReducer = (state, action) => {
         ...state,
         errorMessage: ''
       };
+    case 'clear_user':
+      return {
+        errorMessage: ''
+      };
+    case 'add_error':
+      return { ...state, errorMessage: action.payload };
     case 'clear_error_message':
       return { ...state, errorMessage: '' };
     default:
       return state;
   }
-};
-
-const clearErrorMessage = dispatch => () => {
-  dispatch({ type: 'clear_error_message' });
 };
 
 const updateUserProfile = dispatch => async ({ firstName, lastName, id }) => {
@@ -124,9 +126,32 @@ const setUserEmailVerification = dispatch => async ({ id }) => {
   }
 };
 
+const getUserCart = dispatch => async ({ id }) => {
+  const response = await api({ 
+    method: 'get',
+    url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${id}`
+  });
+
+  if (response.status >= 200 && response.status < 300) {
+    dispatch({ type: 'get_user_cart', payload: { cart: response.data, itemCount: response.data.items.length }});
+    return { success: true };
+  } else {
+    return { success: false };
+  }
+};
+
+const clearUser = dispatch => async () => {
+  dispatch({ type: 'clear_user' });
+  return { success: true };
+};
+
+const clearErrorMessage = dispatch => () => {
+  dispatch({ type: 'clear_error_message' });
+};
+
 const { Provider, Context } = createDataContext(
   userReducer,
-  { updateUserProfile, updateUserAccount, verifyUserEmail, setUserEmailVerification, clearErrorMessage },
+  { updateUserProfile, updateUserAccount, verifyUserEmail, setUserEmailVerification, getUserCart, clearUser, clearErrorMessage },
   { errorMessage: '' }
 );
 

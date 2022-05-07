@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { Context as AuthContext } from '../../context/AuthContext';
+import { Context as UserContext } from '../../context/UserContext';
 import styles from '../../styles/Signout.module.scss'
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -8,10 +9,12 @@ import { useTranslation } from 'next-i18next';
 export default function SignOut() {
   const { t } = useTranslation('common');
   const {state: { auth }, signout, clearErrorMessage: clearAuthErrorMessage } = useContext(AuthContext);
+  const { clearUser } = useContext(UserContext);
 
   useEffect(() => {
     clearAuthErrorMessage();
-    signout()
+    signout();
+    clearUser();
   }, []);
 
   return (

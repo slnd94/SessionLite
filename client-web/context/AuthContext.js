@@ -6,8 +6,6 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case 'get_auth':
       return { ...state, auth: action.payload };
-    case 'add_error':
-      return { ...state, errorMessage: action.payload };
     case 'signup':
       return {
         ...state,
@@ -20,17 +18,15 @@ const authReducer = (state, action) => {
         errorMessage: '',
         auth: action.payload.auth
       };
-    case 'clear_error_message':
-      return { ...state, errorMessage: '' };
     case 'signout':
       return { ...state, errorMessage: '', auth: { status: 'SIGNED_OUT', user: null } };
+    case 'add_error':
+      return { ...state, errorMessage: action.payload };
+    case 'clear_error_message':
+      return { ...state, errorMessage: '' };
     default:
       return state;
   }
-};
-
-const clearErrorMessage = dispatch => () => {
-  dispatch({ type: 'clear_error_message' });
 };
 
 const getAuth = dispatch => async () => {
@@ -135,6 +131,10 @@ const signout = dispatch => async () => {
   destroyCookie(null, 'accessToken', { path: '/' })
   dispatch({ type: 'signout' });
   return { success: true };
+};
+
+const clearErrorMessage = dispatch => () => {
+  dispatch({ type: 'clear_error_message' });
 };
 
 const { Provider, Context } = createDataContext(
