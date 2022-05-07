@@ -12,7 +12,6 @@ export default function Cart() {
   const { t } = useTranslation('common');
   const { state: { cart }, removeProductFromCart, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
   const [ checkout, setCheckout ] = useState(false);
-  const [ limit, setLimit ] = useState(10);
   const [ requestingCart, setRequestingCart ] = useState(false);
 
 
@@ -35,9 +34,9 @@ export default function Cart() {
                 }}
                 itemPropName={'item'}
                 itemsListedName={t('product.products')}
-                itemsPerPage={limit}
+                itemsPerPage={3}
                 showPaginationTop
-                showPaginationBottom
+                // showPaginationBottom
                 hidePaginationForSinglePage
                 requestingItems={requestingCart}
                 itemNavRoute={'/products'}

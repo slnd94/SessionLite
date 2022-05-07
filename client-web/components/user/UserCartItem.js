@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 
 const UserCartItem = ({ item }) => {
-console.log("🚀 ~ file: UserCartItem.js ~ line 6 ~ UserCartItem ~ item", item)
   return (
     <div>
       {item.product.name}
