@@ -1,14 +1,20 @@
 import Layout from '../../components/user/Layout'
 import { Context as AuthContext } from '../../context/AuthContext';
 import { Context as UserContext } from '../../context/UserContext';
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useState } from 'react'
+import PaginatedList from '../../components/PaginatedList';
+import UserCartItem from '../../components/user/UserCartItem';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import styles from '../../styles/Layout.module.scss'
 
 export default function Cart() {
   const { t } = useTranslation('common');
-  const { state: { cart }, getUserCart, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
+  const { state: { cart }, removeProductFromCart, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
+  const [ checkout, setCheckout ] = useState(false);
+  const [ limit, setLimit ] = useState(10);
+  const [ requestingCart, setRequestingCart ] = useState(false);
+
 
   useEffect(() => {
     clearUserErrorMessage();
@@ -21,8 +27,23 @@ export default function Cart() {
           <div className="row mt-3 mt-md-0 ms-md-3">
             <div className="col-md-8">
               <h5 className={'title'}>{t('user.Your Cart')}</h5>
-              Your cart:
-              {cart?.items?.map(item => <div>{item.product.name}</div>)}
+              <PaginatedList
+                items={cart?.items.length ? cart.items.map(item => item) : []}
+                itemComponent={UserCartItem}
+                itemComponentCustomProps={{
+                  removeFromCartFunc: checkout ? null : productId => ({})
+                }}
+                itemPropName={'item'}
+                itemsListedName={t('product.products')}
+                itemsPerPage={limit}
+                showPaginationTop
+                showPaginationBottom
+                hidePaginationForSinglePage
+                requestingItems={requestingCart}
+                itemNavRoute={'/products'}
+                showLink={true}
+                // onRef={ref => (this.paginatedList = ref)}
+              />
             </div>
           </div>
         </div>
