@@ -78,20 +78,39 @@ const PaginatedList = props => {
           <div style={{ marginBottom: '.6rem' }}>
             {renderItems.data && renderItems.data.map((item, index) => {
               dynamicProps[itemPropName] = item;
+              const ItemCustomComponent = item.customListComponent;
               return (
-                <ItemComponent
-                  className={ showLink ? 'list-item-link' : '' }
-                  key={item._id || index}
-                  onClick={() => {
-                    if(itemNavRoute) {
-                      history.push(`${itemNavRoute}/${item._id}`);
-                    } else if(itemOnClick) {
-                      itemOnClick(item);
-                    }
-                  }}
-                  {...dynamicProps}
-                  {...itemComponentCustomProps}
-                />
+                <>
+                  {ItemCustomComponent
+                    ? <ItemCustomComponent
+                        className={ showLink ? 'list-item-link' : '' }
+                        key={item._id || index}
+                        onClick={() => {
+                          if(itemNavRoute) {
+                            history.push(`${itemNavRoute}/${item._id}`);
+                          } else if(itemOnClick) {
+                            itemOnClick(item);
+                          }
+                        }}
+                        {...dynamicProps}
+                        {...itemComponentCustomProps}
+                      />
+                    :  <ItemComponent
+                        className={ showLink ? 'list-item-link' : '' }
+                        key={item._id || index}
+                        onClick={() => {
+                          if(itemNavRoute) {
+                            history.push(`${itemNavRoute}/${item._id}`);
+                          } else if(itemOnClick) {
+                            itemOnClick(item);
+                          }
+                        }}
+                        {...dynamicProps}
+                        {...itemComponentCustomProps}
+                      />
+                  }
+                </>
+                
               );
             })}
           </div>
