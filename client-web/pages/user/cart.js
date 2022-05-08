@@ -27,19 +27,19 @@ export default function Cart() {
             <div className="col-md-10 section-box">
               <h5 className={'title'}>{t('user.Your Cart')}</h5>
               <PaginatedList
-                items={cart?.items.length ? cart.items.map(item => item) : []}
+                items={cart?.items.length ? cart.items.map(item => item.product) : []}
                 itemComponent={UserCartItem}
                 itemComponentCustomProps={{
                   removeFromCartFunc: checkout ? null : productId => ({})
                 }}
-                itemPropName={'item'}
+                itemPropName={'product'}
                 itemsListedName={t('product.products')}
                 itemsPerPage={5}
                 showPaginationTop
                 showPaginationBottom
                 hidePaginationForSinglePage
                 requestingItems={requestingCart}
-                itemNavRoute={'/products'}
+                itemNavRoute={'/product'}
                 showLink={true}
                 // onRef={ref => (this.paginatedList = ref)}
               />

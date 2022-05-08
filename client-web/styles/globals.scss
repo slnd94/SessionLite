@@ -62,3 +62,9 @@ body {
     transform: scale(1.0175);
   }
 }
+.list-item-link {
+  cursor: pointer;
+  &:hover {
+    background-color: $white;
+  }
+}
