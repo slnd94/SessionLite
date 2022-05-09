@@ -1,5 +1,25 @@
+@import '../variables.scss';
 
 // alerts
 .alert {
   margin: 10px 0px;
+  border: 3px solid;
+  background-color: $lightest;
+  color: $body-color;
+
+  &.alert-success {
+    border-color: $success;
+  }
+
+  &.alert-danger {
+    border-color: $danger;
+  }
+
+  &.alert-warning {
+    border-color: $warning;
+  }
+
+  &.alert-info {
+    border-color: $info;
+  }
 }

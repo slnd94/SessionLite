@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProductListItem from '../product/ProductListItem';
 
 
-const UserCartItem = ({ item }) => {
+const UserCartItem = ({ product, className, onClick }) => {
   return (
-    <div className="list-item-box">
-      <h5>{item.product.name}</h5>
-      <p>{item.product.description}</p>
-    </div>
+    <ProductListItem
+      product={product}
+      className={className}
+      onClick={onClick}
+    />
   );
 };
 
 UserCartItem.propTypes = {
-  item: PropTypes.object
+  product: PropTypes.object
 };
 
 export default UserCartItem;

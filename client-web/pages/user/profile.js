@@ -26,8 +26,7 @@ export default function Profile() {
   useEffect(() => {   
     if (auth?.user) {
       let isSubscribed = true;
-
-      // declare the async data fetching function
+      
       const fetchProfile = async () => {
         const response = await api({ 
           method: 'get',

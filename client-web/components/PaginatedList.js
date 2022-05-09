@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import ReactPaginate from 'react-paginate';
 import Pagination from './Pagination'
 import Loader from './Loader';
@@ -25,6 +26,8 @@ const shouldShowPaginationBottom = ({ items, itemsPerPage, hidePaginationForSing
 
 const PaginatedList = props => {
   const [ pageNumber, setPageNumber ] = useState(0);
+  const router = useRouter();
+
   const {
     items,
     itemPropName,
@@ -37,8 +40,7 @@ const PaginatedList = props => {
     showPaginationTop,
     showPaginationBottom,
     hidePaginationForSinglePage,
-    itemsPerPage,
-    history
+    itemsPerPage
   } = props;
   const ItemComponent = props.itemComponent;
 
@@ -78,20 +80,25 @@ const PaginatedList = props => {
           <div style={{ marginBottom: '.6rem' }}>
             {renderItems.data && renderItems.data.map((item, index) => {
               dynamicProps[itemPropName] = item;
+              const RenderItemComponent = item.customListComponent ? item.customListComponent : ItemComponent;
               return (
-                <ItemComponent
-                  className={ showLink ? 'list-item-link' : '' }
-                  key={item._id || index}
-                  onClick={() => {
-                    if(itemNavRoute) {
-                      history.push(`${itemNavRoute}/${item._id}`);
-                    } else if(itemOnClick) {
-                      itemOnClick(item);
-                    }
-                  }}
-                  {...dynamicProps}
-                  {...itemComponentCustomProps}
-                />
+                <div key={index}>
+                  <RenderItemComponent
+                    className={ showLink ? 'list-item-link' : '' }
+                    onClick={() => {
+                      if(itemNavRoute) {
+                        router.push({ 
+                          pathname: `${itemNavRoute}/${item._id}`
+                        });
+                      } else if(itemOnClick) {
+                        itemOnClick(item);
+                      }
+                    }}
+                    {...dynamicProps}
+                    {...itemComponentCustomProps}
+                  />
+                </div>
+                
               );
             })}
           </div>
@@ -137,7 +144,6 @@ PaginatedList.propTypes = {
   showPaginationTop: PropTypes.bool,
   showPaginationBottom: PropTypes.bool,
   hidePaginationForSinglePage: PropTypes.bool,
-  history: PropTypes.object,
   t: PropTypes.func,
   onRef: PropTypes.func
 };

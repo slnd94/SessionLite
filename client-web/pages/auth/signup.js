@@ -25,12 +25,6 @@ export default function Signup() {
             <div className="col-12 col-sm-6">
               <div className="section-box">
                 <h5 className={'title'}>{t('auth.Sign Up')}</h5>
-                {errorMessage
-                  ? <Alert color="danger">
-                    {t(`auth.There was a problem with your sign in`)}
-                  </Alert>
-                  : null
-                }
                 <SignUpForm
                   processing={processing}
                   onSubmit={async (data) => {
@@ -39,6 +33,12 @@ export default function Signup() {
                     setProcessing(false);
                   }}
                 />
+                {errorMessage
+                  ? <Alert color="danger" fade={false}>
+                    {t(`auth.There was a problem with your sign in`)}
+                  </Alert>
+                  : null
+                }
                 <div className="mt-4">
                   <span style={{marginRight: '10px'}}>{t(`auth.Already have an account?`)}</span>
                   <Link href="/auth/signin">{t('auth.Sign in')}</Link>
