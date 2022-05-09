@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { getAmountString } from '../../helpers/commerceHelpers';
 
 const Amount = ({ amount, showNotSpecified, className, style, t }) => {
-console.log("🚀 ~ file: Amount.js ~ line 6 ~ Amount ~ amount", amount)
   return (
     <div
       className={className}

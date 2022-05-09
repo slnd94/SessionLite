@@ -34,7 +34,7 @@ export default function Cart() {
                 }}
                 itemPropName={'product'}
                 itemsListedName={t('product.products')}
-                itemsPerPage={3}
+                itemsPerPage={5}
                 showPaginationTop
                 showPaginationBottom
                 hidePaginationForSinglePage
