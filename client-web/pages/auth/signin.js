@@ -27,12 +27,6 @@ export default function Signin() {
             <div className="col-12 col-sm-6">
               <div className="section-box">
                 <h5 className={'title'}>{t('auth.Sign In')}</h5>
-                {errorMessage
-                  ? <Alert color="danger">
-                    {t(`auth.There was a problem with your sign in`)}
-                  </Alert>
-                  : null
-                }
                 <SignInForm 
                   processing={processing}
                   onSubmit={async (data) => {
@@ -48,6 +42,12 @@ export default function Signin() {
                     }
                   }}
                 />
+                {errorMessage
+                  ? <Alert color="danger" fade={false}>
+                    {t(`auth.There was a problem with your sign in`)}
+                  </Alert>
+                  : null
+                }
                 <div className="mt-4">
                   <span style={{marginRight: '10px'}}>{t(`auth.Need an account?`)}</span>
                   <Link href="/auth/signup">{t('auth.Sign up')}</Link>

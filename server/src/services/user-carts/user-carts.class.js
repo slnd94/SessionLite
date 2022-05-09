@@ -102,7 +102,7 @@ exports.UserCarts = class UserCarts {
           }}}
         });
 
-      return true;
+      return { success: true };
     }
 
     if (data.removeProduct) {
@@ -113,7 +113,8 @@ exports.UserCarts = class UserCarts {
         .patch(id, {
           $pull: {cart: { product: data.removeProduct }}
         });
-      return true;
+
+      return { success: true };
     }
   }
 };
