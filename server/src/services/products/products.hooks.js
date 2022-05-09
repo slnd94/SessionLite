@@ -4,7 +4,7 @@ const authorizeSysAdmin = require('../../hooks/authorize-sys-admin');
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt'), assignParamSysAdminUser() ],
+    all: [ assignParamSysAdminUser() ],
     find: [],
     get: [],
     create: [ authorizeSysAdmin() ],
