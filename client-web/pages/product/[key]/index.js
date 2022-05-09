@@ -42,15 +42,8 @@ export default function Profile() {
 
   useEffect(() => {
     let isSubscribed = true;
-      
-      
-    
-      // call the function
       fetchProduct()
-        // make sure to catch any error
         .catch(console.error);
-
-      // cancel any future `setProduct`
       return () => isSubscribed = false;
   }, []);  
 
