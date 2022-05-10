@@ -40,7 +40,8 @@ const PaginatedList = props => {
     showPaginationTop,
     showPaginationBottom,
     hidePaginationForSinglePage,
-    itemsPerPage
+    itemsPerPage,
+    t
   } = props;
   const ItemComponent = props.itemComponent;
 
@@ -55,26 +56,30 @@ const PaginatedList = props => {
   } else {
     renderItems = items;
   }
+  
   return (
     <>
       {requestingItems && !items.data
         ? <Loader />
         : <>
           {shouldShowPaginationTop({ items, itemsPerPage, hidePaginationForSinglePage, showPaginationTop })
-            ? <Pagination
-                pageCount={renderItems.total ? Math.ceil(renderItems.total / itemsPerPage) : 0}
-                forcePage={pageNumber}
-                customContainerClass="pagination-top"
-                onPageChange={page => {
-                  setPageNumber(page.selected)
-                  if(props.requestItemsFunc) {
-                    props.requestItemsFunc({
-                      skip: (page.selected) * itemsPerPage,
-                      limit: itemsPerPage
-                    });
-                  }
-                }}
-              />
+            ? <div className="pagination-container pagination-top">
+                <span className="total-count">{`${renderItems.total} ${t('total')}`}</span>
+                <Pagination
+                  pageCount={renderItems.total ? Math.ceil(renderItems.total / itemsPerPage) : 0}
+                  forcePage={pageNumber}
+                  customContainerClass=""
+                  onPageChange={page => {
+                    setPageNumber(page.selected)
+                    if(props.requestItemsFunc) {
+                      props.requestItemsFunc({
+                        skip: (page.selected) * itemsPerPage,
+                        limit: itemsPerPage
+                      });
+                    }
+                  }}
+                />
+              </div>
             : <></>
           }
           <div style={{ marginBottom: '.6rem' }}>
@@ -97,27 +102,29 @@ const PaginatedList = props => {
                     {...dynamicProps}
                     {...itemComponentCustomProps}
                   />
-                </div>
-                
+                </div>                
               );
             })}
           </div>
 
           {shouldShowPaginationBottom({ items, itemsPerPage, hidePaginationForSinglePage, showPaginationBottom })
-            ? <Pagination
-                pageCount={renderItems.total ? Math.ceil(renderItems.total / itemsPerPage) : 0}
-                forcePage={pageNumber}
-                customContainerClass="pagination-bottom"
-                onPageChange={page => {
-                  setPageNumber(page.selected)
-                  if(props.requestItemsFunc) {
-                    props.requestItemsFunc({
-                      skip: (page.selected) * itemsPerPage,
-                      limit: itemsPerPage
-                    });
-                  }
-                }}
-              />
+            ? <div className="pagination-container pagination-bottom">
+                <span className="total-count">{`${renderItems.total} ${t('total')}`}</span>
+                <Pagination
+                  pageCount={renderItems.total ? Math.ceil(renderItems.total / itemsPerPage) : 0}
+                  forcePage={pageNumber}
+                  customContainerClass=""
+                  onPageChange={page => {
+                    setPageNumber(page.selected)
+                    if(props.requestItemsFunc) {
+                      props.requestItemsFunc({
+                        skip: (page.selected) * itemsPerPage,
+                        limit: itemsPerPage
+                      });
+                    }
+                  }}
+                />
+              </div>
             : <></>
           }
         </>

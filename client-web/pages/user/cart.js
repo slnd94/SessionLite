@@ -24,26 +24,30 @@ export default function Cart() {
       <Layout>
         <div>
           <div className="row mt-3 mt-md-0 ms-md-3">
-            <div className="col-md-10 section-box">
-              <h5 className={'title'}>{t('user.Your Cart')}</h5>
-              <PaginatedList
-                items={cart?.items.length ? cart.items.map(item => item.product) : []}
-                itemComponent={UserCartItem}
-                itemComponentCustomProps={{
-                  removeFromCartFunc: checkout ? null : productId => ({})
-                }}
-                itemPropName={'product'}
-                itemsListedName={t('product.products')}
-                itemsPerPage={5}
-                showPaginationTop
-                showPaginationBottom
-                hidePaginationForSinglePage
-                requestingItems={requestingCart}
-                itemNavRoute={'/product'}
-                showLink={true}
-                // onRef={ref => (this.paginatedList = ref)}
-              />
-            </div>
+            {cart?.items.length
+              ? <div className="col-md-10 section-box">
+                  <h5 className={'title'}>{t('user.Your Cart')}</h5>
+                  <PaginatedList
+                    items={cart?.items.length ? cart.items.map(item => item.product) : []}
+                    itemComponent={UserCartItem}
+                    itemComponentCustomProps={{
+                      removeFromCartFunc: checkout ? null : productId => ({})
+                    }}
+                    itemPropName={'product'}
+                    itemsListedName={t('product.products')}
+                    itemsPerPage={5}
+                    showPaginationTop
+                    showPaginationBottom
+                    hidePaginationForSinglePage
+                    requestingItems={requestingCart}
+                    itemNavRoute={'/product'}
+                    showLink={true}
+                    t={t}
+                    // onRef={ref => (this.paginatedList = ref)}
+                  />
+                </div>
+              : <h5 className={'title'}>{t('user.Your cart is empty')}</h5>     
+            }
           </div>
         </div>
       </Layout>

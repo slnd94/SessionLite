@@ -25,12 +25,15 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
               <div>
                 {inUserCart &&
                   <>
-                    <Alert color="info" fade={false}>
+                    {/* <Alert color="info" fade={false}>
                       {t('user.This product is in your cart')}
-                    </Alert>
+                    </Alert> */}
+                    <h5>
+                      {t('user.This product is in your cart')}
+                    </h5>
                     <div className="mt-4">
                       <Button
-                        size='lg'
+                        // size='lg'
                         className={'me-4 btn-block-sm-down'}
                         color="primary"
                         onClick={() => {
@@ -42,7 +45,7 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
                         {t('user.View your cart')}
                       </Button>
                       <Button
-                        size='lg'
+                        // size='lg'
                         className={'btn-block-sm-down'}
                         color="primary"            
                         onClick={() => removeFromCartFunc()}
@@ -55,9 +58,9 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
                 {authUser && !inUserCart &&
                   <span>
                   <Button
-                      size='lg'
+                      // size='lg'
                       className={'btn-block-sm-down'}
-                      color="success"            
+                      color="primary"            
                       onClick={() => addToCartFunc()}
                     >
                       {t('user.Add to cart')}

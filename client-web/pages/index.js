@@ -13,12 +13,17 @@ export default function Home() {
   const {state: { auth }} = useContext(AuthContext);
   const [ products, setProducts ] = useState(null);
   const [ requestingProducts, setRequestingProducts ] = useState(false);
+  const productsPerPage = 5;
 
-  const fetchProducts = async () => {
+  const fetchProducts = async ({ skip, limit }) => {
     setRequestingProducts(true)
     const response = await api({ 
       method: 'get',
-      url: `${process.env.NEXT_PUBLIC_API_URL}/products`
+      url: `${process.env.NEXT_PUBLIC_API_URL}/products`,
+      params: {
+        $skip: skip,
+        $limit: limit
+      }
     });
   
     if (response.status >= 200 && response.status < 300) {
@@ -34,44 +39,53 @@ export default function Home() {
 
   useEffect(() => {
     let isSubscribed = true;
-      fetchProducts()
+      fetchProducts({ skip: 0, limit: productsPerPage })
         .catch(console.error);
       return () => isSubscribed = false;
   }, []);  
 
   return (
-    <>
-      <h1 className="title">
-        {t('index.Welcome to')}&nbsp;{process.env.NEXT_APP_NAME}
-      </h1>
+    <div className="row">
+      <div className="col-12">
+        <h1 className="title">
+          {t('index.Welcome to')}&nbsp;{process.env.NEXT_APP_NAME}
+        </h1>
 
-      {auth?.status === 'SIGNED_OUT'
-        ? <div>
-            <Link href="/auth/signin">{t('auth.Sign in')}</Link><br />
-            <Link href="/auth/signup">{t('auth.Sign up')}</Link>
-          </div>
-        : <></>             
-      }
-      {products
-        ? <>
-            <PaginatedList
-              items={products.data}
-              itemComponent={ProductListItem}
-              itemPropName={'product'}
-              itemsListedName={t('product.products')}
-              itemsPerPage={5}
-              showPaginationTop
-              showPaginationBottom
-              hidePaginationForSinglePage
-              requestingItems={requestingProducts}
-              itemNavRoute={'/product'}
-              showLink={true}
-              // onRef={ref => (this.paginatedList = ref)}
-            />
-          </>
-        : <></>
-      }
-    </>
+        {auth?.status === 'SIGNED_OUT'
+          ? <div>
+              <Link href="/auth/signin">{t('auth.Sign in')}</Link><br />
+              <Link href="/auth/signup">{t('auth.Sign up')}</Link>
+            </div>
+          : <></>             
+        }
+        {products
+          ? <>
+              <PaginatedList
+                items={products}
+                itemComponent={ProductListItem}
+                itemPropName={'product'}
+                itemsListedName={t('product.products')}
+                itemsPerPage={productsPerPage}
+                showPaginationTop
+                showPaginationBottom
+                hidePaginationForSinglePage
+                requestItemsFunc={async ({ skip, limit }) => {
+                  console.log("🚀 ~ file: index.js ~ line 73 ~ requestItemsFunc={ ~ limit", limit)
+                  console.log("🚀 ~ file: index.js ~ line 73 ~ requestItemsFunc={ ~ skip", skip)
+                  await fetchProducts({ skip, limit });
+                  // await setProducts(res.data);
+                }}
+                requestingItems={requestingProducts}
+                itemNavRoute={'/product'}
+                showLink={true}
+                t={t}
+                // onRef={ref => (this.paginatedList = ref)}
+              />
+            </>
+          : <></>
+        }
+      </div>
+    </div>
   )
 }
 

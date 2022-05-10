@@ -7,16 +7,16 @@ const assignProductUserFlags = require('../../hooks/assign-product-user-flags');
 
 module.exports = {
   before: {
-    all: [  ],
+    all: [],
     find: [],
     get: [
       iff(context => (context.params.headers && context.params.headers.authorization), authenticate('jwt')),
       assignParamSysAdminUser()
     ],
-    create: [ assignParamSysAdminUser(), authorizeSysAdmin() ],
-    update: [ assignParamSysAdminUser(), authorizeSysAdmin() ],
-    patch: [ assignParamSysAdminUser(), authorizeSysAdmin() ],
-    remove: [ assignParamSysAdminUser(), authorizeSysAdmin() ]
+    create: [ authenticate('jwt'), assignParamSysAdminUser(), authorizeSysAdmin() ],
+    update: [ authenticate('jwt'), assignParamSysAdminUser(), authorizeSysAdmin() ],
+    patch: [ authenticate('jwt'), assignParamSysAdminUser(), authorizeSysAdmin() ],
+    remove: [ authenticate('jwt'), assignParamSysAdminUser(), authorizeSysAdmin() ]
   },
 
   after: {
