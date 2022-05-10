@@ -13,16 +13,13 @@ import api from '../../../utils/api';
 import { useRouter } from 'next/router';
 import styles from '../../../styles/User.module.scss'
 
-
-
-
 export default function Profile() {
   const { t } = useTranslation('common');
   const router = useRouter();
   const { key } = router.query;
   const { getUserCart } = useContext(UserContext);
-  const { state: { auth } } = useContext(AuthContext);  
-  const [ userCurrencyCode, setUserCurrencyCode ] = useState('CAD');
+  const { state: { auth } } = useContext(AuthContext);
+  const [ userCurrencyCode, setUserCurrencyCode ] = useState(process.env.DEFAULT_CURRENCY);
   const [ product, setProduct ] = useState(null);
   const [ processing, setProcessing ] = useState(false);
 

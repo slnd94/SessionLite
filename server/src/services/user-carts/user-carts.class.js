@@ -2,6 +2,7 @@
 
 const errors = require('@feathersjs/errors');
 const errorMessages = require('../../utils/errorMessages');
+const currencies = require('../../utils/currencies');
 
 const userCurrencyCode = 'CAD';
 const userTaxes = require('../../utils/currencies')[userCurrencyCode].taxes;
@@ -13,6 +14,8 @@ exports.UserCarts = class UserCarts {
   
   setup(app) {
     this.app = app;
+    this.userCurrencyCode = this.app.get('defaultCurrency');
+    this.userTaxes = currencies[this.userCurrencyCode].taxes;
   }
 
   async get (id, params) {
@@ -38,21 +41,21 @@ exports.UserCarts = class UserCarts {
     const cart = user.cart || [];
 
     const subtotal = {
-      figure: cart.reduce((a, b) => +a + +b.product.prices[userCurrencyCode], 0),
-      currencyCode: userCurrencyCode
+      figure: cart.reduce((a, b) => +a + +b.product.prices[this.userCurrencyCode], 0),
+      currencyCode: this.userCurrencyCode
     };
     const taxes = userTaxes.map(tax => 
       ({
         ...tax,
         amount: {
           figure: Math.ceil(subtotal.figure * tax.rate),
-          currencyCode: userCurrencyCode
+          currencyCode: this.userCurrencyCode
         }
       })
     );
     const total = {
       figure: subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0),
-      currencyCode: userCurrencyCode
+      currencyCode: this.userCurrencyCode
     };
 
     return {
@@ -86,7 +89,7 @@ exports.UserCarts = class UserCarts {
           }
         });
 
-      if (!product.prices[userCurrencyCode]) {
+      if (!product.prices[this.userCurrencyCode]) {
         // product is not eligible because there is no price available
         return Promise.reject(new errors.BadRequest(errorMessages.badRequest));
       }
@@ -97,8 +100,8 @@ exports.UserCarts = class UserCarts {
       await this.app.service('users')
         .patch(id, {
           $push: {cart: { product: data.addProduct, priceWhenAdded: {
-            figure: product.prices[userCurrencyCode],
-            currencyCode: userCurrencyCode
+            figure: product.prices[this.userCurrencyCode],
+            currencyCode: this.userCurrencyCode
           }}}
         });
 
