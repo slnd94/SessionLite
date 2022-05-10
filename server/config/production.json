@@ -11,5 +11,6 @@
   "emailRegion": "emailRegion",
   "emailSourceAddress": "emailSourceAddress",
   "welcomeVerificationEmailTemplate": "welcomeVerificationEmailTemplate",
-  "emailVerificationExpiryMinutes": "emailVerificationExpiryMinutes"
+  "emailVerificationExpiryMinutes": "emailVerificationExpiryMinutes",
+  "defaultCurrency": "defaultCurrency"
 }
