@@ -99,5 +99,8 @@
     },    
     "Save": "Save",
     "Settings": "Settings"
+  },
+  "product": {
+    "products": "products"
   }
 }

@@ -42,6 +42,7 @@ export default function Cart() {
                     requestingItems={requestingCart}
                     itemNavRoute={'/product'}
                     showLink={true}
+                    t={t}
                     // onRef={ref => (this.paginatedList = ref)}
                   />
                 </div>
