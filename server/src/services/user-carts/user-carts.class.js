@@ -12,6 +12,7 @@ exports.UserCarts = class UserCarts {
   setup(app) {
     this.app = app;
     this.userCurrencyCode = this.app.get('defaultCurrency');
+    console.log("🚀 ~ file: user-carts.class.js ~ line 15 ~ UserCarts ~ setup ~ this.userCurrencyCode", this.userCurrencyCode)
     this.userTaxes = currencies[this.userCurrencyCode].taxes;
   }
 
