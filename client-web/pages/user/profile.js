@@ -56,35 +56,38 @@ export default function Profile() {
     <div>
       <Layout>
         <div>
-          <div className="row mt-3 mt-md-0 ms-md-3">
-            <div className="col-md-10 section-box">
-            <h5 className={'title'}>{t('user.Your Profile')}</h5>
+          <div className="row mt-3 mt-md-0 ms-md-3">       
               {auth?.status === 'SIGNED_IN' && profile
-                ? <ProfileForm 
-                    processing={processing}
-                    defaults={{
-                      email: profile.email,
-                      firstName: profile.name.given,
-                      lastName: profile.name.family
-                    }}
-                    onSubmit={async (data) => {
-                      setProcessing(true);
-                      const request = await updateUserProfile({ ...data, id: auth.user._id });
-                      if(request.success) {
-                        // update the auth context, since user object likely needs update
-                        getAuth();
-                        // remove processing loader
-                        setProcessing(false);
-                        // notify user
-                        toast(t(`user.User profile updated`), {
-                          type: 'success'
-                        });
-                      } else {
-                        // remove preocessing loader
-                        setProcessing(false);
-                      }
-                    }}
-                  />
+                ? <>
+                    <div className="col-md-10 section-box">     
+                      <h5 className={'title'}>{t('user.Your Profile')}</h5>
+                      <ProfileForm 
+                        processing={processing}
+                        defaults={{
+                          email: profile.email,
+                          firstName: profile.name.given,
+                          lastName: profile.name.family
+                        }}
+                        onSubmit={async (data) => {
+                          setProcessing(true);
+                          const request = await updateUserProfile({ ...data, id: auth.user._id });
+                          if(request.success) {
+                            // update the auth context, since user object likely needs update
+                            getAuth();
+                            // remove processing loader
+                            setProcessing(false);
+                            // notify user
+                            toast(t(`user.User profile updated`), {
+                              type: 'success'
+                            });
+                          } else {
+                            // remove preocessing loader
+                            setProcessing(false);
+                          }
+                        }}
+                      />
+                    </div>
+                  </>
                 : (auth?.status === 'SIGNED_OUT'
                   ? <>
                       <Link href="/auth/signin">{t('auth.Sign in')}</Link>
@@ -98,7 +101,6 @@ export default function Profile() {
                 </Alert>
                 : null
               }
-            </div>
           </div>
         </div>
       </Layout>
