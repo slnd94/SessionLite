@@ -38,20 +38,20 @@ exports.UserCarts = class UserCarts {
     const cart = user.cart || [];
 
     const subtotal = {
-      cents: cart.reduce((a, b) => +a + +b.product.prices[userCurrencyCode], 0),
+      figure: cart.reduce((a, b) => +a + +b.product.prices[userCurrencyCode], 0),
       currencyCode: userCurrencyCode
     };
     const taxes = userTaxes.map(tax => 
       ({
         ...tax,
         amount: {
-          cents: Math.ceil(subtotal.cents * tax.rate),
+          figure: Math.ceil(subtotal.figure * tax.rate),
           currencyCode: userCurrencyCode
         }
       })
     );
     const total = {
-      cents: subtotal.cents + taxes.reduce((a, b) => +a + +b.amount.cents, 0),
+      figure: subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0),
       currencyCode: userCurrencyCode
     };
 
@@ -97,7 +97,7 @@ exports.UserCarts = class UserCarts {
       await this.app.service('users')
         .patch(id, {
           $push: {cart: { product: data.addProduct, priceWhenAdded: {
-            cents: product.prices[userCurrencyCode],
+            figure: product.prices[userCurrencyCode],
             currencyCode: userCurrencyCode
           }}}
         });

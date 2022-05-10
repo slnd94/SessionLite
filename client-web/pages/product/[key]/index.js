@@ -21,7 +21,8 @@ export default function Profile() {
   const router = useRouter();
   const { key } = router.query;
   const { getUserCart } = useContext(UserContext);
-  const { state: { auth } } = useContext(AuthContext);
+  const { state: { auth } } = useContext(AuthContext);  
+  const [ userCurrencyCode, setUserCurrencyCode ] = useState('CAD');
   const [ product, setProduct ] = useState(null);
   const [ processing, setProcessing ] = useState(false);
 
@@ -63,7 +64,7 @@ export default function Profile() {
                 <ProductUserCart
                   productId={product._id}
                   inUserCart={product.inUserCart}
-                  price={{ cents: product.prices['CAD'], currencyCode: 'CAD' }}
+                  price={{ figure: product.prices[userCurrencyCode], currencyCode: userCurrencyCode }}
                   authUser={auth?.status === 'SIGNED_IN'}
                   processing={processing}
                   addToCartFunc={async () => {

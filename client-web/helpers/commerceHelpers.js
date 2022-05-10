@@ -1,14 +1,20 @@
 
 const currencySymbols = {
-  CAD: '$',
-  USD: '$'
+  CAD: {
+    symbol: '$',
+    decimals: 2
+  },
+  USD: {
+    symbol: '$',
+    decimals: 2
+  }
 };
 
-export const getAmountString = (price) => {
-  if(price) {
-    const { cents, currencyCode } = price;
-    if(cents && currencyCode) {
-      return `${currencySymbols[currencyCode]}${(cents/100).toFixed(2)} ${currencyCode}`;
+export const getAmountString = (amount) => {
+  if(amount) {
+    const { figure, currencyCode } = amount;
+    if(figure && currencyCode) {
+      return `${currencySymbols[currencyCode].symbol}${(figure).toFixed(currencySymbols[currencyCode].decimals)} ${currencyCode}`;
     } else {
       return '';
     }

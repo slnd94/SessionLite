@@ -2,11 +2,11 @@
 const currencies = require('./currencies');
 
 module.exports = {
-  getAmountString: (price) => { 
-    if(price) {
-      const { cents, currencyCode } = price;
-      if(cents && currencyCode) {
-        return `${currencies[currencyCode].symbol}${(cents/100).toFixed(2)} ${currencyCode}`;
+  getAmountString: (amount) => { 
+    if(amount) {
+      const { figure, currencyCode } = price;
+      if(figure && currencyCode) {
+        return `${currencies[currencyCode].symbol}${(figure).toFixed(currencies[currencyCode].decimals)} ${currencyCode}`;
       } else {
         return '';
       }
