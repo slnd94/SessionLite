@@ -70,10 +70,7 @@ export default function Home() {
                 showPaginationBottom
                 hidePaginationForSinglePage
                 requestItemsFunc={async ({ skip, limit }) => {
-                  console.log("🚀 ~ file: index.js ~ line 73 ~ requestItemsFunc={ ~ limit", limit)
-                  console.log("🚀 ~ file: index.js ~ line 73 ~ requestItemsFunc={ ~ skip", skip)
                   await fetchProducts({ skip, limit });
-                  // await setProducts(res.data);
                 }}
                 requestingItems={requestingProducts}
                 itemNavRoute={'/product'}

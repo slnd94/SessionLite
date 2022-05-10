@@ -8,8 +8,8 @@ const Amount = ({ amount, showNotSpecified, className, style, t }) => {
       className={className}
       style={{...style, whiteSpace: 'nowrap', display: 'inline-block'}}
     >
-      {amount.cents === -1 ? (showNotSpecified ? t('commerce.Not Specified') : '')
-        : amount.cents === 0 ? t('commerce.Free') : getAmountString(amount)}
+      {amount.figure === -1 ? (showNotSpecified ? t('commerce.Not Specified') : '')
+        : amount.figure === 0 ? t('commerce.Free') : getAmountString(amount)}
     </div>
   );
 };

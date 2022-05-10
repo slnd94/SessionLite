@@ -2,6 +2,7 @@
 module.exports = {
   CAD: {
     symbol: '$',
+    decimals: 2,
     taxes: [
       {
         tax: 'HST',
@@ -11,6 +12,7 @@ module.exports = {
   },
   USD: {
     symbol: '$',
+    decimals: 2,
     taxes: []
   }
 };
