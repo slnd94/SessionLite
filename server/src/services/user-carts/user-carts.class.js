@@ -4,9 +4,6 @@ const errors = require('@feathersjs/errors');
 const errorMessages = require('../../utils/errorMessages');
 const currencies = require('../../utils/currencies');
 
-const userCurrencyCode = 'CAD';
-const userTaxes = require('../../utils/currencies')[userCurrencyCode].taxes;
-
 exports.UserCarts = class UserCarts {
   constructor (options) {
     this.options = options || {};
