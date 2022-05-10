@@ -42,7 +42,7 @@ exports.UserCarts = class UserCarts {
       figure: cart.reduce((a, b) => +a + +b.product.prices[this.userCurrencyCode], 0),
       currencyCode: this.userCurrencyCode
     };
-    const taxes = userTaxes.map(tax => 
+    const taxes = this.userTaxes.map(tax => 
       ({
         ...tax,
         amount: {
