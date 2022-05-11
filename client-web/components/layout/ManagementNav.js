@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -8,7 +10,7 @@ import {
 } from 'reactstrap';
 import IconText from '../IconText';
 
-export default function Layout({ prefix, subRoutes }) {
+function ManagementNav({ prefix, subRoutes }) {
   const { t } = useTranslation('common');
 
   const router = useRouter()
@@ -56,3 +58,10 @@ export default function Layout({ prefix, subRoutes }) {
     </>
   )
 }
+
+ManagementNav.propTypes = {
+  prefix: PropTypes.string,
+  subRoutes: PropTypes.array
+};
+
+export default ManagementNav

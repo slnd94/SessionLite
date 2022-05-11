@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
 import Loader from '../Loader';
@@ -91,5 +92,11 @@ function ProfileForm({ onSubmit, processing, defaults: { email, firstName, lastN
     </Form>
   );
 }
+
+ProfileForm.propTypes = {
+  onSubmit: PropTypes.func,
+  processing: PropTypes.bool,
+  defaults: PropTypes.object
+};
 
 export default ProfileForm

@@ -1,14 +1,15 @@
+import React, { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import Header from './Header'
 import Footer from './Footer'
 import Head from 'next/head'
 import { Context as AuthContext } from '../../context/AuthContext';
 import { Context as UserContext } from '../../context/UserContext';
-import { useEffect, useContext } from 'react'
 import { ToastContainer, Slide } from 'react-toastify';
 import styles from '../../styles/Layout.module.scss'
 
-export default function Layout({ children, brandName }) {
-  const { state: { auth, errorMessage }, getAuth } = useContext(AuthContext);
+function Layout({ children, brandName }) {
+  const { state: { auth }, getAuth } = useContext(AuthContext);
   const { getUserCart } = useContext(UserContext);
   
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function Layout({ children, brandName }) {
       </Head>
       <ToastContainer
         theme='light'
-        position="top-right"
+        position="bottom-right"
         transition={Slide}
         autoClose={3000}
         hideProgressBar={true}
@@ -51,3 +52,10 @@ export default function Layout({ children, brandName }) {
     </div>
   )
 }
+
+Layout.propTypes = {
+  children: PropTypes.object,
+  brandName: PropTypes.string
+};
+
+export default Layout

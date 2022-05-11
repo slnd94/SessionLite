@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import PropTypes from 'prop-types';
 import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
 import Loader from '../Loader';
@@ -106,5 +107,11 @@ function AccountForm({ onSubmit, processing, defaults: {} }) {
     </Form>
   );
 }
+
+AccountForm.propTypes = {
+  onSubmit: PropTypes.func,
+  processing: PropTypes.bool,
+  defaults: PropTypes.object
+};
 
 export default AccountForm

@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 import { Context as AuthContext } from '../../context/AuthContext';
 import { Context as UserContext } from '../../context/UserContext';
-import styles from '../../styles/User.module.scss'
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import ManagementNav from '../layout/ManagementNav';
 import { getFullName } from '../../helpers/nameHelpers';
+import styles from '../../styles/User.module.scss'
 
-export default function Layout({ children, activeTab}) {
+export default function Layout({ children}) {
   const { t } = useTranslation('common');
   const {state: { auth }} = useContext(AuthContext);
   const {state: { cart }} = useContext(UserContext);
