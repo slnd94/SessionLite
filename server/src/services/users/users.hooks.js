@@ -45,7 +45,9 @@ module.exports = {
       hashPassword('password'),  
       authenticate('jwt'), 
       protectUserSysAdminWrite(),
-      protectUserVerificationWrite()
+      protectUserEmailWrite(),
+      protectUserVerificationWrite(),
+      authorizeUserAdmin()
     ],
     patch: [
       iff(isProvider('external'), disallow()),
@@ -61,8 +63,8 @@ module.exports = {
       authenticate('jwt'),
       protectUserSysAdminWrite(),
       protectUserEmailWrite(),
-      protectUserSysAdminWrite(),
-      protectUserVerificationWrite()
+      protectUserVerificationWrite(),
+      authorizeUserAdmin()
     ]
   },
 
