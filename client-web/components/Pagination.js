@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 
-
 const Pagination = props => {
   const { pageCount, forcePage, onPageChange } = props;
   return (

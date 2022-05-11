@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import ReactPaginate from 'react-paginate';
 import Pagination from './Pagination'
 import Loader from './Loader';
 

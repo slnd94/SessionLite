@@ -4,15 +4,17 @@ import { Context as UserContext } from '../../context/UserContext';
 import { useEffect, useContext, useState } from 'react'
 import PaginatedList from '../../components/PaginatedList';
 import UserCartItem from '../../components/user/UserCartItem';
+import api from '../../utils/api';
+import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import styles from '../../styles/User.module.scss'
 
 export default function Cart() {
   const { t } = useTranslation('common');
-  const { state: { cart }, removeProductFromCart, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
+  const { state: { auth } } = useContext(AuthContext);
+  const { state: { cart }, getUserCart, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
   const [ checkout, setCheckout ] = useState(false);
-  const [ requestingCart, setRequestingCart ] = useState(false);
 
 
   useEffect(() => {
@@ -31,7 +33,24 @@ export default function Cart() {
                     items={cart?.items.length ? cart.items.map(item => item.product) : []}
                     itemComponent={UserCartItem}
                     itemComponentCustomProps={{
-                      removeFromCartFunc: checkout ? null : productId => ({})
+                      removeFromCartFunc: checkout ? null : async productId => {
+                        if(auth?.status === 'SIGNED_IN') {
+                          const response = await api({
+                            method: 'patch',
+                            url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
+                            params: {
+                              removeProduct: productId
+                            }
+                          });
+                          if (response.status >= 200 && response.status < 300 && response.data.success) {
+                            getUserCart({ id: auth.user._id });
+                            toast(t(`user.Removed from cart`), {
+                              type: 'info'
+                            });
+                          }
+                        }
+                      },
+                      t
                     }}
                     itemPropName={'product'}
                     itemsListedName={t('product.products')}
@@ -39,7 +58,6 @@ export default function Cart() {
                     showPaginationTop
                     showPaginationBottom
                     hidePaginationForSinglePage
-                    requestingItems={requestingCart}
                     itemNavRoute={'/product'}
                     showLink={true}
                     t={t}

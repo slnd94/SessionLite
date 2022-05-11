@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Amount from '../commerce/Amount';
-import { Button, Alert } from 'reactstrap';
+import { Button } from 'reactstrap';
 import Loader from '../Loader';
-import Link from 'next/link';
-import IconText from '../IconText';
 
-const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addToCartFunc, requestingAddProductToCart, removeFromCartFunc, requestingRemoveProductFromCart, processing, t }) => {
+const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addToCartFunc, removeFromCartFunc, processing, t }) => {
   const router = useRouter();
-  
+
   return (
     <>
       <div className="row">
@@ -25,9 +23,6 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
               <div>
                 {inUserCart &&
                   <>
-                    {/* <Alert color="info" fade={false}>
-                      {t('user.This product is in your cart')}
-                    </Alert> */}
                     <h5>
                       {t('user.This product is in your cart')}
                     </h5>
@@ -45,7 +40,6 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
                         {t('user.View your cart')}
                       </Button>
                       <Button
-                        // size='lg'
                         className={'btn-block-sm-down'}
                         color="primary"            
                         onClick={() => removeFromCartFunc()}
@@ -58,7 +52,6 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
                 {authUser && !inUserCart &&
                   <span>
                   <Button
-                      // size='lg'
                       className={'btn-block-sm-down'}
                       color="primary"            
                       onClick={() => addToCartFunc()}
@@ -77,6 +70,16 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
 };
 
 ProductUserCart.propTypes = { 
+  inUserCart: PropTypes.bool,
+  price: PropTypes.object,
+  userProductStatus: PropTypes.object,
+  authUser: PropTypes.bool,
+  addToCartFunc: PropTypes.func,
+  requestingAddProductToCart: PropTypes.bool,
+  removeFromCartFunc: PropTypes.func,
+  requestingRemoveProductFromCart: PropTypes.bool,
+  processing: PropTypes.bool,
+  t: PropTypes.func
 };
 
 export default ProductUserCart;

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Context as AuthContext } from '../../context/AuthContext';
 import { Context as UserContext } from '../../context/UserContext';
 import Link from 'next/link';
@@ -12,7 +13,6 @@ import {
   NavLink,
   NavItem,
   Badge,
-  // NavbarText,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -21,11 +21,11 @@ import {
 import Loader from '../Loader';
 import { getFullName } from '../../helpers/nameHelpers';
 import IconText from '../IconText';
-import styles from '../../styles/Header.module.scss';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import styles from '../../styles/Header.module.scss';
 
-function Header({ brandName, requestLogout, openLogin, openSignup }) { 
+function Header({ brandName }) { 
   const { state: { auth } } = useContext(AuthContext);
   const { state: { cart } } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false)
@@ -126,5 +126,9 @@ function Header({ brandName, requestLogout, openLogin, openSignup }) {
     </div>
   )
 }
+
+Header.propTypes = {
+  brandName: PropTypes.string
+};
 
 export default Header
