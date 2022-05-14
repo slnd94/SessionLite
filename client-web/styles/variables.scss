@@ -17,14 +17,14 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
 
-$blue:    #479ada !default;
+$blue:    #2a96f2 !default;
 $indigo:  #6610f2 !default;
 $purple:  #9365b8 !default;
 $pink:    #e83e8c !default;
 $red:     #d9534f !default;
-$orange:  #eb5e33 !default;
-$yellow:  #ffb300 !default;
-$green:   #0db357 !default;
+$orange:  #ed522f !default;
+$yellow:  #f8c032 !default;
+$green:   #00b15e !default;
 $teal:    #20c997 !default;
 $cyan:    #4d9ace !default;
 
@@ -33,7 +33,7 @@ $water:   #4E5D6C !default;
 $brown:     rgb(108, 89, 78);
 
 $primary:       $water !default;
-$secondary:     $charcoal !default;
+$secondary:     $blue !default;
 $success:       $green !default;
 $success-light: lighten($success, 30%) !default;
 $info:          $blue !default;
