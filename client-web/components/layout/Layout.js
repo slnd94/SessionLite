@@ -30,7 +30,7 @@ function Layout({ children, brandName }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ToastContainer
-        theme='light'
+        theme='dark'
         position="bottom-right"
         transition={Slide}
         autoClose={3000}
