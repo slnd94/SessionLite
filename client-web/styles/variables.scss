@@ -32,7 +32,7 @@ $charcoal:   #323338 !default;
 $water:   #4E5D6C !default;
 $brown:     rgb(108, 89, 78);
 
-$primary:       $water !default;
+$primary:       $charcoal !default;
 $secondary:     $blue !default;
 $success:       $green !default;
 $success-light: lighten($success, 30%) !default;
