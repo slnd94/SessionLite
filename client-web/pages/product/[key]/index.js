@@ -75,7 +75,7 @@ export default function Profile() {
                         await fetchProduct()
                         setProcessing(false);
                         // notify user
-                        toast(t(`user.Added to cart`), {
+                        toast(t(`user.cart.Added to cart`), {
                           type: 'success'
                         });
                       }
