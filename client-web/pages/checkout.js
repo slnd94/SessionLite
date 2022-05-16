@@ -2,10 +2,7 @@
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as UserContext } from '../context/UserContext';
 import { useEffect, useContext, useState } from 'react'
-import PaginatedList from '../components/PaginatedList';
-import UserCartItem from '../components/user/UserCartItem';
 import UserCart from '../components/user/UserCart';
-import api from '../utils/api';
 import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
