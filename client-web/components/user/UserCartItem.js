@@ -13,7 +13,7 @@ const UserCartItem = ({ product, className, onClick, removeFromCartFunc, t }) =>
           {
             className: 'btn-block-sm-down',
             color: 'primary',
-            label: t('user.Remove from cart'),
+            label: t('user.cart.Remove from cart'),
             onClick: () => removeFromCartFunc(product._id)
           }
         ]}

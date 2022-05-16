@@ -1,22 +1,20 @@
-import Layout from '../../components/user/Layout'
-import { Context as AuthContext } from '../../context/AuthContext';
-import { Context as UserContext } from '../../context/UserContext';
+// import Layout from '../components/user/Layout'
+import { Context as AuthContext } from '../context/AuthContext';
+import { Context as UserContext } from '../context/UserContext';
 import { useEffect, useContext, useState } from 'react'
-import { useRouter } from 'next/router';
-import PaginatedList from '../../components/PaginatedList';
-import UserCartItem from '../../components/user/UserCartItem';
-import api from '../../utils/api';
+import PaginatedList from '../components/PaginatedList';
+import UserCartItem from '../components/user/UserCartItem';
+import api from '../utils/api';
 import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import styles from '../../styles/User.module.scss'
-import { Button } from 'reactstrap';
+import styles from '../styles/Checkout.module.scss'
 
-export default function Cart() {
-  const router = useRouter();
+export default function Checkout() {
   const { t } = useTranslation('common');
   const { state: { auth } } = useContext(AuthContext);
   const { state: { cart }, getUserCart, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
+  const [ checkout, setCheckout ] = useState(false);
 
 
   useEffect(() => {
@@ -25,17 +23,17 @@ export default function Cart() {
 
   return (
     <div>
-      <Layout>
+      {/* <Layout> */}
         <div>
           <div className="row mt-3 mt-md-0 ms-md-3">
             {cart?.items.length
               ? <div className="col-md-10 section-box">
-                  <h5 className={'title'}>{t('user.cart.Your Cart')}</h5>                  
+                  <h5 className={'title'}>{t('user.cart.Your Cart')}</h5>
                   <PaginatedList
                     items={cart?.items.length ? cart.items.map(item => item.product) : []}
                     itemComponent={UserCartItem}
                     itemComponentCustomProps={{
-                      removeFromCartFunc: async productId => {
+                      removeFromCartFunc: checkout ? null : async productId => {
                         if(auth?.status === 'SIGNED_IN') {
                           const response = await api({
                             method: 'patch',
@@ -65,24 +63,12 @@ export default function Cart() {
                     t={t}
                     // onRef={ref => (this.paginatedList = ref)}
                   />
-                  <Button
-                    // size='lg'
-                    className={'me-4 btn-block-md-down'}
-                    color="success"
-                    onClick={() => {
-                      router.push({ 
-                        pathname: `/checkout`
-                      });
-                    }}
-                  >
-                    {t('user.cart.Proceed to checkout')}
-                  </Button>
                 </div>
               : <h5 className={'title'}>{t('user.cart.Your cart is empty')}</h5>     
             }
           </div>
         </div>
-      </Layout>
+      {/* </Layout> */}
     </div>
   )
 }

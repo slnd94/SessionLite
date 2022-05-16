@@ -24,7 +24,7 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
                 {inUserCart &&
                   <>
                     <h5>
-                      {t('user.This product is in your cart')}
+                      {t('user.cart.This product is in your cart')}
                     </h5>
                     <div className="mt-4">
                       <Button
@@ -37,14 +37,14 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
                           });
                         }}
                       >
-                        {t('user.View your cart')}
+                        {t('user.cart.View your cart')}
                       </Button>
                       <Button
                         className={'btn-block-sm-down'}
                         color="primary"            
                         onClick={() => removeFromCartFunc()}
                       >
-                        {t('user.Remove from cart')}
+                        {t('user.cart.Remove from cart')}
                       </Button>
                     </div>                  
                   </>
@@ -56,7 +56,7 @@ const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addTo
                       color="primary"            
                       onClick={() => addToCartFunc()}
                     >
-                      {t('user.Add to cart')}
+                      {t('user.cart.Add to cart')}
                     </Button>
                   </span>
                 }

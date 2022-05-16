@@ -16,7 +16,7 @@ export default function Layout({ children}) {
     {
       slug: 'profile',
       icon: 'profile',
-      labelPills: t('user.Your Profile'),
+      labelPills: t('Your Profile'),
       labelTabs: t('Profile')
     },
     {
@@ -28,8 +28,8 @@ export default function Layout({ children}) {
     {
       slug: 'cart',
       icon: 'cart',
-      labelPills: t('Your Cart'),
-      labelTabs: t('Cart'),
+      labelPills: t('cart.Your Cart'),
+      labelTabs: t('cart.Cart'),
       badge: cart?.items.length || false
     }
   ];

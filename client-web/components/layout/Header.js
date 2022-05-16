@@ -101,7 +101,7 @@ function Header({ brandName }) {
                       <IconText
                         className="d-inline d-sm-none"
                         icon={'cart'}
-                        text={t('user.Your Cart')}
+                        text={t('user.cart.Your Cart')}
                       />
                     </NavLink>
                   </Link>
