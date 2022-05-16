@@ -12,7 +12,6 @@ export default function Checkout() {
   const { t } = useTranslation('common');
   const { state: { auth } } = useContext(AuthContext);
   const { state: { cart }, getUserCart, clearErrorMessage: clearUserErrorMessage } = useContext(UserContext);
-  const [ checkout, setCheckout ] = useState(false);
 
 
   useEffect(() => {
