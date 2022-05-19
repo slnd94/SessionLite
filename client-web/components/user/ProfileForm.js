@@ -1,36 +1,51 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import { Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
+import PropTypes from "prop-types";
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormFeedback,
+  Button,
+} from "reactstrap";
 import { useForm, Controller } from "react-hook-form";
-import Loader from '../Loader';
-import { useTranslation } from 'next-i18next';
+import Loader from "../Loader";
+import { useTranslation } from "next-i18next";
 
-function ProfileForm({ onSubmit, processing, defaults: { email, firstName, lastName} }) {
-  const { handleSubmit, control, formState: { errors } } = useForm({
+function ProfileForm({
+  onSubmit,
+  processing,
+  defaults: { email, firstName, lastName },
+}) {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       firstName,
       lastName,
-      email
-    }
+      email,
+    },
   });
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   const formRules = {
-    firstName: { required: t('user.First name is required') },
-    lastName: { required: t('user.Last name is required') },
-    email: { required: t('user.Email is required') }
+    firstName: { required: t("user.First name is required") },
+    lastName: { required: t("user.Last name is required") },
+    email: { required: t("user.Email is required") },
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label>{t('user.Email')}</Label>
+        <Label>{t("user.Email")}</Label>
         <Controller
           name="email"
           control={control}
           rules={formRules.email}
-          render={({ field: { ref, ...field } }) => 
+          render={({ field: { ref, ...field } }) => (
             <Input
               {...field}
               type="email"
@@ -38,57 +53,58 @@ function ProfileForm({ onSubmit, processing, defaults: { email, firstName, lastN
               invalid={!!errors?.email}
               disabled
             />
-          }
+          )}
         />
         <FormFeedback>
           {errors?.email?.message && errors.email.message}
         </FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label>{t('user.First Name')}</Label>
+        <Label>{t("user.First Name")}</Label>
         <Controller
           name="firstName"
           control={control}
           rules={formRules.firstName}
-          render={({ field: { ref, ...field } }) => 
+          render={({ field: { ref, ...field } }) => (
             <Input
               {...field}
               type="text"
               innerRef={ref}
               invalid={!!errors?.firstName}
             />
-          }
+          )}
         />
-        <FormFeedback> 
+        <FormFeedback>
           {errors?.firstName?.message && errors.firstName.message}
         </FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label>{t('user.Last Name')}</Label>
+        <Label>{t("user.Last Name")}</Label>
         <Controller
           name="lastName"
           control={control}
           rules={formRules.lastName}
-          render={({ field: { ref, ...field } }) => 
+          render={({ field: { ref, ...field } }) => (
             <Input
               {...field}
               type="text"
               innerRef={ref}
               invalid={!!errors?.lastName}
             />
-          }
+          )}
         />
         <FormFeedback>
           {errors?.lastName?.message && errors.lastName.message}
         </FormFeedback>
       </FormGroup>
-      
-      {processing 
-        ? <Loader /> 
-        : <Button className={'btn-block-md-down'} color="primary" type="submit">
-            {t('user.Save')}
-          </Button>
-      }
+
+      {processing ? (
+        <Loader />
+      ) : (
+        <Button className={"btn-block-md-down"} color="primary" type="submit">
+          {t("user.Save")}
+        </Button>
+      )}
     </Form>
   );
 }
@@ -96,7 +112,7 @@ function ProfileForm({ onSubmit, processing, defaults: { email, firstName, lastN
 ProfileForm.propTypes = {
   onSubmit: PropTypes.func,
   processing: PropTypes.bool,
-  defaults: PropTypes.object
+  defaults: PropTypes.object,
 };
 
-export default ProfileForm
+export default ProfileForm;

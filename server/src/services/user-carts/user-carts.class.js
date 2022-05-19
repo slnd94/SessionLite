@@ -12,7 +12,6 @@ exports.UserCarts = class UserCarts {
   setup(app) {
     this.app = app;
     this.userCurrencyCode = this.app.get('defaultCurrency');
-    console.log("🚀 ~ file: user-carts.class.js ~ line 15 ~ UserCarts ~ setup ~ this.userCurrencyCode", this.userCurrencyCode)
     this.userTaxes = currencies[this.userCurrencyCode].taxes;
   }
 
@@ -46,13 +45,13 @@ exports.UserCarts = class UserCarts {
       ({
         ...tax,
         amount: {
-          figure: Math.ceil(subtotal.figure * tax.rate),
+          figure: (subtotal.figure * tax.rate).toFixed(2),
           currencyCode: this.userCurrencyCode
         }
       })
     );
     const total = {
-      figure: subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0),
+      figure: (subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0)),
       currencyCode: this.userCurrencyCode
     };
 

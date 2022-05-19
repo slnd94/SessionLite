@@ -1,2 +1,1 @@
-
-export const getFullName = name => `${name.given} ${name.family}`;
+export const getFullName = (name) => `${name.given} ${name.family}`;

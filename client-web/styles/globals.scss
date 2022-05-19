@@ -1,26 +1,26 @@
-
 // @import "../node_modules/bootswatch/dist/flatly/variables";
-@import './variables';
+@import "./variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/flatly/bootswatch";
-@import './components/alert';
-@import './components/nav';
-@import './components/button';
-@import './components/iconText';
-@import './components/pagination';
-@import './components/react-toastify/main';
+@import "./components/alert";
+@import "./components/nav";
+@import "./components/button";
+@import "./components/iconText";
+@import "./components/pagination";
+@import "./components/react-toastify/main";
 
 html,
 body {
   padding: 0;
   margin: 0;
   // background-color: black;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; 
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-size: $font-size-base;
 }
 
 * {
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .title {
@@ -45,11 +45,13 @@ body {
 .section-box {
   margin-top: -32px;
   padding: 30px;
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }
 
 .list-item-box {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 
   width: 100%;
   min-height: 100px;

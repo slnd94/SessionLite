@@ -5,8 +5,8 @@
 // Color system
 //
 
-$white:    #fff !default;
-$gray-100: #EBEBEB !default;
+$white: #fff !default;
+$gray-100: #ebebeb !default;
 $gray-200: #e1e1e1 !default;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
@@ -15,49 +15,49 @@ $gray-600: #868e96 !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
-$black:    #000 !default;
+$black: #000 !default;
 
-$blue:    #2a96f2 !default;
-$indigo:  #6610f2 !default;
-$purple:  #9365b8 !default;
-$pink:    #e83e8c !default;
-$red:     #d9534f !default;
-$orange:  #ed522f !default;
-$yellow:  #f8c032 !default;
-$green:   #00b15e !default;
-$teal:    #20c997 !default;
-$cyan:    #4d9ace !default;
+$blue: #2a96f2 !default;
+$indigo: #6610f2 !default;
+$purple: #9365b8 !default;
+$pink: #e83e8c !default;
+$red: #d9534f !default;
+$orange: #ed522f !default;
+$yellow: #f8c032 !default;
+$green: #00b15e !default;
+$teal: #20c997 !default;
+$cyan: #4d9ace !default;
 
-$charcoal:   #323338 !default;
-$water:   #4E5D6C !default;
-$brown:     rgb(108, 89, 78);
+$charcoal: #323338 !default;
+$water: #4e5d6c !default;
+$brown: rgb(108, 89, 78);
 
-$primary:       $charcoal !default;
-$secondary:     $blue !default;
-$success:       $green !default;
+$primary: $charcoal !default;
+$secondary: $blue !default;
+$success: $green !default;
 $success-light: lighten($success, 30%) !default;
-$info:          $blue !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
+$info: $blue !default;
+$warning: $yellow !default;
+$danger: $red !default;
 $danger-light: lighten($danger, 38%) !default;
-$dark:          $charcoal !default;
-$light:         lighten($dark, 50%) !default;
-$lighter:       lighten($dark, 62.5%) !default;
-$lightest:       lighten($dark, 75%) !default;
+$dark: $charcoal !default;
+$light: lighten($dark, 50%) !default;
+$lighter: lighten($dark, 62.5%) !default;
+$lightest: lighten($dark, 75%) !default;
 
 // // Body
 
-$body-bg:                   $white !default;
-$body-color:                $gray-900 !default;
-$body-color-light:          lighten($body-color, 30%) !default;
+$body-bg: $white !default;
+$body-color: $gray-900 !default;
+$body-color-light: lighten($body-color, 30%) !default;
 // $body-color:                #2B3E50 !default;
-$font-size-base:            1rem;
+$font-size-base: 1rem;
 
 // // Components
 
-$border-radius:               0px !default;
-$border-radius-lg:            $border-radius !default;
-$border-radius-sm:            $border-radius !default;
+$border-radius: 0px !default;
+$border-radius-lg: $border-radius !default;
+$border-radius-sm: $border-radius !default;
 
 // // Fonts
 // $font-family-sans-serif:      "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
@@ -66,8 +66,8 @@ $border-radius-sm:            $border-radius !default;
 
 // // Tables
 
-$table-accent-bg:             rgba($secondary,.05) !default;
-$table-hover-bg:              rgba($white,.075) !default;
+$table-accent-bg: rgba($secondary, 0.05) !default;
+$table-hover-bg: rgba($white, 0.075) !default;
 
 // $table-dark-bg:               $light !default;
 // $table-dark-border-color:     $secondary !default;
@@ -81,36 +81,36 @@ $table-hover-bg:              rgba($white,.075) !default;
 
 // // Dropdowns
 
-$dropdown-bg:                       $lightest !default;
-$dropdown-divider-bg:               rgba($black,.15) !default;
+$dropdown-bg: $lightest !default;
+$dropdown-divider-bg: rgba($black, 0.15) !default;
 
-$dropdown-link-color:               $dark !default;
-$dropdown-link-hover-color:         $dropdown-link-color !default;
-$dropdown-link-hover-bg:            $lighter !default;
-$dropdown-link-active-bg:           $blue !default;
+$dropdown-link-color: $dark !default;
+$dropdown-link-hover-color: $dropdown-link-color !default;
+$dropdown-link-hover-bg: $lighter !default;
+$dropdown-link-active-bg: $blue !default;
 
 // // Links
 
-$link-color:                        $blue !default;
+$link-color: $blue !default;
 
 // // Navs
 
 // $nav-link-disabled-color:           rgba(255,255,255,.4) !default;
-$nav-link-hover-color:           $dark !default;
+$nav-link-hover-color: $dark !default;
 
 // $nav-tabs-border-color:             $secondary !default;
-$nav-tabs-link-hover-color:        $light !default;
-$nav-tabs-link-active-color:        $body-color !default;
+$nav-tabs-link-hover-color: $light !default;
+$nav-tabs-link-active-color: $body-color !default;
 // $nav-tabs-link-active-border-color: $secondary !default;
 
 // // Navbar
 
-$navbar-padding-x:                  0.5rem !default;
-$navbar-padding-y:                  0.5rem !default;
+$navbar-padding-x: 0.5rem !default;
+$navbar-padding-y: 0.5rem !default;
 
-$navbar-dark-color:                 $lighter !default;
+$navbar-dark-color: $lighter !default;
 // $navbar-dark-hover-color:           $white !default;
-$navbar-toggler-focus-width:        0rem;
+$navbar-toggler-focus-width: 0rem;
 
 // // Pagination
 
@@ -128,14 +128,14 @@ $navbar-toggler-focus-width:        0rem;
 
 // // Modals
 
-$modal-content-bg:                  $lighter !default;
+$modal-content-bg: $lighter !default;
 
-$modal-header-border-color:         rgba(0,0,0,.2) !default;
+$modal-header-border-color: rgba(0, 0, 0, 0.2) !default;
 
 // // Cards
 
-$card-cap-bg:                       $table-hover-bg !default;
-$card-bg:                           $secondary !default;
+$card-cap-bg: $table-hover-bg !default;
+$card-bg: $secondary !default;
 
 // // Popovers
 
