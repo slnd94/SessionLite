@@ -12,7 +12,6 @@ exports.payments = class Payments {
   async create (data, params) {
     // get the user's cart
     const userCart = await this.app.service('user-carts').get(params.user._id, {});
-    console.log("🚀 ~ file: payments.class.js ~ line 15 ~ Payments ~ create ~ userCart", userCart)
     const userCartTotal = userCart.total;    
 
     const paymentIntent = await this.stripe.paymentIntents.create({
