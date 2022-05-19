@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import api from "../../utils/api";
+import { Modal } from "reactstrap";
 import styles from "../../styles/Checkout.module.scss";
 
 export default function Checkout() {
@@ -44,15 +45,23 @@ export default function Checkout() {
 
   useEffect(() => {
     let isSubscribed = true;
-    createPaymentIntent().catch(console.error);
+    createPaymentIntent();
     return () => (isSubscribed = false);
   }, []);
 
   return (
     <>
-      {cart?.items?.length ? (
+      {/* {processing
+      ? <Modal><Loader /></Modal>
+      : <></>
+      } */}
+      {!cart || !paymentIntent?.clientSecret ? (
+        <Loader />
+      ) : (
         <>
-          {paymentIntent?.clientSecret ? (
+          {!cart?.items?.length ? (
+            <h5 className={"title"}>{t("user.cart.Your cart is empty")}</h5>
+          ) : (
             <div className="row mt-3 mt-md-0">
               {/* <div className="col-12 col-md-8 d-inline d-md-none">
             <h5 className={"title"}>Checkout</h5>
@@ -77,6 +86,7 @@ export default function Checkout() {
                     </h5>
                     <UserCheckoutStripeForm
                       processing={processing}
+                      setProcessing={setProcessing}
                       total={cart?.total}
                       onSubmit={async (data) => {
                         // setProcessing(true);
@@ -104,34 +114,25 @@ export default function Checkout() {
                     />
                   </Elements>
                 </div>
-                {cart?.items.length ? (
-                  <div className="mb-5">
-                    <h5 className={"title"}>{t("checkout.Details")}</h5>
-                    <UserCart
-                      cart={cart}
-                      auth={auth}
-                      onRemoveItem={() => {
-                        getUserCart({ id: auth.user._id });
-                        toast(t(`user.cart.Removed from cart`), {
-                          type: "info",
-                        });
-                      }}
-                      t={t}
-                    />
-                  </div>
-                ) : (
-                  <h5 className={"title"}>
-                    {t("user.cart.Your cart is empty")}
-                  </h5>
-                )}
+                <div className="mb-5">
+                  <h5 className={"title"}>{t("checkout.Details")}</h5>
+                  <UserCart
+                    cart={cart}
+                    auth={auth}
+                    onRemoveItem={() => {
+                      getUserCart({ id: auth.user._id });
+                      toast(t(`user.cart.Removed from cart`), {
+                        type: "info",
+                      });
+                      createPaymentIntent();
+                    }}
+                    t={t}
+                  />
+                </div>
               </div>
             </div>
-          ) : (
-            <Loader />
           )}
         </>
-      ) : (
-        <h5 className={"title"}>{t("user.cart.Your cart is empty")}</h5>
       )}
     </>
   );

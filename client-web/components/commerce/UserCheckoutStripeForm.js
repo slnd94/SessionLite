@@ -3,12 +3,9 @@ import PropTypes from "prop-types";
 import {
   Form,
   FormGroup,
-  Label,
-  Input,
-  FormFeedback,
   Button,
 } from "reactstrap";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, set } from "react-hook-form";
 import Loader from "../Loader";
 import Amount from "../commerce/Amount";
 import {
@@ -18,7 +15,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useTranslation } from "next-i18next";
 
-function UserCheckoutStripeForm({ onSubmit, processing, total }) {
+function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) {
   const stripe = useStripe();
   const elements = useElements();
   const {
@@ -44,6 +41,8 @@ function UserCheckoutStripeForm({ onSubmit, processing, total }) {
       return;
     }
 
+    setProcessing(true);
+
     const result = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
@@ -60,6 +59,7 @@ function UserCheckoutStripeForm({ onSubmit, processing, total }) {
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
     }
+    // setProcessing(false)
   };
 
   return (
@@ -103,7 +103,8 @@ function UserCheckoutStripeForm({ onSubmit, processing, total }) {
       </FormGroup>
 
       {processing ? (
-        <Loader />
+        <><Loader /> Processing...</>
+        
       ) : (
         <>
           {total ? (
