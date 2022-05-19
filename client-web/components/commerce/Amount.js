@@ -2,7 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { getAmountString } from "../../helpers/commerceHelpers";
 
-const Amount = ({ amount, showNotSpecified, className, style, t }) => {
+const Amount = ({
+  amount,
+  showNotSpecified,
+  showCurrencyCode,
+  className,
+  style,
+  t,
+}) => {
   return (
     <div
       className={className}
@@ -14,7 +21,7 @@ const Amount = ({ amount, showNotSpecified, className, style, t }) => {
           : ""
         : amount.figure === 0
         ? t("commerce.Free")
-        : getAmountString(amount)}
+        : getAmountString({ amount, showCurrencyCode })}
     </div>
   );
 };
@@ -25,6 +32,10 @@ Amount.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   t: PropTypes.func,
+};
+
+Amount.defaultProps = {
+  showCurrencyCode: true,
 };
 
 export default Amount;

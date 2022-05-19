@@ -45,13 +45,13 @@ exports.UserCarts = class UserCarts {
       ({
         ...tax,
         amount: {
-          figure: (subtotal.figure * tax.rate).toFixed(2),
+          figure: parseFloat((subtotal.figure * tax.rate).toFixed(2)),
           currencyCode: this.userCurrencyCode
         }
       })
     );
     const total = {
-      figure: (subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0)),
+      figure: parseFloat((subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0)).toFixed(2)),
       currencyCode: this.userCurrencyCode
     };
 

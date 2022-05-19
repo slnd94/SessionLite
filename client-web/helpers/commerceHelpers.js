@@ -9,13 +9,13 @@ const currencySymbols = {
   },
 };
 
-export const getAmountString = (amount) => {
+export const getAmountString = ({ amount, showCurrencyCode = true }) => {
   if (amount) {
     const { figure, currencyCode } = amount;
     if (figure && currencyCode) {
       return `${currencySymbols[currencyCode].symbol}${figure.toFixed(
         currencySymbols[currencyCode].decimals
-      )} ${currencyCode}`;
+      )} ${showCurrencyCode ? currencyCode : ''}`;
     } else {
       return "";
     }

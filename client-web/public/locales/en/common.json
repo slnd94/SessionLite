@@ -109,6 +109,10 @@
   },
   "checkout": {
     "Checkout": "Checkout",
+    "Items": "Items",
+    "Total before tax": "Total before tax",
+    "estimated": "estimated",
+    "Order Total": "Order Total",
     "Payment Information": "Payment Information",
     "Details": "Details",
     "Pay": "Pay"

@@ -1,58 +1,71 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getAmountString } from "../../helpers/commerceHelpers";
+import { useTranslation } from "next-i18next";
+import Amount from './Amount';
 
-const CheckoutSummary = ({ amount, showNotSpecified, className, style, t }) => {
+const CheckoutSummary = ({ cart }) => {
+console.log("🚀 ~ file: CheckoutSummary.js ~ line 7 ~ CheckoutSummary ~ cart", cart)
+  const { t } = useTranslation("common");
   return (
-    <table style={{ width: "100%" }}>
-      <tbody>
-        <tr data-testid="" className="small-line-height">
-          <td>
-            <span className="break-word">Items (3):</span>
-          </td>
-          <td className="text-end">$75.97</td>
-        </tr>
-        <tr data-testid="" className="order-summary-separator">
-          <td></td>
-          <td>
-            <hr aria-hidden="true" className="a-spacing-none a-divider-normal" />
-          </td>
-        </tr>
-        <tr data-testid="" className="small-line-height">
-          <td>
-            <span classNamess="break-word">Total before tax:</span>
-          </td>
-          <td className="text-end">$75.97</td>
-        </tr>
-        <tr data-testid="" className="small-line-height">
-          <td>
-            <span className="break-word">Estimated GST/HST:</span>
-          </td>
-          <td className="text-end">$9.88</td>
-        </tr>
-        <tr data-testid="" className="small-line-height">
-          <td>
-            <span className="break-word">Estimated PST/RST/QST:</span>
-          </td>
-          <td className="text-end">$0.00</td>
-        </tr>
+    <>
+      {cart ? (
+        <table style={{ width: "100%" }}>
+          <tbody>
+            <tr data-testid="" className="small-line-height">
+              <td>
+                <span className="break-word">
+                  {t("checkout.Items")} ({cart.items.length}):
+                </span>
+              </td>
+              <td className="text-end"><Amount amount={cart.subtotal} showCurrencyCode={false} /></td>
+            </tr>
+            <tr data-testid="" className="order-summary-separator">
+              <td></td>
+              <td>
+                <hr
+                  aria-hidden="true"
+                  className="a-spacing-none a-divider-normal"
+                />
+              </td>
+            </tr>
+            <tr data-testid="" className="small-line-height">
+              <td>
+                <span classNamess="break-word">{t('checkout.Total before tax')}:</span>
+              </td>
+              <td className="text-end"><Amount amount={cart.subtotal} showCurrencyCode={false} /></td>
+            </tr>
+            {cart.taxes.map((tax, index) => (
+              <tr key={index} data-testid="" className="small-line-height">
+                <td>
+                  <span className="break-word">{`${tax.tax} (${t('checkout.estimated')})`}:</span>
+                </td>
+                <td className="text-end"><Amount amount={tax.amount} showCurrencyCode={false} /></td>
+              </tr>
+            ))}
 
-        <tr className="order-summary-grand-total">
-          <td colspan="2" className="cell-separator">
-            <hr aria-hidden="true" className="a-spacing-mini a-divider-normal" />
-          </td>
-        </tr>
+            <tr className="order-summary-grand-total">
+              <td colspan="2" className="cell-separator">
+                <hr
+                  aria-hidden="true"
+                  className="a-spacing-mini a-divider-normal"
+                />
+              </td>
+            </tr>
 
-        <tr data-testid="">
-          <td>
-            <span className="break-word">Order Total:</span>
-          </td>
-          <td className="text-end fw-bold" style={{fontSize: '1.25rem'}}>
-            $85.85
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <tr data-testid="">
+              <td>
+                <span className="break-word">{t('checkout.Order Total')}:</span>
+              </td>
+              <td className="text-end fw-bold" style={{ fontSize: "1.25rem" }}>
+                <Amount amount={cart.total} showCurrencyCode={true} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
