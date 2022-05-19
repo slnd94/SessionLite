@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import api from "../../utils/api";
-import { Modal } from "reactstrap";
 import styles from "../../styles/Checkout.module.scss";
 
 export default function Checkout() {
@@ -51,10 +50,6 @@ export default function Checkout() {
 
   return (
     <>
-      {/* {processing
-      ? <Modal><Loader /></Modal>
-      : <></>
-      } */}
       {!cart || !paymentIntent?.clientSecret ? (
         <Loader />
       ) : (
@@ -63,12 +58,6 @@ export default function Checkout() {
             <h5 className={"title"}>{t("user.cart.Your cart is empty")}</h5>
           ) : (
             <div className="row mt-3 mt-md-0">
-              {/* <div className="col-12 col-md-8 d-inline d-md-none">
-            <h5 className={"title"}>Checkout</h5>
-            <div className="section-box mt-4 mb-5 ">
-              <CheckoutSummary />
-            </div>
-          </div> */}
               <div className="col-12 col-md-4">
                 <h5 className={"title"}>{t("checkout.Checkout")}</h5>
                 <div className="section-box mt-4 mb-5 ">
@@ -88,29 +77,7 @@ export default function Checkout() {
                       processing={processing}
                       setProcessing={setProcessing}
                       total={cart?.total}
-                      onSubmit={async (data) => {
-                        // setProcessing(true);
-                        // console.log("🚀 ~ file: checkout.js ~ line 74 ~ onSubmit={ ~ paymentIntent", paymentIntent)
-                        // if (elements == null || !(paymentIntent?.clientSecret)) {
-                        //   return;
-                        // }
-                        // const request = await stripe.createPaymentMethod({
-                        //   type: 'card',
-                        //   card: elements.getElement(CardElement),
-                        // });
-                        // console.log("🚀 ~ file: checkout.js ~ line 55 ~ onSubmit={ ~ request", request)
-                        // if(request.success) {
-                        //   // remove processing loader
-                        //   setProcessing(false);
-                        //   // notify user
-                        //   toast(t(`user.User profile updated`), {
-                        //     type: 'success'
-                        //   });
-                        // } else {
-                        //   // remove preocessing loader
-                        //   setProcessing(false);
-                        // }
-                      }}
+                      onSubmit={async (data) => {}}
                     />
                   </Elements>
                 </div>
