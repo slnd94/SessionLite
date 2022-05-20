@@ -45,11 +45,9 @@ function Layout({ children, brandName }) {
         draggable
         pauseOnHover
       />
-      {/* Same as */}
-      {/* <ToastContainer /> */}
       <Header brandName={brandName} />
 
-      <main className={styles.main}>{children}</main>
+      <main className={`${styles.main} px-4 px-md-5`}>{children}</main>
 
       <Footer />
     </div>

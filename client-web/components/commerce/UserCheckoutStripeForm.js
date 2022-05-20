@@ -47,7 +47,7 @@ function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) 
       //`Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
-        return_url: "https://example.com/order/123/complete",
+        return_url: "https://fnext-dev-web.loca.lt/checkout/thankyou",
       },
     });
 
@@ -92,7 +92,7 @@ function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) 
             <Button
               className={"btn-block-md-down"}
               size="lg"
-              color="warning"
+              color="info"
               type="submit"
             >
               {t("checkout.Place your order")}
