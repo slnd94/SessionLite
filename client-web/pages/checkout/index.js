@@ -82,7 +82,7 @@ export default function Checkout() {
                   </Elements>
                 </div>
                 <div className="mb-5">
-                  <h5 className={"title"}>{t("checkout.Details")}</h5>
+                  <h5 className={"title"}>{t("checkout.Order Details")}</h5>
                   <UserCart
                     cart={cart}
                     auth={auth}

@@ -59,30 +59,11 @@ function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) 
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
     }
-    // setProcessing(false)
+    setProcessing(false)
   };
 
   return (
     <Form onSubmit={handleSubmit(formSubmit)}>
-      {/* <FormGroup>
-        <Label>{t("user.Name on Card")}</Label>
-        <Controller
-          name="nameOnCard"
-          control={control}
-          rules={formRules.nameOnCard}
-          render={({ field: { ref, ...field } }) => (
-            <Input
-              {...field}
-              type="text"
-              innerRef={ref}
-              invalid={!!errors?.nameOnCard}
-            />
-          )}
-        />
-        <FormFeedback>
-          {errors?.nameOnCard?.message && errors.nameOnCard.message}
-        </FormFeedback>
-      </FormGroup> */}
       <FormGroup>
         <PaymentElement
           style={{
@@ -111,10 +92,10 @@ function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) 
             <Button
               className={"btn-block-md-down"}
               size="lg"
-              color="success"
+              color="warning"
               type="submit"
             >
-              {t("checkout.Pay")} <Amount amount={total} />
+              {t("checkout.Place your order")}
             </Button>
           ) : (
             <></>

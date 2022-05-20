@@ -10,9 +10,9 @@ const CheckoutSummary = ({ cart }) => {
       {cart ? (
         <table style={{ width: "100%" }}>
           <tbody>
-            <tr data-testid="" className="small-line-height">
+            <tr data-testid="">
               <td>
-                <span className="break-word">
+                <span>
                   {t("checkout.Items")} ({cart.items.length}):
                 </span>
               </td>
@@ -20,18 +20,17 @@ const CheckoutSummary = ({ cart }) => {
                 <Amount amount={cart.subtotal} showCurrencyCode={false} />
               </td>
             </tr>
-            <tr data-testid="" className="order-summary-separator">
+            <tr data-testid="">
               <td></td>
               <td>
                 <hr
                   aria-hidden="true"
-                  className="a-spacing-none a-divider-normal"
                 />
               </td>
             </tr>
-            <tr data-testid="" className="small-line-height">
+            <tr data-testid="">
               <td>
-                <span className="break-word">
+                <span>
                   {t("checkout.Total before tax")}:
                 </span>
               </td>
@@ -40,9 +39,9 @@ const CheckoutSummary = ({ cart }) => {
               </td>
             </tr>
             {cart.taxes.map((tax, index) => (
-              <tr key={index} data-testid="" className="small-line-height">
+              <tr key={index} data-testid="">
                 <td>
-                  <span className="break-word">
+                  <span>
                     {`${tax.tax} (${t("checkout.estimated")})`}:
                   </span>
                 </td>
@@ -52,18 +51,17 @@ const CheckoutSummary = ({ cart }) => {
               </tr>
             ))}
 
-            <tr className="order-summary-grand-total">
-              <td colSpan="2" className="cell-separator">
+            <tr>
+              <td colSpan="2">
                 <hr
                   aria-hidden="true"
-                  className="a-spacing-mini a-divider-normal"
                 />
               </td>
             </tr>
 
             <tr data-testid="">
               <td>
-                <span className="break-word">{t("checkout.Order Total")}:</span>
+                <span>{t("checkout.Order Total")}:</span>
               </td>
               <td className="text-end fw-bold" style={{ fontSize: "1.25rem" }}>
                 <Amount amount={cart.total} showCurrencyCode={true} />
