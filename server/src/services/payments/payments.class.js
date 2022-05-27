@@ -20,6 +20,7 @@ exports.payments = class Payments {
       // Verify your integration in this guide by including this parameter
       metadata: {integration_check: 'accept_a_payment'},
     });
+    console.log("🚀 ~ file: payments.class.js ~ line 23 ~ Payments ~ create ~ paymentIntent", paymentIntent)
 
     return { clientSecret: paymentIntent.client_secret };
   }
