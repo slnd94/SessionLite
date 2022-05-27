@@ -46,7 +46,7 @@ const ProductUserCart = ({
                       <Button
                         // size='lg'
                         className={"me-4 btn-block-sm-down"}
-                        color="primary"
+                        color="success"
                         onClick={() => {
                           router.push({
                             pathname: `/user/cart`,
@@ -69,7 +69,7 @@ const ProductUserCart = ({
                   <span>
                     <Button
                       className={"btn-block-sm-down"}
-                      color="primary"
+                      color="success"
                       onClick={() => addToCartFunc()}
                     >
                       {t("user.cart.Add to cart")}
