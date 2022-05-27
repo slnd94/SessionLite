@@ -10,14 +10,12 @@ const currencySymbols = {
 };
 
 export const getAmountString = ({ amount, showCurrencyCode = true }) => {
-  if (amount) {
-    const { figure, currencyCode } = amount;
-    if (figure && currencyCode) {
-      return `${currencySymbols[currencyCode].symbol}${figure.toFixed(
-        currencySymbols[currencyCode].decimals
-      )} ${showCurrencyCode ? currencyCode : ''}`;
-    } else {
-      return "";
-    }
+  const { figure, currencyCode } = amount;
+  if (typeof figure == "number" && currencyCode) {
+    return `${currencySymbols[currencyCode].symbol}${figure.toFixed(
+      currencySymbols[currencyCode].decimals
+    )} ${showCurrencyCode ? currencyCode : ""}`;
+  } else {
+    return "";
   }
 };

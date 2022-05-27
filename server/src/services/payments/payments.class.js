@@ -15,7 +15,7 @@ exports.payments = class Payments {
     const userCartTotal = userCart.total;    
 
     const paymentIntent = await this.stripe.paymentIntents.create({
-      amount: userCartTotal.figure * 100,
+      amount: parseInt(userCartTotal.figure * 100),
       currency: userCartTotal.currencyCode,
       // Verify your integration in this guide by including this parameter
       metadata: {integration_check: 'accept_a_payment'},

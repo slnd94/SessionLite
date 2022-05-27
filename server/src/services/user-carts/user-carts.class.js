@@ -38,18 +38,20 @@ exports.UserCarts = class UserCarts {
     const cart = user.cart || [];
 
     const subtotal = {
-      figure: cart.reduce((a, b) => +a + +b.product.prices[this.userCurrencyCode], 0),
+      figure: parseFloat(cart.reduce((a, b) => +a + +b.product.prices[this.userCurrencyCode], 0).toFixed(2)),
       currencyCode: this.userCurrencyCode
     };
+
     const taxes = this.userTaxes.map(tax => 
       ({
         ...tax,
         amount: {
-          figure: parseFloat((subtotal.figure * tax.rate).toFixed(2)),
+          figure: parseFloat(subtotal.figure * tax.rate),
           currencyCode: this.userCurrencyCode
         }
       })
     );
+
     const total = {
       figure: parseFloat((subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0)).toFixed(2)),
       currencyCode: this.userCurrencyCode

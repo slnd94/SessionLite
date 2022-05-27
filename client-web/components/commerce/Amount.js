@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "next-i18next";
 import { getAmountString } from "../../helpers/commerceHelpers";
 
 const Amount = ({
@@ -8,8 +9,8 @@ const Amount = ({
   showCurrencyCode,
   className,
   style,
-  t,
 }) => {
+  const { t } = useTranslation("common");
   return (
     <div
       className={className}
@@ -19,8 +20,6 @@ const Amount = ({
         ? showNotSpecified
           ? t("commerce.Not Specified")
           : ""
-        : amount.figure === 0
-        ? t("commerce.Free")
         : getAmountString({ amount, showCurrencyCode })}
     </div>
   );
