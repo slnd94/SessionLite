@@ -64,7 +64,7 @@ const CheckoutSummary = ({ cart }) => {
                 <span>{t("checkout.Order Total")}:</span>
               </td>
               <td className="text-end fw-bold" style={{ fontSize: "1.25rem" }}>
-                <Amount amount={cart.total} showCurrencyCode={true} />
+                <Amount amount={cart.total} showCurrencyCode={false} />
               </td>
             </tr>
           </tbody>

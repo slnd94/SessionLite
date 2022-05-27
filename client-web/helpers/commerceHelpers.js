@@ -1,6 +1,6 @@
 const currencySymbols = {
   CAD: {
-    symbol: "$",
+    symbol: "C$",
     decimals: 2,
   },
   USD: {
@@ -9,7 +9,7 @@ const currencySymbols = {
   },
 };
 
-export const getAmountString = ({ amount, showCurrencyCode = true }) => {
+export const getAmountString = ({ amount, showCurrencyCode = false }) => {
   const { figure, currencyCode } = amount;
   if (typeof figure == "number" && currencyCode) {
     return `${currencySymbols[currencyCode].symbol}${figure.toFixed(

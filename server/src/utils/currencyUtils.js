@@ -1,7 +1,7 @@
 const currencies = require("./currencies");
 
 module.exports = {
-  getAmountString: ({ amount, showCurrencyCode = true }) => {
+  getAmountString: ({ amount, showCurrencyCode = false }) => {
     const { figure, currencyCode } = amount;
     if (typeof figure == 'number' && currencyCode) {
       return `${currencies[currencyCode].symbol}${figure.toFixed(

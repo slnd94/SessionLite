@@ -7,6 +7,7 @@ const userAccountVerification = require('./user-account-verification/user-accoun
 const products = require('./products/products.service.js');
 const userCarts = require('./user-carts/user-carts.service.js');
 const payments = require('./payments/payments.service.js');
+const paymentEvents = require('./payment-events/payment-events.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -18,4 +19,5 @@ module.exports = function (app) {
   app.configure(products);
   app.configure(userCarts);
   app.configure(payments);
+  app.configure(paymentEvents);
 };

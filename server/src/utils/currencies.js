@@ -1,7 +1,7 @@
 
 module.exports = {
   CAD: {
-    symbol: '$',
+    symbol: 'C$',
     decimals: 2,
     taxes: [
       {

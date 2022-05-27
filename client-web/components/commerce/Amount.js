@@ -34,7 +34,7 @@ Amount.propTypes = {
 };
 
 Amount.defaultProps = {
-  showCurrencyCode: true,
+  showCurrencyCode: false,
 };
 
 export default Amount;
