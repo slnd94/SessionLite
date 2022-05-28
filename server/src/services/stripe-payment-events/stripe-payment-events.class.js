@@ -11,6 +11,6 @@ exports.PaymentEvents = class PaymentEvents {
   async create (data, params) {
     console.log("🚀 ~ file: payment-events.class.js ~ line 12 ~ PaymentEvents ~ create ~ data", data)
     console.log("🚀 ~ file: payment-events.class.js ~ line 12 ~ PaymentEvents ~ create ~ params", params)
-    
+    return { success: true };
   }
 };

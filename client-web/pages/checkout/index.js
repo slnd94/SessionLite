@@ -30,7 +30,7 @@ export default function Checkout() {
   const createPaymentIntent = async () => {
     const response = await api({
       method: "post",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/payments`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/payment-intents`,
     });
 
     if (response.status >= 200 && response.status < 300) {

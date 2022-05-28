@@ -1,8 +1,8 @@
 const app = require('../../src/app');
 
-describe('\'paymentEvents\' service', () => {
+describe('\'paymentIntents\' service', () => {
   it('registered the service', () => {
-    const service = app.service('payment-events');
+    const service = app.service('payment-intents');
     expect(service).toBeTruthy();
   });
 });

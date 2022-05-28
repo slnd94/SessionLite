@@ -21,7 +21,7 @@ module.exports = function (app) {
       emailVerificationKeyExpiryDate: { type: Date, required: false }
     },    
     sysAdmin: { type: Boolean, default: false },
-    cart: [{ type: userCartEntry }]  
+    cart: [{ type: userCartEntry }]
   }, {
     timestamps: true
   });

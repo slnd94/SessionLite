@@ -1,6 +1,6 @@
 // Initializes the `paymentEvents` service on path `/payment-events`
-const { PaymentEvents } = require('./payment-events.class');
-const hooks = require('./payment-events.hooks');
+const { PaymentEvents } = require('./stripe-payment-events.class');
+const hooks = require('./stripe-payment-events.hooks');
 
 module.exports = function (app) {
   const options = {
