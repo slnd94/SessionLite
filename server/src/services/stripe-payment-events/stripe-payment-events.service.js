@@ -1,5 +1,5 @@
 // Initializes the `paymentEvents` service on path `/payment-events`
-const { PaymentEvents } = require('./stripe-payment-events.class');
+const { StripePaymentEvents } = require('./stripe-payment-events.class');
 const hooks = require('./stripe-payment-events.hooks');
 
 module.exports = function (app) {
@@ -8,10 +8,10 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/payment-events', new PaymentEvents(options, app));
+  app.use('/stripe-payment-events', new StripePaymentEvents(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('payment-events');
+  const service = app.service('stripe-payment-events');
 
   service.hooks(hooks);
 };

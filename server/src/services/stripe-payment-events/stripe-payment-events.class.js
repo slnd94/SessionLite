@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-exports.PaymentEvents = class PaymentEvents {
+exports.StripePaymentEvents = class StripePaymentEvents {
   constructor (options) {
     this.options = options || {};
   }
@@ -9,8 +9,8 @@ exports.PaymentEvents = class PaymentEvents {
   }
 
   async create (data, params) {
-    console.log("🚀 ~ file: payment-events.class.js ~ line 12 ~ PaymentEvents ~ create ~ data", data)
-    console.log("🚀 ~ file: payment-events.class.js ~ line 12 ~ PaymentEvents ~ create ~ params", params)
+    console.log("🚀 ~ file: payment-events.class.js ~ line 12 ~ StripePaymentEvents ~ create ~ data", data)
+    console.log("🚀 ~ file: payment-events.class.js ~ line 12 ~ StripePaymentEvents ~ create ~ params", params)
     return { success: true };
   }
 };
