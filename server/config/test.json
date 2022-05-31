@@ -13,5 +13,6 @@
   "emailVerificationExpiryMinutes": "emailVerificationExpiryMinutes",
   "defaultCurrency": "defaultCurrency",
   "stripePublishableKey": "stripePublishableKey",
-  "stripeSecretKey": "stripeSecretKey"
+  "stripeSecretKey": "stripeSecretKey",
+  "stripePaymentConfirmationWebhookSecret": "stripePaymentConfirmationWebhookSecret"
 }
