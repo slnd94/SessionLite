@@ -8,6 +8,7 @@ const products = require('./products/products.service.js');
 const userCarts = require('./user-carts/user-carts.service.js');
 const paymentIntents = require('./payment-intents/payment-intents.service.js');
 const stripePaymentEvents = require('./stripe-payment-events/stripe-payment-events.service.js');
+const sales = require('./sales/sales.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -20,4 +21,5 @@ module.exports = function (app) {
   app.configure(userCarts);
   app.configure(paymentIntents);
   app.configure(stripePaymentEvents);
+  app.configure(sales);
 };

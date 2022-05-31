@@ -1,32 +1,29 @@
-// products-model.js - A mongoose model
+// sales-model.js - A mongoose model
 // 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 
 const amount = require('./amount.model');
-const productSale = require('./productSale.model');
 
 module.exports = function (app) {
-  const modelName = 'products';
+  const modelName = 'sales';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    name: { type: String, required: true },
-    description: { type: String },
-    features: [{ type: String }],
-    prices: { type: Object, required: true },
-    releaseStatus: {
-      type: Number,
-      min: 0,
-      max: 2,
-      required: true,
-      default: 0,
-      validate : {
-        validator : Number.isInteger,
-        message   : '{VALUE} is not an integer value'
-      }
+    user: { type : Schema.Types.ObjectId, ref: 'users', required: true },
+    pricePaid: {
+      subtotal: { type: amount, required: true },
+      taxes: [{
+        tax: { type: String, required: true },
+        rate: { type: Number, required: true },
+        amount: { type: amount, required: true }
+      }],
+      total: { type: amount, required: true }
     },
-    sales: [{ type: productSale }]
+    saleProducts: [{
+      product: { type : Schema.Types.ObjectId, ref: 'products', required: true },
+      pricePaid: { type: amount, required: true }
+    }]
   }, {
     timestamps: true
   });

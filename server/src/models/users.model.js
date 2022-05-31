@@ -9,7 +9,8 @@ const userCartEntry = require('./userCartEntry.model');
 module.exports = function (app) {
   const modelName = 'users';
   const mongooseClient = app.get('mongooseClient');
-  const schema = new mongooseClient.Schema({
+  const { Schema } = mongooseClient;
+  const schema = new Schema({
   
     email: { type: String, unique: true, lowercase: true },
     password: { type: String },  
@@ -21,7 +22,10 @@ module.exports = function (app) {
       emailVerificationKeyExpiryDate: { type: Date, required: false }
     },    
     sysAdmin: { type: Boolean, default: false },
-    cart: [{ type: userCartEntry }]
+    cart: [{ type: userCartEntry }],
+
+    sales: [{ type : Schema.Types.ObjectId, ref: 'sales', required: true, default: [] }],
+    purchasedProducts: [{ type : Schema.Types.ObjectId, ref: 'products', required: true, default: [] }]
   }, {
     timestamps: true
   });
