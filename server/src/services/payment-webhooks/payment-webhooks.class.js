@@ -70,6 +70,9 @@ exports.PaymentWebhooks = class PaymentWebhooks {
                   .patch(paymentIntent.userId, {
                     cart: []
                   }),
+                // delete all outstanding paymentintents for the user
+                
+
                 // send order confirmation email to user
                 // this.app.service('emails')
                 //   .create({
@@ -115,9 +118,6 @@ exports.PaymentWebhooks = class PaymentWebhooks {
         catch (err) {
           console.log('err', err.message)
         }
-
-
-
         console.log('Charge was successful!');
         break;
       default:
