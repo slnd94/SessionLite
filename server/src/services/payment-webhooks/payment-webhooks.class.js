@@ -23,18 +23,16 @@ exports.PaymentWebhooks = class PaymentWebhooks {
       case 'charge.succeeded':
         // the charge has been confirmed successful
         // process the purchase
-        const charge = data.data.object;
-        // console.log("🚀 ~ file: payment-webhooks.class.js ~ line 27 ~ PaymentWebhooks ~ create ~ data.data.object", data.data.object)
-        // get the associated payment intent
         
         try {
+          // get the associated payment intent
           const paymentIntentMatch = await this.app.service('payment-intents')
           .find({
             query: {
               stripePaymentIntentId: data.data.object.payment_intent
             }
           }); 
-          console.log("🚀 ~ file: payment-webhooks.class.js ~ line 32 ~ PaymentWebhooks ~ create ~ paymentIntentMatch", JSON.stringify(paymentIntentMatch))
+
           if (paymentIntentMatch.total !== 1) {
             // couldn't find a unique paymentIntent.  Return bad request
             return Promise.reject(new errors.BadRequest("could not find a unique matching payment intent"));
@@ -71,7 +69,10 @@ exports.PaymentWebhooks = class PaymentWebhooks {
                     cart: []
                   }),
                 // delete all outstanding paymentintents for the user
-                
+                this.app.service('payment-intents')
+                  .remove(null, {
+                    query: { userId: paymentIntent.userId }
+                  })
 
                 // send order confirmation email to user
                 // this.app.service('emails')
@@ -105,13 +106,6 @@ exports.PaymentWebhooks = class PaymentWebhooks {
                 //     }
                 //   })
               ]);
-  
-                // Add products to user's purchased products
-  
-                // empty the user's cart of those products in the paymentintent
-                // delete all outstanding paymentintents for the user
-                // send order confirmation email to user
-  
             }
           }          
         }
