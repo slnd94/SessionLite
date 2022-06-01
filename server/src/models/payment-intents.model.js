@@ -11,7 +11,7 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const schema = new Schema({
     userId: { type : Schema.Types.ObjectId, ref: 'users', required: true },
-    orderItems: [{ type: userCartEntry }],
+    orderItems: [{ type: Object }],
     stripePaymentIntentId: { type: String, trim: true, unique: true, required: true }
   }, {
     timestamps: true

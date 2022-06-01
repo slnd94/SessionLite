@@ -35,7 +35,15 @@ exports.UserCarts = class UserCarts {
         }
       });
 
-    const cart = user.cart || [];
+    const cart = user.cart
+    ? user.cart.map(item => ({
+      ...item,
+      price: {
+        figure: item.product.prices[this.userCurrencyCode],
+        currencyCode: this.userCurrencyCode
+      }
+    }))
+    : [];
 
     const subtotal = {
       figure: parseFloat(cart.reduce((a, b) => +a + +b.product.prices[this.userCurrencyCode], 0).toFixed(2)),
@@ -98,10 +106,15 @@ exports.UserCarts = class UserCarts {
       }
       await this.app.service('users')
         .patch(id, {
-          $push: {cart: { product: data.addProduct, priceWhenAdded: {
-            figure: product.prices[this.userCurrencyCode],
-            currencyCode: this.userCurrencyCode
-          }}}
+          $push: {
+            cart: { 
+              product: data.addProduct,
+              priceWhenAdded: {
+                figure: product.prices[this.userCurrencyCode],
+                currencyCode: this.userCurrencyCode
+              }
+            }
+          }
         });
 
       return { success: true };

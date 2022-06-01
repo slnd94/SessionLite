@@ -4,6 +4,7 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
+
     // get the user's cart
     const cart = await context.app.service('user-carts').get(context.params.user._id, {});
     
@@ -22,6 +23,7 @@ module.exports = (options = {}) => {
       userId: context.params.user._id,
       orderItems: cart.items.map(item => ({
         product: item.product._id,
+        price: item.price,
         priceWhenAdded: item.priceWhenAdded
       })),
       stripePaymentIntentId: paymentIntent.id
