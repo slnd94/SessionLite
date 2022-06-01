@@ -1,13 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Form,
-  FormGroup,
-  Button,
-} from "reactstrap";
+import { Form, FormGroup, Button } from "reactstrap";
 import { useForm, Controller, set } from "react-hook-form";
 import Loader from "../Loader";
-import Amount from "../commerce/Amount";
 import {
   useStripe,
   useElements,
@@ -15,7 +10,12 @@ import {
 } from "@stripe/react-stripe-js";
 import { useTranslation } from "next-i18next";
 
-function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) {
+function UserCheckoutStripeForm({
+  onSubmit,
+  processing,
+  setProcessing,
+  total,
+}) {
   const stripe = useStripe();
   const elements = useElements();
   const {
@@ -23,9 +23,7 @@ function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) 
     control,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      // nameOnCard: "",
-    },
+    defaultValues: {},
   });
 
   const { t } = useTranslation("common");
@@ -59,7 +57,7 @@ function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) 
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
     }
-    setProcessing(false)
+    setProcessing(false);
   };
 
   return (
@@ -84,8 +82,9 @@ function UserCheckoutStripeForm({ onSubmit, processing, setProcessing, total }) 
       </FormGroup>
 
       {processing ? (
-        <><Loader /> Processing...</>
-        
+        <>
+          <Loader /> Processing...
+        </>
       ) : (
         <>
           {total ? (
