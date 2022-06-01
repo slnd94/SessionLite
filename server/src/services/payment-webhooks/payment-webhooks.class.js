@@ -112,7 +112,6 @@ exports.PaymentWebhooks = class PaymentWebhooks {
         catch (err) {
           console.log('err', err.message)
         }
-        console.log('Charge was successful!');
         break;
       default:
         console.log(`Unhandled event type ${data.type}`);
