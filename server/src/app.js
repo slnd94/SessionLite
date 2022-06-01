@@ -45,7 +45,7 @@ app.use(compress());
 // Solution (workaround) was sourced from: https://github.com/feathersjs/feathers/issues/1771
 app.stripe = stripe(app.get("stripeSecretKey"));
 app.configure(
-  stripeSignatureValidationMiddleware(app.stripe, "/stripe-payment-events")
+  stripeSignatureValidationMiddleware(app.stripe, "/payment-webhooks")
 );
 
 

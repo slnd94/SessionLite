@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const errors = require('@feathersjs/errors');
 const errorMessages = require('../../utils/errorMessages');
-exports.StripePaymentEvents = class StripePaymentEvents {
+exports.PaymentWebhooks = class PaymentWebhooks {
   constructor (options) {
     this.options = options || {};
   }

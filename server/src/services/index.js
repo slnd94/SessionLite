@@ -7,7 +7,7 @@ const userAccountVerification = require('./user-account-verification/user-accoun
 const products = require('./products/products.service.js');
 const userCarts = require('./user-carts/user-carts.service.js');
 const paymentIntents = require('./payment-intents/payment-intents.service.js');
-const stripePaymentEvents = require('./stripe-payment-events/stripe-payment-events.service.js');
+const paymentWebhooks = require('./payment-webhooks/payment-webhooks.service.js');
 const sales = require('./sales/sales.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
@@ -20,6 +20,6 @@ module.exports = function (app) {
   app.configure(products);
   app.configure(userCarts);
   app.configure(paymentIntents);
-  app.configure(stripePaymentEvents);
+  app.configure(paymentWebhooks);
   app.configure(sales);
 };

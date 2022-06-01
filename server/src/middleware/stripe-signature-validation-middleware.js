@@ -1,8 +1,8 @@
 const bodyParser = require("body-parser");
 
-  // We need to do this in middleware in order to parse the raw body (which is required by Stripe)
-  // this middleware does not closely follow standard feathers middleware structure but is a valid structured express middleware
-  // Solution (workaround) was sourced from: https://github.com/feathersjs/feathers/issues/1771
+// We need to do this in middleware in order to parse the raw body (which is required by Stripe)
+// this middleware does not closely follow standard feathers middleware structure but is a valid structured express middleware
+// Solution (workaround) was sourced from: https://github.com/feathersjs/feathers/issues/1771
 
 module.exports = function stripeSignatureValidationMiddleware(stripe, route) {
   return function() {
@@ -18,12 +18,6 @@ module.exports = function stripeSignatureValidationMiddleware(stripe, route) {
       }
       let event;
       try {
-        console.log('options', {
-          body: req.body,
-          signature,
-          endpointSecret
-        })
-
         event = stripe.webhooks.constructEvent(
           req.body,
           signature,
