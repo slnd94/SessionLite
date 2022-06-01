@@ -58,71 +58,75 @@ export default function Profile() {
                     return <li key={index}>{feature}</li>;
                   })}
                 </ul>
-                <ProductUserCart
-                  productId={product._id}
-                  inUserCart={product.inUserCart}
-                  price={{
-                    figure: product.prices[userCurrencyCode],
-                    currencyCode: userCurrencyCode,
-                  }}
-                  authUser={auth?.status === "SIGNED_IN"}
-                  processing={processing}
-                  addToCartFunc={async () => {
-                    setProcessing(true);
-                    if (auth?.status === "SIGNED_IN") {
-                      const response = await api({
-                        method: "patch",
-                        url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
-                        params: {
-                          addProduct: key,
-                        },
-                      });
-                      if (
-                        response.status >= 200 &&
-                        response.status < 300 &&
-                        response.data.success
-                      ) {
-                        getUserCart({ id: auth.user._id });
-                        await fetchProduct();
-                        setProcessing(false);
-                        // notify user
-                        toast(t(`user.cart.Added to cart`), {
-                          type: "success",
+                {product.authUserPurchased ? (
+                  <h5>{t('You have purchased this product')}</h5>
+                ) : (
+                  <ProductUserCart
+                    productId={product._id}
+                    inUserCart={product.inUserCart}
+                    price={{
+                      figure: product.prices[userCurrencyCode],
+                      currencyCode: userCurrencyCode,
+                    }}
+                    authUser={auth?.status === "SIGNED_IN"}
+                    processing={processing}
+                    addToCartFunc={async () => {
+                      setProcessing(true);
+                      if (auth?.status === "SIGNED_IN") {
+                        const response = await api({
+                          method: "patch",
+                          url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
+                          params: {
+                            addProduct: key,
+                          },
                         });
+                        if (
+                          response.status >= 200 &&
+                          response.status < 300 &&
+                          response.data.success
+                        ) {
+                          getUserCart({ id: auth.user._id });
+                          await fetchProduct();
+                          setProcessing(false);
+                          // notify user
+                          toast(t(`user.cart.Added to cart`), {
+                            type: "success",
+                          });
+                        }
                       }
-                    }
-                  }}
-                  removeFromCartFunc={async () => {
-                    setProcessing(true);
-                    if (auth?.status === "SIGNED_IN") {
-                      const response = await api({
-                        method: "patch",
-                        url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
-                        params: {
-                          removeProduct: key,
-                        },
-                      });
-                      if (
-                        response.status >= 200 &&
-                        response.status < 300 &&
-                        response.data.success
-                      ) {
-                        getUserCart({ id: auth.user._id });
-                        await fetchProduct();
-                        setProcessing(false);
-                        // notify user
-                        toast(t(`user.cart.Removed from cart`), {
-                          type: "info",
+                    }}
+                    removeFromCartFunc={async () => {
+                      setProcessing(true);
+                      if (auth?.status === "SIGNED_IN") {
+                        const response = await api({
+                          method: "patch",
+                          url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
+                          params: {
+                            removeProduct: key,
+                          },
                         });
+                        if (
+                          response.status >= 200 &&
+                          response.status < 300 &&
+                          response.data.success
+                        ) {
+                          getUserCart({ id: auth.user._id });
+                          await fetchProduct();
+                          setProcessing(false);
+                          // notify user
+                          toast(t(`user.cart.Removed from cart`), {
+                            type: "info",
+                          });
+                        }
                       }
-                    }
-                  }}
-                  userProductStatus={{
-                    authUserAdmin: product.authUserAdmin,
-                    authUserPurchased: product.authUserPurchased,
-                  }}
-                  t={t}
-                />
+                    }}
+                    userProductStatus={{
+                      authUserAdmin: product.authUserAdmin,
+                      authUserPurchased: product.authUserPurchased,
+                    }}
+                    t={t}
+                  />
+                )}
               </div>
             </div>
           </div>

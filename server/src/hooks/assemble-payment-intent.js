@@ -26,6 +26,9 @@ module.exports = (options = {}) => {
         price: item.price,
         priceWhenAdded: item.priceWhenAdded
       })),
+      subtotal: cart.subtotal,
+      taxes: cart.taxes,
+      total: cart.total,
       stripePaymentIntentId: paymentIntent.id
     }
 

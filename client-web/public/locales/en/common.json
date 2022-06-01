@@ -74,6 +74,9 @@
       "Proceed to checkout": "Proceed to checkout",
       "Details": "Details"
     },
+    "product": {
+      "You have purchased this product": "You have purchased this product"
+    },
     "Email": "Email",
     "Password": "Password",
     "Current Password": "Current Password",

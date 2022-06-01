@@ -24,6 +24,100 @@ exports.PaymentWebhooks = class PaymentWebhooks {
         // the charge has been confirmed successful
         // process the purchase
         const charge = data.data.object;
+        // console.log("🚀 ~ file: payment-webhooks.class.js ~ line 27 ~ PaymentWebhooks ~ create ~ data.data.object", data.data.object)
+        // get the associated payment intent
+        
+        try {
+          const paymentIntentMatch = await this.app.service('payment-intents')
+          .find({
+            query: {
+              stripePaymentIntentId: data.data.object.payment_intent
+            }
+          }); 
+          console.log("🚀 ~ file: payment-webhooks.class.js ~ line 32 ~ PaymentWebhooks ~ create ~ paymentIntentMatch", JSON.stringify(paymentIntentMatch))
+          if (paymentIntentMatch.total !== 1) {
+            // couldn't find a unique paymentIntent.  Return bad request
+            return Promise.reject(new errors.BadRequest("could not find a unique matching payment intent"));
+          } else {
+            const paymentIntent = paymentIntentMatch.data[0];
+            // Create the sale
+            const sale = await this.app.service('sales').create({
+              user: paymentIntent.userId,
+              pricePaid: { 
+                subtotal: paymentIntent.subtotal,
+                taxes: paymentIntent.taxes,
+                total: paymentIntent.total
+              },
+              saleProducts: paymentIntent.orderItems.map(item => ({
+                product: item.product,
+                pricePaid: item.price
+              }))
+            });
+
+            if(!sale._id) {
+              // couldn't create the sale.  Return bad request
+              return Promise.reject(new errors.BadRequest("could not create the sale"));
+            } else {
+              // the sale was created.  Update interested entities
+              const results = await Promise.all([
+                // Add products to user's purchased products
+                this.app.service('users')
+                  .patch(paymentIntent.userId, {
+                    $push: { purchasedProducts: { $each: paymentIntent.orderItems.map(item => item.product) } }
+                  }),
+                // empty the user's cart
+                this.app.service('users')
+                  .patch(paymentIntent.userId, {
+                    cart: []
+                  }),
+                // send order confirmation email to user
+                // this.app.service('emails')
+                //   .create({
+                //     template: 'WeebleOrderConfirmation',
+                //     destination: user.email,
+                //     data: {                  
+                //       user: {
+                //         name: user.name
+                //       },
+                //       saleItems: user.cart.map(item => ({
+                //         imageUrl: `${this.app.get('stripeSecretKey')}${item.product.images.thumbnail}`,
+                //         title: item.product.title,
+                //         creator: item.product.creators[0],
+                //         pricePaid: getAmountString(item.product.price)
+                //       })),
+                //       pricePaid: { 
+                //         subtotal: getAmountString({
+                //           cents: cartSubtotal,
+                //           currencyCode: userCurrencyCode
+                //         }),
+                //         taxes: cartTaxes.map(tax => ({
+                //           description: getTaxDescriptionString(tax),
+                //           amount: getAmountString(tax.amount)
+                //         })),
+                //         total: getAmountString({
+                //           cents: cartTotal,
+                //           currencyCode: userCurrencyCode
+                //         })
+                //       }
+                //     }
+                //   })
+              ]);
+  
+                // Add products to user's purchased products
+  
+                // empty the user's cart of those products in the paymentintent
+                // delete all outstanding paymentintents for the user
+                // send order confirmation email to user
+  
+            }
+          }          
+        }
+        catch (err) {
+          console.log('err', err.message)
+        }
+
+
+
         console.log('Charge was successful!');
         break;
       default:
