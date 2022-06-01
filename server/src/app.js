@@ -20,6 +20,9 @@ const authentication = require('./authentication');
 
 const mongoose = require('./mongoose');
 
+const stripe = require("stripe");
+const stripeSignatureValidationMiddleware = require("./middleware/stripe-signature-validation-middleware");
+
 const app = express(feathers());
 
 // Load app configuration
@@ -30,6 +33,22 @@ app.use(helmet({
 }));
 app.use(cors());
 app.use(compress());
+
+
+// IMPORTANT: Define stripe middleware before json body parser
+// Stripe webhook Verification is done in our express middleware "stripe-signature-validation-middleware"
+// We need to do this in the middleware in order to parse the raw body (which is required by Stripe)
+// Hence why this needs to be placed before the json body parser.
+// Middleware is at:
+// /src/middleware/stripe-signature-validation-middleware.js
+// this middleware does not closely follow standard feathers middleware structure but is a valid structured express middleware
+// Solution (workaround) was sourced from: https://github.com/feathersjs/feathers/issues/1771
+app.stripe = stripe(app.get("stripeSecretKey"));
+app.configure(
+  stripeSignatureValidationMiddleware(app.stripe, "/payment-webhooks")
+);
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));

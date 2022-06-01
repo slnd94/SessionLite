@@ -1,8 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ProductListItem from '../product/ProductListItem';
+import React from "react";
+import PropTypes from "prop-types";
+import ProductListItem from "../product/ProductListItem";
 
-const UserCartItem = ({ product, className, onClick, removeFromCartFunc, t }) => {
+const UserCartItem = ({
+  product,
+  className,
+  onClick,
+  removeFromCartFunc,
+  t,
+}) => {
   return (
     <>
       <ProductListItem
@@ -11,11 +17,11 @@ const UserCartItem = ({ product, className, onClick, removeFromCartFunc, t }) =>
         onClick={onClick}
         customButtons={[
           {
-            className: 'btn-block-sm-down',
-            color: 'primary',
-            label: t('user.Remove from cart'),
-            onClick: () => removeFromCartFunc(product._id)
-          }
+            className: "btn-block-md-down",
+            color: "primary",
+            label: t("user.cart.Remove from cart"),
+            onClick: () => removeFromCartFunc(product._id),
+          },
         ]}
       />
     </>
@@ -23,7 +29,7 @@ const UserCartItem = ({ product, className, onClick, removeFromCartFunc, t }) =>
 };
 
 UserCartItem.propTypes = {
-  product: PropTypes.object
+  product: PropTypes.object,
 };
 
 export default UserCartItem;

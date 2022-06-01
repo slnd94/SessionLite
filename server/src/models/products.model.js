@@ -4,6 +4,7 @@
 // for more of what you can do here.
 
 const amount = require('./amount.model');
+const productSale = require('./productSale.model');
 
 module.exports = function (app) {
   const modelName = 'products';
@@ -24,7 +25,8 @@ module.exports = function (app) {
         validator : Number.isInteger,
         message   : '{VALUE} is not an integer value'
       }
-    }
+    },
+    sales: [{ type: productSale }]
   }, {
     timestamps: true
   });

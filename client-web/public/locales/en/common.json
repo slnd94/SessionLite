@@ -31,8 +31,8 @@
     "Sign Out": "Sign Out",
     "Sign out": "Sign out",
     "Email": "Email",
-    "Password": "Password", 
-    "Confirm Password": "Confirm Password", 
+    "Password": "Password",
+    "Confirm Password": "Confirm Password",
     "User": "User",
     "First Name": "First Name",
     "Last Name": "Last Name",
@@ -61,17 +61,24 @@
     "Manage your profile": "Manage your profile",
     "Account": "Account",
     "Your Account": "Your Account",
-    "Cart": "Cart",
-    "Your Cart": "Your Cart",
-    "Your cart is empty": "Your cart is empty",
-    "Add to cart": "Add to cart",
-    "Added to cart": "Added to cart",
-    "Remove from cart": "Remove from cart",
-    "Removed from cart": "Removed from cart",
-    "This product is in your cart": "This product is in your cart",
-    "View your cart": "View your cart",
+    "cart": {
+      "Cart": "Cart",
+      "Your Cart": "Your Cart",
+      "Your cart is empty": "Your cart is empty",
+      "Add to cart": "Add to cart",
+      "Added to cart": "Added to cart",
+      "Remove from cart": "Remove from cart",
+      "Removed from cart": "Removed from cart",
+      "This product is in your cart": "This product is in your cart",
+      "View your cart": "View your cart",
+      "Proceed to checkout": "Proceed to checkout",
+      "Details": "Details"
+    },
+    "product": {
+      "You have purchased this product": "You have purchased this product"
+    },
     "Email": "Email",
-    "Password": "Password", 
+    "Password": "Password",
     "Current Password": "Current Password",
     "New Password": "New Password",
     "Confirm New Password": "Confirm New Password",
@@ -96,11 +103,23 @@
         "Verification mail re-sent. Check your email for the new link.": "Verification mail re-sent. Check your email for the new link.",
         "Thanks for verifying your account. What's next?": "Thanks for verifying your account. What's next?"
       }
-    },    
+    },
     "Save": "Save",
     "Settings": "Settings"
   },
   "product": {
     "products": "products"
+  },
+  "checkout": {
+    "Checkout": "Checkout",
+    "Items": "Items",
+    "Total before tax": "Total before tax",
+    "estimated": "estimated",
+    "Order Total": "Order Total",
+    "Payment Information": "Payment Information",
+    "Details": "Details",
+    "Order Details": "Order Details",
+    "Place your order": "Place your order",
+    "Pay": "Pay"
   }
 }

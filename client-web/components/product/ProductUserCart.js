@@ -1,75 +1,91 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
-import Amount from '../commerce/Amount';
-import { Button } from 'reactstrap';
-import Loader from '../Loader';
+import React from "react";
+import PropTypes from "prop-types";
+import { useRouter } from "next/router";
+import Amount from "../commerce/Amount";
+import { Button } from "reactstrap";
+import Loader from "../Loader";
 
-const ProductUserCart = ({ inUserCart, price, userProductStatus, authUser, addToCartFunc, removeFromCartFunc, processing, t }) => {
+const ProductUserCart = ({
+  inUserCart,
+  price,
+  userProductStatus,
+  authUser,
+  addToCartFunc,
+  removeFromCartFunc,
+  processing,
+  t,
+}) => {
   const router = useRouter();
 
   return (
     <>
       <div className="row">
         <div className="col-sm-3">
-          <Amount amount={price} className="mr-4" style={{ fontSize: '2rem' }} t={t} />
+          <Amount
+            amount={price}
+            className="mr-4"
+            style={{ fontSize: "2rem" }}
+            t={t}
+          />
         </div>
       </div>
       <div className="row mt-3">
         <div className="col-sm-8">
-          {processing
-            ? <Loader />
-            : (!(userProductStatus.authUserAdmin || userProductStatus.authUserPurchased) &&
+          {processing ? (
+            <Loader />
+          ) : (
+            !(
+              userProductStatus.authUserAdmin ||
+              userProductStatus.authUserPurchased
+            ) && (
               <div>
-                {inUserCart &&
+                {inUserCart && (
                   <>
-                    <h5>
-                      {t('user.This product is in your cart')}
-                    </h5>
+                    <h5>{t("user.cart.This product is in your cart")}</h5>
                     <div className="mt-4">
                       <Button
                         // size='lg'
-                        className={'me-4 btn-block-sm-down'}
-                        color="primary"
+                        className={"me-4 btn-block-sm-down"}
+                        color="success"
                         onClick={() => {
-                          router.push({ 
-                            pathname: `/user/cart`
+                          router.push({
+                            pathname: `/user/cart`,
                           });
                         }}
                       >
-                        {t('user.View your cart')}
+                        {t("user.cart.View your cart")}
                       </Button>
                       <Button
-                        className={'btn-block-sm-down'}
-                        color="primary"            
+                        className={"btn-block-sm-down"}
+                        color="primary"
                         onClick={() => removeFromCartFunc()}
                       >
-                        {t('user.Remove from cart')}
+                        {t("user.cart.Remove from cart")}
                       </Button>
-                    </div>                  
+                    </div>
                   </>
-                }
-                {authUser && !inUserCart &&
+                )}
+                {authUser && !inUserCart && (
                   <span>
-                  <Button
-                      className={'btn-block-sm-down'}
-                      color="primary"            
+                    <Button
+                      className={"btn-block-sm-down"}
+                      color="success"
                       onClick={() => addToCartFunc()}
                     >
-                      {t('user.Add to cart')}
+                      {t("user.cart.Add to cart")}
                     </Button>
                   </span>
-                }
+                )}
               </div>
             )
-          }        
-        </div>        
+          )}
+        </div>
       </div>
     </>
   );
 };
 
-ProductUserCart.propTypes = { 
+ProductUserCart.propTypes = {
   inUserCart: PropTypes.bool,
   price: PropTypes.object,
   userProductStatus: PropTypes.object,
@@ -79,7 +95,7 @@ ProductUserCart.propTypes = {
   removeFromCartFunc: PropTypes.func,
   requestingRemoveProductFromCart: PropTypes.bool,
   processing: PropTypes.bool,
-  t: PropTypes.func
+  t: PropTypes.func,
 };
 
 export default ProductUserCart;

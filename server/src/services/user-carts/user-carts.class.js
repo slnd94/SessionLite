@@ -12,7 +12,6 @@ exports.UserCarts = class UserCarts {
   setup(app) {
     this.app = app;
     this.userCurrencyCode = this.app.get('defaultCurrency');
-    console.log("🚀 ~ file: user-carts.class.js ~ line 15 ~ UserCarts ~ setup ~ this.userCurrencyCode", this.userCurrencyCode)
     this.userTaxes = currencies[this.userCurrencyCode].taxes;
   }
 
@@ -36,23 +35,33 @@ exports.UserCarts = class UserCarts {
         }
       });
 
-    const cart = user.cart || [];
+    const cart = user.cart
+    ? user.cart.map(item => ({
+      ...item,
+      price: {
+        figure: item.product.prices[this.userCurrencyCode],
+        currencyCode: this.userCurrencyCode
+      }
+    }))
+    : [];
 
     const subtotal = {
-      figure: cart.reduce((a, b) => +a + +b.product.prices[this.userCurrencyCode], 0),
+      figure: parseFloat(cart.reduce((a, b) => +a + +b.product.prices[this.userCurrencyCode], 0).toFixed(2)),
       currencyCode: this.userCurrencyCode
     };
+
     const taxes = this.userTaxes.map(tax => 
       ({
         ...tax,
         amount: {
-          figure: Math.ceil(subtotal.figure * tax.rate),
+          figure: parseFloat(subtotal.figure * tax.rate),
           currencyCode: this.userCurrencyCode
         }
       })
     );
+
     const total = {
-      figure: subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0),
+      figure: parseFloat((subtotal.figure + taxes.reduce((a, b) => +a + +b.amount.figure, 0)).toFixed(2)),
       currencyCode: this.userCurrencyCode
     };
 
@@ -97,10 +106,15 @@ exports.UserCarts = class UserCarts {
       }
       await this.app.service('users')
         .patch(id, {
-          $push: {cart: { product: data.addProduct, priceWhenAdded: {
-            figure: product.prices[this.userCurrencyCode],
-            currencyCode: this.userCurrencyCode
-          }}}
+          $push: {
+            cart: { 
+              product: data.addProduct,
+              priceWhenAdded: {
+                figure: product.prices[this.userCurrencyCode],
+                currencyCode: this.userCurrencyCode
+              }
+            }
+          }
         });
 
       return { success: true };

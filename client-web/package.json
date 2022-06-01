@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "lt": "lt --port 3000 --subdomain fnext-dev-web",
     "build": "next build",
     "start": "next start -p $PORT",
     "lint": "next lint",
@@ -15,6 +16,8 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/react-fontawesome": "0.1.4",
+    "@stripe/react-stripe-js": "^1.8.0",
+    "@stripe/stripe-js": "^1.29.0",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
     "bootswatch": "^5.1.3",

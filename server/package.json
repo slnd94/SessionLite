@@ -28,6 +28,7 @@
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
     "dev": "nodemon src/",
     "start": "node src/",
+    "lt": "lt --port 3030 --subdomain fnext-dev-server",
     "jest": "jest  --forceExit",
     "publishheroku": "cd ../ && git subtree push --prefix server herokunextfeatherstest3-server master || true"
   },
@@ -56,6 +57,7 @@
     "mongodb-core": "^3.2.7",
     "mongoose": "^5.13.13",
     "serve-favicon": "^2.5.0",
+    "stripe": "^9.1.0",
     "uuid": "^8.3.2",
     "winston": "^3.3.3"
   },

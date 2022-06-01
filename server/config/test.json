@@ -11,5 +11,8 @@
   "emailSourceAddress": "emailSourceAddress",
   "welcomeVerificationEmailTemplate": "welcomeVerificationEmailTemplate",
   "emailVerificationExpiryMinutes": "emailVerificationExpiryMinutes",
-  "defaultCurrency": "defaultCurrency"
+  "defaultCurrency": "defaultCurrency",
+  "stripePublishableKey": "stripePublishableKey",
+  "stripeSecretKey": "stripeSecretKey",
+  "stripePaymentConfirmationWebhookSecret": "stripePaymentConfirmationWebhookSecret"
 }

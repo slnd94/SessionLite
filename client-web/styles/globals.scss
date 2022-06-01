@@ -1,26 +1,27 @@
-
 // @import "../node_modules/bootswatch/dist/flatly/variables";
-@import './variables';
+@import "./variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/flatly/bootswatch";
-@import './components/alert';
-@import './components/nav';
-@import './components/button';
-@import './components/iconText';
-@import './components/pagination';
-@import './components/react-toastify/main';
+@import "./components/alert";
+@import "./components/form";
+@import "./components/nav";
+@import "./components/button";
+@import "./components/iconText";
+@import "./components/pagination";
+@import "./components/react-toastify/main";
 
 html,
 body {
   padding: 0;
   margin: 0;
   // background-color: black;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; 
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-size: $font-size-base;
 }
 
 * {
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .title {
@@ -45,11 +46,24 @@ body {
 .section-box {
   margin-top: -32px;
   padding: 30px;
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  // box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+  //   rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  // box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  // box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  // box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  // box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  
+    @include media-breakpoint-down(md) {
+      margin-top: 0px;
+      padding: 0px;
+      box-shadow: none;
+    }
 }
 
 .list-item-box {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 
   width: 100%;
   min-height: 100px;
