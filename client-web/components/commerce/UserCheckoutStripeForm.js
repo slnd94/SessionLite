@@ -45,7 +45,7 @@ function UserCheckoutStripeForm({
       //`Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
-        return_url: "https://fnext-dev-web.loca.lt/checkout/thankyou",
+        return_url: `${process.env.NEXT_PUBLIC_WEB_URL}/checkout/thankyou`,
       },
     });
 
