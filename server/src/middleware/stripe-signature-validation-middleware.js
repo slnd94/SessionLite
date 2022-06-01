@@ -1,5 +1,6 @@
 const bodyParser = require("body-parser");
 
+// this middleware is used to verify that Stripe webhook calls did come from Stripe.
 // We need to do this in middleware in order to parse the raw body (which is required by Stripe)
 // this middleware does not closely follow standard feathers middleware structure but is a valid structured express middleware
 // Solution (workaround) was sourced from: https://github.com/feathersjs/feathers/issues/1771
