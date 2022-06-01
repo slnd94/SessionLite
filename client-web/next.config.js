@@ -8,6 +8,7 @@ module.exports = {
   },
   env: {
     NEXT_PUBLIC_API_URL: process.env.API_BASE_URL,
+    NEXT_PUBLIC_WEB_URL: process.env.WEB_BASE_URL,
     NEXT_APP_NAME: process.env.APP_NAME,
     DEFAULT_CURRENCY: process.env.DEFAULT_CURRENCY,
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
