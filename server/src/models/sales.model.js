@@ -23,7 +23,8 @@ module.exports = function (app) {
     saleProducts: [{
       product: { type : Schema.Types.ObjectId, ref: 'products', required: true },
       pricePaid: { type: amount, required: true }
-    }]
+    }],
+    stripePaymentIntentId: { type: String, required: true }
   }, {
     timestamps: true
   });

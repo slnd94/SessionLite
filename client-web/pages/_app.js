@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <UserProvider>
-        <Layout brandName="Hello Brand">
+        <Layout brandName="Traverston">
           <Component {...pageProps} />
         </Layout>
       </UserProvider>

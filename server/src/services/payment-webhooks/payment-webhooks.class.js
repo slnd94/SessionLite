@@ -38,6 +38,7 @@ exports.PaymentWebhooks = class PaymentWebhooks {
             return Promise.reject(new errors.BadRequest("could not find a unique matching payment intent"));
           } else {
             const paymentIntent = paymentIntentMatch.data[0];
+            console.log("🚀 ~ file: payment-webhooks.class.js ~ line 41 ~ PaymentWebhooks ~ create ~ paymentIntent", paymentIntent)
             // Create the sale
             const sale = await this.app.service('sales').create({
               user: paymentIntent.userId,
@@ -49,7 +50,8 @@ exports.PaymentWebhooks = class PaymentWebhooks {
               saleProducts: paymentIntent.orderItems.map(item => ({
                 product: item.product,
                 pricePaid: item.price
-              }))
+              })),
+              stripePaymentIntentId: paymentIntent.stripePaymentIntentId
             });
 
             if(!sale._id) {
