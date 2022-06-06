@@ -1,9 +1,9 @@
-// tenants-model.js - A mongoose model
+// organizations-model.js - A mongoose model
 // 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = 'tenants';
+  const modelName = 'organizations';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({

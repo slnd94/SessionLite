@@ -57,6 +57,8 @@ export default function Home() {
             <Link href="/auth/signin">{t("auth.Sign in")}</Link>
             <br />
             <Link href="/auth/signup">{t("auth.Sign up")}</Link>
+            <br />
+            <Link href="/register/org">{t("organization.Register")}</Link>
           </div>
         ) : (
           <></>

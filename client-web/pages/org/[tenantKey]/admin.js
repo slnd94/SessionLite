@@ -15,7 +15,7 @@ import styles from "../../../styles/User.module.scss";
 export default function Profile() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { tenantKey } = router.query;
+  const { orgKey } = router.query;
 
   return (
     <div>
@@ -24,10 +24,10 @@ export default function Profile() {
           <div className="col-12">
             <div className="section-box">
               <h5 className={"title"}>
-                tenantKey is {tenantKey}
+              orgKey is {orgKey}
               </h5>
-              This is the tenant landing route <br />
-              <Link href={`/t/${tenantKey}/admin`}>Admin</Link>
+              This is the organization admin route <br />
+              <Link href={`/t/${orgKey}`}>Home</Link>
             </div>
           </div>
         </div>
