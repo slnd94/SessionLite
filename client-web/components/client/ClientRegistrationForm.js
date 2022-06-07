@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import Loader from '../Loader';
 import { useTranslation } from 'next-i18next';
 
-function SignUpForm({ onSubmit, processing }) {
+function ClientRegistrationForm({ onSubmit, processing }) {
   const { handleSubmit, control, watch, formState: { errors } } = useForm({
     defaultValues: {
       firstName: '',
@@ -22,6 +22,7 @@ function SignUpForm({ onSubmit, processing }) {
   const { t } = useTranslation('common');
 
   const formRules = {
+    businessName: { required: t('client.Business name is required') },
     firstName: { required: t('auth.First name is required') },
     lastName: { required: t('auth.Last name is required') },
     email: { required: t('auth.Email is required') },
@@ -44,6 +45,27 @@ function SignUpForm({ onSubmit, processing }) {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      <h5>Your Business Details</h5>
+      <FormGroup>
+        <Label>{t('client.Business Name')}</Label>
+        <Controller
+          name="businessName"
+          control={control}
+          rules={formRules.businessName}
+          render={({ field: { ref, ...field } }) => 
+            <Input
+              {...field}
+              type="text"
+              innerRef={ref}
+              invalid={!!errors?.businessName}
+            />
+          }
+        />
+        <FormFeedback> 
+          {errors?.businessName?.message && errors.businessName.message}
+        </FormFeedback>
+      </FormGroup>
+      <h5 className="mt-5">Your Account Details</h5>
       <FormGroup>
         <Label>{t('auth.First Name')}</Label>
         <Controller
@@ -141,18 +163,18 @@ function SignUpForm({ onSubmit, processing }) {
       </FormGroup>
 
       {processing 
-        ? <Loader /> 
+        ? <Loader />
         : <Button className={'btn-block-sm-down'} color="primary" type="submit">
-            {t('auth.Sign up')}
+            {t('Submit')}
           </Button>
       }
     </Form>
   );
 }
 
-SignUpForm.propTypes = {
+ClientRegistrationForm.propTypes = {
   onSubmit: PropTypes.func,
   processing: PropTypes.bool
 };
 
-export default SignUpForm
+export default ClientRegistrationForm

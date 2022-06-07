@@ -19,6 +19,7 @@
   "Remove": "Remove",
   "Confirm": "Confirm",
   "Browse content": "Browse content",
+  "Submit": "Submit",
   "index": {
     "Welcome to the application": "Welcome to the application (translated)",
     "Welcome to": "Welcome to"
@@ -109,7 +110,10 @@
   },
   "client": {
     "Register": "Register",
-    "Register your business": "Register your business"
+    "Register Your Business": "Register Your Business",
+    "Business Name": "Business Name",
+    "Business name is required": "Business name is required",
+    "Already registered?": "Already registered?"
   },
   "product": {
     "products": "products"
