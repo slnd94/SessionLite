@@ -107,6 +107,10 @@
     "Save": "Save",
     "Settings": "Settings"
   },
+  "client": {
+    "Register": "Register",
+    "Register your business": "Register your business"
+  },
   "product": {
     "products": "products"
   },
