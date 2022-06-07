@@ -9,7 +9,7 @@ import api from "../../../utils/api";
 import { useRouter } from "next/router";
 import styles from "../../../styles/User.module.scss";
 
-export default function Profile() {
+export default function Product() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { productKey } = router.query;

@@ -3,7 +3,7 @@ const { iff, isProvider, keep, disallow } = require('feathers-hooks-common');
 
 module.exports = {
   before: {
-    all: [ iff(isProvider('external'), disallow()), authenticate('jwt') ],
+    all: [  ],
     find: [],
     get: [],
     create: [],
