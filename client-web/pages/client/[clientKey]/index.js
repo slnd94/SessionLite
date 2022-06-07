@@ -26,8 +26,8 @@ export default function Profile() {
               <h5 className={"title"}>
               orgKey is {orgKey}
               </h5>
-              This is the organization admin route <br />
-              <Link href={`/t/${orgKey}`}>Home</Link>
+              This is the client landing route <br />
+              <Link href={`/t/${orgKey}/admin`}>Admin</Link>
             </div>
           </div>
         </div>

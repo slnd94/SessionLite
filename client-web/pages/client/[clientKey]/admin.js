@@ -15,7 +15,7 @@ import styles from "../../../styles/User.module.scss";
 export default function Profile() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { orgKey } = router.query;
+  const { clientKey } = router.query;
 
   return (
     <div>
@@ -24,10 +24,10 @@ export default function Profile() {
           <div className="col-12">
             <div className="section-box">
               <h5 className={"title"}>
-              orgKey is {orgKey}
+              clientKey is {clientKey}
               </h5>
-              This is the organization landing route <br />
-              <Link href={`/t/${orgKey}/admin`}>Admin</Link>
+              This is the client admin route <br />
+              <Link href={`/t/${clientKey}`}>Home</Link>
             </div>
           </div>
         </div>

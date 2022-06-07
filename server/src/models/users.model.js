@@ -11,7 +11,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    organization: { type : Schema.Types.ObjectId, ref: 'organizations', required: true },
+    client: { type : Schema.Types.ObjectId, ref: 'clients', required: true },
     email: { type: String, unique: true, lowercase: true },
     password: { type: String },  
     name: { type: name },

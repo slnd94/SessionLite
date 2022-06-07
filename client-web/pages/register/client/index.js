@@ -16,7 +16,7 @@ import styles from "../../../styles/User.module.scss";
 export default function Profile() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { orgKey } = router.query;
+  const { clientKey } = router.query;
 
   return (
     <>
