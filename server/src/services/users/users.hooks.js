@@ -20,7 +20,8 @@ const keepFieldsExternal = [
   'name.given',
   'email',
   'verification.emailVerified',
-  'locked'
+  'locked',
+  'client'
 ]
 
 module.exports = {

@@ -50,6 +50,7 @@ exports.ClientRegistration = class ClientRegistration {
 
             return {
               client: {
+                _id: client._id,
                 name: client.name
               },
               accessToken: userAccount.accessToken
