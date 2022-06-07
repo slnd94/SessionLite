@@ -1,5 +1,6 @@
 import Layout from "../../components/user/Layout";
 import ProfileForm from "../../components/user/ProfileForm";
+import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
 import { useState, useEffect, useContext } from "react";
@@ -16,7 +17,13 @@ import styles from "../../styles/User.module.scss";
 export default function Register() {
   const { t } = useTranslation("common");
   const {
-    state: { auth, errorMessage },
+    state: { client, errorMessage: clientErrorMessage },
+    registerClient,
+    clearErrorMessage: clearClientErrorMessage,
+  } = useContext(ClientContext);
+  const {
+    state: { auth, errorMessage: authErrorMessage },
+    getAuth,
     clearErrorMessage: clearAuthErrorMessage,
   } = useContext(AuthContext);
   const [processing, setProcessing] = useState(false);
@@ -33,11 +40,12 @@ export default function Register() {
                 processing={processing}
                 onSubmit={async (data) => {
                   setProcessing(true);
-                  // const request = await signup(data);
+                  const request = await registerClient(data);
+                  getAuth();
                   setProcessing(false);
                 }}
               />
-              {errorMessage ? (
+              {clientErrorMessage ? (
                 <Alert color="danger" fade={false}>
                   {t(`client.There was a problem with your registration`)}
                 </Alert>

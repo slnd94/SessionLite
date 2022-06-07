@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next';
 function ClientRegistrationForm({ onSubmit, processing }) {
   const { handleSubmit, control, watch, formState: { errors } } = useForm({
     defaultValues: {
+      businessName: '',
       firstName: '',
       lastName: '',
       email: '',

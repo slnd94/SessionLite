@@ -74,7 +74,7 @@ const signup =
             family: lastName,
           },
           email,
-          password,
+          password
         },
       });
       if (response.status >= 200 && response.status < 300) {

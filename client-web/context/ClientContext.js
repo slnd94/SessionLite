@@ -1,5 +1,6 @@
 import createDataContext from "./createDataContext";
 import api from "../utils/api";
+import { parseCookies, setCookie, destroyCookie } from "nookies";
 
 const clientReducer = (state, action) => {
   switch (action.type) {
@@ -52,12 +53,14 @@ const registerClient =
         url: `${process.env.NEXT_PUBLIC_API_URL}/client-registration`,
         params: {
           businessName,
-          name: {
-            given: firstName,
-            family: lastName,
+          account: {
+            name: {
+              given: firstName,
+              family: lastName,
+            },
+            email,
+            password,
           },
-          email,
-          password,
         },
       });
       if (response.status >= 200 && response.status < 300) {
@@ -68,7 +71,7 @@ const registerClient =
         });
 
         dispatch({
-          type: "signup",
+          type: "register_client",
           payload: {
             client: response.data.client,
           },
