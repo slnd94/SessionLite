@@ -18,7 +18,7 @@ exports.ClientRegistration = class ClientRegistration {
         query: {
           email: data.account.email
         }
-      })
+      });
 
       if(existingUsers.total !== 0) {
         return Promise.reject(new errors.BadRequest("User account already exists"));
