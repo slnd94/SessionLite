@@ -53,12 +53,12 @@ function Header({ brandName }) {
             <span>{client.name}</span>
           ) : (
             <>
-              {auth?.status === "SIGNED_OUT" ? (
+              {auth?.status ? (
                 <Image
                   src="/images/siteLogoSmall.png"
                   alt={brandName}
                   width={160}
-                  height={20}
+                  height={24}
                 />
               ) : (
                 <></>
