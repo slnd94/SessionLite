@@ -13,9 +13,11 @@ module.exports = app => {
   app.service('/authentication').hooks({
     after: {
       create: [
-        (context) => {
-          // this will retain our access to the unhashed pw,
-          // so we can authenticate the user in the "after create" hook
+        async (context) => {
+          // get the user client if available
+          const client = context.result.user.client ? await context.app.service('clients').get(context.result.user.client) : null;
+          
+          // set up the return user obj
           context.result.user = {
             _id: context.result.user._id,
             email: context.result.user.email,
@@ -24,7 +26,13 @@ module.exports = app => {
               family: context.result.user.name.family
             },
             isVerified: context.result.user.verification.emailVerified,
-            isLocked: context.result.user.locked
+            isLocked: context.result.user.locked,
+            // client if available:
+            ...(client
+              ? {client: {
+                _id: client._id,
+                name: client.name
+              }} : {})
           };
         }
       ]

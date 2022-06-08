@@ -9,6 +9,10 @@ const userCarts = require('./user-carts/user-carts.service.js');
 const paymentIntents = require('./payment-intents/payment-intents.service.js');
 const paymentWebhooks = require('./payment-webhooks/payment-webhooks.service.js');
 const sales = require('./sales/sales.service.js');
+const clients = require('./clients/clients.service.js');
+const clientRegistration = require('./client-registration/client-registration.service.js');
+const rooms = require('./rooms/rooms.service.js');
+const clientRooms = require('./client-rooms/client-rooms.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -22,4 +26,8 @@ module.exports = function (app) {
   app.configure(paymentIntents);
   app.configure(paymentWebhooks);
   app.configure(sales);
+  app.configure(clients);
+  app.configure(clientRegistration);
+  app.configure(rooms);
+  app.configure(clientRooms);
 };

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
+import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
 import Link from "next/link";
@@ -27,6 +28,9 @@ import styles from "../../styles/Header.module.scss";
 
 function Header({ brandName }) {
   const {
+    state: { client },
+  } = useContext(ClientContext);
+  const {
     state: { auth },
   } = useContext(AuthContext);
   const {
@@ -45,12 +49,22 @@ function Header({ brandName }) {
     <div>
       <Navbar className="navbar-dark bg-primary" color="faded" expand="sm">
         <NavbarBrand href="/" className="mr-auto">
-          <Image
-            src="/images/siteLogoSmall.png"
-            alt={brandName}
-            width={160}
-            height={20}
-          />
+          {client ? (
+            <span>{client.name}</span>
+          ) : (
+            <>
+              {auth?.status ? (
+                <Image
+                  src="/images/siteLogoSmall.png"
+                  alt={brandName}
+                  width={160}
+                  height={24}
+                />
+              ) : (
+                <></>
+              )}
+            </>
+          )}
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         {processing ? (

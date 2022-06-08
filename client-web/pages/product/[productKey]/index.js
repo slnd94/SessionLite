@@ -9,10 +9,10 @@ import api from "../../../utils/api";
 import { useRouter } from "next/router";
 import styles from "../../../styles/User.module.scss";
 
-export default function Profile() {
+export default function Product() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { key } = router.query;
+  const { productKey } = router.query;
   const { getUserCart } = useContext(UserContext);
   const {
     state: { auth },
@@ -26,7 +26,7 @@ export default function Profile() {
   const fetchProduct = async () => {
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/products/${key}`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/products/${productKey}`,
     });
 
     if (response.status >= 200 && response.status < 300) {
@@ -77,7 +77,7 @@ export default function Profile() {
                           method: "patch",
                           url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
                           params: {
-                            addProduct: key,
+                            addProduct: productKey,
                           },
                         });
                         if (
@@ -102,7 +102,7 @@ export default function Profile() {
                           method: "patch",
                           url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
                           params: {
-                            removeProduct: key,
+                            removeProduct: productKey,
                           },
                         });
                         if (
