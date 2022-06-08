@@ -1,7 +1,8 @@
-import Layout from "../../../components/user/Layout";
+import Layout from "../../../components/client/Layout";
 import ProfileForm from "../../../components/user/ProfileForm";
 import PaginatedList from "../../../components/PaginatedList";
 import { Context as ClientContext } from "../../../context/ClientContext";
+import { Context as AuthContext } from "../../../context/AuthContext";
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { Alert } from "reactstrap";
@@ -20,6 +21,9 @@ export default function Client() {
     state: { client },
     getClient,
   } = useContext(ClientContext);
+  const {
+    state: { auth },
+  } = useContext(AuthContext);
   const [rooms, setRooms] = useState(null);
   const [requestingRooms, setRequestingRooms] = useState(false);
   const roomsPerPage = 2;
@@ -48,67 +52,62 @@ export default function Client() {
   };
 
   useEffect(() => {
-    let isSubscribed = true;
-    fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
-    return () => (isSubscribed = false);
-  }, []);
-
-  useEffect(() => {
-    getClient({ id: clientKey });
-  }, []);
+    // ensure the following match:
+      // user's client id
+      // context client id
+      // clientKey (the route's client id)
+    if (client?._id === clientKey && (auth?.user?.client?._id === client?._id)) {
+      let isSubscribed = true;
+      fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
+      return () => (isSubscribed = false);
+    }
+  }, [client]);
 
   return (
     <>
-      {client ? (
+      <Layout>
         <div>
-          <div className="row mt-3 mt-md-0 ms-md-3">
-            <div className="col-12">
-              <h5 className={"title"}>{client.name}</h5>
-              This is the client home route <br />
-              <Link href={`/client/${clientKey}/admin`}>
-                {t("client.Client Admin")}
-              </Link>
-              {rooms ? (
-                <>
-                  <PaginatedList
-                    items={rooms}
-                    itemComponent={({ room }) => {
-                      return (
-                        <div
-                          className={`row list-item-box`}
-                          onClick={() => (onClick ? onClick() : null)}
-                        >
-                          <div className="col-12">
-                            <h5>{room.name}</h5>
-                          </div>
-                        </div>
-                      );
-                    }}
-                    itemPropName={"room"}
-                    itemsListedName={t("client.rooms")}
-                    itemsPerPage={roomsPerPage}
-                    showPaginationTop
-                    showPaginationBottom
-                    hidePaginationForSinglePage
-                    requestItemsFunc={async ({ skip, limit }) => {
-                      await fetchRooms({ skip, limit });
-                    }}
-                    requestingItems={requestingRooms}
-                    // itemNavRoute={"/room"}
-                    showLink={true}
-                    t={t}
-                    // onRef={ref => (this.paginatedList = ref)}
-                  />
-                </>
-              ) : (
-                <></>
-              )}
-            </div>
-          </div>
+          This is the client home route <br />
+          <Link href={`/client/${clientKey}/admin`}>
+            {t("client.Client Admin")}
+          </Link>
+          {rooms ? (
+            <>
+              <PaginatedList
+                items={rooms}
+                itemComponent={({ room }) => {
+                  return (
+                    <div
+                      className={`row list-item-box`}
+                      onClick={() => (onClick ? onClick() : null)}
+                    >
+                      <div className="col-12">
+                        <h5>{room.name}</h5>
+                      </div>
+                    </div>
+                  );
+                }}
+                itemPropName={"room"}
+                itemsListedName={t("client.rooms")}
+                itemsPerPage={roomsPerPage}
+                showPaginationTop
+                showPaginationBottom
+                hidePaginationForSinglePage
+                requestItemsFunc={async ({ skip, limit }) => {
+                  await fetchRooms({ skip, limit });
+                }}
+                requestingItems={requestingRooms}
+                // itemNavRoute={"/room"}
+                showLink={true}
+                t={t}
+                // onRef={ref => (this.paginatedList = ref)}
+              />
+            </>
+          ) : (
+            <></>
+          )}
         </div>
-      ) : (
-        <></>
-      )}
+      </Layout>
     </>
   );
 }

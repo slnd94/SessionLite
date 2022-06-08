@@ -1,4 +1,4 @@
-import Layout from "../../../components/user/Layout";
+import Layout from "../../../components/client/Layout";
 import ProfileForm from "../../../components/user/ProfileForm";
 import { Context as ClientContext } from "../../../context/ClientContext";
 import { useState, useEffect, useContext } from "react";
@@ -20,25 +20,14 @@ export default function ClientAdmin() {
     getClient,
   } = useContext(ClientContext);
 
-  useEffect(() => {
-    getClient({ id: clientKey });
-  }, []);
-
   return (
     <>
-      {client ? (
+      <Layout>
         <div>
-          <div className="row mt-3 mt-md-0 ms-md-3">
-            <div className="col-12">
-              <h5 className={"title"}>{client.name}</h5>
-              This is the client admin route <br />
-              <Link href={`/client/${clientKey}`}>{t('client.Client Home')}</Link>
-            </div>
-          </div>
+          This is the client admin route <br />
+          <Link href={`/client/${clientKey}`}>{t("client.Client Home")}</Link>
         </div>
-      ) : (
-        <></>
-      )}
+      </Layout>
     </>
   );
 }
