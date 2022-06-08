@@ -11,7 +11,9 @@ exports.ClientRooms = class ClientRooms {
   async find (params) {    
     return await this.app.service('rooms').find({
       query: {
-        client: params.query.client
+        client: params.query.client,
+        $skip: params.query.$skip,
+        $limit: params.query.$limit
       }
     });
   }
