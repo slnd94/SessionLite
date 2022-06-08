@@ -52,12 +52,18 @@ function Header({ brandName }) {
           {client ? (
             <span>{client.name}</span>
           ) : (
-            <Image
-              src="/images/siteLogoSmall.png"
-              alt={brandName}
-              width={160}
-              height={20}
-            />
+            <>
+              {auth?.status === "SIGNED_OUT" ? (
+                <Image
+                  src="/images/siteLogoSmall.png"
+                  alt={brandName}
+                  width={160}
+                  height={20}
+                />
+              ) : (
+                <></>
+              )}
+            </>
           )}
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />

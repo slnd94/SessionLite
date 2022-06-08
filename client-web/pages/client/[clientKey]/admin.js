@@ -21,7 +21,7 @@ export default function ClientAdmin() {
   } = useContext(ClientContext);
 
   useEffect(() => {
-    // getClient({ id: clientKey });
+    getClient({ id: clientKey });
   }, []);
 
   return (

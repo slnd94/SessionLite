@@ -9,6 +9,10 @@ exports.AuthUser = class AuthUser {
   }
 
   async find (params) {
+    // get the user client if available
+    const client = params.user.client ? await this.app.service('clients').get(params.user.client) : null;
+
+    // set up the return user obj
     return {
       _id: params.user._id,
       email: params.user.email,
@@ -18,7 +22,12 @@ exports.AuthUser = class AuthUser {
       },
       isVerified: params.user.verification.emailVerified,
       isLocked: params.user.locked,
-      client: params.user.client
+      // client if available:
+      ...(client
+        ? {client: {
+          _id: client._id,
+          name: client.name
+        }} : {})
     }
   }
 };

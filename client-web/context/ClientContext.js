@@ -6,6 +6,8 @@ const clientReducer = (state, action) => {
   switch (action.type) {
     case "get_client":
       return { ...state, ...action.payload };
+    case "set_client":
+      return { ...state, ...action.payload };
     case "register_client":
       return {
         ...state,
@@ -42,6 +44,18 @@ const getClient =
     } else {
       return { success: false };
     }
+  };
+
+const setClient =
+  (dispatch) =>
+  async ({ client }) => {
+    dispatch({
+      type: "set_client",
+      payload: { client: {
+        _id: client._id,
+        name: client.name
+      } },
+    });
   };
 
 const registerClient =
@@ -104,6 +118,7 @@ const { Provider, Context } = createDataContext(
   clientReducer,
   {
     getClient,
+    setClient,
     registerClient,
     clearClient,
     clearErrorMessage,

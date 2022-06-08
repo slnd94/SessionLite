@@ -15,7 +15,7 @@ function Layout({ children, brandName }) {
   const { clientKey } = router.query;
   const {
     state: { client },
-    getClient,
+    setClient,
   } = useContext(ClientContext);
   const {
     state: { auth },
@@ -30,7 +30,9 @@ function Layout({ children, brandName }) {
   useEffect(() => {
     if (auth?.status === "SIGNED_IN") {
       getUserCart({ id: auth.user._id });
-      getClient({ id: auth.user.client})
+      if (auth.user.client) {
+        setClient({ client: auth.user.client });
+      }
     }
   }, [auth]);
 
