@@ -21,7 +21,7 @@ export default function Client() {
   } = useContext(ClientContext);
 
   useEffect(() => {
-    getClient({ id: clientKey });
+    // getClient({ id: clientKey });
   }, []);
 
   return (

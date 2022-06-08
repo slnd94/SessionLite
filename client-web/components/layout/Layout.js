@@ -3,12 +3,20 @@ import PropTypes from "prop-types";
 import Header from "./Header";
 import Footer from "./Footer";
 import Head from "next/head";
+import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
 import { ToastContainer, Slide } from "react-toastify";
+import { useRouter } from "next/router";
 import styles from "../../styles/Layout.module.scss";
 
 function Layout({ children, brandName }) {
+  const router = useRouter();
+  const { clientKey } = router.query;
+  const {
+    state: { client },
+    getClient,
+  } = useContext(ClientContext);
   const {
     state: { auth },
     getAuth,
@@ -16,6 +24,9 @@ function Layout({ children, brandName }) {
   const { getUserCart } = useContext(UserContext);
 
   useEffect(() => {
+    if(clientKey) {
+      getClient({ id: clientKey });
+    }
     getAuth();
   }, []);
 
@@ -33,7 +44,7 @@ function Layout({ children, brandName }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ToastContainer
-        theme="dark"
+        theme="light"
         position="bottom-right"
         transition={Slide}
         autoClose={3000}
