@@ -32,7 +32,7 @@ export default function Client() {
             <div className="col-12">
               <h5 className={"title"}>{client.name}</h5>
               This is the client home route <br />
-              <Link href={`/client/${clientKey}/admin`}>Client Admin</Link>
+              <Link href={`/client/${clientKey}/admin`}>{t('client.Client Admin')}</Link>
             </div>
           </div>
         </div>

@@ -32,7 +32,7 @@ export default function ClientAdmin() {
             <div className="col-12">
               <h5 className={"title"}>{client.name}</h5>
               This is the client admin route <br />
-              <Link href={`/client/${clientKey}`}>Client Home</Link>
+              <Link href={`/client/${clientKey}`}>{t('client.Client Home')}</Link>
             </div>
           </div>
         </div>
