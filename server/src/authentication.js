@@ -24,7 +24,8 @@ module.exports = app => {
               family: context.result.user.name.family
             },
             isVerified: context.result.user.verification.emailVerified,
-            isLocked: context.result.user.locked
+            isLocked: context.result.user.locked,
+            client: context.result.user.client
           };
         }
       ]

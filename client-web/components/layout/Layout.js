@@ -24,15 +24,13 @@ function Layout({ children, brandName }) {
   const { getUserCart } = useContext(UserContext);
 
   useEffect(() => {
-    if(clientKey) {
-      getClient({ id: clientKey });
-    }
     getAuth();
   }, []);
 
   useEffect(() => {
     if (auth?.status === "SIGNED_IN") {
       getUserCart({ id: auth.user._id });
+      getClient({ id: auth.user.client})
     }
   }, [auth]);
 
