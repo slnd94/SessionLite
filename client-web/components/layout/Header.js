@@ -50,7 +50,15 @@ function Header({ brandName }) {
       <Navbar className="navbar-dark bg-primary" color="faded" expand="sm">
         <NavbarBrand href="/" className="mr-auto">
           {client ? (
-            <span>{client.name}</span>
+            <>
+              {auth?.status === "SIGNED_OUT" ||
+              (auth?.status === "SIGNED_IN" &&
+                auth.user.client._id === client._id) ? (
+                <span>{client.name}</span>
+              ) : (
+                <></>
+              )}
+            </>
           ) : (
             <>
               {auth?.status ? (

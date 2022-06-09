@@ -44,7 +44,7 @@ exports.ClientRegistration = class ClientRegistration {
           } else {
             // assign the user to the client admin users
             await this.app.service('clients').patch(client._id, {
-              createdByUser: userAccount._id,
+              createdByUser: userAccount.user._id,
               adminUsers: [userAccount.user._id]
             });
 

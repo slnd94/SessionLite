@@ -58,7 +58,7 @@ export default function Layout({ children }) {
 
   return (
     <>
-      {client && (auth?.status === "SIGNED_OUT" || (auth?.status === "SIGNED_IN" && auth.user.client._id === client._id)) ? (
+      {client && auth?.status === "SIGNED_IN" && auth.user.client._id === client._id ? (
         // the user's client and the context client are a match
         <>
           <h1 className="title">{client.name}</h1>
