@@ -33,7 +33,7 @@ exports.ClientRegistration = class ClientRegistration {
           return Promise.reject(new errors.BadRequest("could not create the client"));
         } else {
           // create the user account
-          const userAccount = await this.app.service('user-account').create({
+          const userAccount = await this.app.service('user-accounts').create({
             ...data.account,
             client: client._id
           });
