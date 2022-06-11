@@ -27,6 +27,7 @@ module.exports = app => {
             },
             isVerified: context.result.user.verification.emailVerified,
             isLocked: context.result.user.locked,
+            isClientAdmin: client?.adminUsers && client.adminUsers.find(x => x._id.toString() === context.result.user._id.toString()) ? true : false,
             // client if available:
             ...(client
               ? {client: {

@@ -65,7 +65,7 @@ const updateUserAccount =
     try {
       const response = await api({
         method: "patch",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/user-account/${id}`,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/user-accounts/${id}`,
         params: {
           currentPassword,
           newPassword,

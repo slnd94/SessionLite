@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Alert } from "reactstrap";
 import styles from "../../styles/Signup.module.scss";
+import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import SignUpForm from "../../components/auth/SignUpForm";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -9,6 +10,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function Signup() {
+  const {
+    state: { client },
+  } = useContext(ClientContext);
   const {
     state: { auth, errorMessage },
     signup,
@@ -33,7 +37,10 @@ export default function Signup() {
                 processing={processing}
                 onSubmit={async (data) => {
                   setProcessing(true);
-                  const request = await signup(data);
+                  const request = await signup({
+                    ...data,
+                    clientId: client?._id,
+                  });
                   setProcessing(false);
                 }}
               />
@@ -70,6 +77,16 @@ export default function Signup() {
             <>
               <h6>{t(`auth.What's next?`)}</h6>
               <p>
+                {client ? (
+                  <>
+                    <Link href={`/client/${client._id}`}>
+                      {t("client.Client Home")}
+                    </Link>
+                    <br />
+                  </>
+                ) : (
+                  <></>
+                )}
                 <Link href="/user/profile">
                   {t("user.Manage your profile")}
                 </Link>

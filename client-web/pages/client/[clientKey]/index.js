@@ -53,10 +53,10 @@ export default function Client() {
 
   useEffect(() => {
     // ensure the following match:
-      // user's client id
-      // context client id
-      // clientKey (the route's client id)
-    if (client?._id === clientKey && (auth?.user?.client?._id === client?._id)) {
+    // user's client id
+    // context client id
+    // clientKey (the route's client id)
+    if (client?._id === clientKey && auth?.user?.client?._id === client?._id) {
       let isSubscribed = true;
       fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
       return () => (isSubscribed = false);
@@ -68,9 +68,13 @@ export default function Client() {
       <Layout>
         <div>
           This is the client home route <br />
-          <Link href={`/client/${clientKey}/admin`}>
-            {t("client.Client Admin")}
-          </Link>
+          {auth?.user?.isClientAdmin ? (
+            <Link href={`/client/${clientKey}/admin`}>
+              {t("client.Client Admin")}
+            </Link>
+          ) : (
+            <></>
+          )}
           {rooms ? (
             <>
               <PaginatedList
