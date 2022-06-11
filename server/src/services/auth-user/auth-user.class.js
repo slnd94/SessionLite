@@ -11,8 +11,6 @@ exports.AuthUser = class AuthUser {
   async find (params) {
     // get the user client if available
     const client = params.user.client ? await this.app.service('clients').get(params.user.client) : null;
-    console.log("🚀 ~ file: auth-user.class.js ~ line 14 ~ AuthUser ~ find ~ client", client)
-
 
     client.adminUsers && client.adminUsers.find(x => x._id.toString() === params.user._id.toString())
     // set up the return user obj
