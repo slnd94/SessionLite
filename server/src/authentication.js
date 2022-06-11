@@ -23,7 +23,7 @@ module.exports = app => {
             email: context.result.user.email,
             name: {
               given: context.result.user.name.given,
-              family: context.result.user.name.family
+              family: context.result.user.name.family 
             },
             isVerified: context.result.user.verification.emailVerified,
             isLocked: context.result.user.locked,
