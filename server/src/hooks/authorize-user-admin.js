@@ -5,6 +5,7 @@ const errorMessages = require('../utils/errorMessages');
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
+  console.log("🚀 ~ file: authorize-user-admin.js ~ line 8 ~ context", context)
     let idParam = null;
     if(context.id) {
       idParam = context.id;
@@ -16,6 +17,8 @@ module.exports = (options = {}) => {
     if(
       // it's an internal call
       !context.params.provider
+      // or it's a "me" call
+      || idParam === "me"
       // or it's a sysAdmin user making the call
       || context.params.sysAdminUser
       // or it's the subject user making the call
