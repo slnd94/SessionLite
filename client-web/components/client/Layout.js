@@ -1,15 +1,15 @@
-import { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
-import Link from "next/link";
+import useClientUserAuth from "../../hooks/useClientUserAuth";
 import { useTranslation } from "next-i18next";
-import { getFullName } from "../../helpers/nameHelpers";
 import { useRouter } from "next/router";
-import styles from "../../styles/User.module.scss";
+import styles from "../../styles/Client.module.scss";
 
 export default function Layout({ children }) {
   const { t } = useTranslation("common");
   const router = useRouter();
+  const { clientKey } = router.query;
   const {
     state: { client },
     getClient
@@ -17,49 +17,39 @@ export default function Layout({ children }) {
   const {
     state: { auth },
   } = useContext(AuthContext);
-  const { clientKey } = router.query;
+  const [userAuthorized, setUserAuthorized] = useState(false);
 
   useEffect(() => {
-    // if (auth?.status === "SIGNED_IN" && ((client && auth.user.client._id !== client._id) || (auth.user.client._id !== clientKey))) {
-    //   // the clientKey, the user's client and the context client are not all a match
-    //   // redirect to the user's client home screen
-    //   router.push({
-    //     pathname: `/client/${auth.user.client._id}`
-    //   }); 
-    // }
-
     if (!client || client._id !== clientKey) {
       // the context client needs to be set to match the clientKey
       getClient({ id: clientKey });
     }
-  }, [client]);
-
-  // useEffect(() => {
-  //   if (auth?.status === "SIGNED_OUT" ) {
-  //     // user is not signed in
-  //     // redirect to the sign in screen
-  //     router.push({
-  //       pathname: "/auth/signin",
-  //       query: {
-  //         redirect: router.asPath,
-  //       },
-  //     });
-  //   }
-
-  //   if (auth?.status === "SIGNED_IN" && client && auth.user.client._id !== client._id) {
-  //     // the user's client and the context client are not a match
-  //     // redirect to the user's client home screen
-  //     router.push({
-  //       pathname: `/client/${auth.user.client._id}`
-  //     });
-  //     getClient({ id: clientKey })
-  //   }
-  // }, [auth]);
+    if (client && auth?.status) {
+      if (auth.status === "SIGNED_OUT") {
+        // redirect to sign in screen
+        router.push({
+          pathname: `/auth/signin`,
+          query: {
+            redirect: router.asPath,
+          },
+        });
+      } else {
+        const { isMember } = useClientUserAuth({ client, auth });
+        if (isMember) {
+          setUserAuthorized(true);
+        } else {
+          // redirect to app root
+          router.push({
+            pathname: `/`,
+          });
+        }
+      }
+    }
+  }, [client, auth]);
 
   return (
     <>
-      {client && auth?.status === "SIGNED_IN" && auth.user.client._id === client._id ? (
-        // the user's client and the context client are a match
+      {userAuthorized ? (
         <>
           <h1 className="title">{client.name}</h1>
           <div>{children}</div>

@@ -1,23 +1,53 @@
-import { useContext, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Context as AuthContext } from "../../../context/AuthContext";
 import { Context as ClientContext } from "../../../context/ClientContext";
+import useClientUserAuth from "../../../hooks/useClientUserAuth";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import ManagementNav from "../../layout/ManagementNav";
-import { getFullName } from "../../../helpers/nameHelpers";
-import styles from "../../../styles/User.module.scss";
+import styles from "../../../styles/Client.module.scss";
 import { useRouter } from "next/router";
 
 export default function Layout({ children }) {
   const { t } = useTranslation("common");
   const router = useRouter();
+  const { clientKey } = router.query;
+  const {
+    state: { client },
+    getClient
+  } = useContext(ClientContext);
   const {
     state: { auth },
   } = useContext(AuthContext);
-  const {
-    state: { client },
-  } = useContext(ClientContext);
-  const { clientKey } = router.query;
+  const [userAuthorized, setUserAuthorized] = useState(false);
+
+  useEffect(() => {
+    if (!client || client._id !== clientKey) {
+      // the context client needs to be set to match the clientKey
+      getClient({ id: clientKey });
+    }
+    if (client && auth?.status) {
+      if (auth.status === "SIGNED_OUT") {
+        // redirect to sign in screen
+        router.push({
+          pathname: `/auth/signin`,
+          query: {
+            redirect: router.asPath,
+          },
+        });
+      } else {
+        const { isAdmin } = useClientUserAuth({ client, auth });
+        if (isAdmin) {
+          setUserAuthorized(true);
+        } else {
+          // user is not authorized client admin. Redirect to client home
+          router.push({
+            pathname: `/client/${clientKey}`,
+          });
+        }
+      }
+    }
+  }, [client, auth]);
 
   const subRoutes = [
     {
@@ -31,26 +61,31 @@ export default function Layout({ children }) {
       icon: "user",
       labelPills: t("Users"),
       labelTabs: t("Users"),
-    }
+    },
   ];
 
   return (
     <>
-      {auth?.status === "SIGNED_IN" && client ? (
+      {userAuthorized ? (
         <>
           <h1 className="title">{client.name}</h1>
-          <div>
-            <div className="row">
-              <div className="col-md-3 mb-3">
-                <ManagementNav routePrefix={`client/${clientKey}/admin`} labelPrefix="client.admin" subRoutes={subRoutes} />
-              </div>
-              <div className="col-md-9">{children}</div>
+          <div className="row">
+            <div className="col-12 mb-3">
+              <Link href={`/client/${clientKey}`}>
+                {t("client.Client Home")}
+              </Link>
             </div>
           </div>
-        </>
-      ) : auth?.status === "SIGNED_OUT" ? (
-        <>
-          <Link href="/auth/signin">{t("auth.Sign in")}</Link>
+          <div className="row">
+            <div className="col-md-2 mb-3">
+              <ManagementNav
+                routePrefix={`client/${clientKey}/admin`}
+                labelPrefix="client.admin"
+                subRoutes={subRoutes}
+              />
+            </div>
+            <div className="col-md-10">{children}</div>
+          </div>
         </>
       ) : (
         <></>

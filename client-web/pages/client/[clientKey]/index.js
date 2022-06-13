@@ -1,13 +1,10 @@
 import Layout from "../../../components/client/Layout";
-import ProfileForm from "../../../components/user/ProfileForm";
 import PaginatedList from "../../../components/PaginatedList";
 import { Context as ClientContext } from "../../../context/ClientContext";
 import { Context as AuthContext } from "../../../context/AuthContext";
 import useClientUserAuth from "../../../hooks/useClientUserAuth";
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
-import { Alert } from "reactstrap";
-import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import api from "../../../utils/api";
@@ -19,12 +16,12 @@ export default function Client() {
   const router = useRouter();
   const { clientKey } = router.query;
   const {
-    state: { client },
+    state: { client }
   } = useContext(ClientContext);
   const {
     state: { auth },
   } = useContext(AuthContext);
-  const [userAuthorized, setUserAuthorized] = useState(false);
+  const [userAdminAuthorized, setUserAdminAuthorized] = useState(false);
   const [rooms, setRooms] = useState(null);
   const [requestingRooms, setRequestingRooms] = useState(false);
   const roomsPerPage = 2;
@@ -53,78 +50,67 @@ export default function Client() {
   };
 
   useEffect(() => {
-    if (client && auth?.status) {
-      const { isMember } = useClientUserAuth({ client, auth });
+    if (client && auth?.status === "SIGNED_IN") {
+      const { isMember, isAdmin } = useClientUserAuth({ client: { _id: clientKey }, auth });
+      if (isAdmin) {
+        setUserAdminAuthorized(true);
+      }
       if (isMember) {
-        setUserAuthorized(true);
-        if (client?._id === clientKey && auth?.user?.client?._id === client?._id) {
-          let isSubscribed = true;
-          fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
-          return () => (isSubscribed = false);
-        }
-      } else {
-        // redirect to sign in screen
-        router.push({
-          pathname: `/auth/signin`,
-        });
+        let isSubscribed = true;
+        fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
+        return () => (isSubscribed = false);
       }
     }
   }, [client, auth]);
 
   return (
-    <>
-      {userAuthorized ? (
-        <Layout>
-          <div>
-            This is the client home route <br />
-            {auth?.user?.isClientAdmin ? (
-              <Link href={`/client/${clientKey}/admin/info`}>
-                {t("client.Client Admin")}
-              </Link>
-            ) : (
-              <></>
-            )}
-            {rooms ? (
-              <>
-                <PaginatedList
-                  items={rooms}
-                  itemComponent={({ room }) => {
-                    return (
-                      <div
-                        className={`row list-item-box`}
-                        onClick={() => (onClick ? onClick() : null)}
-                      >
-                        <div className="col-12">
-                          <h5>{room.name}</h5>
-                        </div>
-                      </div>
-                    );
-                  }}
-                  itemPropName={"room"}
-                  itemsListedName={t("client.rooms")}
-                  itemsPerPage={roomsPerPage}
-                  showPaginationTop
-                  showPaginationBottom
-                  hidePaginationForSinglePage
-                  requestItemsFunc={async ({ skip, limit }) => {
-                    await fetchRooms({ skip, limit });
-                  }}
-                  requestingItems={requestingRooms}
-                  // itemNavRoute={"/room"}
-                  showLink={true}
-                  t={t}
-                  // onRef={ref => (this.paginatedList = ref)}
-                />
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
-        </Layout>
-      ) : (
-        <></>
-      )}
-    </>
+    <Layout>
+      <div>
+        This is the client home route <br />
+        {userAdminAuthorized ? (
+          <Link href={`/client/${clientKey}/admin/info`}>
+            {t("client.Client Admin")}
+          </Link>
+        ) : (
+          <></>
+        )}
+        {rooms ? (
+          <>
+            <PaginatedList
+              items={rooms}
+              itemComponent={({ room }) => {
+                return (
+                  <div
+                    className={`row list-item-box`}
+                    onClick={() => (onClick ? onClick() : null)}
+                  >
+                    <div className="col-12">
+                      <h5>{room.name}</h5>
+                    </div>
+                  </div>
+                );
+              }}
+              itemPropName={"room"}
+              itemsListedName={t("client.rooms")}
+              itemsPerPage={roomsPerPage}
+              showPaginationTop
+              showPaginationBottom
+              hidePaginationForSinglePage
+              requestItemsFunc={async ({ skip, limit }) => {
+                await fetchRooms({ skip, limit });
+              }}
+              requestingItems={requestingRooms}
+              // itemNavRoute={"/room"}
+              showLink={true}
+              t={t}
+              // onRef={ref => (this.paginatedList = ref)}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+    </Layout>
   );
 }
 
