@@ -51,10 +51,14 @@ const setClient =
   async ({ client }) => {
     dispatch({
       type: "set_client",
-      payload: { client: {
-        _id: client._id,
-        name: client.name
-      } },
+      payload: {
+        client: client
+          ? {
+              _id: client._id,
+              name: client.name,
+            }
+          : null,
+      },
     });
   };
 
