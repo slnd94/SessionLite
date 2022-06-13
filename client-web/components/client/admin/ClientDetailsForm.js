@@ -9,7 +9,7 @@ import {
   Button,
 } from "reactstrap";
 import { useForm, Controller } from "react-hook-form";
-import Loader from "../Loader";
+import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
 
 function ClientDetailsForm({
@@ -36,7 +36,7 @@ function ClientDetailsForm({
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label>{t("user.First Name")}</Label>
+        <Label>{t("client.admin.details.Name")}</Label>
         <Controller
           name="name"
           control={control}

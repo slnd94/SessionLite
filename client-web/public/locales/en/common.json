@@ -122,7 +122,9 @@
       "Details": "Details",
       "Users": "Users",
       "details": {
-        "Name is required": "Name is required"
+        "Name": "Name",
+        "Name is required": "Name is required",
+        "Client details updated": "Client details updated"
       }
     }
   },

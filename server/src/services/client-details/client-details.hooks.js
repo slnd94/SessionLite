@@ -1,15 +1,15 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const assignParamSysAdminUser = require('../../hooks/assign-param-sys-admin-user');
-const authorizeClientUser = require('../../hooks/authorize-client-user');
+const authorizeClientAdmin = require('../../hooks/authorize-client-admin');
 
 module.exports = {
   before: {
     all: [ authenticate('jwt'), assignParamSysAdminUser() ],
-    find: [authorizeClientUser()],
+    find: [],
     get: [],
     create: [],
     update: [],
-    patch: [],
+    patch: [authorizeClientAdmin()],
     remove: []
   },
 

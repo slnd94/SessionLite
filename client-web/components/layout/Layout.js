@@ -34,7 +34,7 @@ function Layout({ children, brandName }) {
     if (auth?.status === "SIGNED_IN") {
       getUserCart({ id: auth.user._id });
     }
-    if (auth.user.client) {
+    if (auth?.user?.client) {
       setClient({ client: auth.user.client });
     }
   }, [auth]);
