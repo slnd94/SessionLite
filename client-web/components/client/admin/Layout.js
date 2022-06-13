@@ -53,10 +53,10 @@ export default function Layout({ children }) {
 
   const subRoutes = [
     {
-      slug: `info`,
-      icon: "about",
-      labelPills: t("Info"),
-      labelTabs: t("Info"),
+      slug: `details`,
+      icon: "detail",
+      labelPills: t("Details"),
+      labelTabs: t("Details"),
     },
     {
       slug: `users`,
@@ -79,14 +79,14 @@ export default function Layout({ children }) {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-2 mb-3">
+            <div className="col-md-3 mb-3">
               <ManagementNav
                 routePrefix={`client/${clientKey}/admin`}
                 labelPrefix="client.admin"
                 subRoutes={subRoutes}
               />
             </div>
-            <div className="col-md-10">{children}</div>
+            <div className="col-md-9">{children}</div>
           </div>
         </>
       ) : (

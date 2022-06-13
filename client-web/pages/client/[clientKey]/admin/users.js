@@ -8,7 +8,7 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import styles from "../../../../styles/Client.module.scss";
 
-export default function Profile({ profile }) {
+export default function Users() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { clientKey } = router.query;

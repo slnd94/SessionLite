@@ -14,6 +14,11 @@ const clientReducer = (state, action) => {
         errorMessage: "",
         client: action.payload.client,
       };
+    case "update_client_details":
+      return {
+        ...state,
+        errorMessage: "",
+      };
     case "clear_client":
       return {
         errorMessage: "",
@@ -109,6 +114,34 @@ const registerClient =
     }
   };
 
+const updateClientDetails =
+  (dispatch) =>
+  async ({ name, id }) => {
+    try {
+      const response = await api({
+        method: "patch",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/client-details/${id}`,
+        params: {
+          name
+        }
+      });
+      if (response.status >= 200 && response.status < 300) {
+        dispatch({ type: "update_client_details", payload: {} });
+        return { success: true };
+      } else {
+        throw response;
+      }
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: err?.response?.data?.message
+          ? err.response.data.message
+          : "Something went wrong with updating the details",
+      });
+      return { success: false };
+    }
+  };
+
 const clearClient = (dispatch) => async () => {
   dispatch({ type: "clear_client" });
   return { success: true };
@@ -124,6 +157,7 @@ const { Provider, Context } = createDataContext(
     getClient,
     setClient,
     registerClient,
+    updateClientDetails,
     clearClient,
     clearErrorMessage,
   },

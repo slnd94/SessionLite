@@ -119,8 +119,13 @@
     "Thanks for registering": "Thanks for registering",
     "Already registered?": "Already registered?",
     "admin": {
-      "Info": "Info",
-      "Users": "Users"
+      "Details": "Details",
+      "Users": "Users",
+      "details": {
+        "Name": "Name",
+        "Name is required": "Name is required",
+        "Client details updated": "Client details updated"
+      }
     }
   },
   "product": {

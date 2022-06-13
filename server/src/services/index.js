@@ -13,6 +13,7 @@ const clients = require('./clients/clients.service.js');
 const clientRegistration = require('./client-registration/client-registration.service.js');
 const rooms = require('./rooms/rooms.service.js');
 const clientRooms = require('./client-rooms/client-rooms.service.js');
+const clientDetails = require('./client-details/client-details.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -30,4 +31,5 @@ module.exports = function (app) {
   app.configure(clientRegistration);
   app.configure(rooms);
   app.configure(clientRooms);
+  app.configure(clientDetails);
 };
