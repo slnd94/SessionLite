@@ -20,11 +20,13 @@ export default function Client() {
   const { clientKey } = router.query;
   const {
     state: { client },
+    getClient,
   } = useContext(ClientContext);
   const {
     state: { auth },
   } = useContext(AuthContext);
   const [userAuthorized, setUserAuthorized] = useState(false);
+  const [userAdminAuthorized, setUserAdminAuthorized] = useState(false);
   const [rooms, setRooms] = useState(null);
   const [requestingRooms, setRequestingRooms] = useState(false);
   const roomsPerPage = 2;
@@ -53,20 +55,40 @@ export default function Client() {
   };
 
   useEffect(() => {
+    if (!client || client._id !== clientKey) {
+      // the context client needs to be set to match the clientKey
+      getClient({ id: clientKey });
+    }
     if (client && auth?.status) {
-      const { isMember } = useClientUserAuth({ client, auth });
-      if (isMember) {
-        setUserAuthorized(true);
-        if (client?._id === clientKey && auth?.user?.client?._id === client?._id) {
-          let isSubscribed = true;
-          fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
-          return () => (isSubscribed = false);
-        }
-      } else {
+      if (auth.status === "SIGNED_OUT") {
         // redirect to sign in screen
         router.push({
           pathname: `/auth/signin`,
+          query: {
+            redirect: router.asPath,
+          },
         });
+      } else {
+        const { isMember, isAdmin } = useClientUserAuth({ client, auth });
+        if (isAdmin) {
+          setUserAdminAuthorized(true);
+        }
+        if (isMember) {
+          setUserAuthorized(true);
+          if (
+            client?._id === clientKey &&
+            auth?.user?.client?._id === client?._id
+          ) {
+            let isSubscribed = true;
+            fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
+            return () => (isSubscribed = false);
+          }
+        } else {
+          // redirect to app root
+          router.push({
+            pathname: `/`,
+          });
+        }
       }
     }
   }, [client, auth]);
@@ -77,7 +99,7 @@ export default function Client() {
         <Layout>
           <div>
             This is the client home route <br />
-            {auth?.user?.isClientAdmin ? (
+            {userAdminAuthorized ? (
               <Link href={`/client/${clientKey}/admin/info`}>
                 {t("client.Client Admin")}
               </Link>

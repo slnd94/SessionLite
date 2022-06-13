@@ -16,29 +16,44 @@ export default function Profile({ profile }) {
   const { clientKey } = router.query;
   const {
     state: { client },
+    getClient,
   } = useContext(ClientContext);
   const {
     state: { auth },
   } = useContext(AuthContext);
-  const [userAuthorized, setUserAuthorized] = useState(false);
+  const [userAdminAuthorized, setUserAdminAuthorized] = useState(false);
 
   useEffect(() => {
+    if (!client || client._id !== clientKey) {
+      // the context client needs to be set to match the clientKey
+      getClient({ id: clientKey });
+    }
     if (client && auth?.status) {
-      const { isAdmin } = useClientUserAuth({ client, auth });
-      if (isAdmin) {
-        setUserAuthorized(true)
-      } else {
-        // redirect to client home route
+      if (auth.status === "SIGNED_OUT") {
+        // redirect to sign in screen
         router.push({
-          pathname: `/client/${auth.user.client._id}`,
+          pathname: `/auth/signin`,
+          query: {
+            redirect: router.asPath,
+          },
         });
+      } else {
+        const { isAdmin } = useClientUserAuth({ client, auth });
+        if (isAdmin) {
+          setUserAdminAuthorized(true);
+        } else {
+          // redirect to client home route
+          router.push({
+            pathname: `/client/${clientKey}`,
+          });
+        }
       }
     }
   }, [client, auth]);
 
   return (
-    <div>
-      {userAuthorized ? (
+    <>
+      {userAdminAuthorized ? (
         <Layout>
           <div>
             <div className="row mt-3 mt-md-0 ms-md-3">
@@ -63,7 +78,7 @@ export default function Profile({ profile }) {
       ) : (
         <></>
       )}
-    </div>
+    </>
   );
 }
 

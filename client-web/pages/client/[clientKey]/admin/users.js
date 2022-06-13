@@ -37,7 +37,7 @@ export default function Profile({ profile }) {
   }, [client, auth]);
 
   return (
-    <>
+    <div>
       {userAuthorized ? (
         <Layout>
           <div>
@@ -63,7 +63,7 @@ export default function Profile({ profile }) {
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 }
 
