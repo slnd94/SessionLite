@@ -4,7 +4,7 @@ import { Context as AuthContext } from "../../context/AuthContext";
 import useClientUserAuth from "../../hooks/useClientUserAuth";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import styles from "../../styles/User.module.scss";
+import styles from "../../styles/Client.module.scss";
 
 export default function Layout({ children }) {
   const { t } = useTranslation("common");
@@ -34,7 +34,7 @@ export default function Layout({ children }) {
           },
         });
       } else {
-        const { isMember, isAdmin } = useClientUserAuth({ client, auth });
+        const { isMember } = useClientUserAuth({ client, auth });
         if (isMember) {
           setUserAuthorized(true);
         } else {

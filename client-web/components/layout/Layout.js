@@ -52,7 +52,7 @@ function Layout({ children, brandName }) {
       }
       router.push("/");
     }
-  }, [client]);
+  }, [auth, client]);
 
   return (
     <div className={styles.container}>
