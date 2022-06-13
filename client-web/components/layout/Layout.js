@@ -24,19 +24,22 @@ function Layout({ children, brandName }) {
   } = useContext(AuthContext);
   const { getUserCart } = useContext(UserContext);
 
+  // get the auth user
   useEffect(() => {
     getAuth();
   }, []);
 
+  // get the user's cart and client if signed in
   useEffect(() => {
     if (auth?.status === "SIGNED_IN") {
       getUserCart({ id: auth.user._id });
-      if (auth.user.client) {
-        setClient({ client: auth.user.client });
-      }
+    }
+    if (auth.user.client) {
+      setClient({ client: auth.user.client });
     }
   }, [auth]);
 
+  // ensure the appropriate client is loaded for user
   useEffect(() => {
     if (
       client &&
