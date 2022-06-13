@@ -26,6 +26,8 @@ export default function Layout({ children }) {
       // the context client needs to be set to match the clientKey
       getClient({ id: clientKey });
     }
+    
+    // ensure the user is authorized to be here, and redirect them if not authorized
     if (client && auth?.status) {
       if (auth.status === "SIGNED_OUT") {
         // redirect to sign in screen
