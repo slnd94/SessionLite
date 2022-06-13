@@ -24,9 +24,7 @@ export default function Profile({ profile }) {
     updateUserProfile,
     clearErrorMessage: clearUserErrorMessage,
   } = useContext(UserContext);
-  // const [profile, setProfile] = useState(null);
   const [processing, setProcessing] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     clearUserErrorMessage();

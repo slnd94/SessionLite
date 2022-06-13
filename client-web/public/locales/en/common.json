@@ -117,7 +117,11 @@
     "Business name is required": "Business name is required",
     "There was a problem with your registration": "There was a problem with your registration",
     "Thanks for registering": "Thanks for registering",
-    "Already registered?": "Already registered?"
+    "Already registered?": "Already registered?",
+    "admin": {
+      "Info": "Info",
+      "Users": "Users"
+    }
   },
   "product": {
     "products": "products"

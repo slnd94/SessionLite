@@ -6,34 +6,34 @@ import { useTranslation } from "next-i18next";
 import { Nav, NavItem, Badge } from "reactstrap";
 import IconText from "../IconText";
 
-function ManagementNav({ prefix, subRoutes }) {
+function ManagementNav({ routePrefix, labelPrefix, subRoutes }) {
   const { t } = useTranslation("common");
 
   const router = useRouter();
-  const currentPath = router.pathname;
+  const currentPath = router.asPath;
 
   return (
     <>
       <Nav className="d-md-none">
         {subRoutes.map((subRoute) => (
           <NavItem key={subRoute.slug}>
-            <Link href={`/${prefix}/${subRoute.slug}`} passHref>
+            <Link href={`/${routePrefix}/${subRoute.slug}`} passHref>
               <a
                 className={`nav-link ${
-                  currentPath === "/" + prefix + "/" + subRoute.slug
+                  currentPath === "/" + routePrefix + "/" + subRoute.slug
                     ? "active"
                     : ""
                 }`}
               >
                 <IconText
                   icon={subRoute.icon}
-                  text={t(`${prefix}.${subRoute.labelTabs}`)}
+                  text={t(`${labelPrefix}.${subRoute.labelTabs}`)}
                 />
                 {subRoute.badge ? (
                   <Badge
                     pill
                     color={`${
-                      currentPath === "/" + prefix + "/" + subRoute.slug
+                      currentPath === "/" + routePrefix + "/" + subRoute.slug
                         ? "secondary"
                         : "light"
                     }`}
@@ -58,23 +58,23 @@ function ManagementNav({ prefix, subRoutes }) {
       >
         {subRoutes.map((subRoute) => (
           <NavItem key={subRoute.slug}>
-            <Link href={`/${prefix}/${subRoute.slug}`} passHref>
+            <Link href={`/${routePrefix}/${subRoute.slug}`} passHref>
               <a
                 className={`nav-link ${
-                  currentPath === "/" + prefix + "/" + subRoute.slug
+                  currentPath === "/" + routePrefix + "/" + subRoute.slug
                     ? "active"
                     : ""
                 }`}
               >
                 <IconText
                   icon={subRoute.icon}
-                  text={t(`${prefix}.${subRoute.labelPills}`)}
+                  text={t(`${labelPrefix}.${subRoute.labelPills}`)}
                 />
                 {subRoute.badge ? (
                   <Badge
                     pill
                     color={`${
-                      currentPath === "/" + prefix + "/" + subRoute.slug
+                      currentPath === "/" + routePrefix + "/" + subRoute.slug
                         ? "secondary"
                         : "light"
                     }`}
