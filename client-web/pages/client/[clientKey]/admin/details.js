@@ -8,7 +8,7 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import styles from "../../../../styles/Client.module.scss";
 
-export default function Profile({ profile }) {
+export default function Details() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { clientKey } = router.query;
@@ -23,7 +23,7 @@ export default function Profile({ profile }) {
     <Layout>
       <div className="row">
         <div className="col-12">
-          <h5 className={"title"}>{t("client.admin.Info")}</h5>
+          <h5 className={"title"}>{t("client.admin.Details")}</h5>
         </div>
       </div>
     </Layout>

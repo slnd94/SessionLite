@@ -53,10 +53,10 @@ export default function Layout({ children }) {
 
   const subRoutes = [
     {
-      slug: `info`,
-      icon: "about",
-      labelPills: t("Info"),
-      labelTabs: t("Info"),
+      slug: `details`,
+      icon: "detail",
+      labelPills: t("Details"),
+      labelTabs: t("Details"),
     },
     {
       slug: `users`,

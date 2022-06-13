@@ -68,7 +68,7 @@ export default function Client() {
       <div>
         This is the client home route <br />
         {userAdminAuthorized ? (
-          <Link href={`/client/${clientKey}/admin/info`}>
+          <Link href={`/client/${clientKey}/admin/details`}>
             {t("client.Client Admin")}
           </Link>
         ) : (
