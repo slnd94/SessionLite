@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       icon: "user",
       labelPills: t("Users"),
       labelTabs: t("Users"),
-    }
+    },
   ];
 
   return (
@@ -39,13 +39,22 @@ export default function Layout({ children }) {
       {auth?.status === "SIGNED_IN" && client ? (
         <>
           <h1 className="title">{client.name}</h1>
-          <div>
-            <div className="row">
-              <div className="col-md-3 mb-3">
-                <ManagementNav routePrefix={`client/${clientKey}/admin`} labelPrefix="client.admin" subRoutes={subRoutes} />
-              </div>
-              <div className="col-md-9">{children}</div>
+          <div className="row">
+            <div className="col-12 mb-3">
+              <Link href={`/client/${clientKey}`}>
+                {t("client.Client Home")}
+              </Link>
             </div>
+          </div>
+          <div className="row">
+            <div className="col-md-2 mb-3">
+              <ManagementNav
+                routePrefix={`client/${clientKey}/admin`}
+                labelPrefix="client.admin"
+                subRoutes={subRoutes}
+              />
+            </div>
+            <div className="col-md-10">{children}</div>
           </div>
         </>
       ) : auth?.status === "SIGNED_OUT" ? (

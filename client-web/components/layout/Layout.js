@@ -16,6 +16,7 @@ function Layout({ children, brandName }) {
   const {
     state: { client },
     setClient,
+    getClient,
   } = useContext(ClientContext);
   const {
     state: { auth },
@@ -35,6 +36,23 @@ function Layout({ children, brandName }) {
       }
     }
   }, [auth]);
+
+  useEffect(() => {
+    if (
+      client &&
+      auth?.status === "SIGNED_IN" &&
+      auth?.user?.client?._id !== client._id
+    ) {
+      // the user is signed in but trying to access a client that does not match their account.
+      // set the client accordingly and redirect to the root page
+      if (auth?.user?.client) {
+        getClient({ id: auth.user.client._id });
+      } else {
+        setClient({ client: auth.user.client });
+      }
+      router.push("/");
+    }
+  }, [client]);
 
   return (
     <div className={styles.container}>
