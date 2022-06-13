@@ -1,7 +1,8 @@
 const path = require("path");
 const { i18n } = require("./next-i18next.config");
+const withTM = require('next-transpile-modules')(['@fvilers/disable-react-devtools']);
 
-module.exports = {
+module.exports = withTM({
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
@@ -14,4 +15,4 @@ module.exports = {
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
   },
   i18n,
-};
+});

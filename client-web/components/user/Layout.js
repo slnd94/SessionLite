@@ -46,7 +46,7 @@ export default function Layout({ children }) {
           <div>
             <div className="row">
               <div className="col-md-3 mb-3">
-                <ManagementNav prefix="user" subRoutes={subRoutes} />
+                <ManagementNav routePrefix="user" labelPrefix="user" subRoutes={subRoutes} />
               </div>
               <div className="col-md-9">{children}</div>
             </div>

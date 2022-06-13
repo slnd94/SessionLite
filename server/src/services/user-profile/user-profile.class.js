@@ -10,7 +10,7 @@ exports.UserProfile = class UserProfile {
 
   async get (id, params) {
     return this.app.service('users')
-      .get(id)
+      .get(id === "me" ? params.user._id : id)
       .then(res => {
         return {
           _id: res._id,

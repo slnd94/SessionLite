@@ -9,10 +9,12 @@ import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import api from "../../utils/api";
+import { useRouter } from "next/router";
 import styles from "../../styles/User.module.scss";
 
-export default function Profile() {
+export default function Profile({ profile }) {
   const { t } = useTranslation("common");
+  const router = useRouter();
   const {
     state: { auth },
     getAuth,
@@ -22,42 +24,11 @@ export default function Profile() {
     updateUserProfile,
     clearErrorMessage: clearUserErrorMessage,
   } = useContext(UserContext);
-  const [profile, setProfile] = useState(null);
   const [processing, setProcessing] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     clearUserErrorMessage();
   }, []);
-
-  useEffect(() => {
-    if (auth?.user) {
-      let isSubscribed = true;
-
-      const fetchProfile = async () => {
-        const response = await api({
-          method: "get",
-          url: `${process.env.NEXT_PUBLIC_API_URL}/user-profile/${auth.user._id}`,
-        });
-
-        if (response.status >= 200 && response.status < 300) {
-          setProfile(response.data);
-          return { success: true };
-        } else {
-          setProfile(null);
-          return { success: false };
-        }
-      };
-
-      // call the function
-      fetchProfile()
-        // make sure to catch any error
-        .catch(console.error);
-
-      // cancel any future `setProfile`
-      return () => (isSubscribed = false);
-    }
-  }, [auth]);
 
   return (
     <div>
@@ -85,8 +56,13 @@ export default function Profile() {
                         if (request.success) {
                           // update the auth context, since user object likely needs update
                           getAuth();
-                          // remove processing loader
+
+                          // refresh with new data
+                          await router.push(router.asPath);
+
+                          // remove the loading indicator
                           setProcessing(false);
+
                           // notify user
                           toast(t(`user.User profile updated`), {
                             type: "success",
@@ -119,10 +95,22 @@ export default function Profile() {
   );
 }
 
-export const getServerSideProps = async ({ locale }) => {
+export const getServerSideProps = async ({
+  locale,
+  req: {
+    cookies: { accessToken },
+  },
+}) => {
+  const response = await api({
+    method: "get",
+    url: `${process.env.NEXT_PUBLIC_API_URL}/user-profile/me`,
+    accessToken,
+  });
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
+      profile: response.data,
     },
   };
 };

@@ -3,27 +3,59 @@ import PropTypes from "prop-types";
 import Header from "./Header";
 import Footer from "./Footer";
 import Head from "next/head";
+import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
 import { ToastContainer, Slide } from "react-toastify";
+import { useRouter } from "next/router";
 import styles from "../../styles/Layout.module.scss";
 
 function Layout({ children, brandName }) {
+  const router = useRouter();
+  const { clientKey } = router.query;
+  const {
+    state: { client },
+    setClient,
+    getClient,
+  } = useContext(ClientContext);
   const {
     state: { auth },
     getAuth,
   } = useContext(AuthContext);
   const { getUserCart } = useContext(UserContext);
 
+  // get the auth user
   useEffect(() => {
     getAuth();
   }, []);
 
+  // get the user's cart and client if signed in
   useEffect(() => {
     if (auth?.status === "SIGNED_IN") {
       getUserCart({ id: auth.user._id });
     }
+    if (auth?.user?.client) {
+      setClient({ client: auth.user.client });
+    }
   }, [auth]);
+
+  // ensure the appropriate client is loaded for user
+  useEffect(() => {
+    if (
+      client &&
+      auth?.status === "SIGNED_IN" &&
+      auth?.user?.client?._id !== client._id
+    ) {
+      // the user is signed in but trying to access a client that does not match their account.
+      // set the client accordingly and redirect to the root page
+      if (auth?.user?.client) {
+        getClient({ id: auth.user.client._id });
+      } else {
+        setClient({ client: auth.user.client });
+      }
+      router.push("/");
+    }
+  }, [auth, client]);
 
   return (
     <div className={styles.container}>
@@ -33,7 +65,7 @@ function Layout({ children, brandName }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ToastContainer
-        theme="dark"
+        theme="light"
         position="bottom-right"
         transition={Slide}
         autoClose={3000}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { Context as ClientContext } from "../../../../context/ClientContext";
 import { Context as AuthContext } from "../../../../context/AuthContext";
 import { Context as UserContext } from "../../../../context/UserContext";
 import styles from "../../../../styles/User.module.scss";
@@ -10,6 +11,9 @@ import { useRouter } from "next/router";
 
 export default function VerifyEmail() {
   const { t } = useTranslation("common");
+  const {
+    state: { client }
+  } = useContext(ClientContext);
   const {
     state: { auth },
     getAuth,
@@ -62,6 +66,16 @@ export default function VerifyEmail() {
               </h4>
               <h6>{t(`auth.What's next?`)}</h6>
               <p>
+                {client ? (
+                  <>
+                    <Link href={`/client/${client._id}`}>
+                      {t("client.Client Home")}
+                    </Link>
+                    <br />
+                  </>
+                ) : (
+                  <></>
+                )}
                 <Link href="/user/profile">
                   {t("user.Manage your profile")}
                 </Link>

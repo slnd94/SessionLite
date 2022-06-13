@@ -63,11 +63,12 @@ const getAuth = (dispatch) => async () => {
 
 const signup =
   (dispatch) =>
-  async ({ firstName, lastName, email, password }) => {
+  async ({ firstName, lastName, email, password, clientId }) => {
+    console.log("🚀 ~ file: AuthContext.js ~ line 67 ~ clientId", clientId)
     try {
       const response = await api({
         method: "post",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/user-account`,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/user-accounts`,
         params: {
           name: {
             given: firstName,
@@ -75,6 +76,7 @@ const signup =
           },
           email,
           password,
+          client: clientId
         },
       });
       if (response.status >= 200 && response.status < 300) {

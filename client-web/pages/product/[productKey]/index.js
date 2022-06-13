@@ -9,10 +9,10 @@ import api from "../../../utils/api";
 import { useRouter } from "next/router";
 import styles from "../../../styles/User.module.scss";
 
-export default function Profile() {
+export default function Product({ product }) {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { key } = router.query;
+  const { productKey } = router.query;
   const { getUserCart } = useContext(UserContext);
   const {
     state: { auth },
@@ -20,29 +20,7 @@ export default function Profile() {
   const [userCurrencyCode, setUserCurrencyCode] = useState(
     process.env.DEFAULT_CURRENCY
   );
-  const [product, setProduct] = useState(null);
   const [processing, setProcessing] = useState(false);
-
-  const fetchProduct = async () => {
-    const response = await api({
-      method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/products/${key}`,
-    });
-
-    if (response.status >= 200 && response.status < 300) {
-      setProduct(response.data);
-      return { success: true };
-    } else {
-      setProduct(null);
-      return { success: false };
-    }
-  };
-
-  useEffect(() => {
-    let isSubscribed = true;
-    fetchProduct().catch(console.error);
-    return () => (isSubscribed = false);
-  }, []);
 
   return (
     <>
@@ -59,7 +37,7 @@ export default function Profile() {
                   })}
                 </ul>
                 {product.authUserPurchased ? (
-                  <h5>{t('You have purchased this product')}</h5>
+                  <h5>{t("You have purchased this product")}</h5>
                 ) : (
                   <ProductUserCart
                     productId={product._id}
@@ -77,7 +55,7 @@ export default function Profile() {
                           method: "patch",
                           url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
                           params: {
-                            addProduct: key,
+                            addProduct: productKey,
                           },
                         });
                         if (
@@ -85,9 +63,15 @@ export default function Profile() {
                           response.status < 300 &&
                           response.data.success
                         ) {
+                          // get the updated cart
                           getUserCart({ id: auth.user._id });
-                          await fetchProduct();
+
+                          // refresh with new data
+                          await router.push(router.asPath);
+
+                          // remove the loading indicator
                           setProcessing(false);
+
                           // notify user
                           toast(t(`user.cart.Added to cart`), {
                             type: "success",
@@ -102,7 +86,7 @@ export default function Profile() {
                           method: "patch",
                           url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
                           params: {
-                            removeProduct: key,
+                            removeProduct: productKey,
                           },
                         });
                         if (
@@ -110,9 +94,15 @@ export default function Profile() {
                           response.status < 300 &&
                           response.data.success
                         ) {
+                          // get the updated cart
                           getUserCart({ id: auth.user._id });
-                          await fetchProduct();
+
+                          // refresh with new data
+                          await router.push(router.asPath);
+
+                          // remove the loading indicator
                           setProcessing(false);
+
                           // notify user
                           toast(t(`user.cart.Removed from cart`), {
                             type: "info",
@@ -138,10 +128,23 @@ export default function Profile() {
   );
 }
 
-export const getServerSideProps = async ({ locale }) => {
+export const getServerSideProps = async ({
+  locale,
+  params: { productKey },
+  req: {
+    cookies: { accessToken },
+  },
+}) => {
+  const response = await api({
+    method: "get",
+    url: `${process.env.NEXT_PUBLIC_API_URL}/products/${productKey}`,
+    accessToken,
+  });
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
+      product: response.data,
     },
   };
 };

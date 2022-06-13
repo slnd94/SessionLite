@@ -1,7 +1,7 @@
 const users = require('./users/users.service.js');
 const authUser = require('./auth-user/auth-user.service.js');
 const userProfile = require('./user-profile/user-profile.service.js');
-const userAccount = require('./user-account/user-account.service.js');
+const userAccounts = require('./user-accounts/user-accounts.service.js');
 const emails = require('./emails/emails.service.js');
 const userAccountVerification = require('./user-account-verification/user-account-verification.service.js');
 const products = require('./products/products.service.js');
@@ -9,12 +9,16 @@ const userCarts = require('./user-carts/user-carts.service.js');
 const paymentIntents = require('./payment-intents/payment-intents.service.js');
 const paymentWebhooks = require('./payment-webhooks/payment-webhooks.service.js');
 const sales = require('./sales/sales.service.js');
+const clients = require('./clients/clients.service.js');
+const clientRegistration = require('./client-registration/client-registration.service.js');
+const rooms = require('./rooms/rooms.service.js');
+const clientRooms = require('./client-rooms/client-rooms.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
   app.configure(authUser);
   app.configure(userProfile);
-  app.configure(userAccount);
+  app.configure(userAccounts);
   app.configure(emails);
   app.configure(userAccountVerification);
   app.configure(products);
@@ -22,4 +26,8 @@ module.exports = function (app) {
   app.configure(paymentIntents);
   app.configure(paymentWebhooks);
   app.configure(sales);
+  app.configure(clients);
+  app.configure(clientRegistration);
+  app.configure(rooms);
+  app.configure(clientRooms);
 };

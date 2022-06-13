@@ -4,7 +4,7 @@ const errorMessages = require('../../utils/errorMessages');
 
 const bcrypt = require('bcryptjs');
 
-exports.UserAccount = class UserAccount {
+exports.UserAccounts = class UserAccounts {
   constructor (options) {
     this.options = options || {};
   }

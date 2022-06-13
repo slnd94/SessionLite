@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { Context as ClientContext } from "../context/ClientContext";
 import { Context as AuthContext } from "../context/AuthContext";
 import styles from "../styles/Home.module.scss";
 import Link from "next/link";
@@ -13,6 +14,9 @@ export default function Home() {
   const {
     state: { auth },
   } = useContext(AuthContext);
+  const {
+    state: { client },
+  } = useContext(ClientContext);
   const [products, setProducts] = useState(null);
   const [requestingProducts, setRequestingProducts] = useState(false);
   const productsPerPage = 5;
@@ -57,9 +61,21 @@ export default function Home() {
             <Link href="/auth/signin">{t("auth.Sign in")}</Link>
             <br />
             <Link href="/auth/signup">{t("auth.Sign up")}</Link>
+            <br />
+            <Link href="/client/register">
+              {t("client.Register Your Business")}
+            </Link>
           </div>
         ) : (
-          <></>
+          <div>
+            {client ? (
+              <Link href={`/client/${client._id}`}>
+                {t("client.Client Home")}
+              </Link>
+            ) : (
+              <></>
+            )}
+          </div>
         )}
         {products ? (
           <>

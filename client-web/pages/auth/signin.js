@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Alert } from "reactstrap";
 import styles from "../../styles/Signin.module.scss";
+import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import SignInForm from "../../components/auth/SignInForm";
 import IconText from "../../components/IconText";
@@ -10,6 +11,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function Signin() {
+  const {
+    state: { client },
+  } = useContext(ClientContext);
   const {
     state: { auth, errorMessage },
     signin,
@@ -74,6 +78,16 @@ export default function Signin() {
           <h4 className="title">{t("auth.You are signed in")}</h4>
           <h6>{t(`auth.What's next?`)}</h6>
           <p>
+            {client ? (
+              <>
+                <Link href={`/client/${client._id}`}>
+                  {t("client.Client Home")}
+                </Link>
+                <br />
+              </>
+            ) : (
+              <></>
+            )}
             <Link href="/user/profile">{t("user.Manage your profile")}</Link>
             <br />
             <Link href="/">{t("Browse content")}</Link>
