@@ -1,5 +1,23 @@
-
 // navs
+
+div.section-nav {
+  @include media-breakpoint-up(md) {
+    &.left-nav-md-up {
+      display: block;
+      // position: absolute;
+      top: 0;
+      left: 0;
+      height: 110vh;
+      // width: 305px;
+      padding-top: 60px;
+      padding-left: 30px;
+      margin-top: -3rem;
+      margin-left: -3rem;
+      background-color: $lightest;
+    }
+  }
+}
+
 .nav {
   white-space: nowrap;
   flex-wrap: nowrap;
@@ -7,21 +25,21 @@
   .nav-link {
     color: $body-color-light;
     padding: 0.5rem 1rem;
-    background-color: $white;
+    background-color: $lightest;
     // border-top-width: 2px;
     // border-top-style: solid;
     border-bottom-width: 2px;
     border-bottom-style: solid;
-    border-color: $white;
+    border-color: $lightest;
     svg {
       color: $body-color-light;
     }
     &:hover {
-      background-color: $lightest;
+      background-color: $white;
       border-color: $lightest;
     }
     &.active {
-      background-color: $lightest;
+      background-color: $white;
       color: $body-color;
       font-weight: 500;
       border-color: $light;
@@ -51,8 +69,8 @@
   .nav-link {
     color: $body-color-light;
     padding: 0.5rem 1rem;
-    background-color: $white;
-    border-color: $white;
+    background-color: $lightest;
+    border-color: $lightest;
     border-top-width: 2px;
     border-top-style: solid;
     border-bottom-width: 2px;
@@ -62,11 +80,11 @@
       color: $body-color-light;
     }
     &:hover {
-      background-color: $lightest;
+      background-color: $white;
       border-color: $lightest;
     }
     &.active {
-      background-color: $lightest;
+      background-color: $white;
       color: $body-color;
       font-weight: 500;
       border-color: $light;
@@ -77,14 +95,13 @@
   }
 }
 
-
 // header/navbar
 .navbar {
   .navbar-brand {
     padding-bottom: 0;
   }
   .navbar-toggler {
-    padding:0;
+    padding: 0;
     border: 0;
     outline: 0;
     box-shadow: 0;
@@ -104,7 +121,7 @@
         &:hover {
           color: $white;
         }
-      }    
+      }
     }
   }
 }

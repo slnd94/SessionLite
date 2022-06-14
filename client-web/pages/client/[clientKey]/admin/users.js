@@ -21,7 +21,7 @@ export default function Users() {
 
   return (
     <Layout>
-      <div className="row">
+      <div className="row mt-3 mt-md-0 ms-md-3">
         <div className="col-12">
           <h5 className={"title"}>{t("client.admin.Users")}</h5>
         </div>

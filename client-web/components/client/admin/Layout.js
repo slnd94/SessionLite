@@ -14,7 +14,7 @@ export default function Layout({ children }) {
   const { clientKey } = router.query;
   const {
     state: { client },
-    getClient
+    getClient,
   } = useContext(ClientContext);
   const {
     state: { auth },
@@ -26,7 +26,7 @@ export default function Layout({ children }) {
       // the context client needs to be set to match the clientKey
       getClient({ id: clientKey });
     }
-    
+
     // ensure the user is authorized to be here, and redirect them if not authorized
     if (client && auth?.status) {
       if (auth.status === "SIGNED_OUT") {
@@ -70,23 +70,18 @@ export default function Layout({ children }) {
     <>
       {userAuthorized ? (
         <>
-          <h1 className="title">{client.name}</h1>
           <div className="row">
-            <div className="col-12 mb-3">
-              <Link href={`/client/${clientKey}`}>
-                {t("client.Client Home")}
-              </Link>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-3 mb-3">
+            <div className="col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up">
+              <h5 className="title">{t("client.admin.Admin")}</h5>
               <ManagementNav
                 routePrefix={`client/${clientKey}/admin`}
                 labelPrefix="client.admin"
                 subRoutes={subRoutes}
               />
             </div>
-            <div className="col-md-9">{children}</div>
+            <div className="col-lg-9 col-md-8 pt-3">
+              {children}
+            </div>
           </div>
         </>
       ) : (

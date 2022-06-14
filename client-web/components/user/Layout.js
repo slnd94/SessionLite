@@ -42,15 +42,20 @@ export default function Layout({ children }) {
     <>
       {auth?.status === "SIGNED_IN" ? (
         <>
-          <h1 className="title">{getFullName(auth.user.name)}</h1>
-          <div>
-            <div className="row">
-              <div className="col-md-3 mb-3">
-                <ManagementNav routePrefix="user" labelPrefix="user" subRoutes={subRoutes} />
-              </div>
-              <div className="col-md-9">{children}</div>
+          {/* <h1 className="title">{getFullName(auth.user.name)}</h1>
+          <div> */}
+          <div className="row">
+            <div className="col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up">
+              <h5 className="title">{getFullName(auth.user.name)}</h5>
+              <ManagementNav
+                routePrefix="user"
+                labelPrefix="user"
+                subRoutes={subRoutes}
+              />
             </div>
+            <div className="col-lg-9 col-md-8 pt-3">{children}</div>
           </div>
+          {/* </div> */}
         </>
       ) : auth?.status === "SIGNED_OUT" ? (
         <>

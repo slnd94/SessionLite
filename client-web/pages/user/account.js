@@ -27,54 +27,48 @@ export default function Profile() {
   }, []);
 
   return (
-    <div>
-      <Layout>
-        <div>
-          <div className="row mt-3 mt-md-0 ms-md-3">
-            <div className="col-12">
-              <div className="section-box">
-                <h5 className={"title"}>{t("user.Your Account")}</h5>
-                {auth?.status === "SIGNED_IN" ? (
-                  <AccountForm
-                    processing={processing}
-                    defaults={{}}
-                    onSubmit={async (data) => {
-                      setProcessing(true);
-                      const request = await updateUserAccount({
-                        ...data,
-                        id: auth.user._id,
-                      });
-                      if (request.success) {
-                        // remove processing loader
-                        setProcessing(false);
-                        // notify user
-                        toast(t(`user.User account updated`), {
-                          type: "success",
-                        });
-                      } else {
-                        // remove processing loader
-                        setProcessing(false);
-                      }
-                    }}
-                  />
-                ) : auth?.status === "SIGNED_OUT" ? (
-                  <>
-                    <Link href="/auth/signin">{t("auth.Sign in")}</Link>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {errorMessage?.length ? (
-                  <Alert color="danger" fade={false}>
-                    {t(`user.${errorMessage}`)}
-                  </Alert>
-                ) : null}
-              </div>
-            </div>
-          </div>
+    <Layout>
+      <div className="row mt-3 mt-md-0 ms-md-3">
+        <div className="col-12">
+          <h5 className={"title"}>{t("user.Your Account")}</h5>
+          {auth?.status === "SIGNED_IN" ? (
+            <AccountForm
+              processing={processing}
+              defaults={{}}
+              onSubmit={async (data) => {
+                setProcessing(true);
+                const request = await updateUserAccount({
+                  ...data,
+                  id: auth.user._id,
+                });
+                if (request.success) {
+                  // remove processing loader
+                  setProcessing(false);
+                  // notify user
+                  toast(t(`user.User account updated`), {
+                    type: "success",
+                  });
+                } else {
+                  // remove processing loader
+                  setProcessing(false);
+                }
+              }}
+            />
+          ) : auth?.status === "SIGNED_OUT" ? (
+            <>
+              <Link href="/auth/signin">{t("auth.Sign in")}</Link>
+            </>
+          ) : (
+            <></>
+          )}
+          {errorMessage?.length ? (
+            <Alert color="danger" fade={false}>
+              {t(`user.${errorMessage}`)}
+            </Alert>
+          ) : null}
         </div>
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 }
 

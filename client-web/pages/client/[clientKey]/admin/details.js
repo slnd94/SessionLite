@@ -16,7 +16,7 @@ export default function Details() {
   const {
     state: { client },
     updateClientDetails,
-    getClient
+    getClient,
   } = useContext(ClientContext);
   const {
     state: { auth },
@@ -27,40 +27,38 @@ export default function Details() {
     <Layout>
       <div className="row mt-3 mt-md-0 ms-md-3">
         <div className="col-12">
-          <div className="section-box">
-            <h5 className={"title"}>{t("client.admin.Details")}</h5>
-            <ClientDetailsForm
-              processing={processing}
-              defaults={{
-                name: client?.name,
-              }}
-              onSubmit={async (data) => {
-                setProcessing(true);
-                const request = await updateClientDetails({
-                  ...data,
-                  id: clientKey,
+          <h5 className={"title"}>{t("client.admin.Details")}</h5>
+          <ClientDetailsForm
+            processing={processing}
+            defaults={{
+              name: client?.name,
+            }}
+            onSubmit={async (data) => {
+              setProcessing(true);
+              const request = await updateClientDetails({
+                ...data,
+                id: clientKey,
+              });
+              if (request.success) {
+                // update the auth context, since user object likely needs update
+                getClient({ id: clientKey });
+
+                // refresh with new data
+                // await router.push(router.asPath);
+
+                // remove the loading indicator
+                setProcessing(false);
+
+                // notify user
+                toast(t(`client.admin.details.Client details updated`), {
+                  type: "success",
                 });
-                if (request.success) {
-                  // update the auth context, since user object likely needs update
-                  getClient({ id: clientKey });
-
-                  // refresh with new data
-                  // await router.push(router.asPath);
-
-                  // remove the loading indicator
-                  setProcessing(false);
-
-                  // notify user
-                  toast(t(`client.admin.details.Client details updated`), {
-                    type: "success",
-                  });
-                } else {
-                  // remove preocessing loader
-                  setProcessing(false);
-                }
-              }}
-            />
-          </div>
+              } else {
+                // remove preocessing loader
+                setProcessing(false);
+              }
+            }}
+          />
         </div>
       </div>
     </Layout>
