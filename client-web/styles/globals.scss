@@ -27,8 +27,8 @@ body {
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 1.6rem;
-  margin-bottom: 2rem;
+  // font-size: 1.6rem;
+  margin-bottom: 1.5rem;
 }
 
 .title,
@@ -81,4 +81,14 @@ body {
   &:hover {
     background-color: $white;
   }
+}
+
+.management-header {
+  font-size: 1.25rem;
+  padding: 12px;
+  border-bottom: 1px solid $light;
+  margin-top: -40px;
+  position: relative;
+  left: 0;
+  width: 100%;
 }

@@ -36,42 +36,40 @@ export default function Profile({ profile }) {
         {auth?.status === "SIGNED_IN" && profile ? (
           <>
             <div className="col-12">
-              <div className="section-box">
-                <h5 className={"title"}>{t("user.Your Profile")}</h5>
-                <ProfileForm
-                  processing={processing}
-                  defaults={{
-                    email: profile.email,
-                    firstName: profile.name.given,
-                    lastName: profile.name.family,
-                  }}
-                  onSubmit={async (data) => {
-                    setProcessing(true);
-                    const request = await updateUserProfile({
-                      ...data,
-                      id: auth.user._id,
+              <h5 className={"title"}>{t("user.Your Profile")}</h5>
+              <ProfileForm
+                processing={processing}
+                defaults={{
+                  email: profile.email,
+                  firstName: profile.name.given,
+                  lastName: profile.name.family,
+                }}
+                onSubmit={async (data) => {
+                  setProcessing(true);
+                  const request = await updateUserProfile({
+                    ...data,
+                    id: auth.user._id,
+                  });
+                  if (request.success) {
+                    // update the auth context, since user object likely needs update
+                    getAuth();
+
+                    // refresh with new data
+                    await router.push(router.asPath);
+
+                    // remove the loading indicator
+                    setProcessing(false);
+
+                    // notify user
+                    toast(t(`user.User profile updated`), {
+                      type: "success",
                     });
-                    if (request.success) {
-                      // update the auth context, since user object likely needs update
-                      getAuth();
-
-                      // refresh with new data
-                      await router.push(router.asPath);
-
-                      // remove the loading indicator
-                      setProcessing(false);
-
-                      // notify user
-                      toast(t(`user.User profile updated`), {
-                        type: "success",
-                      });
-                    } else {
-                      // remove preocessing loader
-                      setProcessing(false);
-                    }
-                  }}
-                />
-              </div>
+                  } else {
+                    // remove preocessing loader
+                    setProcessing(false);
+                  }
+                }}
+              />
             </div>
           </>
         ) : auth?.status === "SIGNED_OUT" ? (

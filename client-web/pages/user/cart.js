@@ -27,46 +27,40 @@ export default function Cart() {
   }, []);
 
   return (
-    <div>
-      <Layout>
-        <div>
-          <div className="row mt-3 mt-md-0 mb-3 ms-md-3">
-            {cart?.items.length && auth?.status ? (
-              <div className="col-12">
-                <div className="section-box">
-                  <h5 className={"title"}>{t("user.cart.Your Cart")}</h5>
-                  <UserCart
-                    cart={cart}
-                    auth={auth}
-                    onRemoveItem={() => {
-                      getUserCart({ id: auth.user._id });
-                      toast(t(`user.cart.Removed from cart`), {
-                        type: "info",
-                      });
-                    }}
-                    t={t}
-                  />
-                  <Button
-                    // size='lg'
-                    className={"me-4 btn-block-md-down"}
-                    color="success"
-                    onClick={() => {
-                      router.push({
-                        pathname: `/checkout`,
-                      });
-                    }}
-                  >
-                    {t("user.cart.Proceed to checkout")}
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <h5 className={"title"}>{t("user.cart.Your cart is empty")}</h5>
-            )}
+    <Layout>
+      <div className="row mt-3 mt-md-0 mb-3 ms-md-3">
+        {cart?.items.length && auth?.status ? (
+          <div className="col-12">
+            <h5 className={"title"}>{t("user.cart.Your Cart")}</h5>
+            <UserCart
+              cart={cart}
+              auth={auth}
+              onRemoveItem={() => {
+                getUserCart({ id: auth.user._id });
+                toast(t(`user.cart.Removed from cart`), {
+                  type: "info",
+                });
+              }}
+              t={t}
+            />
+            <Button
+              // size='lg'
+              className={"me-4 btn-block-md-down"}
+              color="success"
+              onClick={() => {
+                router.push({
+                  pathname: `/checkout`,
+                });
+              }}
+            >
+              {t("user.cart.Proceed to checkout")}
+            </Button>
           </div>
-        </div>
-      </Layout>
-    </div>
+        ) : (
+          <h5 className={"title"}>{t("user.cart.Your cart is empty")}</h5>
+        )}
+      </div>
+    </Layout>
   );
 }
 
