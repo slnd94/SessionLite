@@ -52,9 +52,9 @@ export default function Home() {
   return (
     <div className="row">
       <div className="col-12">
-        <h1 className="title">
+        <h3 className="title">
           {t("index.Welcome to")}&nbsp;{process.env.NEXT_APP_NAME}
-        </h1>
+        </h3>
 
         {auth?.status === "SIGNED_OUT" ? (
           <div>
