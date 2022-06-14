@@ -122,6 +122,8 @@
       "Admin": "Admin",
       "Details": "Details",
       "Users": "Users",
+      "Settings": "Settings",
+      "Templates": "Templates",
       "details": {
         "Name": "Name",
         "Name is required": "Name is required",

@@ -64,6 +64,18 @@ export default function Layout({ children }) {
       labelPills: t("Users"),
       labelTabs: t("Users"),
     },
+    {
+      slug: `settings`,
+      icon: "settings",
+      labelPills: t("Settings"),
+      labelTabs: t("Settings"),
+    },
+    {
+      slug: `templates`,
+      icon: "template",
+      labelPills: t("Templates"),
+      labelTabs: t("Templates"),
+    }
   ];
 
   return (

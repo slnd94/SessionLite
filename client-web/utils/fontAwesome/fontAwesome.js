@@ -39,6 +39,8 @@ import faDollarSign from "@fortawesome/fontawesome-free-solid/faDollarSign";
 import faReceipt from "@fortawesome/fontawesome-free-solid/faReceipt";
 import faPencil from "@fortawesome/fontawesome-free-solid/faPencilAlt";
 import faCheckCircle from "@fortawesome/fontawesome-free-solid/faCheckCircle";
+import faCog from "@fortawesome/fontawesome-free-solid/faCog";
+import faBox from "@fortawesome/fontawesome-free-solid/faBox";
 
 export const icons = {
   login: faSignInAlt,
@@ -66,12 +68,14 @@ export const icons = {
   user: faUser,
   profile: faUser,
   account: faSlidersH,
+  settings: faCog,
   publisher: faBuilding,
   publisherAdmin: faUserCircle,
   creator: faAddressCard,
   product: faBoxOpen,
   releaseDate: faCalendarAlt,
   images: faImage,
+  template: faBox,
   ebook: faBookOpen,
   course: faGraduationCap,
   movie: faFilm,
