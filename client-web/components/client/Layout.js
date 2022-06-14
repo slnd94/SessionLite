@@ -53,7 +53,7 @@ export default function Layout({ children }) {
     <>
       {userAuthorized ? (
         <>
-          <h1 className="title">{client.name}</h1>
+          <h3 className="title">{client.name}</h3>
           <div>{children}</div>
         </>
       ) : (
