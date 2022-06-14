@@ -47,7 +47,7 @@ function Header({ brandName }) {
 
   return (
     <div>
-      <Navbar className="navbar-dark bg-primary" color="faded" expand="sm">
+      <Navbar className="navbar-dark bg-secondary" color="faded" expand="sm">
         <NavbarBrand href="/" className="mr-auto">
           {client ? (
             <>
