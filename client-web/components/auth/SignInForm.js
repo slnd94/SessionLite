@@ -69,7 +69,7 @@ function SignInForm({ onSubmit, processing }) {
       
       {processing 
         ? <Loader /> 
-        : <Button className={'btn-block-sm-down'} color="primary" type="submit">
+        : <Button className={'btn-block-sm-down'} type="submit">
             {t('auth.Sign in')}
           </Button>
       }

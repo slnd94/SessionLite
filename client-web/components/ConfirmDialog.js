@@ -13,7 +13,7 @@ const ConfirmDialog = ({show, proceed, cancel, confirmation, options, t}) => {
           {confirmation || t('Are you sure?')}
         </div>
         <div className={'text-right'}>
-          <Button color="primary" autoFocus className={'mr-2'} onClick={() => proceed()}>{options.proceedLabel || t('Yes')}</Button>
+          <Button autoFocus className={'mr-2'} onClick={() => proceed()}>{options.proceedLabel || t('Yes')}</Button>
           <Button color="secondary" onClick={() => cancel()}>{options.cancelLabel || t('No')}</Button>
         </div>
       </ModalBody>

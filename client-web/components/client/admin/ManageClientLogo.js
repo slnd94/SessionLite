@@ -59,7 +59,7 @@ const ManageClientLogo = ({ client, onUpdate }) => {
                     </Button>
                   ) : (
                     <Button
-                      color="primary"
+                      color="default"
                       onClick={() => {
                         setEditMode(true);
                       }}

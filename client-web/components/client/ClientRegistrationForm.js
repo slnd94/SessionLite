@@ -165,7 +165,7 @@ function ClientRegistrationForm({ onSubmit, processing }) {
 
       {processing 
         ? <Loader />
-        : <Button className={'btn-block-sm-down'} color="primary" type="submit">
+        : <Button className={'btn-block-sm-down'} type="submit">
             {t('Submit')}
           </Button>
       }
