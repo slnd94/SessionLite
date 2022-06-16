@@ -3,18 +3,37 @@ const { iff, isProvider, keep, disallow } = require('feathers-hooks-common');
 
 const keepFieldsExternal = [
   '_id',
-  'name'
+  'name',
+  'logo'
 ]
 
 module.exports = {
   before: {
-    all: [  ],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
+    all: [],
+    find: [
+      iff(isProvider('external'), disallow()),
+      authenticate('jwt')
+    ],
+    get: [
+      // iff(isProvider('external'), disallow()),
+      authenticate('jwt')
+    ],
+    create: [
+      iff(isProvider('external'), disallow()),
+      authenticate('jwt')
+    ],
+    update: [
+      iff(isProvider('external'), disallow()),
+      authenticate('jwt')
+    ],
+    patch: [
+      iff(isProvider('external'), disallow()),
+      authenticate('jwt')
+    ],
+    remove: [
+      iff(isProvider('external'), disallow()),
+      authenticate('jwt')
+    ]
   },
 
   after: {

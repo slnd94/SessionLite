@@ -61,6 +61,7 @@ const setClient =
           ? {
               _id: client._id,
               name: client.name,
+              logo: client.logo
             }
           : null,
       },

@@ -1,0 +1,17 @@
+// Modals
+.modal {
+  .modal-header,
+  .modal-footer {
+    background-color: $lightest;
+    .close {
+      background: none;
+      border: none;
+      color: $body-color;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+  .modal-body {
+    background-color: $white;
+  }
+}

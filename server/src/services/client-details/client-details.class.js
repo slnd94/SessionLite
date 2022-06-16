@@ -13,16 +13,17 @@ exports.ClientDetails = class ClientDetails {
 
     // if user is not admin, reinforce the only fields we want updated
     if (!sysAdminUser) {
+      // limit based on allowed fields and only those supplied
       data = {
-        name: data.name
+        ...(data.name ? {name: data.name} : {}),
+        ...(data.logo ? {logo: data.logo} : {})
       };
     }
 
     return this.app.service('clients')
       .patch(id, data)
       .then(res => {
-        // return only the client id
-        return { _id: res._id };
+        return { success: true };
       });
   }
 };
