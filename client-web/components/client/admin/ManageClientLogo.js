@@ -74,9 +74,6 @@ const ManageClientLogo = ({ client, onUpdate }) => {
               {client?.logo?.handle ? (
                 <ClientLogo handle={client.logo.handle} size="lg" />
               ) : (
-                // <img
-                //   src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=height:400,width:400,fit:clip/${client.logo.handle}`}
-                // />
                 <div
                   className="section-box text-light"
                   style={{
