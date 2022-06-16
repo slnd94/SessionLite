@@ -76,9 +76,6 @@ export default function Details() {
                 await getClient({ id: client._id });
                 setProcessing(false);
 
-                // refresh with new data
-                // await router.push(router.asPath);
-
                 // notify user
                 toast(t(`client.admin.details.Logo updated`), {
                   type: "success",
