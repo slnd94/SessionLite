@@ -45,9 +45,6 @@ export default function Details() {
                 // update the auth context, since user object likely needs update
                 getClient({ id: clientKey });
 
-                // refresh with new data
-                // await router.push(router.asPath);
-
                 // remove the loading indicator
                 setProcessing(false);
 
