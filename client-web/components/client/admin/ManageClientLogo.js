@@ -108,6 +108,13 @@ const ManageClientLogo = ({ client, onUpdate }) => {
       {editMode ? (
         <FilestackPicker
           apikey={process.env.NEXT_FILESTACK_API_KEY}
+          viewMode="overlay"
+          clientOptions={{
+            security: {
+              policy: "eyJleHBpcnkiOjE2NTU0Mzg0MDAsImNhbGwiOlsicGljayIsInN0b3JlIiwiY29udmVydCJdfQ==",
+              signature: "1bf26ec091a508b03518d7559a5747f3cdce481898b4554dba3d586ddbcc61e8"
+            }
+          }}
           pickerOptions={{
             accept: ["image/jpeg", "image/png"],
           }}

@@ -12,7 +12,7 @@ const ClientLogo = ({ handle, size, className }) => {
 
   return (
     <img
-      src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=${sizeStrings[size]},fit:clip/${handle}`}
+      src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=${sizeStrings[size]},fit:clip/security=policy:eyJleHBpcnkiOjE2NTU0Mzg0MDAsImNhbGwiOlsicmVhZCIsImNvbnZlcnQiXX0=,signature:9b6df60755caf96f57761dba98bf427f103ddcffd769be6c803231d69b885632/${handle}`}
       className={className}
     />
   );
