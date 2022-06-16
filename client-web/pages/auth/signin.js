@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Alert } from "reactstrap";
+import Image from "next/image";
 import styles from "../../styles/Signin.module.scss";
 import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
@@ -9,6 +10,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import ClientLogo from "../../components/client/ClientLogo";
 
 export default function Signin() {
   const {
@@ -66,8 +68,12 @@ export default function Signin() {
               </div>
             </div>
           </div>
-          <div className="col-sm-6 d-none d-sm-block">
-            Branded image/artwork here
+          <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
+            {client?.logo?.handle ? (
+              <ClientLogo handle={client.logo.handle} size="lg"  />
+            ) : (
+              <img src="/images/siteLogo.png" width="400" />
+            )}
           </div>
         </div>
       ) : (

@@ -58,7 +58,7 @@ function ClientDetailsForm({
       {processing ? (
         <Loader />
       ) : (
-        <Button className={"btn-block-md-down"} color="primary" type="submit">
+        <Button className={"btn-block-md-down"} type="submit">
           {t("user.Save")}
         </Button>
       )}
