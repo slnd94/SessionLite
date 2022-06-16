@@ -67,7 +67,38 @@ export default function Signin() {
             </div>
           </div>
           <div className="col-sm-6 d-none d-sm-block">
-            Branded image/artwork here
+            Branded image/artwork here <br />
+            {client?.logo?.handle ? (
+              <img
+                src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=height:400,width:400,fit:clip/${client.logo.handle}`}
+              />
+            ) : (
+              <div
+                className="section-box text-light"
+                style={{
+                  paddingTop: "50px",
+                  paddingBottom: "50px",
+                  width: "400px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "2rem",
+                  }}
+                >
+                  <IconText
+                    icon="image"
+                    iconContainerClass="icon-large"
+                    text={t("client.admin.details.No logo selected")}
+                    style={{ backgroundPosition: "50% 0%" }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       ) : (
