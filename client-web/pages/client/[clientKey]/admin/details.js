@@ -53,7 +53,7 @@ export default function Details() {
                   type: "success",
                 });
               } else {
-                // remove preocessing loader
+                // remove the loading indicator
                 setProcessing(false);
               }
             }}

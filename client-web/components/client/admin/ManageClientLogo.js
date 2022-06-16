@@ -7,10 +7,7 @@ import Loader from "../../Loader";
 import FilestackPicker from "../../FilestackPicker";
 import api from "../../../utils/api";
 
-const ManageClientLogo = ({
-  client,
-  onUpdate
-}) => {
+const ManageClientLogo = ({ client, onUpdate }) => {
   const { t } = useTranslation("common");
   const [processing, setProcessing] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -78,7 +75,7 @@ const ManageClientLogo = ({
                     <FilestackPicker
                       apikey={process.env.NEXT_FILESTACK_API_KEY}
                       pickerOptions={{
-                        accept: ["image/jpeg", "image/png"]
+                        accept: ["image/jpeg", "image/png"],
                       }}
                       onSuccess={(result) => {
                         if (result.filesUploaded.length > 0) {
