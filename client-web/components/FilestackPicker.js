@@ -59,7 +59,7 @@
      apikey,
      pickerOptions: {
        ...pickerOptions,
-       displayMode: filestack.PickerDisplayMode.inline
+       displayMode: filestack.PickerDisplayMode.overlay
      },
      clientOptions,
      onSuccess,

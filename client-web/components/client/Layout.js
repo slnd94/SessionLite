@@ -5,6 +5,7 @@ import useClientUserAuth from "../../hooks/useClientUserAuth";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import styles from "../../styles/Client.module.scss";
+import ClientLogo from "./ClientLogo";
 
 export default function Layout({ children }) {
   const { t } = useTranslation("common");
@@ -53,7 +54,7 @@ export default function Layout({ children }) {
     <>
       {userAuthorized ? (
         <>
-          <h3 className="title">{client.name}</h3>
+          <h3 className="title"><ClientLogo handle={client.logo.handle} size="sm" className="me-3" />{client.name}</h3>
           <div>{children}</div>
         </>
       ) : (

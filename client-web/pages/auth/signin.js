@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Alert } from "reactstrap";
+import Image from "next/image";
 import styles from "../../styles/Signin.module.scss";
 import { Context as ClientContext } from "../../context/ClientContext";
 import { Context as AuthContext } from "../../context/AuthContext";
@@ -9,6 +10,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import ClientLogo from "../../components/client/ClientLogo";
 
 export default function Signin() {
   const {
@@ -66,38 +68,11 @@ export default function Signin() {
               </div>
             </div>
           </div>
-          <div className="col-sm-6 d-none d-sm-block">
-            Branded image/artwork here <br />
+          <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
             {client?.logo?.handle ? (
-              <img
-                src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=height:400,width:400,fit:clip/${client.logo.handle}`}
-              />
+              <ClientLogo handle={client.logo.handle} size="lg"  />
             ) : (
-              <div
-                className="section-box text-light"
-                style={{
-                  paddingTop: "50px",
-                  paddingBottom: "50px",
-                  width: "400px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "2rem",
-                  }}
-                >
-                  <IconText
-                    icon="image"
-                    iconContainerClass="icon-large"
-                    text={t("client.admin.details.No logo selected")}
-                    style={{ backgroundPosition: "50% 0%" }}
-                  />
-                </div>
-              </div>
+              <img src="/images/siteLogo.png" width="400" />
             )}
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Button } from "reactstrap";
 import { useTranslation } from "next-i18next";
 import IconText from "../../IconText";
 import Loader from "../../Loader";
+import ClientLogo from "../ClientLogo";
 import FilestackPicker from "../../FilestackPicker";
 import api from "../../../utils/api";
 
@@ -40,91 +41,89 @@ const ManageClientLogo = ({ client, onUpdate }) => {
         <Loader />
       ) : (
         <>
-          <table style={{ width: "100%" }}>
-            <tbody>
-              <tr data-testid="">
-                <td>
-                  <h5 className={"title"}>{t("client.admin.details.Logo")}</h5>
-                </td>
-                <td className="text-end">
-                  {editMode ? (
-                    <Button
-                      // className={"btn-block-md-down"}
-                      color="danger"
-                      onClick={() => {
-                        setEditMode(false);
-                      }}
-                    >
-                      {t("Cancel")}
-                    </Button>
-                  ) : (
-                    <Button
-                      color="default"
-                      onClick={() => {
-                        setEditMode(true);
-                      }}
-                    >
-                      {t("client.admin.details.Upload logo")}
-                    </Button>
-                  )}
-                </td>
-              </tr>
-              <tr data-testid="">
-                <td colSpan="2">
-                  {editMode ? (
-                    <FilestackPicker
-                      apikey={process.env.NEXT_FILESTACK_API_KEY}
-                      pickerOptions={{
-                        accept: ["image/jpeg", "image/png"],
-                      }}
-                      onSuccess={(result) => {
-                        if (result.filesUploaded.length > 0) {
-                          updateClientLogo({
-                            handle: result.filesUploaded[0].handle,
-                          });
-                        }
-                      }}
+          <div className="row m-0 p-0">
+            <div className="col-12 col-md-6 m-0 p-0">
+              <h5 className={"title"}>{t("client.admin.details.Logo")}</h5>
+            </div>
+            <div className="col-12 col-md-6 m-0 p-0 text-end">
+              {editMode ? (
+                <Button
+                  className={"btn-block-md-down"}
+                  color="danger"
+                  onClick={() => {
+                    setEditMode(false);
+                  }}
+                >
+                  {t("Cancel")}
+                </Button>
+              ) : (
+                <Button
+                  className={"btn-block-md-down"}
+                  color="default"
+                  onClick={() => {
+                    setEditMode(true);
+                  }}
+                >
+                  {t("client.admin.details.Upload logo")}
+                </Button>
+              )}
+            </div>
+          </div>
+          <div className="row m-0 p-0">
+            <div className="col-12 m-0 p-0 pt-3">
+              {client?.logo?.handle ? (
+                <ClientLogo handle={client.logo.handle} size="md" />
+              ) : (
+                // <img
+                //   src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=height:400,width:400,fit:clip/${client.logo.handle}`}
+                // />
+                <div
+                  className="section-box text-light"
+                  style={{
+                    paddingTop: "50px",
+                    paddingBottom: "50px",
+                    width: "400px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "2rem",
+                    }}
+                  >
+                    <IconText
+                      icon="image"
+                      iconContainerClass="icon-large"
+                      text={t("client.admin.details.No logo selected")}
+                      style={{ backgroundPosition: "50% 0%" }}
                     />
-                  ) : (
-                    <>
-                      {client?.logo?.handle ? (
-                        <img
-                          src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=height:400,width:400,fit:clip/${client.logo.handle}`}
-                        />
-                      ) : (
-                        <div
-                          className="section-box text-light"
-                          style={{
-                            paddingTop: "50px",
-                            paddingBottom: "50px",
-                            width: "400px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "2rem",
-                            }}
-                          >
-                            <IconText
-                              icon="image"
-                              iconContainerClass="icon-large"
-                              text={t("client.admin.details.No logo selected")}
-                              style={{ backgroundPosition: "50% 0%" }}
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </>
+      )}
+
+      {editMode ? (
+        <FilestackPicker
+          apikey={process.env.NEXT_FILESTACK_API_KEY}
+          pickerOptions={{
+            accept: ["image/jpeg", "image/png"],
+          }}
+          onSuccess={(result) => {
+            if (result.filesUploaded.length > 0) {
+              updateClientLogo({
+                handle: result.filesUploaded[0].handle,
+              });
+            }
+          }}
+        />
+      ) : (
+        <></>
       )}
     </>
   );
