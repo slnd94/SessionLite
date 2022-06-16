@@ -4,6 +4,7 @@ import { Context as AuthContext } from "../../../../context/AuthContext";
 import { Context as ClientContext } from "../../../../context/ClientContext";
 import ClientDetailsForm from "../../../../components/client/admin/ClientDetailsForm";
 import ManageClientLogo from "../../../../components/client/admin/ManageClientLogo";
+import Loader from "../../../../components/Loader";
 import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -64,21 +65,27 @@ export default function Details() {
       </div>
       <div className="row mt-5 ms-md-3">
         <div className="col-12 col-md-6" style={{ height: "100px" }}>
-          <ManageClientLogo
-            client={client}
-            onUpdate={() => {
-              // get the updated client
-              getClient({ id: client._id });
+          {processing ? (
+            <Loader />
+          ) : (
+            <ManageClientLogo
+              client={client}
+              onUpdate={async () => {
+                setProcessing(true);
+                // get the updated client
+                await getClient({ id: client._id });
+                setProcessing(false);
 
-              // refresh with new data
-              // await router.push(router.asPath);
+                // refresh with new data
+                // await router.push(router.asPath);
 
-              // notify user
-              toast(t(`client.admin.details.Logo updated`), {
-                type: "success",
-              });
-            }}
-          />
+                // notify user
+                toast(t(`client.admin.details.Logo updated`), {
+                  type: "success",
+                });
+              }}
+            />
+          )}
         </div>
       </div>
     </Layout>
