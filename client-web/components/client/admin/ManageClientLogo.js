@@ -70,9 +70,9 @@ const ManageClientLogo = ({ client, onUpdate }) => {
             </div>
           </div>
           <div className="row m-0 p-0">
-            <div className="col-12 m-0 p-0 pt-3">
+            <div className="col-12 m-0 p-0 pt-3 text-center justify-content-center">
               {client?.logo?.handle ? (
-                <ClientLogo handle={client.logo.handle} size="md" />
+                <ClientLogo handle={client.logo.handle} size="lg" />
               ) : (
                 // <img
                 //   src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=height:400,width:400,fit:clip/${client.logo.handle}`}
