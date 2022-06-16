@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Context as ClientContext } from "../../../context/ClientContext";
 import { Button } from "reactstrap";
 import { useTranslation } from "next-i18next";
 import IconText from "../../IconText";
@@ -9,23 +8,12 @@ import FilestackPicker from "../../FilestackPicker";
 import api from "../../../utils/api";
 
 const ManageClientLogo = ({
-  requestUpdateProductImage,
-  requestClient,
-  onUpdate,
+  client,
+  onUpdate
 }) => {
   const { t } = useTranslation("common");
-  const {
-    state: { client },
-    getClient,
-  } = useContext(ClientContext);
   const [processing, setProcessing] = useState(false);
   const [editMode, setEditMode] = useState(false);
-
-  useEffect(() => {
-    if (!client?.logo?.handle) {
-      setEditMode(false);
-    }
-  }, []);
 
   const updateClientLogo = async ({ handle }) => {
     setProcessing(true);
@@ -74,7 +62,6 @@ const ManageClientLogo = ({
                     </Button>
                   ) : (
                     <Button
-                      // className={"btn-block-md-down"}
                       color="primary"
                       onClick={() => {
                         setEditMode(true);
@@ -91,8 +78,7 @@ const ManageClientLogo = ({
                     <FilestackPicker
                       apikey={process.env.NEXT_FILESTACK_API_KEY}
                       pickerOptions={{
-                        accept: ["image/jpeg", "image/png"],
-                        // imageMax: [500, 500],
+                        accept: ["image/jpeg", "image/png"]
                       }}
                       onSuccess={(result) => {
                         if (result.filesUploaded.length > 0) {
