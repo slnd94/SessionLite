@@ -59,11 +59,11 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
           </div>
           <div className="row m-0 p-0">
             <div className="col-12 m-0 p-0 pt-3 text-center justify-content-center">
-              {client?.logo?.handle && fileAuth?.viewImages ? (
+              {client?.logo?.handle && fileAuth?.viewClientLogo ? (
                 <ClientLogo
                   handle={client.logo.handle}
                   size="lg"
-                  viewFileAuth={fileAuth?.viewImages}
+                  viewFileAuth={fileAuth?.viewClientLogo}
                 />
               ) : (
                 <div
@@ -97,12 +97,12 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
         </>
       )}
 
-      {editMode && fileAuth?.uploadImages ? (
+      {editMode && fileAuth?.uploadClientLogo ? (
         <FilestackPicker
           apikey={process.env.NEXT_FILESTACK_API_KEY}
           viewMode="overlay"
           clientOptions={{
-            security: fileAuth.uploadImages,
+            security: fileAuth.uploadClientLogo,
           }}
           pickerOptions={{
             accept: ["image/jpeg", "image/png"],

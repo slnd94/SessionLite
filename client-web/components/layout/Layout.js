@@ -8,6 +8,7 @@ import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
 import { ToastContainer, Slide } from "react-toastify";
 import { useRouter } from "next/router";
+import { useInterval } from "../../hooks/useInterval";
 import styles from "../../styles/Layout.module.scss";
 
 function Layout({ children, brandName }) {
@@ -41,8 +42,14 @@ function Layout({ children, brandName }) {
     if(auth?.status) {
       // get file auth
       getFileAuth();
+      
+
     }
   }, [auth]);
+
+  useInterval(() => {
+    getFileAuth();
+  }, 240000); // 4 mins
 
   // ensure the appropriate client is loaded for user
   useEffect(() => {

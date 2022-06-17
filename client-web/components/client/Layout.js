@@ -52,15 +52,15 @@ export default function Layout({ children }) {
 
   return (
     <>
-      {userAuthorized && fileAuth?.viewImages ? (
+      {userAuthorized ? (
         <>
           <h3 className="title">
-            {client?.logo?.handle ? (
+            {client?.logo?.handle && fileAuth?.viewClientLogo ? (
               <ClientLogo
                 handle={client.logo.handle}
                 size="sm"
                 className="me-3"
-                viewFileAuth={fileAuth?.viewImages}
+                viewFileAuth={fileAuth?.viewClientLogo}
               />
             ) : (
               <></>

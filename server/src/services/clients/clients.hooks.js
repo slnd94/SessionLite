@@ -16,7 +16,7 @@ module.exports = {
     ],
     get: [
       // iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      // authenticate('jwt')
     ],
     create: [
       iff(isProvider('external'), disallow()),
