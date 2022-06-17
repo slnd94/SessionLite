@@ -10,7 +10,6 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
             $select: [ 'adminUsers' ]
           }
         });
-        console.log("🚀 ~ file: assign-param-client-admin-user.js ~ line 8 ~ client", client)
 
       if(client?.adminUsers?.find(x => x.toString() === context.params.user._id.toString())) {
         context.params.clientAdminUser = true;
