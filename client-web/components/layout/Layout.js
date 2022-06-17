@@ -21,6 +21,7 @@ function Layout({ children, brandName }) {
   const {
     state: { auth },
     getAuth,
+    getFileAuth
   } = useContext(AuthContext);
   const { getUserCart } = useContext(UserContext);
 
@@ -36,6 +37,10 @@ function Layout({ children, brandName }) {
     }
     if (auth?.user?.client) {
       setClient({ client: auth.user.client });
+    }
+    if(auth?.status) {
+      // get file auth
+      getFileAuth();
     }
   }, [auth]);
 

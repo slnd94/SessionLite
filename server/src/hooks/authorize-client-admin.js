@@ -43,7 +43,7 @@ module.exports = (options = {}) => {
         context.params.authenticated
         && context.params.user
         && client.adminUsers
-        && client.adminUsers.find(x => x._id.toString() === context.params.user._id.toString())) {
+        && client.adminUsers.find(x => x.toString() === context.params.user._id.toString())) {
         authUserAdmin = true;
       }
     }

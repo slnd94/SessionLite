@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ClientLogo = ({ handle, size, className }) => {
+const ClientLogo = ({ handle, size, className, viewFileAuth }) => {
   const sizeStrings = {
     xs: "height:50,width:50",
     sm: "height:100,width:100",
@@ -12,7 +12,7 @@ const ClientLogo = ({ handle, size, className }) => {
 
   return (
     <img
-      src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=${sizeStrings[size]},fit:clip/${handle}`}
+      src={`https://cdn.filestackcontent.com/${process.env.NEXT_FILESTACK_API_KEY}/resize=${sizeStrings[size]},fit:clip/security=policy:${viewFileAuth.policy},signature:${viewFileAuth.signature}/${handle}`}
       className={className}
     />
   );

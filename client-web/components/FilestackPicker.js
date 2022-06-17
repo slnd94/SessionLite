@@ -49,6 +49,7 @@
  const FilestackPicker = (_ref) => {
    const {
      apikey,
+     viewMode,
      pickerOptions,
      clientOptions,
      onSuccess,
@@ -59,7 +60,7 @@
      apikey,
      pickerOptions: {
        ...pickerOptions,
-       displayMode: filestack.PickerDisplayMode.overlay
+       displayMode: filestack.PickerDisplayMode[viewMode]
      },
      clientOptions,
      onSuccess,
