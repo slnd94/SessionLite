@@ -13,10 +13,10 @@ export default function Layout({ children }) {
   const { clientKey } = router.query;
   const {
     state: { client },
-    getClient
+    getClient,
   } = useContext(ClientContext);
   const {
-    state: { auth },
+    state: { auth, fileAuth },
   } = useContext(AuthContext);
   const [userAuthorized, setUserAuthorized] = useState(false);
 
@@ -25,7 +25,7 @@ export default function Layout({ children }) {
       // the context client needs to be set to match the clientKey
       getClient({ id: clientKey });
     }
-    
+
     // ensure the user is authorized to be here, and redirect them if not authorized
     if (client && auth?.status) {
       if (auth.status === "SIGNED_OUT") {
@@ -52,9 +52,21 @@ export default function Layout({ children }) {
 
   return (
     <>
-      {userAuthorized ? (
+      {userAuthorized && fileAuth?.viewImages ? (
         <>
-          <h3 className="title"><ClientLogo handle={client.logo.handle} size="sm" className="me-3" />{client.name}</h3>
+          <h3 className="title">
+            {client?.logo?.handle ? (
+              <ClientLogo
+                handle={client.logo.handle}
+                size="sm"
+                className="me-3"
+                viewFileAuth={fileAuth?.viewImages}
+              />
+            ) : (
+              <></>
+            )}
+            {client.name}
+          </h3>
           <div>{children}</div>
         </>
       ) : (

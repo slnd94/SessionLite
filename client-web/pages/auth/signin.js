@@ -17,7 +17,7 @@ export default function Signin() {
     state: { client },
   } = useContext(ClientContext);
   const {
-    state: { auth, errorMessage },
+    state: { auth, fileAuth, errorMessage },
     signin,
     clearErrorMessage: clearAuthErrorMessage,
   } = useContext(AuthContext);
@@ -70,7 +70,7 @@ export default function Signin() {
           </div>
           <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
             {client?.logo?.handle ? (
-              <ClientLogo handle={client.logo.handle} size="lg"  />
+              <ClientLogo handle={client.logo.handle} size="lg" viewFileAuth={fileAuth?.viewImages}  />
             ) : (
               <img src="/images/siteLogo.png" width="400" />
             )}

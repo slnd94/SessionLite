@@ -24,6 +24,8 @@ const authReducer = (state, action) => {
         errorMessage: "",
         auth: { status: "SIGNED_OUT", user: null },
       };
+    case "get_file_auth":
+      return { ...state, fileAuth: action.payload };
     case "add_error":
       return { ...state, errorMessage: action.payload };
     case "clear_error_message":
@@ -64,7 +66,7 @@ const getAuth = (dispatch) => async () => {
 const signup =
   (dispatch) =>
   async ({ firstName, lastName, email, password, clientId }) => {
-    console.log("🚀 ~ file: AuthContext.js ~ line 67 ~ clientId", clientId)
+    console.log("🚀 ~ file: AuthContext.js ~ line 67 ~ clientId", clientId);
     try {
       const response = await api({
         method: "post",
@@ -76,7 +78,7 @@ const signup =
           },
           email,
           password,
-          client: clientId
+          client: clientId,
         },
       });
       if (response.status >= 200 && response.status < 300) {
@@ -156,13 +158,30 @@ const signout = (dispatch) => async () => {
   return { success: true };
 };
 
+const getFileAuth = (dispatch) => async () => {
+  const response = await api({
+    method: "get",
+    url: `${process.env.NEXT_PUBLIC_API_URL}/file-auth`,
+  });
+
+  if (response.status >= 200 && response.status < 300) {
+    dispatch({
+      type: "get_file_auth",
+      payload: response.data,
+    });
+    return { success: true };
+  } else {
+    return { success: false };
+  }
+};
+
 const clearErrorMessage = (dispatch) => () => {
   dispatch({ type: "clear_error_message" });
 };
 
 const { Provider, Context } = createDataContext(
   authReducer,
-  { getAuth, signin, signout, signup, clearErrorMessage },
+  { getAuth, signin, signout, signup, getFileAuth, clearErrorMessage },
   { errorMessage: "" }
 );
 

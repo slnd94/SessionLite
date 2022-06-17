@@ -8,7 +8,7 @@ import ClientLogo from "../ClientLogo";
 import FilestackPicker from "../../FilestackPicker";
 import api from "../../../utils/api";
 
-const ManageClientLogo = ({ client, onUpdate }) => {
+const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
   const { t } = useTranslation("common");
   const [processing, setProcessing] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -71,8 +71,8 @@ const ManageClientLogo = ({ client, onUpdate }) => {
           </div>
           <div className="row m-0 p-0">
             <div className="col-12 m-0 p-0 pt-3 text-center justify-content-center">
-              {client?.logo?.handle ? (
-                <ClientLogo handle={client.logo.handle} size="lg" />
+              {client?.logo?.handle && fileAuth?.viewImages ? (
+                <ClientLogo handle={client.logo.handle} size="lg" viewFileAuth={fileAuth?.viewImages} />
               ) : (
                 <div
                   className="section-box text-light"

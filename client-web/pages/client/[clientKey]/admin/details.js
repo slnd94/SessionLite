@@ -21,7 +21,7 @@ export default function Details() {
     getClient,
   } = useContext(ClientContext);
   const {
-    state: { auth },
+    state: { auth, fileAuth },
   } = useContext(AuthContext);
   const [processing, setProcessing] = useState(false);
 
@@ -66,6 +66,7 @@ export default function Details() {
             <Loader />
           ) : (
             <ManageClientLogo
+              fileAuth={fileAuth}
               client={client}
               onUpdate={async () => {
                 setProcessing(true);
