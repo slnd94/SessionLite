@@ -6,14 +6,14 @@ import { useTranslation } from "next-i18next";
 import { Nav, NavItem, Badge } from "reactstrap";
 import IconText from "../IconText";
 
-function ManagementNav({ routePrefix, labelPrefix, subRoutes }) {
+function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
   const { t } = useTranslation("common");
 
   const router = useRouter();
   const currentPath = router.asPath;
 
   return (
-    <>
+    <div className={className}>
       <Nav className="d-md-none">
         {subRoutes.map((subRoute) => (
           <NavItem key={subRoute.slug}>
@@ -90,7 +90,7 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes }) {
           </NavItem>
         ))}
       </Nav>
-    </>
+    </div>
   );
 }
 

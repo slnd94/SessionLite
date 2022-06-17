@@ -8,13 +8,14 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import ClientLogo from "../../components/client/ClientLogo";
 
 export default function Signup() {
   const {
     state: { client },
   } = useContext(ClientContext);
   const {
-    state: { auth, errorMessage },
+    state: { auth, fileAuth, errorMessage },
     signup,
     clearErrorMessage: clearAuthErrorMessage,
   } = useContext(AuthContext);
@@ -57,8 +58,16 @@ export default function Signup() {
               </div>
             </div>
           </div>
-          <div className="col-sm-6 d-none d-sm-block">
-            Branded image/artwork here
+          <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
+            {client?.logo?.handle && fileAuth?.viewClientLogo ? (
+              <ClientLogo
+                handle={client.logo.handle}
+                size="lg"
+                viewFileAuth={fileAuth?.viewClientLogo}
+              />
+            ) : (
+              <img src="/images/siteLogo.png" width="400" />
+            )}
           </div>
         </div>
       ) : (

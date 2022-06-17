@@ -48,7 +48,10 @@ function Header({ brandName }) {
   return (
     <div>
       <Navbar className="navbar-dark bg-primary" color="faded" expand="sm">
-        <NavbarBrand href="/" className="mr-auto">
+        <NavbarBrand
+          href={client ? `/client/${client._id}` : ""}
+          className="mr-auto"
+        >
           {client ? (
             <>
               {auth?.status === "SIGNED_OUT" ||

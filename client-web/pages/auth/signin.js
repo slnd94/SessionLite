@@ -70,7 +70,11 @@ export default function Signin() {
           </div>
           <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
             {client?.logo?.handle && fileAuth?.viewClientLogo ? (
-              <ClientLogo handle={client.logo.handle} size="lg" viewFileAuth={fileAuth?.viewClientLogo}  />
+              <ClientLogo
+                handle={client.logo.handle}
+                size="lg"
+                viewFileAuth={fileAuth?.viewClientLogo}
+              />
             ) : (
               <img src="/images/siteLogo.png" width="400" />
             )}
