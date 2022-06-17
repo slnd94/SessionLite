@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import IconText from "../../../../components/IconText";
 import styles from "../../../../styles/Client.module.scss";
 
 export default function Details() {
@@ -29,7 +30,9 @@ export default function Details() {
     <Layout>
       <div className="row mt-3 mt-md-0 ms-md-3">
         <div className="col-12">
-          <h5 className={"title"}>{t("client.admin.Details")}</h5>
+          <h3 className={"title"}>
+            <IconText icon="detail" text={t("client.admin.Details")} />            
+          </h3>
           <ClientDetailsForm
             processing={processing}
             defaults={{

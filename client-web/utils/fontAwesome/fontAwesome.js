@@ -75,6 +75,7 @@ export const icons = {
   creator: faAddressCard,
   product: faBoxOpen,
   releaseDate: faCalendarAlt,
+  schedule: faCalendarAlt,
   images: faImage,
   template: faBox,
   ebook: faBookOpen,
