@@ -6,6 +6,7 @@ import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import IconText from "../../../../components/IconText";
 import styles from "../../../../styles/Client.module.scss";
 
 export default function Users() {
@@ -23,7 +24,9 @@ export default function Users() {
     <Layout>
       <div className="row mt-3 mt-md-0 ms-md-3">
         <div className="col-12">
-          <h5 className={"title"}>{t("client.admin.Templates")}</h5>
+          <h3 className={"title"}>
+            <IconText icon="template" text={t("client.admin.Templates")} />            
+          </h3>
         </div>
       </div>
     </Layout>

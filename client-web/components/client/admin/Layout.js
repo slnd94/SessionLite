@@ -67,10 +67,10 @@ export default function Layout({ children }) {
       labelTabs: t("Users"),
     },
     {
-      slug: `settings`,
-      icon: "settings",
-      labelPills: t("Settings"),
-      labelTabs: t("Settings"),
+      slug: `schedule`,
+      icon: "schedule",
+      labelPills: t("Schedule"),
+      labelTabs: t("Schedule"),
     },
     {
       slug: `templates`,
@@ -78,6 +78,12 @@ export default function Layout({ children }) {
       labelPills: t("Templates"),
       labelTabs: t("Templates"),
     },
+    {
+      slug: `settings`,
+      icon: "settings",
+      labelPills: t("Settings"),
+      labelTabs: t("Settings"),
+    }
   ];
 
   return (
