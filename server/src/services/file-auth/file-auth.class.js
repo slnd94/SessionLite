@@ -10,12 +10,15 @@ exports.FileAuth = class FileAuth {
     this.app = app;
 
     this.generatePolicy = ({term, call}) => {    
-      // get policy and sig for viewing images
+      // set up the expiry date
       let expiryDateObj = new Date();
       // add a day
       switch(term) {
         case "1m":
           expiryDateObj.setMinutes(expiryDateObj.getMinutes() + 1);
+          break;
+        case "5m":
+          expiryDateObj.setMinutes(expiryDateObj.getMinutes() + 5);
           break;
         case "1h":
           expiryDateObj.setHours(expiryDateObj.getHours() + 1);
@@ -51,13 +54,13 @@ exports.FileAuth = class FileAuth {
 
     returnObj = {
       ...returnObj,
-      viewImages: this.generatePolicy({ term: "1d", call: ["read", "convert"] })
+      viewClientLogo: this.generatePolicy({ term: "5m", call: ["read", "convert"] })
     }
 
     if(params.clientAdminUser) {
       returnObj = {
         ...returnObj,
-        uploadImages: this.generatePolicy({ term: "1d", call: ["pick", "store", "convert"] })
+        uploadClientLogo: this.generatePolicy({ term: "5m", call: ["pick", "store", "convert"] })
       }
     }
 
