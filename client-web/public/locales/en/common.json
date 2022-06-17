@@ -111,7 +111,9 @@
   },
   "client": {
     "Client Home": "Client Home",
+    "Home": "Home",
     "Client Admin": "Client Admin",
+    "Admin": "Admin",
     "Register": "Register",
     "Register Your Business": "Register Your Business",
     "Business Name": "Business Name",

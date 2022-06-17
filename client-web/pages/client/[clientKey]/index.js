@@ -16,12 +16,11 @@ export default function Client() {
   const router = useRouter();
   const { clientKey } = router.query;
   const {
-    state: { client }
+    state: { client },
   } = useContext(ClientContext);
   const {
     state: { auth },
   } = useContext(AuthContext);
-  const [userAdminAuthorized, setUserAdminAuthorized] = useState(false);
   const [rooms, setRooms] = useState(null);
   const [requestingRooms, setRequestingRooms] = useState(false);
   const roomsPerPage = 2;
@@ -51,10 +50,10 @@ export default function Client() {
 
   useEffect(() => {
     if (client && auth?.status === "SIGNED_IN") {
-      const { isMember, isAdmin } = useClientUserAuth({ client: { _id: clientKey }, auth });
-      if (isAdmin) {
-        setUserAdminAuthorized(true);
-      }
+      const { isMember } = useClientUserAuth({
+        client: { _id: clientKey },
+        auth,
+      });
       if (isMember) {
         let isSubscribed = true;
         fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
@@ -66,14 +65,6 @@ export default function Client() {
   return (
     <Layout>
       <div>
-        This is the client home route <br />
-        {userAdminAuthorized ? (
-          <Link href={`/client/${clientKey}/admin/details`}>
-            {t("client.Client Admin")}
-          </Link>
-        ) : (
-          <></>
-        )}
         {rooms ? (
           <>
             <PaginatedList

@@ -41,6 +41,7 @@ import faPencil from "@fortawesome/fontawesome-free-solid/faPencilAlt";
 import faCheckCircle from "@fortawesome/fontawesome-free-solid/faCheckCircle";
 import faCog from "@fortawesome/fontawesome-free-solid/faCog";
 import faBox from "@fortawesome/fontawesome-free-solid/faBox";
+import faLock from "@fortawesome/fontawesome-free-solid/faLock";
 
 export const icons = {
   login: faSignInAlt,
@@ -69,8 +70,8 @@ export const icons = {
   profile: faUser,
   account: faSlidersH,
   settings: faCog,
-  publisher: faBuilding,
-  publisherAdmin: faUserCircle,
+  client: faBuilding,
+  clientAdmin: faLock,
   creator: faAddressCard,
   product: faBoxOpen,
   releaseDate: faCalendarAlt,
@@ -94,6 +95,7 @@ export const icons = {
   price: faDollarSign,
   title: faPencil,
   description: faPencil,
+  lock: faLock,
 };
 
 export { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

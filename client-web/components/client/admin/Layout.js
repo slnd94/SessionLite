@@ -7,6 +7,8 @@ import { useTranslation } from "next-i18next";
 import ManagementNav from "../../layout/ManagementNav";
 import styles from "../../../styles/Client.module.scss";
 import { useRouter } from "next/router";
+import IconText from "../../IconText";
+import { Button } from "reactstrap";
 
 export default function Layout({ children }) {
   const { t } = useTranslation("common");
@@ -84,11 +86,17 @@ export default function Layout({ children }) {
         <>
           <div className="row ms-md-n5">
             <div className="col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up">
-              <h5 className="title">{t("client.admin.Admin")}</h5>
+              <Link href={`/client/${clientKey}`}>
+                <Button color="default">
+                  <IconText icon={"arrowLeft"} text={t("client.Home")} />
+                </Button>
+              </Link>
+              {/* <h5 className="title mt-3">{t("client.admin.Admin")}</h5> */}
               <ManagementNav
                 routePrefix={`client/${clientKey}/admin`}
                 labelPrefix="client.admin"
                 subRoutes={subRoutes}
+                className="mt-3"
               />
             </div>
             <div className="col-lg-9 col-md-8 pt-3">{children}</div>
