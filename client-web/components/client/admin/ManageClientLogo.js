@@ -46,33 +46,25 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
               <h5 className={"title"}>{t("client.admin.details.Logo")}</h5>
             </div>
             <div className="col-12 col-md-6 m-0 p-0 text-end">
-              {editMode ? (
-                <Button
-                  className={"btn-block-md-down"}
-                  color="danger"
-                  onClick={() => {
-                    setEditMode(false);
-                  }}
-                >
-                  {t("Cancel")}
-                </Button>
-              ) : (
-                <Button
-                  className={"btn-block-md-down"}
-                  color="default"
-                  onClick={() => {
-                    setEditMode(true);
-                  }}
-                >
-                  {t("client.admin.details.Upload logo")}
-                </Button>
-              )}
+              <Button
+                className={"btn-block-md-down"}
+                color="default"
+                onClick={() => {
+                  setEditMode(true);
+                }}
+              >
+                {t("client.admin.details.Upload logo")}
+              </Button>
             </div>
           </div>
           <div className="row m-0 p-0">
             <div className="col-12 m-0 p-0 pt-3 text-center justify-content-center">
               {client?.logo?.handle && fileAuth?.viewImages ? (
-                <ClientLogo handle={client.logo.handle} size="lg" viewFileAuth={fileAuth?.viewImages} />
+                <ClientLogo
+                  handle={client.logo.handle}
+                  size="lg"
+                  viewFileAuth={fileAuth?.viewImages}
+                />
               ) : (
                 <div
                   className="section-box text-light"
@@ -105,18 +97,18 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
         </>
       )}
 
-      {editMode ? (
+      {editMode && fileAuth?.uploadImages ? (
         <FilestackPicker
           apikey={process.env.NEXT_FILESTACK_API_KEY}
           viewMode="overlay"
           clientOptions={{
-            security: {
-              policy: "eyJleHBpcnkiOjE2NTU0Mzg0MDAsImNhbGwiOlsicGljayIsInN0b3JlIiwiY29udmVydCJdfQ==",
-              signature: "1bf26ec091a508b03518d7559a5747f3cdce481898b4554dba3d586ddbcc61e8"
-            }
+            security: fileAuth.uploadImages,
           }}
           pickerOptions={{
             accept: ["image/jpeg", "image/png"],
+            onClose: () => {
+              setEditMode(false);
+            },
           }}
           onSuccess={(result) => {
             if (result.filesUploaded.length > 0) {

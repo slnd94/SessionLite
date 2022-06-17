@@ -57,7 +57,7 @@ exports.FileAuth = class FileAuth {
     if(params.clientAdminUser) {
       returnObj = {
         ...returnObj,
-        uploadImages: this.generatePolicy({ term: "1d", call: ["read", "convert"] })
+        uploadImages: this.generatePolicy({ term: "1d", call: ["pick", "store", "convert"] })
       }
     }
 
