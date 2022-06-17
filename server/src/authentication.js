@@ -32,7 +32,8 @@ module.exports = app => {
             ...(client
               ? {client: {
                 _id: client._id,
-                name: client.name
+                name: client.name,
+                logo: client.logo
               }} : {})
           };
         }
