@@ -25,6 +25,11 @@ export default function Layout({ children }) {
   const [userAdminAuthorized, setUserAdminAuthorized] = useState(false);
 
   useEffect(() => {
+    if(client && client._id !== clientKey) {
+      router.push(`/client/${client._id}`)
+      getClient({ id: client._id });
+    }
+
     if (!client || client._id !== clientKey) {
       // the context client needs to be set to match the clientKey
       getClient({ id: clientKey });
@@ -56,6 +61,7 @@ export default function Layout({ children }) {
       }
     }
   }, [client, auth]);
+
 
   return (
     <>

@@ -31,7 +31,7 @@ export default function Details() {
       <div className="row mt-3 mt-md-0 ms-md-3">
         <div className="col-12">
           <h3 className={"title"}>
-            <IconText icon="detail" text={t("client.admin.Details")} />            
+            <IconText icon="client" text={t("client.admin.Details")} />            
           </h3>
           <ClientDetailsForm
             processing={processing}
