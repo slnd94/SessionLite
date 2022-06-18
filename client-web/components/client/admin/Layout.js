@@ -97,7 +97,7 @@ export default function Layout({ children }) {
         <>
           <div className="row ms-md-n5">
             <div className="col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up">
-              <h5 className=" d-none d-md-block">
+              <h5 className="title">
                 <IconText icon="clientAdmin" text={t("client.Admin")} />
               </h5>
               <ManagementNav
