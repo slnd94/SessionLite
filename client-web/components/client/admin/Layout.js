@@ -97,20 +97,21 @@ export default function Layout({ children }) {
         <>
           <div className="row ms-md-n5">
             <div className="col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up">
-              <Link href={`/client/${clientKey}`}>
+              {/* <Link href={`/client/${clientKey}`}>
                 <Button color="default">
                   <IconText icon={"arrowLeft"} text={t("client.Home")} />
                 </Button>
-              </Link>
+              </Link> */}
+              <h5 className=" d-none d-md-block"><IconText icon="clientAdmin" text={t("client.Admin")} /></h5>
               {/* <h5 className="title mt-3">{t("client.admin.Admin")}</h5> */}
               <ManagementNav
                 routePrefix={`client/${clientKey}/admin`}
                 labelPrefix="client.admin"
                 subRoutes={subRoutes}
-                className="mt-3"
+                className="mt-0"
               />
             </div>
-            <div className="col-lg-9 col-md-8 pt-3">{children}</div>
+            <div className="col-lg-9 col-md-8 pt-3 pt-md-4">{children}</div>
           </div>
         </>
       ) : (
