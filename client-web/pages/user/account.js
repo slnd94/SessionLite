@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import styles from "../../styles/User.module.scss";
+import IconText from "../../components/IconText";
 
 export default function Profile() {
   const { t } = useTranslation("common");
@@ -30,7 +31,9 @@ export default function Profile() {
     <Layout>
       <div className="row mt-3 mt-md-0 ms-md-3">
         <div className="col-12">
-          <h5 className={"title"}>{t("user.Your Account")}</h5>
+          <h3 className={"title"}>
+            <IconText icon="account" text={t("user.Your Account")} />            
+          </h3>
           {auth?.status === "SIGNED_IN" ? (
             <AccountForm
               processing={processing}

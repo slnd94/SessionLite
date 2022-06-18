@@ -11,6 +11,7 @@ import { useTranslation } from "next-i18next";
 import api from "../../utils/api";
 import { useRouter } from "next/router";
 import styles from "../../styles/User.module.scss";
+import IconText from "../../components/IconText";
 
 export default function Profile({ profile }) {
   const { t } = useTranslation("common");
@@ -36,7 +37,9 @@ export default function Profile({ profile }) {
         {auth?.status === "SIGNED_IN" && profile ? (
           <>
             <div className="col-12">
-              <h5 className={"title"}>{t("user.Your Profile")}</h5>
+              <h3 className={"title"}>
+                <IconText icon="profile" text={t("user.Your Profile")} />
+              </h3>
               <ProfileForm
                 processing={processing}
                 defaults={{

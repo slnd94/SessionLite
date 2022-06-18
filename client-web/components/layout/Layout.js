@@ -89,7 +89,7 @@ function Layout({ children, brandName }) {
       />
       <Header brandName={brandName} />
 
-      <main className={`${styles.main} px-4 px-md-5`}>{children}</main>
+      <main className={`${styles.main} p-4 px-md-5 py-md-4`}>{children}</main>
 
       <Footer />
     </div>

@@ -9,6 +9,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { Button } from "reactstrap";
 import styles from "../../styles/User.module.scss";
+import IconText from "../../components/IconText";
 
 export default function Cart() {
   const router = useRouter();
@@ -31,7 +32,9 @@ export default function Cart() {
       <div className="row mt-3 mt-md-0 mb-3 ms-md-3">
         {cart?.items.length && auth?.status ? (
           <div className="col-12">
-            <h5 className={"title"}>{t("user.cart.Your Cart")}</h5>
+            <h3 className={"title"}>
+              <IconText icon="cart" text={t("user.cart.Your Cart")} />
+            </h3>
             <UserCart
               cart={cart}
               auth={auth}
