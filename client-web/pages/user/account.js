@@ -32,7 +32,7 @@ export default function Profile() {
       <div className="row mt-3 mt-md-0 ms-md-3">
         <div className="col-12">
           <h3 className={"title"}>
-            <IconText icon="account" text={t("user.Your Account")} />            
+            <IconText icon="account" text={t("user.Your Account")} />
           </h3>
           {auth?.status === "SIGNED_IN" ? (
             <AccountForm

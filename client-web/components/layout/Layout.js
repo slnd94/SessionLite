@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -9,7 +9,9 @@ import { Context as UserContext } from "../../context/UserContext";
 import { ToastContainer, Slide } from "react-toastify";
 import { useRouter } from "next/router";
 import { useInterval } from "../../hooks/useInterval";
+import useClientUserAuth from "../../hooks/useClientUserAuth";
 import styles from "../../styles/Layout.module.scss";
+import ClientHeader from "./ClientHeader";
 
 function Layout({ children, brandName }) {
   const router = useRouter();
@@ -20,11 +22,14 @@ function Layout({ children, brandName }) {
     getClient,
   } = useContext(ClientContext);
   const {
-    state: { auth },
+    state: { auth, fileAuth },
     getAuth,
     getFileAuth,
   } = useContext(AuthContext);
   const { getUserCart } = useContext(UserContext);
+
+  const [userClientAdminAuthorized, setUserClientAdminAuthorized] =
+    useState(false);
 
   // get the auth user
   useEffect(() => {
@@ -65,6 +70,17 @@ function Layout({ children, brandName }) {
       }
       router.push("/");
     }
+
+    if (client && auth?.status === "SIGNED_IN") {
+      const { isAdmin } = useClientUserAuth({ client, auth });
+      if (isAdmin) {
+        setUserClientAdminAuthorized(true);
+      } else {
+        setUserClientAdminAuthorized(false);
+      }
+    } else {
+      setUserClientAdminAuthorized(false);
+    }
   }, [auth, client]);
 
   return (
@@ -88,9 +104,16 @@ function Layout({ children, brandName }) {
         pauseOnHover
       />
       <Header brandName={brandName} />
-
+      {client ? (
+        <ClientHeader
+          client={client}
+          admin={userClientAdminAuthorized}
+          fileAuth={fileAuth}
+        />
+      ) : (
+        <></>
+      )}
       <main className={`${styles.main} p-4 px-md-5 py-md-4`}>{children}</main>
-
       <Footer />
     </div>
   );

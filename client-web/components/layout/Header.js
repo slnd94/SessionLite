@@ -18,15 +18,12 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Button,
 } from "reactstrap";
-import useClientUserAuth from "../../hooks/useClientUserAuth";
 import Loader from "../Loader";
 import { getFullName } from "../../helpers/nameHelpers";
 import IconText from "../IconText";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import ClientLogo from "../client/ClientLogo";
 import styles from "../../styles/Header.module.scss";
 
 function Header({ brandName }) {
@@ -41,23 +38,8 @@ function Header({ brandName }) {
   } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [userClientAdminAuthorized, setUserClientAdminAuthorized] =
-    useState(false);
   const { t } = useTranslation("common");
   const router = useRouter();
-
-  useEffect(() => {
-    if (client && auth?.status === "SIGNED_IN") {
-      const { isAdmin } = useClientUserAuth({ client, auth });
-      if (isAdmin) {
-        setUserClientAdminAuthorized(true);
-      } else {
-        setUserClientAdminAuthorized(false);
-      }
-    } else {
-      setUserClientAdminAuthorized(false);
-    }
-  }, [client, auth]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -91,7 +73,7 @@ function Header({ brandName }) {
                         text={getFullName(auth.user.name)}
                       />
                     </DropdownToggle>
-                    <DropdownMenu>
+                    <DropdownMenu style={{ zIndex: 10000 }}>
                       <Link href="/user/profile" passHref>
                         <DropdownItem>
                           {getFullName(auth.user.name)}
@@ -148,44 +130,6 @@ function Header({ brandName }) {
           </Collapse>
         )}
       </Navbar>
-      {client ? (
-        <div className="row m-0 pt-2 client-header">
-          <div className="d-flex col-11 justify-content-md-start align-items-center">
-            <h5 className="m-0">
-              <Link href={`/client/${client._id}`}>
-                <span style={{ cursor: "pointer" }}>
-                  {client?.logo?.handle && fileAuth?.viewClientLogo ? (
-                    <ClientLogo
-                      handle={client.logo.handle}
-                      size="xs"
-                      className="me-3 mb-2"
-                      viewFileAuth={fileAuth?.viewClientLogo}
-                    />
-                  ) : (
-                    <></>
-                  )}
-                  <span className="d-none d-md-inline">{client.name}</span>
-                </span>
-              </Link>
-            </h5>
-          </div>
-          {userClientAdminAuthorized ? (
-            <div className="d-flex col-1 justify-content-end align-items-center">
-              <h5 className="m-0">
-                <Link href={`/client/${client._id}/admin/details`}>
-                  <Button color="default">
-                    <IconText icon="clientAdmin" text={t("client.Admin")} />
-                  </Button>
-                </Link>
-              </h5>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 }

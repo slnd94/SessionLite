@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ClientLogo = ({ handle, size, className, viewFileAuth }) => {
   const sizeStrings = {
-    xs: "height:50",
+    xs: "height:40",
     sm: "height:100,width:100",
     md: "height:200,width:200",
     lg: "height:300,width:300",

@@ -54,13 +54,14 @@ body {
   // box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   // box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   // box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  
-    @include media-breakpoint-down(md) {
-      margin-top: 0px;
-      padding: 0px;
-      box-shadow: none;
-    }
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+  @include media-breakpoint-down(md) {
+    margin-top: 0px;
+    padding: 0px;
+    box-shadow: none;
+  }
 }
 
 .list-item-box {
@@ -89,8 +90,9 @@ body {
   // font-size: 1.25rem;
   // padding: 5px;
   border-bottom: 1px solid $light;
+  background-color: $white;
   // margin-top: -40px;
-  position: relative;
+  // position: relative;
   left: 0;
   width: 100%;
 }
