@@ -5,7 +5,11 @@ import styles from "../../styles/Footer.module.scss";
 function Footer() {
   return (
     <footer className={styles.footer}>
-      <a href="https://traverston.com" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://traverston.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Powered by{" "}
         <span className={styles.logo}>
           <Image

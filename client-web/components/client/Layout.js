@@ -25,8 +25,8 @@ export default function Layout({ children }) {
   const [userAdminAuthorized, setUserAdminAuthorized] = useState(false);
 
   useEffect(() => {
-    if(client && client._id !== clientKey) {
-      router.push(`/client/${client._id}`)
+    if (client && client._id !== clientKey) {
+      router.push(`/client/${client._id}`);
       getClient({ id: client._id });
     }
 
@@ -62,43 +62,12 @@ export default function Layout({ children }) {
     }
   }, [client, auth]);
 
-
   return (
     <>
       {userAuthorized ? (
-        <>
-          {/* <div className="row mb-5"> */}
-            {/* <div className="d-flex col-12 col-md-6 justify-content-md-start align-items-center">
-              <h3 className="m-0">
-                {client?.logo?.handle && fileAuth?.viewClientLogo ? (
-                  <ClientLogo
-                    handle={client.logo.handle}
-                    size="sm"
-                    className="me-3"
-                    viewFileAuth={fileAuth?.viewClientLogo}
-                  />
-                ) : (
-                  <></>
-                )}
-                {client.name}
-              </h3>
-            </div> */}
-            {/* <div className="d-flex col-12 mt-3 mt-md-0 justify-content-md-end align-items-center">
-              {userAdminAuthorized ? (
-                <Link href={`/client/${clientKey}/admin/details`}>
-                  <Button color="default">
-                    <IconText icon="clientAdmin" text={t("client.Admin")} />
-                  </Button>
-                </Link>
-              ) : (
-                <></>
-              )}
-            </div> */}
-          {/* </div> */}
-          <div className="row">
-            <div className="col-12">{children}</div>
-          </div>
-        </>
+        <div className="row">
+          <div className="col-12">{children}</div>
+        </div>
       ) : (
         <></>
       )}

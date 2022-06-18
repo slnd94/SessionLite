@@ -24,8 +24,8 @@ export default function Layout({ children }) {
   const [userAuthorized, setUserAuthorized] = useState(false);
 
   useEffect(() => {
-    if(client && client._id !== clientKey) {
-      router.push(`/client/${client._id}`)
+    if (client && client._id !== clientKey) {
+      router.push(`/client/${client._id}`);
       getClient({ id: client._id });
     }
 
@@ -88,7 +88,7 @@ export default function Layout({ children }) {
       icon: "settings",
       labelPills: t("Settings"),
       labelTabs: t("Settings"),
-    }
+    },
   ];
 
   return (
@@ -97,13 +97,9 @@ export default function Layout({ children }) {
         <>
           <div className="row ms-md-n5">
             <div className="col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up">
-              {/* <Link href={`/client/${clientKey}`}>
-                <Button color="default">
-                  <IconText icon={"arrowLeft"} text={t("client.Home")} />
-                </Button>
-              </Link> */}
-              <h5 className=" d-none d-md-block"><IconText icon="clientAdmin" text={t("client.Admin")} /></h5>
-              {/* <h5 className="title mt-3">{t("client.admin.Admin")}</h5> */}
+              <h5 className=" d-none d-md-block">
+                <IconText icon="clientAdmin" text={t("client.Admin")} />
+              </h5>
               <ManagementNav
                 routePrefix={`client/${clientKey}/admin`}
                 labelPrefix="client.admin"
