@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 import ManagementNav from "../layout/ManagementNav";
 import { getFullName } from "../../helpers/nameHelpers";
 import styles from "../../styles/User.module.scss";
+import IconText from "../IconText";
 
 export default function Layout({ children }) {
   const { t } = useTranslation("common");
@@ -44,7 +45,9 @@ export default function Layout({ children }) {
         <>
           <div className="row ms-md-n5">
             <div className="col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up">
-              <h5 className="title">{getFullName(auth.user.name)}</h5>
+              <h5 className="title">
+                <IconText icon="user" text={getFullName(auth.user.name)} />
+              </h5>
               <ManagementNav
                 routePrefix="user"
                 labelPrefix="user"

@@ -67,15 +67,7 @@ export default function Home() {
             </Link>
           </div>
         ) : (
-          <div>
-            {client ? (
-              <Link href={`/client/${client._id}`}>
-                {t("client.Client Home")}
-              </Link>
-            ) : (
-              <></>
-            )}
-          </div>
+          <></>
         )}
         {products ? (
           <>
