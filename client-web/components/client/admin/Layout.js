@@ -24,6 +24,11 @@ export default function Layout({ children }) {
   const [userAuthorized, setUserAuthorized] = useState(false);
 
   useEffect(() => {
+    if(client && client._id !== clientKey) {
+      router.push(`/client/${client._id}`)
+      getClient({ id: client._id });
+    }
+
     if (!client || client._id !== clientKey) {
       // the context client needs to be set to match the clientKey
       getClient({ id: clientKey });
@@ -56,7 +61,7 @@ export default function Layout({ children }) {
   const subRoutes = [
     {
       slug: `details`,
-      icon: "detail",
+      icon: "client",
       labelPills: t("Details"),
       labelTabs: t("Details"),
     },
