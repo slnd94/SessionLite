@@ -22,7 +22,6 @@ export default function Layout({ children }) {
     state: { auth, fileAuth },
   } = useContext(AuthContext);
   const [userAuthorized, setUserAuthorized] = useState(false);
-  const [userAdminAuthorized, setUserAdminAuthorized] = useState(false);
 
   useEffect(() => {
     if (client && client._id !== clientKey) {
@@ -46,17 +45,15 @@ export default function Layout({ children }) {
           },
         });
       } else {
-        const { isMember, isAdmin } = useClientUserAuth({ client, auth });
+        const { isMember } = useClientUserAuth({ client, auth });
         if (isMember) {
           setUserAuthorized(true);
         } else {
-          // redirect to app root
+          // User is signed in but in the wrong client
+          // Redirect to app root
           router.push({
             pathname: `/`,
           });
-        }
-        if (isAdmin) {
-          setUserAdminAuthorized(true);
         }
       }
     }
