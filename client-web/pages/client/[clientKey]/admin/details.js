@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import confirm from "../../../../utils/confirm";
 import IconText from "../../../../components/IconText";
 import styles from "../../../../styles/Client.module.scss";
 
@@ -31,7 +32,7 @@ export default function Details() {
       <div className="row mt-3 mt-md-0 ms-md-3">
         <div className="col-12">
           <h3 className={"title"}>
-            <IconText icon="client" text={t("client.admin.Details")} />            
+            <IconText icon="client" text={t("client.admin.Details")} />
           </h3>
           <ClientDetailsForm
             processing={processing}
@@ -39,26 +40,32 @@ export default function Details() {
               name: client?.name,
             }}
             onSubmit={async (data) => {
-              setProcessing(true);
-              const request = await updateClientDetails({
-                ...data,
-                id: clientKey,
-              });
-              if (request.success) {
-                // update the auth context, since user object likely needs update
-                getClient({ id: clientKey });
-
-                // remove the loading indicator
-                setProcessing(false);
-
-                // notify user
-                toast(t(`client.admin.details.Client details updated`), {
-                  type: "success",
+              confirm(
+                t(
+                  "client.admin.details.Are you sure you want to update your details?"
+                )
+              ).then(async () => {
+                setProcessing(true);
+                const request = await updateClientDetails({
+                  ...data,
+                  id: clientKey,
                 });
-              } else {
-                // remove the loading indicator
-                setProcessing(false);
-              }
+                if (request.success) {
+                  // update the auth context, since user object likely needs update
+                  getClient({ id: clientKey });
+
+                  // remove the loading indicator
+                  setProcessing(false);
+
+                  // notify user
+                  toast(t(`client.admin.details.Client details updated`), {
+                    type: "success",
+                  });
+                } else {
+                  // remove the loading indicator
+                  setProcessing(false);
+                }
+              });
             }}
           />
         </div>
