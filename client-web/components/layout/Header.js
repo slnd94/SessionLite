@@ -97,7 +97,7 @@ function Header({ brandName }) {
                       <NavLink>
                         {cart?.items?.length > 0 && (
                           <Badge
-                            color="info"
+                            color="secondary"
                             pill
                             style={{ float: "right", marginTop: "-10px" }}
                           >
