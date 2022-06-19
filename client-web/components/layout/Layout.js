@@ -15,7 +15,6 @@ import ClientHeader from "./ClientHeader";
 
 function Layout({ children, brandName }) {
   const router = useRouter();
-  const { clientKey } = router.query;
   const {
     state: { client },
     setClient,
@@ -65,8 +64,8 @@ function Layout({ children, brandName }) {
       // set the client accordingly and redirect to the root page
       if (auth?.user?.client) {
         getClient({ id: auth.user.client._id });
-      } else {
-        setClient({ client: auth.user.client });
+      } else {        
+        setClient({ client: null });
       }
       router.push("/");
     }
