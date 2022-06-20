@@ -12,6 +12,7 @@ import { useInterval } from "../../hooks/useInterval";
 import useClientUserAuth from "../../hooks/useClientUserAuth";
 import styles from "../../styles/Layout.module.scss";
 import ClientHeader from "./ClientHeader";
+import UserUnverified from "../user/UserUnverified";
 
 function Layout({ children, brandName }) {
   const router = useRouter();
@@ -32,6 +33,7 @@ function Layout({ children, brandName }) {
 
   // get the auth user
   useEffect(() => {
+    console.log("🚀 ~ file: Layout.js ~ line 19 ~ Layout ~ router", router);
     getAuth();
   }, []);
 
@@ -64,7 +66,7 @@ function Layout({ children, brandName }) {
       // set the client accordingly and redirect to the root page
       if (auth?.user?.client) {
         getClient({ id: auth.user.client._id });
-      } else {        
+      } else {
         setClient({ client: null });
       }
       router.push("/");
@@ -112,7 +114,22 @@ function Layout({ children, brandName }) {
       ) : (
         <></>
       )}
-      <main className={`${styles.main} p-4 px-md-5 py-md-4`}>{children}</main>
+      <main className={`${styles.main} p-4 px-md-5 py-md-4`}>
+        {!auth?.status ? (
+          <></>
+        ) : (
+          <>
+            {auth.status === "SIGNED_IN" &&
+            !auth.user?.isVerified &&
+            router.pathname !== "/user/verification/email/[key]" &&
+            router.pathname !== "/auth/signout" ? (
+              <UserUnverified />
+            ) : (
+              <>{children}</>
+            )}
+          </>
+        )}
+      </main>
       <Footer />
     </div>
   );
