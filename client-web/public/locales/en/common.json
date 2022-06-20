@@ -136,6 +136,9 @@
         "Upload logo": "Upload logo",
         "Change logo": "Change logo",
         "Logo updated": "Logo updated",
+        "Remove logo": "Remove logo",
+        "Are you sure you want to remove this logo?": "Are you sure you want to remove this logo?",
+        "Logo removed": "Logo removed",
         "Are you sure you want to update your details?": "Are you sure you want to update your details?",
         "Client details updated": "Client details updated"
       }

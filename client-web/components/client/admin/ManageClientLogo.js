@@ -6,6 +6,7 @@ import IconText from "../../IconText";
 import Loader from "../../Loader";
 import ClientLogo from "../ClientLogo";
 import FilestackPicker from "../../FilestackPicker";
+import confirm from "../../../utils/confirm";
 import api from "../../../utils/api";
 
 const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
@@ -35,6 +36,28 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
     }
   };
 
+  const removeClientLogo = async () => {
+    setProcessing(true);
+    const response = await api({
+      method: "patch",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/client-details/${client._id}`,
+      params: {
+        logo: {},
+      },
+    });
+    if (
+      response.status >= 200 &&
+      response.status < 300 &&
+      response.data.success
+    ) {
+      // callback
+      onUpdate();
+      // remove the loading indicator
+      setProcessing(false);
+      // setEditMode(false);
+    }
+  };
+
   return (
     <>
       {processing ? (
@@ -42,10 +65,45 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
       ) : (
         <>
           <div className="row m-0 p-0">
-            <div className="col-12 col-md-6 m-0 p-0">
+            <div className="col-12 m-0 p-0">
               <h5 className={"title"}>{t("client.admin.details.Logo")}</h5>
             </div>
-            <div className="col-12 col-md-6 m-0 p-0 text-end">
+          </div>
+          <div className="row m-0 p-0">
+            <div className="col-12 col-lg-6 m-0 p-0 pt-3">
+              {client?.logo?.handle && fileAuth?.viewClientLogo ? (
+                <ClientLogo
+                  handle={client.logo.handle}
+                  size="lg"
+                  viewFileAuth={fileAuth?.viewClientLogo}
+                />
+              ) : (
+                <div
+                  className=" text-light"
+                  style={{
+                    paddingTop: "50px",
+                    paddingBottom: "50px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      fontSize: "2rem",
+                    }}
+                  >
+                    <IconText
+                      icon="image"
+                      iconContainerClass="icon-large"
+                      text={t("client.admin.details.No logo selected")}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="col-12 col-lg-6 m-0 p-0">
               <Button
                 className={"btn-block-md-down"}
                 color="default"
@@ -55,42 +113,25 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
               >
                 {t("client.admin.details.Upload logo")}
               </Button>
-            </div>
-          </div>
-          <div className="row m-0 p-0">
-            <div className="col-12 m-0 p-0 pt-3 text-center justify-content-center">
-              {client?.logo?.handle && fileAuth?.viewClientLogo ? (
-                <ClientLogo
-                  handle={client.logo.handle}
-                  size="lg"
-                  viewFileAuth={fileAuth?.viewClientLogo}
-                />
-              ) : (
-                <div
-                  className="section-box text-light"
-                  style={{
-                    paddingTop: "50px",
-                    paddingBottom: "50px",
-                    width: "400px",
+              <br />
+              {client?.logo?.handle ? (
+                <Button
+                  className={"btn-block-md-down mt-1"}
+                  color="default"
+                  onClick={() => {
+                    confirm(
+                      t(
+                        "client.admin.details.Are you sure you want to remove this logo?"
+                      )
+                    ).then(async () => {
+                      removeClientLogo();
+                    });
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "2rem",
-                    }}
-                  >
-                    <IconText
-                      icon="image"
-                      iconContainerClass="icon-large"
-                      text={t("client.admin.details.No logo selected")}
-                      style={{ backgroundPosition: "50% 0%" }}
-                    />
-                  </div>
-                </div>
+                  {t("client.admin.details.Remove logo")}
+                </Button>
+              ) : (
+                <></>
               )}
             </div>
           </div>
@@ -111,6 +152,10 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
             },
           }}
           onSuccess={(result) => {
+            console.log(
+              "🚀 ~ file: ManageClientLogo.js ~ line 114 ~ ManageClientLogo ~ result",
+              result
+            );
             if (result.filesUploaded.length > 0) {
               updateClientLogo({
                 handle: result.filesUploaded[0].handle,
