@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+const { api } = require("../../utils/api");
+
 exports.ClientDetails = class ClientDetails {
   constructor (options) {
     this.options = options || {};
@@ -18,6 +20,37 @@ exports.ClientDetails = class ClientDetails {
         ...(data.name ? {name: data.name} : {}),
         ...(data.logo ? {logo: data.logo} : {})
       };
+    }
+
+    if(data.logo) {
+      // updating the logo.  Delete the old logo first.
+      const client = await this.app.service('clients')
+      .get(params.user.client, {
+        query: {
+          $select: [ 'logo' ]
+        }
+      });
+
+      if (client?.logo?.handle) {
+        // we need to delete the old logo file at the storage service
+        // first get a policy and signature
+        const deleteAuth = await this.app.service('file-auth').find({
+          query: {
+            call: [ "remove" ],
+            handle: client.logo.handle
+          }
+        });
+
+        // delete the old logo
+        const deleteResponse = await api({
+          method: "delete",
+          url: `https://www.filestackapi.com/api/file/${client.logo.handle}?key=${this.app.get('fileStackApiKey')}&policy=${deleteAuth.policy}&signature=${deleteAuth.signature}`
+        });
+      }
+
+      if (!data.logo.handle) {
+        data.logo = null;
+      }
     }
 
     return this.app.service('clients')

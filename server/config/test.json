@@ -15,5 +15,6 @@
   "stripePublishableKey": "stripePublishableKey",
   "stripeSecretKey": "stripeSecretKey",
   "stripePaymentConfirmationWebhookSecret": "stripePaymentConfirmationWebhookSecret",
+  "fileStackApiKey": "fileStackApiKey",
   "fileStackAppSecret": "fileStackAppSecret"
 }

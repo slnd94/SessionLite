@@ -9,7 +9,7 @@ exports.FileAuth = class FileAuth {
   setup(app) {
     this.app = app;
 
-    this.generatePolicy = ({term, call}) => {    
+    this.generatePolicy = ({term, call, handle}) => {    
       // set up the expiry date
       let expiryDateObj = new Date();
       // add a day
@@ -33,7 +33,8 @@ exports.FileAuth = class FileAuth {
       // create the policy
       const policy = {
         expiry: expiryDateTimestamp,
-        call
+        call,
+        ...(handle ? {handle} : {})
       };
 
       // encode the policy
@@ -52,15 +53,25 @@ exports.FileAuth = class FileAuth {
   async find (params) {
     let returnObj = {}
 
-    returnObj = {
-      ...returnObj,
-      viewClientLogo: this.generatePolicy({ term: "5m", call: ["read", "convert"] })
-    }
-
-    if(params.clientAdminUser) {
+    if(!params.provider) {
+      // this is an internal call, looking for auth policy on a specific action
+      returnObj = this.generatePolicy({
+        term: "1m",
+        call: params.query.call,
+        ...(params.query.handle ? {handle: params.query.handle} : {})
+      })
+    } else {
+      // external call
       returnObj = {
         ...returnObj,
-        uploadClientLogo: this.generatePolicy({ term: "5m", call: ["pick", "store", "convert"] })
+        viewClientLogo: this.generatePolicy({ term: "5m", call: ["read", "convert"] })
+      }
+
+      if(params.clientAdminUser) {
+        returnObj = {
+          ...returnObj,
+          uploadClientLogo: this.generatePolicy({ term: "5m", call: ["pick", "store", "convert"] })
+        }
       }
     }
 

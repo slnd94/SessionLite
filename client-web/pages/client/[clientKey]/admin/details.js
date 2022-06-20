@@ -71,7 +71,7 @@ export default function Details() {
         </div>
       </div>
       <div className="row mt-5 ms-md-3">
-        <div className="col-12 col-md-6" style={{ height: "100px" }}>
+        <div className="col-12" style={{ height: "100px" }}>
           {processing ? (
             <Loader />
           ) : (
