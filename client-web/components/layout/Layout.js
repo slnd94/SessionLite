@@ -33,21 +33,26 @@ function Layout({ children, brandName }) {
 
   // get the auth user
   useEffect(() => {
-    console.log("🚀 ~ file: Layout.js ~ line 19 ~ Layout ~ router", router);
     getAuth();
   }, []);
 
   // get the user's cart and client if signed in
   useEffect(() => {
-    if (auth?.status === "SIGNED_IN") {
-      getUserCart({ id: auth.user._id });
-    }
-    if (auth?.user?.client) {
-      setClient({ client: auth.user.client });
-    }
-    if (auth?.status) {
-      // get file auth
-      getFileAuth();
+
+    if(auth?.status) {
+
+      if (auth.user?.client) {
+        setClient({ client: auth.user.client });
+      }
+
+      if(auth.status === "SIGNED_IN" && auth.user?.isVerified) {
+        getUserCart({ id: auth.user._id });
+      }
+
+      if(auth.status === "SIGNED_OUT" || (auth.status === "SIGNED_IN" && auth?.user?.isVerified)) {
+        // get file auth
+        getFileAuth();
+      }
     }
   }, [auth]);
 
@@ -84,6 +89,10 @@ function Layout({ children, brandName }) {
     }
   }, [auth, client]);
 
+  const unverifiedUserAccount = () => {
+    return (auth.status === "SIGNED_IN" && !auth.user?.isVerified);
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -105,7 +114,7 @@ function Layout({ children, brandName }) {
         pauseOnHover
       />
       <Header brandName={brandName} />
-      {client ? (
+      {client && !unverifiedUserAccount() ? (
         <ClientHeader
           client={client}
           admin={userClientAdminAuthorized}
@@ -119,8 +128,7 @@ function Layout({ children, brandName }) {
           <></>
         ) : (
           <>
-            {auth.status === "SIGNED_IN" &&
-            !auth.user?.isVerified &&
+            {unverifiedUserAccount() &&
             router.pathname !== "/user/verification/email/[key]" &&
             router.pathname !== "/auth/signout" ? (
               <UserUnverified />
