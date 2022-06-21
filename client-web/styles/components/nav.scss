@@ -1,16 +1,17 @@
 // navs
 
 div.section-nav {
-  @include media-breakpoint-up(md) {
-    &.left-nav-md-up {
       display: block;
       top: 0;
       left: 0;
       height: 110vh;
       padding-top: 20px;
-      padding-left: 30px;
+      // padding-left: 30px;
       margin-top: -24px;
       background-color: $lightest;
+  @include media-breakpoint-up(md) {
+    &.left-nav-md-up {
+      padding-left: 30px;
     }
   }
 }
@@ -63,7 +64,7 @@ div.section-nav {
 
   .nav-link {
     color: $body-color-light;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.8rem;
     background-color: $lightest;
     border-color: $lightest;
     border-top-width: 2px;

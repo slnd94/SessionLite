@@ -33,7 +33,7 @@ export default function Profile({ profile }) {
 
   return (
     <Layout>
-      <div className="row mt-3 mt-md-0 ms-md-3">
+      <div className="row mt-0 ms-md-3">
         {auth?.status === "SIGNED_IN" && profile ? (
           <>
             <div className="col-12">

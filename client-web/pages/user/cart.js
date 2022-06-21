@@ -29,7 +29,7 @@ export default function Cart() {
 
   return (
     <Layout>
-      <div className="row mt-3 mt-md-0 mb-3 ms-md-3">
+      <div className="row mt-0 mb-3 ms-md-3">
         {cart?.items.length && auth?.status ? (
           <div className="col-12">
             <h3 className={"title"}>
@@ -60,7 +60,9 @@ export default function Cart() {
             </Button>
           </div>
         ) : (
-          <h5 className={"title"}>{t("user.cart.Your cart is empty")}</h5>
+          <h3 className={"title"}>
+            <IconText icon="cart" text={t("user.cart.Your cart is empty")} />
+          </h3>
         )}
       </div>
     </Layout>

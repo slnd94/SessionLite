@@ -70,21 +70,15 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
             </div>
           </div>
           <div className="row m-0 p-0">
-            <div className="col-12 col-lg-6 m-0 p-0 pt-3">
+            <div className="col-12 col-lg-5 m-0 p-0 pt-3 d-flex justify-content-center">
               {client?.logo?.handle && fileAuth?.viewClientLogo ? (
                 <ClientLogo
                   handle={client.logo.handle}
-                  size="lg"
+                  size="md"
                   viewFileAuth={fileAuth?.viewClientLogo}
                 />
               ) : (
-                <div
-                  className=" text-light"
-                  style={{
-                    paddingTop: "50px",
-                    paddingBottom: "50px",
-                  }}
-                >
+                <div className=" text-light">
                   <div
                     style={{
                       display: "flex",
@@ -103,9 +97,9 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
               )}
             </div>
 
-            <div className="col-12 col-lg-6 m-0 p-0">
+            <div className="col-12 col-lg-5 m-0 p-0">
               <Button
-                className={"btn-block-md-down"}
+                className={"btn-block"}
                 color="default"
                 onClick={() => {
                   setEditMode(true);
@@ -113,10 +107,9 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
               >
                 {t("client.admin.details.Upload logo")}
               </Button>
-              <br />
               {client?.logo?.handle ? (
                 <Button
-                  className={"btn-block-md-down mt-1"}
+                  className={"btn-block"}
                   color="default"
                   onClick={() => {
                     confirm(
