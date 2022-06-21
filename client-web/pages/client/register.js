@@ -42,6 +42,10 @@ export default function Register() {
                   setProcessing(true);
                   const request = await registerClient(data);
                   getAuth();
+
+                  // refresh with new data
+                  await router.push(router.asPath);
+                  
                   setProcessing(false);
                 }}
               />
