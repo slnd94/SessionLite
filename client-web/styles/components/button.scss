@@ -80,6 +80,14 @@
     font-size: 1rem;
   }
 
+  &.btn-block {
+    display: block;
+    margin-top: 1.5rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    width: 100%;
+  }
+
   @include media-breakpoint-down(sm) {
     &.btn-block-sm-down {
       display: block;

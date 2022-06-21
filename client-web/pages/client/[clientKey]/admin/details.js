@@ -29,7 +29,7 @@ export default function Details() {
 
   return (
     <Layout>
-      <div className="row mt-3 mt-md-0 ms-md-3">
+      <div className="row mt-0 ms-md-3">
         <div className="col-12">
           <h3 className={"title"}>
             <IconText icon="client" text={t("client.admin.Details")} />

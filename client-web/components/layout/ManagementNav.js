@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { Nav, NavItem, Badge } from "reactstrap";
 import IconText from "../IconText";
+import { icons, FontAwesomeIcon } from "../../utils/fontAwesome/fontAwesome";
 
 function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
   const { t } = useTranslation("common");
@@ -14,7 +15,7 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
 
   return (
     <div className={className}>
-      <Nav className="d-md-none">
+      {/* <Nav className="d-md-none">
         {subRoutes.map((subRoute) => (
           <NavItem key={subRoute.slug}>
             <Link href={`/${routePrefix}/${subRoute.slug}`} passHref>
@@ -48,12 +49,14 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
             </Link>
           </NavItem>
         ))}
-      </Nav>
+      </Nav> */}
 
-      <Nav
+
+
+      {/* <Nav
         vertical
         pills
-        className="d-none d-md-block"
+        className="d-block d-md-none"
         style={{ marginTop: "0px" }}
       >
         {subRoutes.map((subRoute) => (
@@ -67,6 +70,49 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
                 }`}
               >
                 <IconText
+                  icon={subRoute.icon}
+                  text=""
+                />
+                {subRoute.badge ? (
+                  <Badge
+                    pill
+                    color={`${
+                      currentPath === "/" + routePrefix + "/" + subRoute.slug
+                        ? "secondary"
+                        : "light"
+                    }`}
+                    style={{ float: "right", marginTop: "2px" }}
+                  >
+                    {subRoute.badge}
+                  </Badge>
+                ) : (
+                  <></>
+                )}
+              </a>
+            </Link>
+          </NavItem>
+        ))}
+      </Nav> */}
+
+      <Nav
+        vertical
+        pills
+        // className="d-none d-md-block"
+        style={{ marginTop: "0px" }}
+      >
+        {subRoutes.map((subRoute) => (
+          <NavItem key={subRoute.slug}>
+            <Link href={`/${routePrefix}/${subRoute.slug}`} passHref>
+              <a
+                className={`nav-link ${
+                  currentPath === "/" + routePrefix + "/" + subRoute.slug
+                    ? "active"
+                    : ""
+                }`}
+              >
+                <FontAwesomeIcon style={{maxHeight: "2rem"}} className="d-block d-md-none" icon={icons[subRoute.icon]} />
+                <IconText
+                className="d-none d-md-block"
                   icon={subRoute.icon}
                   text={t(`${labelPrefix}.${subRoute.labelPills}`)}
                 />
