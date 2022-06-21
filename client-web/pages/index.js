@@ -65,6 +65,10 @@ export default function Home() {
             <Link href="/client/register">
               {t("client.Register Your Business")}
             </Link>
+            <br />
+            <Link href="/plans/checkout">
+              {t("client.Plan Checkout")}
+            </Link>
           </div>
         ) : (
           <></>
