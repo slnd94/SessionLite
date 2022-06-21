@@ -38,10 +38,15 @@ export default function Signup() {
                 processing={processing}
                 onSubmit={async (data) => {
                   setProcessing(true);
+                  
                   const request = await signup({
                     ...data,
                     clientId: client?._id,
                   });
+
+                  // refresh with new data
+                  await router.push(router.asPath);
+
                   setProcessing(false);
                 }}
               />

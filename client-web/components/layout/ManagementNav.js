@@ -15,89 +15,9 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
 
   return (
     <div className={className}>
-      {/* <Nav className="d-md-none">
-        {subRoutes.map((subRoute) => (
-          <NavItem key={subRoute.slug}>
-            <Link href={`/${routePrefix}/${subRoute.slug}`} passHref>
-              <a
-                className={`nav-link ${
-                  currentPath === "/" + routePrefix + "/" + subRoute.slug
-                    ? "active"
-                    : ""
-                }`}
-              >
-                <IconText
-                  icon={subRoute.icon}
-                  text={t(`${labelPrefix}.${subRoute.labelTabs}`)}
-                />
-                {subRoute.badge ? (
-                  <Badge
-                    pill
-                    color={`${
-                      currentPath === "/" + routePrefix + "/" + subRoute.slug
-                        ? "secondary"
-                        : "light"
-                    }`}
-                    style={{}}
-                  >
-                    {subRoute.badge}
-                  </Badge>
-                ) : (
-                  <></>
-                )}
-              </a>
-            </Link>
-          </NavItem>
-        ))}
-      </Nav> */}
-
-
-
-      {/* <Nav
-        vertical
-        pills
-        className="d-block d-md-none"
-        style={{ marginTop: "0px" }}
-      >
-        {subRoutes.map((subRoute) => (
-          <NavItem key={subRoute.slug}>
-            <Link href={`/${routePrefix}/${subRoute.slug}`} passHref>
-              <a
-                className={`nav-link ${
-                  currentPath === "/" + routePrefix + "/" + subRoute.slug
-                    ? "active"
-                    : ""
-                }`}
-              >
-                <IconText
-                  icon={subRoute.icon}
-                  text=""
-                />
-                {subRoute.badge ? (
-                  <Badge
-                    pill
-                    color={`${
-                      currentPath === "/" + routePrefix + "/" + subRoute.slug
-                        ? "secondary"
-                        : "light"
-                    }`}
-                    style={{ float: "right", marginTop: "2px" }}
-                  >
-                    {subRoute.badge}
-                  </Badge>
-                ) : (
-                  <></>
-                )}
-              </a>
-            </Link>
-          </NavItem>
-        ))}
-      </Nav> */}
-
       <Nav
         vertical
         pills
-        // className="d-none d-md-block"
         style={{ marginTop: "0px" }}
       >
         {subRoutes.map((subRoute) => (
