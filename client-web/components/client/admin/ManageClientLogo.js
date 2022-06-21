@@ -146,6 +146,7 @@ const ManageClientLogo = ({ fileAuth, client, onUpdate }) => {
             security: fileAuth.uploadClientLogo,
           }}
           pickerOptions={{
+            fromSources: ["local_file_system"],
             accept: ["image/jpeg", "image/png"],
             onClose: () => {
               setEditMode(false);
