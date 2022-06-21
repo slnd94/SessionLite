@@ -104,7 +104,7 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
           <NavItem key={subRoute.slug}>
             <Link href={`/${routePrefix}/${subRoute.slug}`} passHref>
               <a
-                className={`nav-link ${
+                className={`nav-link d-flex justify-content-center justify-content-md-start ${
                   currentPath === "/" + routePrefix + "/" + subRoute.slug
                     ? "active"
                     : ""
