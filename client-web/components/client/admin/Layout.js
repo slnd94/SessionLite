@@ -95,8 +95,8 @@ export default function Layout({ children }) {
     <>
       {userAuthorized ? (
         <>
-        <div className="row ms-md-n5">
-          <div className="col-2 col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up ms-n4">
+          <div className="row ms-md-n5">
+            <div className="col-2 col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up ms-n4">
               <h5 className="title d-none d-md-block">
                 <IconText icon="clientAdmin" text={t("client.Admin")} />
               </h5>
