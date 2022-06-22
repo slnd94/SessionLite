@@ -31,9 +31,7 @@ export default function Details() {
     <Layout>
       <div className="row mt-0 ms-md-3">
         <div className="col-12">
-          <h3 className={"title"}>
-            <IconText icon="tenant" text={t("tenant.admin.Details")} />
-          </h3>
+          <h3 className={"title"}>{t("tenant.admin.Details")}</h3>
           <TenantDetailsForm
             processing={processing}
             defaults={{

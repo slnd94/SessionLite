@@ -31,9 +31,7 @@ export default function Profile() {
     <Layout>
       <div className="row mt-0 ms-md-3">
         <div className="col-12">
-          <h3 className={"title"}>
-            <IconText icon="account" text={t("user.Your Account")} />
-          </h3>
+          <h3 className={"title"}>{t("user.Your Account")}</h3>
           {auth?.status === "SIGNED_IN" ? (
             <AccountForm
               processing={processing}
