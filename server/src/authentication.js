@@ -14,8 +14,8 @@ module.exports = app => {
     after: {
       create: [
         async (context) => {
-          // get the user client if available
-          const client = context.result.user.client ? await context.app.service('clients').get(context.result.user.client) : null;
+          // get the user tenant if available
+          const tenant = context.result.user.tenant ? await context.app.service('tenants').get(context.result.user.tenant) : null;
           
           // set up the return user obj
           context.result.user = {
@@ -27,13 +27,13 @@ module.exports = app => {
             },
             isVerified: context.result.user.verification.emailVerified,
             isLocked: context.result.user.locked,
-            isClientAdmin: client?.adminUsers && client.adminUsers.find(x => x._id.toString() === context.result.user._id.toString()) ? true : false,
-            // client if available:
-            ...(client
-              ? {client: {
-                _id: client._id,
-                name: client.name,
-                logo: client.logo
+            isTenantAdmin: tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === context.result.user._id.toString()) ? true : false,
+            // tenant if available:
+            ...(tenant
+              ? {tenant: {
+                _id: tenant._id,
+                name: tenant.name,
+                logo: tenant.logo
               }} : {})
           };
         }

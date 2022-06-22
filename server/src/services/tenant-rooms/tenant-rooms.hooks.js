@@ -1,17 +1,11 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const assignParamSysAdminUser = require('../../hooks/assign-param-sys-admin-user');
-const { iff } = require('feathers-hooks-common');
-
-const assignParamTenantAdminUser = require('../../hooks/assign-param-tenant-admin-user');
+const authorizeTenantUser = require('../../hooks/authorize-tenant-user');
 
 module.exports = {
   before: {
-    all: [],
-    find: [
-      iff(context => (context.params.headers && context.params.headers.authorization), authenticate('jwt')),
-      assignParamSysAdminUser(),
-      assignParamTenantAdminUser()
-    ],
+    all: [ authenticate('jwt'), assignParamSysAdminUser() ],
+    find: [authorizeTenantUser()],
     get: [],
     create: [],
     update: [],

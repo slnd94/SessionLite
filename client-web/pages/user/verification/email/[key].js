@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Context as ClientContext } from "../../../../context/ClientContext";
+import { Context as TenantContext } from "../../../../context/TenantContext";
 import { Context as AuthContext } from "../../../../context/AuthContext";
 import { Context as UserContext } from "../../../../context/UserContext";
 import styles from "../../../../styles/User.module.scss";
@@ -12,8 +12,8 @@ import { useRouter } from "next/router";
 export default function VerifyEmail() {
   const { t } = useTranslation("common");
   const {
-    state: { client }
-  } = useContext(ClientContext);
+    state: { tenant }
+  } = useContext(TenantContext);
   const {
     state: { auth },
     getAuth,
@@ -66,10 +66,10 @@ export default function VerifyEmail() {
               </h4>
               <h6>{t(`auth.What's next?`)}</h6>
               <p>
-                {client ? (
+                {tenant ? (
                   <>
-                    <Link href={`/client/${client._id}`}>
-                      {t("client.Client Home")}
+                    <Link href={`/tenant/${tenant._id}`}>
+                      {t("tenant.Tenant Home")}
                     </Link>
                     <br />
                   </>

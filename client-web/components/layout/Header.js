@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Context as ClientContext } from "../../context/ClientContext";
+import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
 import Link from "next/link";
@@ -28,8 +28,8 @@ import styles from "../../styles/Header.module.scss";
 
 function Header({ brandName }) {
   const {
-    state: { client },
-  } = useContext(ClientContext);
+    state: { tenant },
+  } = useContext(TenantContext);
   const {
     state: { auth, fileAuth },
   } = useContext(AuthContext);

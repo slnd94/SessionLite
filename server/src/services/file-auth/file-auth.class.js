@@ -51,6 +51,7 @@ exports.FileAuth = class FileAuth {
   }
 
   async find (params) {
+    console.log("🚀 ~ file: file-auth.class.js ~ line 54 ~ FileAuth ~ find ~ params", params)
     let returnObj = {}
 
     if(!params.provider) {
@@ -64,13 +65,13 @@ exports.FileAuth = class FileAuth {
       // external call
       returnObj = {
         ...returnObj,
-        viewClientLogo: this.generatePolicy({ term: "5m", call: ["read", "convert"] })
+        viewTenantLogo: this.generatePolicy({ term: "5m", call: ["read", "convert"] })
       }
 
-      if(params.clientAdminUser) {
+      if(params.tenantAdminUser) {
         returnObj = {
           ...returnObj,
-          uploadClientLogo: this.generatePolicy({ term: "5m", call: ["pick", "store", "convert"] })
+          uploadTenantLogo: this.generatePolicy({ term: "5m", call: ["pick", "store", "convert"] })
         }
       }
     }

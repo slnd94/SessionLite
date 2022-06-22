@@ -6,7 +6,7 @@ import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 
 import { Provider as AuthProvider } from "../context/AuthContext";
 import { Provider as UserProvider } from "../context/UserContext";
-import { Provider as ClientProvider } from "../context/ClientContext";
+import { Provider as TenantProvider } from "../context/TenantContext";
 import Layout from "../components/layout/Layout";
 
 function MyApp({ Component, pageProps }) {
@@ -18,11 +18,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <UserProvider>
-        <ClientProvider>
+        <TenantProvider>
           <Layout brandName="Traverston">
             <Component {...pageProps} />
           </Layout>
-        </ClientProvider>
+        </TenantProvider>
       </UserProvider>
     </AuthProvider>
   );
