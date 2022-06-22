@@ -1,18 +1,13 @@
-import Layout from "../../components/user/Layout";
-import ProfileForm from "../../components/user/ProfileForm";
 import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as AuthContext } from "../../context/AuthContext";
-import { Context as UserContext } from "../../context/UserContext";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import TenantRegistrationForm from "../../components/tenant/TenantRegistrationForm";
 import Link from "next/link";
 import { Alert } from "reactstrap";
-import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import api from "../../utils/api";
 import { useRouter } from "next/router";
-import styles from "../../styles/User.module.scss";
+import styles from "../../styles/Tenant.module.scss";
 
 export default function Register() {
   const { t } = useTranslation("common");

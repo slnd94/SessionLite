@@ -150,6 +150,9 @@
   "product": {
     "products": "products"
   },
+  "plan": {
+    "Choose Your Plan": "Choose Your Plan"
+  },
   "checkout": {
     "Checkout": "Checkout",
     "Items": "Items",

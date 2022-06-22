@@ -7,8 +7,10 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
+    index: { type: Number, required: true },
     name: { type: String, required: true },
     description: { type: String, required: true },
+    features: [{ type: String }],
     paddlePlanId: { type: Number, required: true },
     allowances: {
       activeUsers: { type: Number, required: true }
