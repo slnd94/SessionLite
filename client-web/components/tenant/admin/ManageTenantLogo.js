@@ -146,10 +146,6 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
             },
           }}
           onSuccess={(result) => {
-            console.log(
-              "🚀 ~ file: ManageTenantLogo.js ~ line 114 ~ ManageTenantLogo ~ result",
-              result
-            );
             if (result.filesUploaded.length > 0) {
               updateTenantLogo({
                 handle: result.filesUploaded[0].handle,
