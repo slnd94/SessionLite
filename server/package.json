@@ -53,6 +53,7 @@
     "cors": "^2.8.5",
     "feathers-hooks-common": "^5.0.6",
     "feathers-mongoose": "8.3.3",
+    "geoip-lite": "^1.4.5",
     "helmet": "^4.6.0",
     "moment": "^2.29.3",
     "mongodb-core": "^3.2.7",

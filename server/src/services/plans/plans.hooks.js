@@ -3,10 +3,14 @@ const { iff } = require('feathers-hooks-common');
 const assignParamSysAdminUser = require('../../hooks/assign-param-sys-admin-user');
 const authorizeSysAdmin = require('../../hooks/authorize-sys-admin');
 
+const addPlanPrices = require('../../hooks/add-plan-prices');
+
+const assignParamUserCountry = require('../../hooks/assign-param-user-country');
+
 module.exports = {
   before: {
     all: [],
-    find: [],
+    find: [assignParamUserCountry()],
     get: [
       iff(context => (context.params.headers && context.params.headers.authorization), authenticate('jwt')),
       assignParamSysAdminUser()
@@ -19,7 +23,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [addPlanPrices()],
     get: [],
     create: [],
     update: [],
