@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Alert } from "reactstrap";
 import Image from "next/image";
 import styles from "../../styles/Signin.module.scss";
-import { Context as ClientContext } from "../../context/ClientContext";
+import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import SignInForm from "../../components/auth/SignInForm";
 import IconText from "../../components/IconText";
@@ -10,12 +10,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import ClientLogo from "../../components/client/ClientLogo";
+import TenantLogo from "../../components/tenant/TenantLogo";
 
 export default function Signin() {
   const {
-    state: { client },
-  } = useContext(ClientContext);
+    state: { tenant },
+  } = useContext(TenantContext);
   const {
     state: { auth, fileAuth, errorMessage },
     signin,
@@ -69,11 +69,11 @@ export default function Signin() {
             </div>
           </div>
           <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
-            {client?.logo?.handle && fileAuth?.viewClientLogo ? (
-              <ClientLogo
-                handle={client.logo.handle}
+            {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
+              <TenantLogo
+                handle={tenant.logo.handle}
                 size="lg"
-                viewFileAuth={fileAuth?.viewClientLogo}
+                viewFileAuth={fileAuth?.viewTenantLogo}
               />
             ) : (
               <img src="/images/siteLogo.png" width="400" />
@@ -88,10 +88,10 @@ export default function Signin() {
           <h4 className="title">{t("auth.You are signed in")}</h4>
           <h6>{t(`auth.What's next?`)}</h6>
           <p>
-            {client ? (
+            {tenant ? (
               <>
-                <Link href={`/client/${client._id}`}>
-                  {t("client.Client Home")}
+                <Link href={`/tenant/${tenant._id}`}>
+                  {t("tenant.Tenant Home")}
                 </Link>
                 <br />
               </>

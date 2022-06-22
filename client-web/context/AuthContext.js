@@ -65,8 +65,8 @@ const getAuth = (dispatch) => async () => {
 
 const signup =
   (dispatch) =>
-  async ({ firstName, lastName, email, password, clientId }) => {
-    console.log("🚀 ~ file: AuthContext.js ~ line 67 ~ clientId", clientId);
+  async ({ firstName, lastName, email, password, tenantId }) => {
+    console.log("🚀 ~ file: AuthContext.js ~ line 67 ~ tenantId", tenantId);
     try {
       const response = await api({
         method: "post",
@@ -78,7 +78,7 @@ const signup =
           },
           email,
           password,
-          client: clientId,
+          tenant: tenantId,
         },
       });
       if (response.status >= 200 && response.status < 300) {

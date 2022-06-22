@@ -1,14 +1,18 @@
-// rooms-model.js - A mongoose model
+// tenants-model.js - A mongoose model
 // 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = 'rooms';
+  const modelName = 'tenants';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    tenant: { type : Schema.Types.ObjectId, ref: 'tenants', required: true },
-    name: { type: String, required: true }
+    name: { type: String, required: true },
+    logo: {
+      handle: { type: String, required: false }
+    },
+    createdByUser: { type : Schema.Types.ObjectId, ref: 'users', required: false },
+    adminUsers: [{ type : Schema.Types.ObjectId, ref: 'users', required: true }]
   }, {
     timestamps: true
   });

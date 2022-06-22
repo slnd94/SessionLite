@@ -1,31 +1,33 @@
-import { useState, useEffect, useContext } from "react";
-import { Alert } from "reactstrap";
-import styles from "../../styles/Signup.module.scss";
+import Layout from "../../components/user/Layout";
+import ProfileForm from "../../components/user/ProfileForm";
 import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as AuthContext } from "../../context/AuthContext";
-import SignUpForm from "../../components/auth/SignUpForm";
+import { Context as UserContext } from "../../context/UserContext";
+import { useState, useEffect, useContext } from "react";
+import TenantRegistrationForm from "../../components/tenant/TenantRegistrationForm";
+import Link from "next/link";
+import { Alert } from "reactstrap";
+import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import api from "../../utils/api";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import TenantLogo from "../../components/tenant/TenantLogo";
+import styles from "../../styles/User.module.scss";
 
-export default function Signup() {
+export default function Register() {
+  const { t } = useTranslation("common");
   const {
-    state: { tenant },
+    state: { tenant, errorMessage: tenantErrorMessage },
+    registerTenant,
+    clearErrorMessage: clearTenantErrorMessage,
   } = useContext(TenantContext);
   const {
-    state: { auth, fileAuth, errorMessage },
-    signup,
+    state: { auth, errorMessage: authErrorMessage },
+    getAuth,
     clearErrorMessage: clearAuthErrorMessage,
   } = useContext(AuthContext);
   const [processing, setProcessing] = useState(false);
-  const { t } = useTranslation("common");
   const router = useRouter();
-
-  useEffect(() => {
-    clearAuthErrorMessage();
-  }, []);
 
   return (
     <>
@@ -33,46 +35,35 @@ export default function Signup() {
         <div className="row mt-4">
           <div className="col-12 col-sm-6">
             <div className="section-box">
-              <h5 className={"title"}>{t("auth.Sign Up")}</h5>
-              <SignUpForm
+              <h5 className={"title"}>{t("tenant.Register Your Business")}</h5>
+              <TenantRegistrationForm
                 processing={processing}
                 onSubmit={async (data) => {
                   setProcessing(true);
-                  
-                  const request = await signup({
-                    ...data,
-                    tenantId: tenant?._id,
-                  });
+                  const request = await registerTenant(data);
+                  getAuth();
 
                   // refresh with new data
                   await router.push(router.asPath);
-
+                  
                   setProcessing(false);
                 }}
               />
-              {errorMessage ? (
+              {tenantErrorMessage ? (
                 <Alert color="danger" fade={false}>
-                  {t(`auth.There was a problem with your sign in`)}
+                  {t(`tenant.There was a problem with your registration`)}
                 </Alert>
               ) : null}
               <div className="mt-4">
                 <span style={{ marginRight: "10px" }}>
-                  {t(`auth.Already have an account?`)}
+                  {t(`tenant.Already registered?`)}
                 </span>
                 <Link href="/auth/signin">{t("auth.Sign in")}</Link>
               </div>
             </div>
           </div>
-          <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
-            {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
-              <TenantLogo
-                handle={tenant.logo.handle}
-                size="lg"
-                viewFileAuth={fileAuth?.viewTenantLogo}
-              />
-            ) : (
-              <img src="/images/siteLogo.png" width="400" />
-            )}
+          <div className="col-sm-6 d-none d-sm-block">
+            Branded image/artwork here
           </div>
         </div>
       ) : (
@@ -80,7 +71,7 @@ export default function Signup() {
       )}
       {auth?.status === "SIGNED_IN" ? (
         <>
-          <h4 className="title">{t("auth.Thanks for signing up")}</h4>
+          <h4 className="title">{t("tenant.Thanks for registering")}</h4>
           {!auth.user.isVerified ? (
             <p>
               {t(
@@ -91,16 +82,6 @@ export default function Signup() {
             <>
               <h6>{t(`auth.What's next?`)}</h6>
               <p>
-                {tenant ? (
-                  <>
-                    <Link href={`/tenant/${tenant._id}`}>
-                      {t("tenant.Tenant Home")}
-                    </Link>
-                    <br />
-                  </>
-                ) : (
-                  <></>
-                )}
                 <Link href="/user/profile">
                   {t("user.Manage your profile")}
                 </Link>

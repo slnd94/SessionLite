@@ -8,7 +8,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     emailVerificationKeyExpiryDate.setMinutes(emailVerificationKeyExpiryDate.getMinutes() + parseInt(context.app.get('emailVerificationExpiryMinutes')));
     // reinforce the only fields we want added
     context.data = {
-      client: context.data.client,
+      tenant: context.data.tenant,
       name: context.data.name,
       email: context.data.email,
       password: context.data.password,

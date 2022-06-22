@@ -3,25 +3,25 @@ import PropTypes from "prop-types";
 import Header from "./Header";
 import Footer from "./Footer";
 import Head from "next/head";
-import { Context as ClientContext } from "../../context/ClientContext";
+import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
 import { ToastContainer, Slide } from "react-toastify";
 import { useRouter } from "next/router";
 import { useInterval } from "../../hooks/useInterval";
-import useClientUserAuth from "../../hooks/useClientUserAuth";
+import useTenantUserAuth from "../../hooks/useTenantUserAuth";
 import styles from "../../styles/Layout.module.scss";
-import ClientHeader from "./ClientHeader";
+import TenantHeader from "./TenantHeader";
 import UserUnverified from "../user/UserUnverified";
 import PaddleLoader from "../commerce/PaddleLoader";
 
 function Layout({ children, brandName }) {
   const router = useRouter();
   const {
-    state: { client },
-    setClient,
-    getClient,
-  } = useContext(ClientContext);
+    state: { tenant },
+    setTenant,
+    getTenant,
+  } = useContext(TenantContext);
   const {
     state: { auth, fileAuth },
     getAuth,
@@ -29,7 +29,7 @@ function Layout({ children, brandName }) {
   } = useContext(AuthContext);
   const { getUserCart } = useContext(UserContext);
 
-  const [userClientAdminAuthorized, setUserClientAdminAuthorized] =
+  const [userTenantAdminAuthorized, setUserTenantAdminAuthorized] =
     useState(false);
 
   // get the auth user
@@ -37,13 +37,13 @@ function Layout({ children, brandName }) {
     getAuth();
   }, []);
 
-  // get the user's cart and client if signed in
+  // get the user's cart and tenant if signed in
   useEffect(() => {
 
     if(auth?.status) {
 
-      if (auth.user?.client) {
-        setClient({ client: auth.user.client });
+      if (auth.user?.tenant) {
+        setTenant({ tenant: auth.user.tenant });
       }
 
       if(auth.status === "SIGNED_IN" && auth.user?.isVerified) {
@@ -61,34 +61,34 @@ function Layout({ children, brandName }) {
     getFileAuth();
   }, 240000); // 4 mins
 
-  // ensure the appropriate client is loaded for user
+  // ensure the appropriate tenant is loaded for user
   useEffect(() => {
     if (
-      client &&
+      tenant &&
       auth?.status === "SIGNED_IN" &&
-      auth?.user?.client?._id !== client._id
+      auth?.user?.tenant?._id !== tenant._id
     ) {
-      // the user is signed in but trying to access a client that does not match their account.
-      // set the client accordingly and redirect to the root page
-      if (auth?.user?.client) {
-        getClient({ id: auth.user.client._id });
+      // the user is signed in but trying to access a tenant that does not match their account.
+      // set the tenant accordingly and redirect to the root page
+      if (auth?.user?.tenant) {
+        getTenant({ id: auth.user.tenant._id });
       } else {
-        setClient({ client: null });
+        setTenant({ tenant: null });
       }
       router.push("/");
     }
 
-    if (client && auth?.status === "SIGNED_IN") {
-      const { isAdmin } = useClientUserAuth({ client, auth });
+    if (tenant && auth?.status === "SIGNED_IN") {
+      const { isAdmin } = useTenantUserAuth({ tenant, auth });
       if (isAdmin) {
-        setUserClientAdminAuthorized(true);
+        setUserTenantAdminAuthorized(true);
       } else {
-        setUserClientAdminAuthorized(false);
+        setUserTenantAdminAuthorized(false);
       }
     } else {
-      setUserClientAdminAuthorized(false);
+      setUserTenantAdminAuthorized(false);
     }
-  }, [auth, client]);
+  }, [auth, tenant]);
 
   const unverifiedUserAccount = () => {
     return (auth.status === "SIGNED_IN" && !auth.user?.isVerified);
@@ -119,10 +119,10 @@ function Layout({ children, brandName }) {
       <PaddleLoader />
 
       <Header brandName={brandName} />
-      {client && !unverifiedUserAccount() ? (
-        <ClientHeader
-          client={client}
-          admin={userClientAdminAuthorized}
+      {tenant && !unverifiedUserAccount() ? (
+        <TenantHeader
+          tenant={tenant}
+          admin={userTenantAdminAuthorized}
           fileAuth={fileAuth}
         />
       ) : (

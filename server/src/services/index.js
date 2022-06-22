@@ -9,11 +9,11 @@ const userCarts = require('./user-carts/user-carts.service.js');
 const paymentIntents = require('./payment-intents/payment-intents.service.js');
 const paymentWebhooks = require('./payment-webhooks/payment-webhooks.service.js');
 const sales = require('./sales/sales.service.js');
-const clients = require('./clients/clients.service.js');
-const clientRegistration = require('./client-registration/client-registration.service.js');
+const tenants = require('./tenants/tenants.service.js');
+const tenantRegistration = require('./tenant-registration/tenant-registration.service.js');
 const rooms = require('./rooms/rooms.service.js');
-const clientRooms = require('./client-rooms/client-rooms.service.js');
-const clientDetails = require('./client-details/client-details.service.js');
+const tenantRooms = require('./tenant-rooms/tenant-rooms.service.js');
+const tenantDetails = require('./tenant-details/tenant-details.service.js');
 const fileAuth = require('./file-auth/file-auth.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
@@ -28,10 +28,10 @@ module.exports = function (app) {
   app.configure(paymentIntents);
   app.configure(paymentWebhooks);
   app.configure(sales);
-  app.configure(clients);
-  app.configure(clientRegistration);
+  app.configure(tenants);
+  app.configure(tenantRegistration);
   app.configure(rooms);
-  app.configure(clientRooms);
-  app.configure(clientDetails);
+  app.configure(tenantRooms);
+  app.configure(tenantDetails);
   app.configure(fileAuth);
 };

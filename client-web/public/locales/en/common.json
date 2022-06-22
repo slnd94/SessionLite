@@ -110,10 +110,10 @@
     "Save": "Save",
     "Settings": "Settings"
   },
-  "client": {
-    "Client Home": "Client Home",
+  "tenant": {
+    "Tenant Home": "Tenant Home",
     "Home": "Home",
-    "Client Admin": "Client Admin",
+    "Tenant Admin": "Tenant Admin",
     "Admin": "Admin",
     "Register": "Register",
     "Register Your Business": "Register Your Business",
@@ -141,7 +141,7 @@
         "Are you sure you want to remove this logo?": "Are you sure you want to remove this logo?",
         "Logo removed": "Logo removed",
         "Are you sure you want to update your details?": "Are you sure you want to update your details?",
-        "Client details updated": "Client details updated"
+        "Tenant details updated": "Tenant details updated"
       }
     }
   },
