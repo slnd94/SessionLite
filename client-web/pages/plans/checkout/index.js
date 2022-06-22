@@ -10,7 +10,7 @@ import api from "../../../utils/api";
 import styles from "../../../styles/Checkout.module.scss";
 import PaddleLoader from "../../../components/commerce/PaddleLoader";
 import { Button } from "reactstrap";
-import supportedCountries from "../../../utils/commerce/supportedCountries.json"
+import supportedCountries from "../../../utils/commerce/supportedCountries.json";
 
 export default function Checkout() {
   const { t } = useTranslation("common");
@@ -27,8 +27,8 @@ export default function Checkout() {
       method: "inline",
       frameTarget: "paddle-inline-checkout",
       // frameInitialHeight: 416,
-      frameStyle: 'width:100%;',
-      email: auth?.user?.email
+      frameStyle: "width:100%;",
+      email: auth?.user?.email,
     });
 
     setCountries(supportedCountries);
@@ -36,11 +36,11 @@ export default function Checkout() {
 
   return (
     <div className="row">
-    <div className="col-6">hi</div>
-      <div className="col-6">
+      {/* <div className="col-12 col-md-6">hi</div> */}
+      <div className="col-12 col-md-6">
         <div className="paddle-inline-checkout pt-5"></div>
         <ul>
-          {Object.keys(countries).map(country => (
+          {Object.keys(countries).map((country) => (
             <li key={countries[country]}>
               {country} is {countries[country]}
             </li>

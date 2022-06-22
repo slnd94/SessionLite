@@ -42,6 +42,7 @@ import faCheckCircle from "@fortawesome/fontawesome-free-solid/faCheckCircle";
 import faCog from "@fortawesome/fontawesome-free-solid/faCog";
 import faBox from "@fortawesome/fontawesome-free-solid/faBox";
 import faLock from "@fortawesome/fontawesome-free-solid/faLock";
+import faIdCard from "@fortawesome/fontawesome-free-solid/faIdCard";
 
 export const icons = {
   login: faSignInAlt,
@@ -65,6 +66,7 @@ export const icons = {
   wishlist: faHeart,
   detail: faEdit,
   sale: faReceipt,
+  plan: faReceipt,
   report: faChartPie,
   user: faUser,
   profile: faUser,
@@ -72,6 +74,7 @@ export const icons = {
   settings: faCog,
   tenant: faBuilding,
   tenantAdmin: faLock,
+  client: faIdCard,
   creator: faAddressCard,
   product: faBoxOpen,
   releaseDate: faCalendarAlt,

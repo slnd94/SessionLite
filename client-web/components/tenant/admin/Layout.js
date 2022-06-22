@@ -72,6 +72,12 @@ export default function Layout({ children }) {
       labelTabs: t("Users"),
     },
     {
+      slug: `clients`,
+      icon: "client",
+      labelPills: t("Clients"),
+      labelTabs: t("Clients"),
+    },
+    {
       slug: `schedule`,
       icon: "schedule",
       labelPills: t("Schedule"),
@@ -82,6 +88,12 @@ export default function Layout({ children }) {
       icon: "template",
       labelPills: t("Templates"),
       labelTabs: t("Templates"),
+    },
+    {
+      slug: `plan`,
+      icon: "plan",
+      labelPills: t("Plan"),
+      labelTabs: t("Plan"),
     },
     {
       slug: `settings`,
