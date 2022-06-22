@@ -24,9 +24,7 @@ export default function Users() {
     <Layout>
       <div className="row mt-0 ms-md-3">
         <div className="col-12">
-          <h3 className={"title"}>
-            <IconText icon="schedule" text={t("tenant.admin.Schedule")} />            
-          </h3>
+          <h3 className={"title"}>{t("tenant.admin.Schedule")}</h3>
         </div>
       </div>
     </Layout>

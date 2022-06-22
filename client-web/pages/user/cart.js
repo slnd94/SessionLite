@@ -32,9 +32,7 @@ export default function Cart() {
       <div className="row mt-0 mb-3 ms-md-3">
         {cart?.items.length && auth?.status ? (
           <div className="col-12">
-            <h3 className={"title"}>
-              <IconText icon="cart" text={t("user.cart.Your Cart")} />
-            </h3>
+            <h3 className={"title"}>{t("user.cart.Your Cart")}</h3>
             <UserCart
               cart={cart}
               auth={auth}
@@ -60,9 +58,7 @@ export default function Cart() {
             </Button>
           </div>
         ) : (
-          <h3 className={"title"}>
-            <IconText icon="cart" text={t("user.cart.Your cart is empty")} />
-          </h3>
+          <h3 className={"title"}>{t("user.cart.Your cart is empty")}</h3>
         )}
       </div>
     </Layout>

@@ -37,9 +37,7 @@ export default function Profile({ profile }) {
         {auth?.status === "SIGNED_IN" && profile ? (
           <>
             <div className="col-12">
-              <h3 className={"title"}>
-                <IconText icon="profile" text={t("user.Your Profile")} />
-              </h3>
+              <h3 className={"title"}>{t("user.Your Profile")}</h3>
               <ProfileForm
                 processing={processing}
                 defaults={{
