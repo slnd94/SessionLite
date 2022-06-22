@@ -51,7 +51,6 @@ exports.FileAuth = class FileAuth {
   }
 
   async find (params) {
-    console.log("🚀 ~ file: file-auth.class.js ~ line 54 ~ FileAuth ~ find ~ params", params)
     let returnObj = {}
 
     if(!params.provider) {
