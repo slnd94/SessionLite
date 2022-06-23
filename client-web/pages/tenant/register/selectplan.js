@@ -46,7 +46,22 @@ export default function SelectPlan({ plans }) {
   );
 }
 
-export const getServerSideProps = async ({ locale }) => {
+export const getServerSideProps = async ({ locale, req }) => {
+// console.log("🚀 ~ file: selectplan.js ~ line 50 ~ getServerSideProps ~ req", req)
+let ip;
+if (req.headers["x-forwarded-for"]) {
+  ip = req.headers["x-forwarded-for"].split(',')[0]
+} else if (req.headers["x-real-ip"]) {
+  ip = req.connection.remoteAddress
+} else {
+  ip = req.connection.remoteAddress
+}
+console.log("🚀 ~ file: selectplan.js ~ line 58 ~ getServerSideProps ~ ip", ip)
+
+// console.log(ip)
+
+
+
   const response = await api({
     method: "get",
     url: `${process.env.NEXT_PUBLIC_API_URL}/plans?$sort[index]=1`,
