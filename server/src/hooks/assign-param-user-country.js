@@ -1,6 +1,5 @@
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
-const geoip = require('geoip-lite');
 const { getCountryByIP } = require("../utils/ipUtils");
 
 // eslint-disable-next-line no-unused-vars
@@ -21,10 +20,9 @@ module.exports = (options = {}) => {
       } else if (context.params?.headers && context.params.headers['x-real-ip']) {
         userCountry = getCountryByIP(context.params.headers['x-real-ip']);
       } else {
-        // cannot detect from IP.  Default to US
+        // cannot detect from IP.  Use the default value from app settings.
         userCountry = {
-          code: 'US',
-          name: "United States"
+          code: context.app.get("defaultUserCountryCode")
         };
       }
     }

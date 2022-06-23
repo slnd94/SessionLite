@@ -17,5 +17,6 @@
   "stripePaymentConfirmationWebhookSecret": "stripePaymentConfirmationWebhookSecret",
   "fileStackApiKey": "fileStackApiKey",
   "fileStackAppSecret": "fileStackAppSecret",
-  "paddleApiBaseUrl": "paddleApiBaseUrl"
+  "paddleApiBaseUrl": "paddleApiBaseUrl",
+  "defaultUserCountryCode": "defaultUserCountryCode"
 }
