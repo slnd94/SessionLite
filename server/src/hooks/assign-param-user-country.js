@@ -12,9 +12,10 @@ module.exports = (options = {}) => {
       // get country from user account
       userCountry = context.params.user.country;
     } else {
+      console.log("🚀 ~ file: assign-param-user-country.js ~ line 17 ~ context.params?.headers", context.params)
       // get country from the IP address
       if (context.params?.headers && context.params.headers['x-real-ip']) {
-        const ip = context.params?.headers['x-real-ip'];
+        const ip = context.params.headers['x-real-ip'];
         const geo = geoip.lookup(ip);
         userCountry = {
           code: geo.country
