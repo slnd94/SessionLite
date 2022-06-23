@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import api from "../../../utils/api";
+import { getUserIP } from "../../../utils/ipUtils";
 import { useRouter } from "next/router";
 import styles from "../../../styles/Tenant.module.scss";
 import PlanList from "../../../components/plan/PlanList";
@@ -37,7 +38,7 @@ export default function SelectPlan({ plans }) {
           router.push({
             pathname: `/tenant/register`,
             query: {
-              plan: plan._id
+              plan: plan._id,
             },
           });
         }}
@@ -47,25 +48,22 @@ export default function SelectPlan({ plans }) {
 }
 
 export const getServerSideProps = async ({ locale, req }) => {
-// console.log("🚀 ~ file: selectplan.js ~ line 50 ~ getServerSideProps ~ req", req)
-let ip;
-if (req.headers["x-forwarded-for"]) {
-  ip = req.headers["x-forwarded-for"].split(',')[0]
-} else if (req.headers["x-real-ip"]) {
-  ip = req.connection.remoteAddress
-} else {
-  ip = req.connection.remoteAddress
-}
-console.log("🚀 ~ file: selectplan.js ~ line 58 ~ getServerSideProps ~ ip", ip)
-
-// console.log(ip)
-
-
-
+  const ip = getUserIP(req);
   const response = await api({
     method: "get",
     url: `${process.env.NEXT_PUBLIC_API_URL}/plans?$sort[index]=1`,
+    ...(ip
+      ? {
+          headers: {
+            client_ip: ip,
+          },
+        }
+      : {}),
   });
+  console.log(
+    "🚀 ~ file: selectplan.js ~ line 60 ~ getServerSideProps ~ response",
+    response
+  );
 
   return {
     props: {
