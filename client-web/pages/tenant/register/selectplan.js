@@ -24,7 +24,7 @@ export default function SelectPlan({ plans }) {
     <>
       <div className="row mt-4">
         <div className="col-12 col-sm-6">
-          <h1 className={"title"}>{t("plan.Choose Your Plan")}</h1>
+          <h1 className={"title"}>{t("plan.Select Your Plan")}</h1>
         </div>
       </div>
       <PlanList
@@ -34,6 +34,12 @@ export default function SelectPlan({ plans }) {
             "🚀 ~ file: selectplan.js ~ line 35 ~ SelectPlan ~ plan",
             plan
           );
+          router.push({
+            pathname: `/tenant/register`,
+            query: {
+              plan: plan._id
+            },
+          });
         }}
       />
     </>

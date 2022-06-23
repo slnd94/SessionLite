@@ -151,7 +151,10 @@
     "products": "products"
   },
   "plan": {
-    "Choose Your Plan": "Choose Your Plan"
+    "Select Your Plan": "Select Your Plan",
+    "Select this plan": "Select this plan",
+    "Including taxes and fees": "Including taxes and fees",
+    "month": "month"
   },
   "checkout": {
     "Checkout": "Checkout",
