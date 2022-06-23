@@ -1,4 +1,6 @@
 export const getUserIP = (req) => {
+  console.log("🚀 ~ file: ipUtils.js ~ line 2 ~ getUserIP ~ req.connection", req.connection)
+console.log("🚀 ~ file: ipUtils.js ~ line 2 ~ getUserIP ~ req.headers", req.headers)
   let ip;
   if (req.headers["x-forwarded-for"]) {
     ip = req.headers["x-forwarded-for"].split(",")[0];
