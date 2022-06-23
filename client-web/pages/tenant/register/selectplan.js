@@ -49,6 +49,7 @@ export default function SelectPlan({ plans }) {
 
 export const getServerSideProps = async ({ locale, req }) => {
   const ip = getUserIP(req);
+  console.log("🚀 ~ file: selectplan.js ~ line 52 ~ getServerSideProps ~ ip", ip)
   const response = await api({
     method: "get",
     url: `${process.env.NEXT_PUBLIC_API_URL}/plans?$sort[index]=1`,
