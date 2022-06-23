@@ -18,12 +18,15 @@ module.exports = (options = {}) => {
         const ip = context.params.headers.client_ip;
         console.log("🚀 ~ file: assign-param-user-country.js ~ line 18 ~ ip", ip)
         const geo = geoip.lookup(ip);
+        console.log("🚀 ~ file: assign-param-user-country.js ~ line 21 ~ geo", geo)
         userCountry = {
           code: geo.country
         }
       } else if (context.params?.headers && context.params.headers['x-real-ip']) {
         const ip = context.params.headers['x-real-ip'];
+        console.log("🚀 ~ file: assign-param-user-country.js ~ line 26 ~ ip", ip)
         const geo = geoip.lookup(ip);
+        console.log("🚀 ~ file: assign-param-user-country.js ~ line 28 ~ geo", geo)
         userCountry = {
           code: geo.country
         }
