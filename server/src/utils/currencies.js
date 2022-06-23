@@ -1,7 +1,7 @@
 
 module.exports = {
   CAD: {
-    symbol: 'C$',
+    symbol: 'CA$',
     decimals: 2,
     taxes: [
       {
@@ -12,6 +12,26 @@ module.exports = {
   },
   USD: {
     symbol: '$',
+    decimals: 2,
+    taxes: []
+  },
+  AUD: {
+    symbol: 'A$',
+    decimals: 2,
+    taxes: []
+  },
+  EUR: {
+    symbol: '€',
+    decimals: 2,
+    taxes: []
+  },
+  NZD: {
+    symbol: 'NZ$',
+    decimals: 2,
+    taxes: []
+  },
+  GBP: {
+    symbol: '£',
     decimals: 2,
     taxes: []
   }

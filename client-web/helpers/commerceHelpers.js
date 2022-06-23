@@ -1,10 +1,26 @@
 const currencySymbols = {
   CAD: {
-    symbol: "C$",
+    symbol: "CA$",
     decimals: 2,
   },
   USD: {
     symbol: "$",
+    decimals: 2,
+  },
+  AUD: {
+    symbol: "A$",
+    decimals: 2,
+  },
+  EUR: {
+    symbol: "€",
+    decimals: 2,
+  },
+  NZD: {
+    symbol: "NZ$",
+    decimals: 2,
+  },
+  GBP: {
+    symbol: "£",
     decimals: 2,
   },
 };
