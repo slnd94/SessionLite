@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { Context as AuthContext } from "../../../context/AuthContext";
-import { Alert } from "reactstrap";
+import { Alert, Progress } from "reactstrap";
 import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -23,6 +23,11 @@ export default function SelectPlan({ plans }) {
 
   return (
     <>
+      <div className="row mt-4 sticky-top">
+        <div className="col-12">
+        <Progress value={25} striped={true} color="secondary" />
+        </div>
+      </div>
       <div className="row mt-4">
         <div className="col-12 col-sm-6">
           <h1 className={"title"}>{t("plan.Select Your Plan")}</h1>

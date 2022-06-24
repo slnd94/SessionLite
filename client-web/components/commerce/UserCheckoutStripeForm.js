@@ -91,7 +91,7 @@ function UserCheckoutStripeForm({
             <Button
               className={"btn-block-md-down"}
               size="lg"
-              color="info"
+              color="success"
               type="submit"
             >
               {t("checkout.Place your order")}

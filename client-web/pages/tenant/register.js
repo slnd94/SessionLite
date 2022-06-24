@@ -3,7 +3,7 @@ import { Context as AuthContext } from "../../context/AuthContext";
 import { useState, useContext } from "react";
 import TenantRegistrationForm from "../../components/tenant/TenantRegistrationForm";
 import Link from "next/link";
-import { Alert } from "reactstrap";
+import { Alert, Progress } from "reactstrap";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
@@ -26,11 +26,16 @@ export default function Register() {
 
   return (
     <>
+    <div className="row mt-4">
+      <div className="col-12">
+        <Progress value={50} striped={true} color="secondary" />
+      </div>
+    </div>
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
           <div className="col-12 col-sm-6">
-            <div className="section-box">
-              <h5 className={"title"}>{t("tenant.Register Your Business")}</h5>
+              <h1 className={"title"}>{t("tenant.Register Your Business")}</h1>
+            <div className="">
               <TenantRegistrationForm
                 processing={processing}
                 onSubmit={async (data) => {
@@ -57,8 +62,16 @@ export default function Register() {
               </div>
             </div>
           </div>
-          <div className="col-sm-6 d-none d-sm-block">
-            Branded image/artwork here
+          <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
+            {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
+              <TenantLogo
+                handle={tenant.logo.handle}
+                size="lg"
+                viewFileAuth={fileAuth?.viewTenantLogo}
+              />
+            ) : (
+              <img src="/images/siteLogo.png" width="400" />
+            )}
           </div>
         </div>
       ) : (

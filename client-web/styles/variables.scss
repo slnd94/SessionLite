@@ -39,7 +39,7 @@ $brown: rgb(108, 89, 78);
 
 $primary: $charcoal !default;
 $secondary: $pink !default;
-$success: $green-200 !default;
+$success: $secondary !default;
 $success-light: lighten($success, 30%) !default;
 $info: $blue-200 !default;
 $warning: $yellow !default;
