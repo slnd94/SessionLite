@@ -8,7 +8,7 @@ const Plan = ({ plan, onClick, className }) => {
   const { t } = useTranslation("common");
   return (
     <div
-      className={`row list-item-box ${className}`}
+      className={`row list-item-box mb-1 ${className}`}
     >
       <h1 className={"title"}>{plan.name}</h1>
       <div className="fs-6 fw-bold">{plan.description}</div>
@@ -36,7 +36,7 @@ const Plan = ({ plan, onClick, className }) => {
         <Button
           className={"btn-block-md-down"}
           size="lg"
-          color="success"
+          color="secondary"
           onClick={() => {
             onClick();
           }}
