@@ -57,6 +57,7 @@ const ProductUserCart = ({
                       </Button>
                       <Button
                         className={"btn-block-sm-down"}
+                        color="default"
                         onClick={() => removeFromCartFunc()}
                       >
                         {t("user.cart.Remove from cart")}

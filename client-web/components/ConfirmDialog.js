@@ -16,7 +16,7 @@ const ConfirmDialog = ({show, proceed, cancel, confirmation, options }) => {
         </div>
         <div className="d-flex justify-content-end">
           <Button color="primary" autoFocus className="px-4" onClick={() => proceed()}>{options.proceedLabel || t('Yes')}</Button>
-          <Button color="secondary" className="px-4 ms-2" onClick={() => cancel()}>{options.cancelLabel || t('No')}</Button>
+          <Button color="default" className="px-4 ms-2" onClick={() => cancel()}>{options.cancelLabel || t('No')}</Button>
         </div>
       </ModalBody>
     </Modal>
