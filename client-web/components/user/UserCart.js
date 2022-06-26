@@ -32,12 +32,12 @@ const UserCart = ({ cart, auth, onRemoveItem, itemsPerPage, t }) => {
           t,
         }}
         itemPropName={"product"}
-        itemsListedName={t("product.products")}
+        itemsListedName={t("products.products")}
         itemsPerPage={itemsPerPage}
         showPaginationTop
         showPaginationBottom
         hidePaginationForSinglePage
-        itemNavRoute={"/product"}
+        itemNavRoute={"/products"}
         showLink={true}
         t={t}
         // onRef={ref => (this.paginatedList = ref)}

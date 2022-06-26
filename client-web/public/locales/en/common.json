@@ -147,8 +147,9 @@
       }
     }
   },
-  "product": {
-    "products": "products"
+  "products": {
+    "products": "products",
+    "Products": "Products"
   },
   "plan": {
     "Select Your Plan": "Select Your Plan",
