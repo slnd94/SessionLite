@@ -23,9 +23,9 @@ export default function SelectPlan({ plans }) {
 
   return (
     <>
-      <div className="row mt-4 sticky-top">
+      <div className="row mt-2 pt-2 sticky-top" style={{opacity: '90%'}}>
         <div className="col-12">
-        <Progress value={25} striped={true} color="secondary" />
+          <Progress value={33} striped={true} color="secondary" />
         </div>
       </div>
       <div className="row mt-4">

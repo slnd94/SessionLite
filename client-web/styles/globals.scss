@@ -75,9 +75,15 @@ body {
   background-color: $lightest;
   border: 1px solid $lightest;
 
+  &.popular {
+  background-color: $primary;
+  color: $white;
+  }
+
   &:hover {
     transform: scale(1.0175);
   }
+
 }
 .list-item-link {
   cursor: pointer;

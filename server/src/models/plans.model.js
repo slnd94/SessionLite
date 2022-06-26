@@ -12,9 +12,10 @@ module.exports = function (app) {
     description: { type: String, required: true },
     features: [{ type: String }],
     paddlePlanId: { type: Number, required: true },
-    allowances: {
+    allowances: { 
       activeUsers: { type: Number, required: true }
-    }
+    },
+    tag: { type: String, required: false }
   }, {
     timestamps: true
   });

@@ -26,15 +26,15 @@ export default function Register() {
 
   return (
     <>
-    <div className="row mt-4">
-      <div className="col-12">
-        <Progress value={50} striped={true} color="secondary" />
+      <div className="row mt-2 pt-2 sticky-top" style={{ opacity: "90%" }}>
+        <div className="col-12">
+          <Progress value={66} striped={true} color="secondary" />
+        </div>
       </div>
-    </div>
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
           <div className="col-12 col-sm-6">
-              <h1 className={"title"}>{t("tenant.Register Your Business")}</h1>
+            <h1 className={"title"}>{t("tenant.Register Your Business")}</h1>
             <div className="">
               <TenantRegistrationForm
                 processing={processing}
@@ -45,7 +45,7 @@ export default function Register() {
 
                   // refresh with new data
                   await router.push(router.asPath);
-                  
+
                   setProcessing(false);
                 }}
               />
