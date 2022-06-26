@@ -10,6 +10,7 @@ const PlanList = ({ plans, onSelectPlan }) => {
         <div key={plan._id} className={`col-12 col-md-${Math.floor(12/plans.length)} d-flex justify-content-center`}>
           <Plan
             plan={plan}
+            className={plan.popular ? 'popular' : ''}
             onClick={() => {
               onSelectPlan(plan)
             }}
