@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ProductListItem from "../product/ProductListItem";
+import ProductListItem from "../products/ProductListItem";
 
 const UserCartItem = ({
   product,

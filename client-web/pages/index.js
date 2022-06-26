@@ -3,8 +3,6 @@ import { Context as TenantContext } from "../context/TenantContext";
 import { Context as AuthContext } from "../context/AuthContext";
 import styles from "../styles/Home.module.scss";
 import Link from "next/link";
-import PaginatedList from "../components/PaginatedList";
-import ProductListItem from "../components/product/ProductListItem";
 import api from "../utils/api";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -17,37 +15,6 @@ export default function Home() {
   const {
     state: { tenant },
   } = useContext(TenantContext);
-  const [products, setProducts] = useState(null);
-  const [requestingProducts, setRequestingProducts] = useState(false);
-  const productsPerPage = 5;
-
-  const fetchProducts = async ({ skip, limit }) => {
-    setRequestingProducts(true);
-    const response = await api({
-      method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/products`,
-      params: {
-        $skip: skip,
-        $limit: limit,
-      },
-    });
-
-    if (response.status >= 200 && response.status < 300) {
-      setProducts(response.data);
-      setRequestingProducts(false);
-      return { success: true };
-    } else {
-      setProducts(null);
-      setRequestingProducts(false);
-      return { success: false };
-    }
-  };
-
-  useEffect(() => {
-    let isSubscribed = true;
-    fetchProducts({ skip: 0, limit: productsPerPage }).catch(console.error);
-    return () => (isSubscribed = false);
-  }, []);
 
   return (
     <div className="row">
@@ -62,6 +29,8 @@ export default function Home() {
             <br />
             <Link href="/auth/signup">{t("auth.Sign up")}</Link>
             <br />
+            <Link href="/products">{t("products.Products")}</Link>
+            <br />
             <Link href="/tenant/register/selectplan">
               {t("tenant.Register Your Business")}
             </Link>
@@ -70,30 +39,6 @@ export default function Home() {
               {t("tenant.Plan Checkout")}
             </Link>
           </div>
-        ) : (
-          <></>
-        )}
-        {products ? (
-          <>
-            <PaginatedList
-              items={products}
-              itemComponent={ProductListItem}
-              itemPropName={"product"}
-              itemsListedName={t("product.products")}
-              itemsPerPage={productsPerPage}
-              showPaginationTop
-              showPaginationBottom
-              hidePaginationForSinglePage
-              requestItemsFunc={async ({ skip, limit }) => {
-                await fetchProducts({ skip, limit });
-              }}
-              requestingItems={requestingProducts}
-              itemNavRoute={"/product"}
-              showLink={true}
-              t={t}
-              // onRef={ref => (this.paginatedList = ref)}
-            />
-          </>
         ) : (
           <></>
         )}

@@ -2,8 +2,9 @@ import { Context as AuthContext } from "../../../context/AuthContext";
 import { Context as UserContext } from "../../../context/UserContext";
 import { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
-import ProductUserCart from "../../../components/product/ProductUserCart";
+import ProductUserCart from "../../../components/products/ProductUserCart";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import api from "../../../utils/api";
 import { useRouter } from "next/router";
@@ -24,6 +25,7 @@ export default function Product({ product }) {
 
   return (
     <>
+      <Link href="/products">{t("products.Products")}</Link>
       {product ? (
         <div>
           <div className="row mt-3">
