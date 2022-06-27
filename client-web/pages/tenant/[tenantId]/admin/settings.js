@@ -12,7 +12,7 @@ import styles from "../../../../styles/Tenant.module.scss";
 export default function Users() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { tenantKey } = router.query;
+  const { tenantId } = router.query;
   const {
     state: { tenant },
   } = useContext(TenantContext);

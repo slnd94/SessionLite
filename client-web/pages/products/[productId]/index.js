@@ -13,7 +13,7 @@ import styles from "../../../styles/User.module.scss";
 export default function Product({ product }) {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { productKey } = router.query;
+  const { productId } = router.query;
   const { getUserCart } = useContext(UserContext);
   const {
     state: { auth },
@@ -57,7 +57,7 @@ export default function Product({ product }) {
                           method: "patch",
                           url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
                           params: {
-                            addProduct: productKey,
+                            addProduct: productId,
                           },
                         });
                         if (
@@ -88,7 +88,7 @@ export default function Product({ product }) {
                           method: "patch",
                           url: `${process.env.NEXT_PUBLIC_API_URL}/user-carts/${auth.user._id}`,
                           params: {
-                            removeProduct: productKey,
+                            removeProduct: productId,
                           },
                         });
                         if (
@@ -132,14 +132,14 @@ export default function Product({ product }) {
 
 export const getServerSideProps = async ({
   locale,
-  params: { productKey },
+  params: { productId },
   req: {
     cookies: { accessToken },
   },
 }) => {
   const response = await api({
     method: "get",
-    url: `${process.env.NEXT_PUBLIC_API_URL}/products/${productKey}`,
+    url: `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`,
     accessToken,
   });
 
