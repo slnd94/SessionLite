@@ -19,5 +19,6 @@
   "fileStackApiKey": "fileStackApiKey",
   "fileStackAppSecret": "fileStackAppSecret",
   "paddleApiBaseUrl": "paddleApiBaseUrl",
-  "defaultUserCountryCode": "defaultUserCountryCode"
+  "defaultUserCountryCode": "defaultUserCountryCode",
+  "filestackApiBaseUrl": "filestackApiBaseUrl"
 }
