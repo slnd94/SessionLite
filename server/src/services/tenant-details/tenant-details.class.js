@@ -44,7 +44,7 @@ exports.TenantDetails = class TenantDetails {
         // delete the old logo
         const deleteResponse = await api({
           method: "delete",
-          url: `https://www.filestackapi.com/api/file/${tenant.logo.handle}?key=${this.app.get('fileStackApiKey')}&policy=${deleteAuth.policy}&signature=${deleteAuth.signature}`
+          url: `${this.app.get('filestackApiBaseUrl')}/file/${tenant.logo.handle}?key=${this.app.get('fileStackApiKey')}&policy=${deleteAuth.policy}&signature=${deleteAuth.signature}`
         });
       }
 
