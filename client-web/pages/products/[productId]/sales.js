@@ -15,7 +15,7 @@ import styles from "../../../styles/User.module.scss";
 export default function Profile() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { productkey } = router.query;
+  const { productId } = router.query;
 
   return (
     <div>
@@ -24,7 +24,7 @@ export default function Profile() {
           <div className="col-12">
             <div className="section-box">
               <h5 className={"title"}>
-                {t("user.Your Profile")}hihihi key is {productkey}
+                {t("user.Your Profile")}hihihi key is {productId}
               </h5>
               This is the sales route
             </div>
