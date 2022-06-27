@@ -13,7 +13,7 @@ import { Button } from "reactstrap";
 export default function Layout({ children }) {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { tenantKey } = router.query;
+  const { tenantId } = router.query;
   const {
     state: { tenant },
     getTenant,
@@ -24,14 +24,14 @@ export default function Layout({ children }) {
   const [userAuthorized, setUserAuthorized] = useState(false);
 
   useEffect(() => {
-    if (tenant && tenant._id !== tenantKey) {
+    if (tenant && tenant._id !== tenantId) {
       router.push(`/tenant/${tenant._id}`);
       getTenant({ id: tenant._id });
     }
 
-    if (!tenant || tenant._id !== tenantKey) {
-      // the context tenant needs to be set to match the tenantKey
-      getTenant({ id: tenantKey });
+    if (!tenant || tenant._id !== tenantId) {
+      // the context tenant needs to be set to match the tenantId
+      getTenant({ id: tenantId });
     }
 
     // ensure the user is authorized to be here, and redirect them if not authorized

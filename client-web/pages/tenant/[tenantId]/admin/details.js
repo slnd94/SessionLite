@@ -16,7 +16,7 @@ import styles from "../../../../styles/Tenant.module.scss";
 export default function Details() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { tenantKey } = router.query;
+  const { tenantId } = router.query;
   const {
     state: { tenant },
     updateTenantDetails,
@@ -46,11 +46,11 @@ export default function Details() {
                 setProcessing(true);
                 const request = await updateTenantDetails({
                   ...data,
-                  id: tenantKey,
+                  id: tenantId,
                 });
                 if (request.success) {
                   // update the auth context, since user object likely needs update
-                  getTenant({ id: tenantKey });
+                  getTenant({ id: tenantId });
 
                   // remove the loading indicator
                   setProcessing(false);

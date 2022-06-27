@@ -14,7 +14,7 @@ import styles from "../../../styles/User.module.scss";
 export default function Tenant() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { tenantKey } = router.query;
+  const { tenantId } = router.query;
   const {
     state: { tenant },
   } = useContext(TenantContext);
@@ -31,7 +31,7 @@ export default function Tenant() {
       method: "get",
       url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-rooms`,
       params: {
-        tenant: tenantKey,
+        tenant: tenantId,
         $skip: skip,
         $limit: limit,
       },
@@ -51,7 +51,7 @@ export default function Tenant() {
   useEffect(() => {
     if (tenant && auth?.status === "SIGNED_IN") {
       const { isMember } = useTenantUserAuth({
-        tenant: { _id: tenantKey },
+        tenant: { _id: tenantId },
         auth,
       });
       if (isMember) {

@@ -12,7 +12,7 @@ import styles from "../../../../styles/Tenant.module.scss";
 export default function Users() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { tenantKey } = router.query;
+  const { tenantId } = router.query;
   const {
     state: { tenant },
   } = useContext(TenantContext);
@@ -24,7 +24,7 @@ export default function Users() {
     <Layout>
       <div className="row mt-0 ms-md-3">
         <div className="col-12">
-          <h3 className={"title"}>{t("tenant.admin.Templates")}</h3>
+          <h3 className={"title"}>{t("tenant.admin.Clients")}</h3>
         </div>
       </div>
     </Layout>
