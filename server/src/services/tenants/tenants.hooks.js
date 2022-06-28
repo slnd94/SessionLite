@@ -4,7 +4,8 @@ const { iff, isProvider, keep, disallow } = require('feathers-hooks-common');
 const keepFieldsExternal = [
   '_id',
   'name',
-  'logo'
+  'logo',
+  'plan'
 ]
 
 module.exports = {
