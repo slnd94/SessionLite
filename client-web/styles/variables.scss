@@ -38,8 +38,8 @@ $charcoal: #323338 !default;
 $water: #4e5d6c !default;
 $brown: rgb(108, 89, 78);
 
-$primary: $charcoal !default;
-$secondary: $pink !default;
+$primary: $teal-100 !default;
+$secondary: $cyan !default;
 $success: $secondary !default;
 $success-light: lighten($success, 30%) !default;
 $info: $blue-200 !default;

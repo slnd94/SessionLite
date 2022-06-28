@@ -16,6 +16,7 @@ const tenantRooms = require('./tenant-rooms/tenant-rooms.service.js');
 const tenantDetails = require('./tenant-details/tenant-details.service.js');
 const fileAuth = require('./file-auth/file-auth.service.js');
 const plans = require('./plans/plans.service.js');
+const planWebhooks = require('./plan-webhooks/plan-webhooks.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -36,4 +37,5 @@ module.exports = function (app) {
   app.configure(tenantDetails);
   app.configure(fileAuth);
   app.configure(plans);
+  app.configure(planWebhooks);
 };

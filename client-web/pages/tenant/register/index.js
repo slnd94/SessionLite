@@ -28,7 +28,7 @@ export default function Register() {
     <>
       <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
         <div className="col-12">
-          <Progress value={25} striped={true} color="secondary" />
+          <Progress value={20} striped={true} color="secondary" />
         </div>
       </div>
       {auth?.status === "SIGNED_OUT" ? (
