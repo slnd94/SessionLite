@@ -1,13 +1,13 @@
-import { Context as TenantContext } from "../../context/TenantContext";
-import { Context as AuthContext } from "../../context/AuthContext";
+import { Context as TenantContext } from "../../../context/TenantContext";
+import { Context as AuthContext } from "../../../context/AuthContext";
 import { useState, useContext } from "react";
-import TenantRegistrationForm from "../../components/tenant/TenantRegistrationForm";
+import TenantRegistrationForm from "../../../components/tenant/TenantRegistrationForm";
 import Link from "next/link";
 import { Alert, Progress } from "reactstrap";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import styles from "../../styles/Tenant.module.scss";
+import styles from "../../../styles/Tenant.module.scss";
 
 export default function Register() {
   const { t } = useTranslation("common");
@@ -26,9 +26,9 @@ export default function Register() {
 
   return (
     <>
-      <div className="row mt-2 pt-2 sticky-top" style={{ opacity: "90%" }}>
+      <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
         <div className="col-12">
-          <Progress value={66} striped={true} color="secondary" />
+          <Progress value={25} striped={true} color="secondary" />
         </div>
       </div>
       {auth?.status === "SIGNED_OUT" ? (
@@ -83,7 +83,7 @@ export default function Register() {
           {!auth.user.isVerified ? (
             <p>
               {t(
-                "user.account.verification.We will need to verify your account. You should receive an email with a verification link."
+                "user.account.verification.We need to verify your account. You should receive an email with a verification link."
               )}
             </p>
           ) : (

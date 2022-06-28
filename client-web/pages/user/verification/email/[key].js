@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Context as TenantContext } from "../../../../context/TenantContext";
 import { Context as AuthContext } from "../../../../context/AuthContext";
 import { Context as UserContext } from "../../../../context/UserContext";
+import useTenantUserAuth from "../../../../hooks/useTenantUserAuth";
 import styles from "../../../../styles/User.module.scss";
 import Link from "next/link";
 import { Alert, Button } from "reactstrap";
@@ -23,6 +24,8 @@ export default function VerifyEmail() {
   const [verifiedStatus, setVerifiedStatus] = useState("");
   const [verificationResentSuccess, setVerificationResentSuccess] =
     useState(false);
+    const [userTenantAdminAuthorized, setUserTenantAdminAuthorized] =
+      useState(false);
   const router = useRouter();
   const { key } = router.query;
 
@@ -55,6 +58,19 @@ export default function VerifyEmail() {
     }
   }, [auth]);
 
+  useEffect(() => {
+    if (tenant && auth?.status === "SIGNED_IN") {
+      const { isAdmin } = useTenantUserAuth({ tenant, auth });
+      if (isAdmin) {
+        setUserTenantAdminAuthorized(true);
+      } else {
+        setUserTenantAdminAuthorized(false);
+      }
+    } else {
+      setUserTenantAdminAuthorized(false);
+    }
+  }, [auth, tenant]);
+
   return (
     <div className="row mt-3 mt-md-0 ms-md-3">
       {auth?.status === "SIGNED_IN" ? (
@@ -68,9 +84,14 @@ export default function VerifyEmail() {
               <p>
                 {tenant ? (
                   <>
-                    <Link href={`/tenant/${tenant._id}`}>
-                      {t("tenant.Tenant Home")}
-                    </Link>
+                    {userTenantAdminAuthorized && !tenant.plan
+                    ?<Link href={`/tenant/register/plan`}>
+                    {t("tenant.Continue")}
+                  </Link>:
+                  <Link href={`/tenant/${tenant._id}`}>
+                  {t("tenant.Tenant Home")}
+                </Link>}
+                    
                     <br />
                   </>
                 ) : (

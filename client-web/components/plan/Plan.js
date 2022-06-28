@@ -4,11 +4,11 @@ import { useTranslation } from "next-i18next";
 import Amount from "../commerce/Amount";
 import { Button, Badge } from "reactstrap";
 
-const Plan = ({ plan, onClick, className }) => {
+const Plan = ({ plan, onClick, className, button, showTag }) => {
   const { t } = useTranslation("common");
   return (
     <div className={`row list-item-box mb-2 ${className}`}>
-      {plan.tag && (
+      {plan.tag && showTag ? (
         <Badge
           color="primary"
           size="xl"
@@ -17,6 +17,8 @@ const Plan = ({ plan, onClick, className }) => {
         >
           <h5>{t(`plan.${plan.tag}`)}</h5>
         </Badge>
+      ) : (
+        <></>
       )}
       <h1 className={"title"}>{plan.name}</h1>
 
@@ -39,22 +41,27 @@ const Plan = ({ plan, onClick, className }) => {
           t={t}
         />
         <sup className="ms-1 fs-6">
-          /{t(`plan.${plan.subscription.interval}`)}
+          ({plan.subscription.currency})/{t(`plan.${plan.subscription.interval}`)}
         </sup>
       </div>
       <div>{t("plan.Including taxes and fees")}</div>
-      <div className="mt-3">
-        <Button
-          className={"btn-block-md-down"}
-          size="lg"
-          color="secondary"
-          onClick={() => {
-            onClick();
-          }}
-        >
-          {t("plan.Select this plan")}
-        </Button>
-      </div>
+      {button ? (
+        <div className="mt-3">
+          <Button
+            className={"btn-block-md-down"}
+            size="lg"
+            // color="secondary"
+            color={plan.tag ? "primary" : "secondary"}
+            onClick={() => {
+              button.onClick();
+            }}
+          >
+            {button.label}
+          </Button>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
@@ -64,6 +71,8 @@ Plan.propTypes = {
   onSelectPlan: PropTypes.func,
 };
 
-Plan.defaultProps = {};
+Plan.defaultProps = {
+  showTag: true,
+};
 
 export default Plan;

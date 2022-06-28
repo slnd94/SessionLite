@@ -12,7 +12,8 @@ module.exports = function (app) {
       handle: { type: String, required: false }
     },
     createdByUser: { type : Schema.Types.ObjectId, ref: 'users', required: false },
-    adminUsers: [{ type : Schema.Types.ObjectId, ref: 'users', required: true }]
+    adminUsers: [{ type : Schema.Types.ObjectId, ref: 'users', required: true }],
+    plan: { type : Schema.Types.ObjectId, ref: 'plans', required: false }
   }, {
     timestamps: true
   });
