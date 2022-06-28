@@ -19,7 +19,7 @@ const SelectPlan = ({}) => {
   } = useContext(AuthContext);
   const {
     state: { tenant },
-    getTenant
+    getTenant,
   } = useContext(TenantContext);
   const { setUserEmailVerification } = useContext(UserContext);
   const [processingCheckoutSuccess, setProcessingCheckoutSuccess] =
@@ -62,10 +62,10 @@ const SelectPlan = ({}) => {
     if (selectedPlan) {
       Paddle.Checkout.open({
         product: selectedPlan.paddlePlanId,
-        // method: "overlay",
-        // frameTarget: "paddle-inline-checkout",
+        method: "inline",
+        frameTarget: "paddle-inline-checkout",
         // frameInitialHeight: 416,
-        // frameStyle: "width:100%;",
+        frameStyle: "width:100%;",
         email: auth?.user?.email,
         passthrough: `{"user_id": "${auth?.user?._id}", "plan_id": "${selectedPlan._id}"}`,
         // eventCallback: (data) => {
@@ -99,7 +99,7 @@ const SelectPlan = ({}) => {
                 clearInterval(checkInterval);
                 setCheckoutSuccess(true);
                 getTenant();
-                router.push(router.asPath)
+                router.push(router.asPath);
               }
               // setPlans(response.data.data);
               // setRequestingPlans(false);
@@ -123,49 +123,55 @@ const SelectPlan = ({}) => {
       {selectedPlan ? (
         <>
           {checkoutSuccess ? (
-            <div className="col-12 col-md-6 d-flex justify-content-center align-content-center">
-              Success!!!!
+            <div className="row mt-2 pt-2">
+              <div className="col-12 d-flex justify-content-center align-content-center">
+                Success!!!!
+              </div>
             </div>
           ) : (
             <>
-              <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
-                <div className="col-12">
-                  <Progress value={80} striped={true} color="secondary" />
-                </div>
-              </div>
-              <div className="row mt-4">
-                <div className="col-12 col-sm-6">
-                  <h1>{t("plan.Selected Plan")}</h1>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-12 col-md-6">
-                  <Plan plan={selectedPlan} showTag={false} />
-                  {!checkoutSubmitted ? (
-                    <Button
-                      className="mt-4 btn-block-md-down"
-                      color="secondary"
-                      onClick={() => {
-                        setSelectedPlan(null);
-                        router.push(router.asPath);
-                      }}
-                    >
-                      {t("plan.Change selected plan")}
-                    </Button>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-                {processingCheckoutSuccess ? (
-                  <div className="col-12 col-md-6 d-flex justify-content-center align-content-center">
+              {processingCheckoutSuccess ? (
+                <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
+                  <div className="col-12 d-flex justify-content-center align-content-center">
                     <Loader />
                   </div>
-                ) : (
-                  <div className="col-12 col-md-6">
-                    <div className="paddle-inline-checkout pt-5"></div>
+                </div>
+              ) : (
+                <>
+                  <div className="row mt-2 pt-2">
+                    <div className="col-12">
+                      <Progress value={80} striped={true} color="secondary" />
+                    </div>
                   </div>
-                )}
-              </div>
+                  <div className="row mt-4">
+                    <div className="col-12 col-sm-6">
+                      <h1>{t("plan.Selected Plan")}</h1>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-12 col-md-6">
+                      <Plan plan={selectedPlan} showTag={false} />
+                      {!checkoutSubmitted ? (
+                        <Button
+                          className="mt-4 btn-block-md-down"
+                          color="secondary"
+                          onClick={() => {
+                            setSelectedPlan(null);
+                            router.push(router.asPath);
+                          }}
+                        >
+                          {t("plan.Change selected plan")}
+                        </Button>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <div className="paddle-inline-checkout pt-5"></div>
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
         </>

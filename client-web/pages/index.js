@@ -35,12 +35,13 @@ export default function Home() {
               {t("tenant.Register Your Business")}
             </Link>
             <br />
-            <Link href="/plans/checkout">
-              {t("tenant.Plan Checkout")}
-            </Link>
+            <Link href="/plans/checkout">{t("tenant.Plan Checkout")}</Link>
           </div>
         ) : (
-          <></>
+          <div>
+            <Link href="/products">{t("products.Products")}</Link>
+            <br />
+          </div>
         )}
       </div>
     </div>
