@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Context as AuthContext } from "../../context/AuthContext";
+import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as UserContext } from "../../context/UserContext";
 import api from "../../utils/api";
 import { useTranslation } from "next-i18next";
@@ -16,6 +17,10 @@ const SelectPlan = ({}) => {
   const {
     state: { auth },
   } = useContext(AuthContext);
+  const {
+    state: { tenant },
+    getTenant
+  } = useContext(TenantContext);
   const { setUserEmailVerification } = useContext(UserContext);
   const [processingCheckoutSuccess, setProcessingCheckoutSuccess] =
     useState(false);
@@ -93,6 +98,8 @@ const SelectPlan = ({}) => {
                 setProcessingCheckoutSuccess(false);
                 clearInterval(checkInterval);
                 setCheckoutSuccess(true);
+                getTenant();
+                router.push(router.asPath)
               }
               // setPlans(response.data.data);
               // setRequestingPlans(false);
