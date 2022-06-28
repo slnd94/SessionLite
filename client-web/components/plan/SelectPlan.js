@@ -105,7 +105,7 @@ const SelectPlan = ({}) => {
               setCheckoutSuccess(false);
               return { success: false };
             }
-          }, 1000);
+          }, 5000);
         },
       });
     }
