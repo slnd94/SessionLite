@@ -14,6 +14,7 @@ import styles from "../../styles/Layout.module.scss";
 import TenantHeader from "./TenantHeader";
 import UserUnverified from "../user/UserUnverified";
 import PaddleLoader from "../commerce/PaddleLoader";
+import SelectPlan from "../plan/SelectPlan";
 
 function Layout({ children, brandName }) {
   const router = useRouter();
@@ -39,18 +40,19 @@ function Layout({ children, brandName }) {
 
   // get the user's cart and tenant if signed in
   useEffect(() => {
-
-    if(auth?.status) {
-
+    if (auth?.status) {
       if (auth.user?.tenant) {
         setTenant({ tenant: auth.user.tenant });
       }
 
-      if(auth.status === "SIGNED_IN" && auth.user?.isVerified) {
+      if (auth.status === "SIGNED_IN" && auth.user?.isVerified) {
         getUserCart({ id: auth.user._id });
       }
 
-      if(auth.status === "SIGNED_OUT" || (auth.status === "SIGNED_IN" && auth?.user?.isVerified)) {
+      if (
+        auth.status === "SIGNED_OUT" ||
+        (auth.status === "SIGNED_IN" && auth?.user?.isVerified)
+      ) {
         // get file auth
         getFileAuth();
       }
@@ -91,8 +93,8 @@ function Layout({ children, brandName }) {
   }, [auth, tenant]);
 
   const unverifiedUserAccount = () => {
-    return (auth.status === "SIGNED_IN" && !auth.user?.isVerified);
-  }
+    return auth.status === "SIGNED_IN" && !auth.user?.isVerified;
+  };
 
   return (
     <div className={styles.container}>
@@ -133,12 +135,23 @@ function Layout({ children, brandName }) {
           <></>
         ) : (
           <>
-            {unverifiedUserAccount() &&
-            router.pathname !== "/user/verification/email/[key]" &&
-            router.pathname !== "/auth/signout" ? (
-              <UserUnverified />
-            ) : (
+            {router.pathname === "/user/verification/email/[key]" ||
+            router.pathname === "/auth/signout" ? (
               <>{children}</>
+            ) : (
+              <>
+                {unverifiedUserAccount() ? (
+                  <UserUnverified />
+                ) : (
+                  <>
+                    {userTenantAdminAuthorized && !tenant.plan ? (
+                      <SelectPlan />
+                    ) : (
+                      <>{children}</>
+                    )}
+                  </>
+                )}
+              </>
             )}
           </>
         )}

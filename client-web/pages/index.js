@@ -31,7 +31,7 @@ export default function Home() {
             <br />
             <Link href="/products">{t("products.Products")}</Link>
             <br />
-            <Link href="/tenant/register/selectplan">
+            <Link href="/tenant/register">
               {t("tenant.Register Your Business")}
             </Link>
             <br />

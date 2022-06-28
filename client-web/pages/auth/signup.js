@@ -84,7 +84,7 @@ export default function Signup() {
           {!auth.user.isVerified ? (
             <p>
               {t(
-                "user.account.verification.We will need to verify your account. You should receive an email with a verification link."
+                "user.account.verification.We need to verify your account. You should receive an email with a verification link."
               )}
             </p>
           ) : (

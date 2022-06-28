@@ -98,7 +98,7 @@
     "Invalid current password": "Invalid current password",
     "account": {
       "verification": {
-        "We will need to verify your account. You should receive an email with a verification link.": "We will need to verify your account. You should receive an email with a verification link.",
+        "We need to verify your account. You should receive an email with a verification link.": "We need to verify your account. You should receive an email with a verification link.",
         "Your account has been verified": "Your account has been verified",
         "Your account could not be verified": "Your account could not be verified",
         "The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.": "The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.",
@@ -156,7 +156,9 @@
     "Select this plan": "Select this plan",
     "Including taxes and fees": "Including taxes and fees",
     "Most Popular": "Most Popular",
-    "month": "month"
+    "month": "month",
+    "Selected Plan": "Selected Plan",
+    "Change selected plan": "Change selected plan"
   },
   "checkout": {
     "Checkout": "Checkout",
