@@ -59,6 +59,9 @@ const SelectPlan = ({}) => {
         // frameInitialHeight: 416,
         frameStyle: "width:100%;",
         email: auth?.user?.email,
+        successCallback: (resp) => {
+          console.log("🚀 ~ file: SelectPlan.js ~ line 63 ~ useEffect ~ resp", resp)
+        }
       });
     }
   }, [selectedPlan]);
