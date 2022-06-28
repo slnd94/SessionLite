@@ -28,7 +28,8 @@ exports.AuthUser = class AuthUser {
         ? {tenant: {
           _id: tenant._id,
           name: tenant.name,
-          logo: tenant.logo
+          logo: tenant.logo,
+          plan: tenant.plan
         }} : {})
     }
   }
