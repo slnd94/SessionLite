@@ -30,6 +30,7 @@ $blue-300: #67B2F2 !default;
 $purple-100: #6610f2 !default;
 $purple-200: #9365b8 !default;
 $pink: #ef2985 !default;
+$salmon: #e7abba !default;
 $teal-100: #20c997 !default;
 $teal-200: #74cccc !default;
 $cyan: #4d9ace !default;
@@ -39,7 +40,7 @@ $water: #4e5d6c !default;
 $brown: rgb(108, 89, 78);
 
 $primary: $charcoal !default;
-$secondary: $blue-200 !default;
+$secondary: $orange-100 !default;
 $success: $secondary !default;
 $success-light: lighten($success, 30%) !default;
 $info: $blue-200 !default;

@@ -32,10 +32,76 @@ function Layout({ children, brandName }) {
 
   const [userTenantAdminAuthorized, setUserTenantAdminAuthorized] =
     useState(false);
+  const [showChildren, setShowChildren] = useState(false);
+  const [showUserVerification, setShowUserVerification] = useState(false);
+  const [showSelectTenantPlan, setShowSelectTenantPlan] = useState(false);
+
+  const setDisposition = () => {
+    setShowUserVerification(false);
+    setShowSelectTenantPlan(false);
+    setShowChildren(false);
+
+    if (auth?.status) {
+      if (
+        router.pathname === "/user/verification/email/[key]" ||
+        router.pathname === "/auth/signout"
+      ) {
+        setShowChildren(true);
+      } else {
+        if (auth.status === "SIGNED_OUT") {
+          // user is signed out, show the app
+          setShowChildren(true);
+        } else if (auth.status === "SIGNED_IN") {
+          if (!auth.user.isVerified) {
+            setShowUserVerification(true);
+          } else {
+            if (auth.user.tenant) {
+              if (tenant) {
+                // correct tenant check here
+                if (auth.user.tenant._id !== tenant._id) {
+                  // the user is signed in but trying to access a tenant that does not match their account.
+                  // set the tenant accordingly and redirect to the root page
+                  getTenant({ id: auth.user.tenant._id });
+                  router.push("/");
+                  return;
+                }
+                const { isAdmin } = useTenantUserAuth({ tenant, auth });
+                if (isAdmin) {
+                  setUserTenantAdminAuthorized(true);
+                  if (!tenant.plan) {
+                    // user is tenant admin in and the tenant needs a plan
+                    setShowSelectTenantPlan(true);
+                  } else {
+                    setShowChildren(true);
+                  }
+                } else {
+                  setUserTenantAdminAuthorized(false);
+                  setShowChildren(true);
+                }
+              } else {
+                // user is signed in but there is no tenant in state
+              }
+            } else {
+              // user is signed in but has no tenant
+              // ensure no tenant
+              if (tenant) {
+                setTenant({ tenant: null });
+              }
+              setShowChildren(true);
+            }
+          }
+        } else {
+          // no valid sign in status
+          setShowChildren(false);
+        }
+      }
+    }
+  };
 
   // get the auth user
   useEffect(() => {
     getAuth();
+    setDisposition();
   }, []);
 
   // get the user's cart and tenant if signed in
@@ -63,34 +129,12 @@ function Layout({ children, brandName }) {
     getFileAuth();
   }, 240000); // 4 mins
 
-  // ensure the appropriate tenant is loaded for user
+  // ensure the appropriate content is loaded for user
   useEffect(() => {
-    if (
-      tenant &&
-      auth?.status === "SIGNED_IN" &&
-      auth?.user?.tenant?._id !== tenant._id
-    ) {
-      // the user is signed in but trying to access a tenant that does not match their account.
-      // set the tenant accordingly and redirect to the root page
-      if (auth?.user?.tenant) {
-        getTenant({ id: auth.user.tenant._id });
-      } else {
-        setTenant({ tenant: null });
-      }
-      router.push("/");
-    }
+    setDisposition();
+  }, [auth, tenant, router]);
 
-    if (tenant && auth?.status === "SIGNED_IN") {
-      const { isAdmin } = useTenantUserAuth({ tenant, auth });
-      if (isAdmin) {
-        setUserTenantAdminAuthorized(true);
-      } else {
-        setUserTenantAdminAuthorized(false);
-      }
-    } else {
-      setUserTenantAdminAuthorized(false);
-    }
-  }, [auth, tenant]);
+
 
   const unverifiedUserAccount = () => {
     return auth.status === "SIGNED_IN" && !auth.user?.isVerified;
@@ -130,31 +174,10 @@ function Layout({ children, brandName }) {
       ) : (
         <></>
       )}
-      <main className={`${styles.main} p-4 px-md-5 py-md-4`}>
-        {!auth?.status ? (
-          <></>
-        ) : (
-          <>
-            {router.pathname === "/user/verification/email/[key]" ||
-            router.pathname === "/auth/signout" ? (
-              <>{children}</>
-            ) : (
-              <>
-                {unverifiedUserAccount() ? (
-                  <UserUnverified />
-                ) : (
-                  <>
-                    {userTenantAdminAuthorized && !tenant.plan ? (
-                      <SelectPlan />
-                    ) : (
-                      <>{children}</>
-                    )}
-                  </>
-                )}
-              </>
-            )}
-          </>
-        )}
+      <main className={`${styles.main} mt-5 px-4 px-md-5 py-1`}>
+        {showUserVerification ? <UserUnverified /> : <></>}
+        {showSelectTenantPlan ? <SelectPlan /> : <></>}
+        {showChildren ? <>{children}</> : <></>}
       </main>
       <Footer />
     </div>
