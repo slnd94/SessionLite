@@ -18,6 +18,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Button,
 } from "reactstrap";
 import Loader from "../Loader";
 import { getFullName } from "../../helpers/nameHelpers";
@@ -47,7 +48,7 @@ function Header({ brandName }) {
 
   return (
     <div>
-      <Navbar className="navbar-dark bg-primary" color="faded" expand="sm">
+      <Navbar className={`navbar-dark bg-primary ${auth?.status === "SIGNED_OUT" ? "fixed-top" : ""}`} color="faded" expand="sm">
         <NavbarBrand href="/" className="mr-auto">
           <Image
             src="/images/siteLogoSmall.png"
@@ -118,11 +119,20 @@ function Header({ brandName }) {
                   </NavItem>
                 </>
               ) : auth?.status === "SIGNED_OUT" ? (
-                <NavItem>
-                  <Link href="/auth/signin" passHref>
-                    <NavLink>{t("auth.Sign in")}</NavLink>
-                  </Link>
-                </NavItem>
+                <>
+                  <NavItem className="m-0 p-0">
+                    <Link href="/tenant/register" className="m-0 p-0" passHref>
+                      <NavLink className="m-0 p-0">
+                        <Button size="lg" color="secondary" className="m-0">{t("tenant.Try it Free")}</Button>
+                      </NavLink>
+                    </Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link href="/auth/signin" passHref>
+                      <NavLink>{t("auth.Sign in")}</NavLink>
+                    </Link>
+                  </NavItem>
+                </>
               ) : (
                 <></>
               )}

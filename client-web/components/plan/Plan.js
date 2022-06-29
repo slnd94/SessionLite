@@ -20,7 +20,7 @@ const Plan = ({ plan, onClick, className, button, showTag }) => {
       ) : (
         <></>
       )}
-      <h1 className={"title"}>{plan.name}</h1>
+      <h4 className={"title"}>{plan.name}</h4>
 
       <div className="fs-6 fw-bold">{plan.description}</div>
       <div className="mt-3">
