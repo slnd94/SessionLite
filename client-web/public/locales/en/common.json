@@ -162,8 +162,12 @@
     "Most Popular": "Most Popular",
     "month": "month",
     "Selected Plan": "Selected Plan",
-    "Change selected plan": "Change selected plan",
-    "Checkout": "Checkout"
+    "Change plan": "Change plan",
+    "You will be billed now and then again once per month": "You will be billed now and then again once per month",
+    "Checkout": "Checkout",
+    "Confirm": "Confirm",
+    "Success!": "Success!",
+    "You are all set up": "You are all set up"
   },
   "checkout": {
     "Checkout": "Checkout",

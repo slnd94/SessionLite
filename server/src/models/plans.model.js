@@ -15,7 +15,13 @@ module.exports = function (app) {
     allowances: { 
       activeUsers: { type: Number, required: true }
     },
-    tag: { type: String, required: false }
+    tag: { type: String, required: false },
+    recurringInterval: {
+      type: Number,
+      enum: ['day', 'week', 'month', 'year'],
+      required: true
+    },
+    requiresCheckout: { type: Boolean, required: true }
   }, {
     timestamps: true
   });

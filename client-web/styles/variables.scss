@@ -37,6 +37,7 @@ $salmon: #e7abba !default;
 $teal-100: #20c997 !default;
 $teal-200: #74cccc !default;
 $cyan: #4d9ace !default;
+$lime: #54ce4d !default;
 
 $charcoal: #323338 !default;
 $water: #4e5d6c !default;
@@ -58,7 +59,7 @@ $lightest: $gray-500 !default;
 // // Body
 
 $body-bg: $white !default;
-$body-color: $gray-100 !default;
+$body-color: $primary !default;
 $body-color-light: lighten($body-color, 30%) !default;
 // $body-color:                #2B3E50 !default;
 $font-size-base: 1rem;
