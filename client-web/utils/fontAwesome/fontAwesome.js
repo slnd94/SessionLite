@@ -8,6 +8,7 @@ import faCreditCard from "@fortawesome/fontawesome-free-solid/faCreditCard";
 import faStripe from "@fortawesome/fontawesome-free-brands/faStripe";
 import faHeart from "@fortawesome/fontawesome-free-solid/faHeart";
 import faUser from "@fortawesome/fontawesome-free-solid/faUser";
+import faUsers from "@fortawesome/fontawesome-free-solid/faUsers";
 import faUserCircle from "@fortawesome/fontawesome-free-solid/faUserCircle";
 import faSlidersH from "@fortawesome/fontawesome-free-solid/faSlidersH";
 import faBuilding from "@fortawesome/fontawesome-free-solid/faBuilding";
@@ -69,6 +70,7 @@ export const icons = {
   plan: faReceipt,
   report: faChartPie,
   user: faUser,
+  users: faUsers,
   profile: faUser,
   account: faSlidersH,
   settings: faCog,

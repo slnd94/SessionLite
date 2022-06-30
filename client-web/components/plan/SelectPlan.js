@@ -10,6 +10,7 @@ import Loader from "../Loader";
 import PlanList from "./PlanList";
 import Plan from "./Plan";
 import { useRouter } from "next/router";
+import IconText from "../IconText";
 
 const SelectPlan = ({}) => {
   const { t } = useTranslation("common");
@@ -132,13 +133,16 @@ const SelectPlan = ({}) => {
                       {!checkoutSubmitted ? (
                         <Button
                           className="mt-4 btn-block-md-down"
-                          color="secondary"
+                          color="default"
                           onClick={() => {
                             setSelectedPlan(null);
                             router.push(router.asPath);
                           }}
                         >
-                          {t("plan.Change selected plan")}
+                          <IconText
+                            icon="arrowLeft"
+                            text={t("plan.Change selected plan")}
+                          />
                         </Button>
                       ) : (
                         <></>

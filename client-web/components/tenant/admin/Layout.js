@@ -67,7 +67,7 @@ export default function Layout({ children }) {
     },
     {
       slug: `users`,
-      icon: "user",
+      icon: "users",
       labelPills: t("Users"),
       labelTabs: t("Users"),
     },
