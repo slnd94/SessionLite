@@ -23,10 +23,14 @@ const SelectPlan = ({}) => {
     getTenant,
   } = useContext(TenantContext);
   const { setUserEmailVerification } = useContext(UserContext);
+
+  const [view, setView] = useState("select");
+
   const [processingCheckoutSuccess, setProcessingCheckoutSuccess] =
     useState(false);
   const [checkoutSubmitted, setCheckoutSubmitted] = useState(false);
-  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [requestingPlans, setRequestingPlans] = useState(false);
   const [plans, setPlans] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -58,7 +62,7 @@ const SelectPlan = ({}) => {
   }, []);
 
   useEffect(() => {
-    if (selectedPlan) {
+    if (view === "checkout") {
       Paddle.Checkout.open({
         product: selectedPlan.paddlePlanId,
         method: "inline",
@@ -67,7 +71,7 @@ const SelectPlan = ({}) => {
         email: auth?.user?.email,
         passthrough: `{"user_id": "${auth?.user?._id}", "plan_id": "${selectedPlan._id}"}`,
         successCallback: (resp) => {
-          setProcessingCheckoutSuccess(true);
+          setView("processing");
           console.log(
             "🚀 ~ file: SelectPlan.js ~ line 63 ~ useEffect ~ resp",
             resp
@@ -79,112 +83,170 @@ const SelectPlan = ({}) => {
               method: "get",
               url: `${process.env.NEXT_PUBLIC_API_URL}/tenants/${auth?.user?.tenant?._id}`,
             });
-
             if (response.status >= 200 && response.status < 300) {
               if (response.data.plan === selectedPlan._id) {
-                setProcessingCheckoutSuccess(false);
+                // setProcessingCheckoutSuccess(false);
                 clearInterval(checkInterval);
-                setCheckoutSuccess(true);
+                // setShowSuccess(true);
+                setView("success");
                 getTenant();
                 router.push(router.asPath);
               }
               return { success: true };
             } else {
-              setProcessingCheckoutSuccess(false);
+              // setProcessingCheckoutSuccess(false);
               clearInterval(checkInterval);
-              setCheckoutSuccess(false);
+              setView("error");
+              // setShowSuccess(false);
               return { success: false };
             }
-          }, 5000);
+          }, 1000);
         },
       });
     }
-  }, [selectedPlan]);
+  }, [view]);
+
+  const Select = () => {
+    return (
+      <>
+        {plans ? (
+          <>
+            <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
+              <div className="col-12">
+                <Progress value={60} striped={true} color="secondary" />
+              </div>
+            </div>
+            <div className="row mt-4">
+              <div className="col-12">
+                <h3>{t("plan.Select Your Plan to Continue")}</h3>
+              </div>
+            </div>
+            <PlanList
+              plans={plans}
+              onSelectPlan={(plan) => {
+                setSelectedPlan(plan);
+                setView("confirm");
+                router.push(router.asPath);
+              }}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+  };
+
+  const Confirm = () => {
+    return (
+      <>
+        <div className="row mt-2 pt-2">
+          <div className="col-12">
+            <Progress value={80} striped={true} color="secondary" />
+          </div>
+        </div>
+        <div className="row mt-4">
+          <div className="col-12 col-md-6 mb-5">
+            <h3>{t("plan.Selected Plan")}</h3>
+            <Plan
+              plan={selectedPlan}
+              showTag={false}
+              showPaymentDetails={true}
+            />
+            <div className="d-flex justify-content-between">
+              <Button
+                className="mt-4 btn-block-md-down"
+                color="default"
+                onClick={() => {
+                  setView("select");
+                  setSelectedPlan(null);
+                  router.push(router.asPath);
+                }}
+              >
+                <IconText
+                  icon="arrowLeft"
+                  text={t("plan.Change plan")}
+                />
+              </Button>
+              {selectedPlan.requiresCheckout ? (
+                <Button
+                  className="mt-4 btn-block-md-down"
+                  color="default"
+                  onClick={() => {
+                    setView("checkout");
+                    // router.push(router.asPath);
+                  }}
+                >
+                  <IconText
+                    icon="arrowRight"
+                    iconEnd={true}
+                    text={t("plan.Checkout")}
+                  />
+                </Button>
+              ) : (
+                <Button
+                  className="mt-4 btn-block-md-down"
+                  color="default"
+                  onClick={() => {
+                    // apply the plan
+                    setView("success");
+                  }}
+                >
+                  <IconText
+                    icon="arrowRight"
+                    iconEnd={true}
+                    text={t("plan.Confirm")}
+                  />
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  const Checkout = () => {
+    return (
+      <>
+        <div className="row mt-2 pt-2">
+          <div className="col-12">
+            <Progress value={80} striped={true} color="secondary" />
+          </div>
+        </div>
+        <div className="row mt-4">
+          <div className="col-12 col-md-6 mb-5">
+            <h3>{t("plan.Selected Plan")}</h3>
+            <Plan
+              plan={selectedPlan}
+              showTag={false}
+              showPaymentDetails={true}
+            />
+          </div>
+          <div className="col-12 col-md-6">
+            <h3>{t("plan.Checkout")}</h3>
+            <div className="paddle-inline-checkout"></div>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  const Processing = () => {
+    return <>processing</>;
+  };
+
+  const Success = () => {
+    return <>success</>;
+  };
 
   return (
     <>
-      {selectedPlan ? (
-        <>
-          {checkoutSuccess ? (
-            <div className="row mt-2 pt-2">
-              <div className="col-12 d-flex justify-content-center align-content-center">
-                Success!!!!
-              </div>
-            </div>
-          ) : (
-            <>
-              {processingCheckoutSuccess ? (
-                <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
-                  <div className="col-12 d-flex justify-content-center align-content-center">
-                    <Loader />
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className="row mt-2 pt-2">
-                    <div className="col-12">
-                      <Progress value={80} striped={true} color="secondary" />
-                    </div>
-                  </div>
-                  <div className="row mt-4">
-                    <div className="col-12 col-md-6 mb-5">
-                      <h3>{t("plan.Selected Plan")}</h3>
-                      <Plan plan={selectedPlan} showTag={false} />
-                      {!checkoutSubmitted ? (
-                        <Button
-                          className="mt-4 btn-block-md-down"
-                          color="default"
-                          onClick={() => {
-                            setSelectedPlan(null);
-                            router.push(router.asPath);
-                          }}
-                        >
-                          <IconText
-                            icon="arrowLeft"
-                            text={t("plan.Change selected plan")}
-                          />
-                        </Button>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                    <div className="col-12 col-md-6">
-                      <h3>{t("plan.Checkout")}</h3>
-                      <div className="paddle-inline-checkout"></div>
-                    </div>
-                  </div>
-                </>
-              )}
-            </>
-          )}
-        </>
-      ) : (
-        <>
-          {plans ? (
-            <>
-              <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
-                <div className="col-12">
-                  <Progress value={60} striped={true} color="secondary" />
-                </div>
-              </div>
-              <div className="row mt-4">
-                <div className="col-12">
-                  <h3>{t("plan.Select Your Plan to Continue")}</h3>
-                </div>
-              </div>
-              <PlanList
-                plans={plans}
-                onSelectPlan={(plan) => {
-                  setSelectedPlan(plan);
-                  router.push(router.asPath);
-                }}
-              />
-            </>
-          ) : (
-            <></>
-          )}
-        </>
-      )}
+      {view === "select" ? <Select /> : <></>}
+      {view === "confirm" ? <Confirm /> : <></>}
+      {view === "checkout" ? <Checkout /> : <></>}
+      {view === "processing" ? <Processing /> : <></>}
+      {view === "success" ? <Success /> : <></>}
     </>
   );
 };

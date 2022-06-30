@@ -5,8 +5,13 @@ import Amount from "../commerce/Amount";
 import { Button, Badge } from "reactstrap";
 import IconText from "../IconText";
 
-const Plan = ({ plan, onClick, className, button, showTag }) => {
+const Plan = ({ plan, onClick, className, button, showTag, showPaymentDetails }) => {
   const { t } = useTranslation("common");
+
+  const getPlanPaymentDetailsString = () => {    
+    return(t(`plan.You will be billed now and then again once per ${plan.recurringInterval}`));
+  };
+
   return (
     <div className={`row list-item-box mb-2 ${className}`}>
       {plan.tag && showTag ? (
@@ -46,6 +51,10 @@ const Plan = ({ plan, onClick, className, button, showTag }) => {
         </sup>
       </div>
       <div>{t("plan.Including taxes and fees")}</div>
+      {showPaymentDetails 
+      ? <div>{getPlanPaymentDetailsString()}</div>
+      : <></>
+      }
       {button ? (
         <div className="mt-3">
           <Button
@@ -75,6 +84,7 @@ Plan.propTypes = {
 
 Plan.defaultProps = {
   showTag: true,
+  showPaymentDetails: false
 };
 
 export default Plan;

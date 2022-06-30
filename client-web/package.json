@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "lt": "lt --port 3000 --subdomain fnext-dev-web",
+    "lt": "lt --port 3000 --subdomain fnext-dev-web https",
     "build": "next build",
     "start": "next start -p $PORT",
     "lint": "next lint",
