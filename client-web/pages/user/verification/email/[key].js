@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 export default function VerifyEmail() {
   const { t } = useTranslation("common");
   const {
-    state: { tenant }
+    state: { tenant },
   } = useContext(TenantContext);
   const {
     state: { auth },
@@ -24,8 +24,8 @@ export default function VerifyEmail() {
   const [verifiedStatus, setVerifiedStatus] = useState("");
   const [verificationResentSuccess, setVerificationResentSuccess] =
     useState(false);
-    const [userTenantAdminAuthorized, setUserTenantAdminAuthorized] =
-      useState(false);
+  const [userTenantAdminAuthorized, setUserTenantAdminAuthorized] =
+    useState(false);
   const router = useRouter();
   const { key } = router.query;
 
@@ -80,28 +80,27 @@ export default function VerifyEmail() {
               <h4 color="success" fade={false}>
                 {t(`user.account.verification.Your account has been verified`)}
               </h4>
-              <h6>{t(`auth.What's next?`)}</h6>
               <p>
                 {tenant ? (
-                  <>
-                    {userTenantAdminAuthorized && !tenant.plan
-                    ?<Link href={`/tenant/register/plan`}>
-                    {t("tenant.Continue")}
-                  </Link>:
                   <Link href={`/tenant/${tenant._id}`}>
-                  {t("tenant.Tenant Home")}
-                </Link>}
-                    
-                    <br />
-                  </>
+                    <Button size="md" color="secondary" className="m-0">
+                      {userTenantAdminAuthorized && !tenant.plan
+                        ? t("Continue")
+                        : t("tenant.Home")}
+                    </Button>
+                  </Link>
                 ) : (
-                  <></>
+                  <Link href={"/"}>
+                    <Button size="md" color="secondary" className="m-0">
+                      {t("Home")}
+                    </Button>
+                  </Link>
                 )}
-                <Link href="/user/profile">
+                {/* <Link href="/user/profile">
                   {t("user.Manage your profile")}
                 </Link>
                 <br />
-                <Link href="/">{t("Browse content")}</Link>
+                <Link href="/">{t("Browse content")}</Link> */}
               </p>
             </div>
           ) : null}

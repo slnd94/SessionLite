@@ -11,7 +11,7 @@ function TenantHeader({ tenant, admin, fileAuth }) {
   const { t } = useTranslation("common");
   return (
     <div className="row m-0 py-2 tenant-header sticky-top">
-      <div className="d-flex col-11 justify-content-md-start align-items-center">
+      <div className="d-flex col-11 justify-content-md-start align-content-center">
         <h5 className="m-0">
           <Link href={`/tenant/${tenant._id}`}>
             <span style={{ cursor: "pointer" }}>

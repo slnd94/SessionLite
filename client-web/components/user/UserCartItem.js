@@ -18,7 +18,7 @@ const UserCartItem = ({
         customButtons={[
           {
             className: "btn-block-md-down",
-            color: "primary",
+            color: "default",
             label: t("user.cart.Remove from cart"),
             onClick: () => removeFromCartFunc(product._id),
           },

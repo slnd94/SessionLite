@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useTranslation } from "next-i18next";
 import Amount from "../commerce/Amount";
 import { Button, Badge } from "reactstrap";
+import IconText from "../IconText";
 
 const Plan = ({ plan, onClick, className, button, showTag }) => {
   const { t } = useTranslation("common");
@@ -56,7 +57,8 @@ const Plan = ({ plan, onClick, className, button, showTag }) => {
               button.onClick();
             }}
           >
-            {button.label}
+            <IconText icon="arrowRight" iconEnd={true} text={button.label} />
+            
           </Button>
         </div>
       ) : (
