@@ -47,6 +47,8 @@ exports.PlanWebhooks = class PlanWebhooks {
         console.log('here 400')
         const plan = plans.data[0];
         console.log("🚀 ~ file: plan-webhooks.class.js ~ line 49 ~ PlanWebhooks ~ create ~ plan", plan)
+        
+        // TODO: Once users are established add in the allowances check here
 
         // apply the specified plan to the tenant
         return await this.app.service('tenants')

@@ -9,6 +9,7 @@ import { Alert, Button } from "reactstrap";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import IconText from "../../../../components/IconText";
 
 export default function VerifyEmail() {
   const { t } = useTranslation("common");
@@ -85,7 +86,7 @@ export default function VerifyEmail() {
                   <Link href={`/tenant/${tenant._id}`}>
                     <Button size="md" color="secondary" className="m-0">
                       {userTenantAdminAuthorized && !tenant.plan
-                        ? t("Continue")
+                        ? <IconText icon="arrowRight" iconPosition="end" text={t("Continue")} />
                         : t("tenant.Home")}
                     </Button>
                   </Link>

@@ -11,7 +11,7 @@ module.exports = function (app) {
     name: { type: String, required: true },
     description: { type: String, required: true },
     features: [{ type: String }],
-    paddlePlanId: { type: Number, required: true },
+    paddlePlanId: { type: Number, required: false },
     allowances: { 
       activeUsers: { type: Number, required: true }
     },

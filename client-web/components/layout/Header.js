@@ -120,11 +120,9 @@ function Header({ brandName }) {
                 </>
               ) : auth?.status === "SIGNED_OUT" ? (
                 <>
-                  <NavItem className="m-0 p-0">
-                    <Link href="/tenant/register" className="m-0 p-0" passHref>
-                      <NavLink className="m-0 p-0">
-                        <Button size="md" color="secondary" className="m-0">{t("tenant.Try it Free")}</Button>
-                      </NavLink>
+                  <NavItem>
+                    <Link href="/tenant/register" passHref>
+                      <NavLink>{t("tenant.Try it Free")}</NavLink>
                     </Link>
                   </NavItem>
                   <NavItem>

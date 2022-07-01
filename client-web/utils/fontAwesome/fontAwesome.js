@@ -7,6 +7,7 @@ import faCartArrowDown from "@fortawesome/fontawesome-free-solid/faCartArrowDown
 import faCreditCard from "@fortawesome/fontawesome-free-solid/faCreditCard";
 import faStripe from "@fortawesome/fontawesome-free-brands/faStripe";
 import faHeart from "@fortawesome/fontawesome-free-solid/faHeart";
+import faHome from "@fortawesome/fontawesome-free-solid/faHome";
 import faUser from "@fortawesome/fontawesome-free-solid/faUser";
 import faUsers from "@fortawesome/fontawesome-free-solid/faUsers";
 import faUserCircle from "@fortawesome/fontawesome-free-solid/faUserCircle";
@@ -39,7 +40,7 @@ import faEye from "@fortawesome/fontawesome-free-regular/faEye";
 import faDollarSign from "@fortawesome/fontawesome-free-solid/faDollarSign";
 import faReceipt from "@fortawesome/fontawesome-free-solid/faReceipt";
 import faPencil from "@fortawesome/fontawesome-free-solid/faPencilAlt";
-import faCheckCircle from "@fortawesome/fontawesome-free-solid/faCheckCircle";
+import faCheckCircle from "@fortawesome/fontawesome-free-regular/faCheckCircle";
 import faCog from "@fortawesome/fontawesome-free-solid/faCog";
 import faBox from "@fortawesome/fontawesome-free-solid/faBox";
 import faLock from "@fortawesome/fontawesome-free-solid/faLock";
@@ -69,6 +70,7 @@ export const icons = {
   sale: faReceipt,
   plan: faReceipt,
   report: faChartPie,
+  home: faHome,
   user: faUser,
   users: faUsers,
   profile: faUser,

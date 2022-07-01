@@ -2,25 +2,25 @@ import React from "react";
 import PropTypes from "prop-types";
 import { icons, FontAwesomeIcon } from "../utils/fontAwesome/fontAwesome";
 
-const IconText = (props) => {
+const IconText = ({ className, style, icon, iconPosition, iconContainerClass, text, textContainerClass }) => {
   return (
     <div
-      className={`icon-text ${props.className}`}
-      style={{ ...props.style, whiteSpace: "nowrap", display: "inline-block" }}
+      className={`icon-text ${className}`}
+      style={{ ...style, whiteSpace: "nowrap", display: "inline-block" }}
     >
-      {props.icon && !props.iconEnd && (
-        <div className={`icon-text-icon ${props.iconContainerClass}`}>
-          <FontAwesomeIcon icon={icons[props.icon]} />
+      {icon && iconPosition === "start" && (
+        <div className={`icon-text-icon ${iconContainerClass}`}>
+          <FontAwesomeIcon icon={icons[icon]} />
         </div>
       )}
-      {props.text && (
-        <div className={`icon-text-text ${props.textContainerClass}`}>
-          {props.text}
+      {text && (
+        <div className={`icon-text-text ${textContainerClass}`}>
+          {text}
         </div>
       )}
-      {props.icon && props.iconEnd && (
-        <div className={`icon-text-icon ${props.iconContainerClass}`}>
-          <FontAwesomeIcon icon={icons[props.icon]} />
+      {icon && iconPosition === "end" && (
+        <div className={`icon-text-icon ${iconContainerClass}`}>
+          <FontAwesomeIcon icon={icons[icon]} />
         </div>
       )}
     </div>
@@ -28,16 +28,17 @@ const IconText = (props) => {
 };
 
 IconText.propTypes = {
+  className: PropTypes.string,
   icon: PropTypes.string,
   iconContainerClass: PropTypes.string,
   text: PropTypes.string,
   textContainerClass: PropTypes.string,
   style: PropTypes.object,
-  iconEnd: PropTypes.bool
+  iconPosition: PropTypes.bool
 };
 
 IconText.defaultProps = {
-  iconEnd: false
+  iconPosition: "start"
 };
 
 export default IconText;

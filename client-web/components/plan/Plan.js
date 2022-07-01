@@ -9,7 +9,7 @@ const Plan = ({ plan, onClick, className, button, showTag, showPaymentDetails })
   const { t } = useTranslation("common");
 
   const getPlanPaymentDetailsString = () => {    
-    return(t(`plan.You will be billed now and then again once per ${plan.recurringInterval}`));
+    return(t(`plan.You will be billed now, then once per ${plan.recurringInterval}`));
   };
 
   return (
@@ -43,7 +43,7 @@ const Plan = ({ plan, onClick, className, button, showTag, showPaymentDetails })
             currencyCode: plan.subscription.currency,
           }}
           className="mr-4"
-          style={{ fontSize: "2rem" }}
+          style={{ fontSize: "2.25rem" }}
           t={t}
         />
         <sup className="ms-1 fs-6">
@@ -52,7 +52,7 @@ const Plan = ({ plan, onClick, className, button, showTag, showPaymentDetails })
       </div>
       <div>{t("plan.Including taxes and fees")}</div>
       {showPaymentDetails 
-      ? <div>{getPlanPaymentDetailsString()}</div>
+      ? <div className="fw-bold mt-3">{getPlanPaymentDetailsString()}</div>
       : <></>
       }
       {button ? (
@@ -66,7 +66,7 @@ const Plan = ({ plan, onClick, className, button, showTag, showPaymentDetails })
               button.onClick();
             }}
           >
-            <IconText icon="arrowRight" iconEnd={true} text={button.label} />
+            <IconText icon="arrowRight" iconPosition="end" text={button.label} />
             
           </Button>
         </div>
