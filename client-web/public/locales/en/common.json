@@ -128,6 +128,7 @@
     "admin": {
       "Admin": "Admin",
       "Details": "Details",
+      "Company Details": "Company Details",
       "Users": "Users",
       "Clients": "Clients",
       "Plan": "Plan",
@@ -163,11 +164,13 @@
     "month": "month",
     "Selected Plan": "Selected Plan",
     "Change plan": "Change plan",
-    "You will be billed now and then again once per month": "You will be billed now and then again once per month",
+    "You will be billed now, then once per month": "You will be billed now, then once per month",
     "Checkout": "Checkout",
     "Confirm": "Confirm",
+    "Confirm plan": "Confirm plan",
+    "Processing your plan": "Processing your plan",
     "Success!": "Success!",
-    "You are all set up": "You are all set up"
+    "You're all set up... what's next?": "You're all set up... what's next?"
   },
   "checkout": {
     "Checkout": "Checkout",
