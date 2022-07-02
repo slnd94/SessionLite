@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as TenantContext } from "../../context/TenantContext";
-import { Context as UserContext } from "../../context/UserContext";
 import api from "../../utils/api";
 import { useTranslation } from "next-i18next";
 import { Button, Alert, Progress } from "reactstrap";
@@ -23,20 +22,11 @@ const SelectPlan = ({}) => {
     state: { tenant },
     getTenant,
   } = useContext(TenantContext);
-  const { setUserEmailVerification } = useContext(UserContext);
 
   const [view, setView] = useState("select");
-
-  const [processingCheckoutSuccess, setProcessingCheckoutSuccess] =
-    useState(false);
-  const [checkoutSubmitted, setCheckoutSubmitted] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
   const [requestingPlans, setRequestingPlans] = useState(false);
   const [plans, setPlans] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [verificationResentSuccess, setVerificationResentSuccess] =
-    useState(false);
 
   const fetchPlans = async () => {
     setRequestingPlans(true);
@@ -86,19 +76,14 @@ const SelectPlan = ({}) => {
             });
             if (response.status >= 200 && response.status < 300) {
               if (response.data.plan === selectedPlan._id) {
-                // setProcessingCheckoutSuccess(false);
                 clearInterval(checkInterval);
-                // setShowSuccess(true);
-                setView("success");
-                // getTenant({ id: tenant._id });
-                router.push(router.asPath);
+                getTenant({ id: tenant._id });
+                router.push("/tenant/register/success");
               }
               return { success: true };
             } else {
-              // setProcessingCheckoutSuccess(false);
               clearInterval(checkInterval);
               setView("error");
-              // setShowSuccess(false);
               return { success: false };
             }
           }, 1000);
@@ -131,7 +116,6 @@ const SelectPlan = ({}) => {
                 } else {
                   setView("confirm");
                 }
-                // router.push(router.asPath);
               }}
             />
           </>
@@ -185,8 +169,9 @@ const SelectPlan = ({}) => {
                   });
 
                   if (response.status >= 200 && response.status < 300) {
-                    setView("success");
+                    // setView("success");
                     getTenant({ id: tenant._id });
+                    router.push("/tenant/register/success");
                     return { success: true };
                   } else {
                     setView("error");

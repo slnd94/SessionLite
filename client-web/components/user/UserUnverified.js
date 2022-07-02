@@ -23,7 +23,7 @@ const UserUnverified = ({}) => {
         </div>
       </div>
       <div className="row mt-4">
-        <div className="clol-12 col-md-6">
+        <div className="col-12">
           <h3 className="title">{t("auth.Welcome!")}</h3>
           <p>
             {t(

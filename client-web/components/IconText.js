@@ -34,7 +34,7 @@ IconText.propTypes = {
   text: PropTypes.string,
   textContainerClass: PropTypes.string,
   style: PropTypes.object,
-  iconPosition: PropTypes.bool
+  iconPosition: PropTypes.string
 };
 
 IconText.defaultProps = {
