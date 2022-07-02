@@ -5,15 +5,26 @@ import Amount from "../commerce/Amount";
 import { Button, Badge } from "reactstrap";
 import IconText from "../IconText";
 
-const Plan = ({ plan, onClick, className, button, showTag, showPaymentDetails }) => {
+const Plan = ({
+  plan,
+  onClick,
+  className,
+  button,
+  showTag,
+  showPaymentDetails,
+}) => {
   const { t } = useTranslation("common");
 
-  const getPlanPaymentDetailsString = () => {    
-    return(t(`plan.You will be billed now, then once per ${plan.recurringInterval}`));
+  const getPlanPaymentDetailsString = () => {
+    return t(
+      `plan.You will be billed now, then once per ${plan.recurringInterval}`
+    );
   };
 
   return (
-    <div className={`row list-item-box mb-2 ${className}`}>
+    <div
+      className={`row list-item-box mb-2 d-flex flex-direction-vertical justify-content-full align-content-full ${className}`}
+    >
       {plan.tag && showTag ? (
         <Badge
           color="primary"
@@ -47,18 +58,24 @@ const Plan = ({ plan, onClick, className, button, showTag, showPaymentDetails })
           t={t}
         />
         <sup className="ms-1 fs-6">
-          ({plan.subscription.currency})/{t(`plan.${plan.subscription.interval}`)}
+          ({plan.subscription.currency})/
+          {t(`plan.${plan.subscription.interval}`)}
         </sup>
+        {plan.subscription.price.gross > 0 ? (
+          <div>{t("plan.Including taxes and fees")}</div>
+        ) : (
+          <></>
+        )}
       </div>
-      <div>{t("plan.Including taxes and fees")}</div>
-      {showPaymentDetails 
-      ? <div className="fw-bold mt-3">{getPlanPaymentDetailsString()}</div>
-      : <></>
-      }
+      {showPaymentDetails ? (
+        <div className="fw-bold mt-3">{getPlanPaymentDetailsString()}</div>
+      ) : (
+        <></>
+      )}
       {button ? (
-        <div className="mt-3">
+        <div className="mt-3 d-flex align-items-end justify-content-full">
           <Button
-            className={"btn-block-md-down"}
+            className={"btn-block"}
             size="lg"
             // color="secondary"
             color={plan.tag ? "primary" : "secondary"}
@@ -83,7 +100,7 @@ Plan.propTypes = {
 
 Plan.defaultProps = {
   showTag: true,
-  showPaymentDetails: false
+  showPaymentDetails: false,
 };
 
 export default Plan;
