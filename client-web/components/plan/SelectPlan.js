@@ -90,7 +90,7 @@ const SelectPlan = ({}) => {
                 clearInterval(checkInterval);
                 // setShowSuccess(true);
                 setView("success");
-                getTenant({ id: tenant._id });
+                // getTenant({ id: tenant._id });
                 router.push(router.asPath);
               }
               return { success: true };
@@ -186,6 +186,7 @@ const SelectPlan = ({}) => {
 
                   if (response.status >= 200 && response.status < 300) {
                     setView("success");
+                    getTenant({ id: tenant._id });
                     return { success: true };
                   } else {
                     setView("error");
@@ -283,7 +284,8 @@ const SelectPlan = ({}) => {
         </div>
         <div className="row mt-3 d-flex justify-content-center">
           <div className="col-12 col-md-6 text-center">
-            <SectionLink icon="home" title={t('tenant.Home')} route={`/tenant/${tenant?._id}`} description="Lorem Ipsum skjsdhfsdkfjhds fk jdhs djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfks jdfhsdkfjh " />            
+            <SectionLink icon="home" title={t('tenant.Home')} route={`/tenant/${tenant?._id}`} description="Lorem Ipsum skjsdhfsdkfjhds fk jdhs djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfks jdfhsdkfjh " />  
+            <SectionLink icon="tenantAdmin" title={t('tenant.Admin')} route={`/tenant/${tenant?._id}/admin/details`} description="Lorem Ipsum skjsdhfsdkfjhds fk jdhs djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfks jdfhsdkfjh " />          
             <SectionLink icon="tenant" title={t('tenant.admin.Details')} route={`/tenant/${tenant?._id}/admin/details`} description="Lorem jd djdjIpsum djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfksjdf hsdkfjh " />
             <SectionLink icon="users" title={t('tenant.admin.Users')} route={`/tenant/${tenant?._id}/admin/users`} description="Lorem Ipsum djfhd jfj dsf djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfksj dfhsdkfjh " />
           </div>
@@ -294,8 +296,13 @@ const SelectPlan = ({}) => {
 
   const SectionLink = ({ icon, title, description, route }) => {
     return (
-      <div className="row list-item-box mb-3 d-flex justify-content-center">
-        <Link href={route}>
+      <div className="row list-item-box mb-3 d-flex justify-content-center"
+        onClick={() => {
+          getTenant({ id: tenant._id })
+          router.push(route);
+        }}  
+      >
+        {/* <Link href={route}> */}
           <div className="col-12" style={{ cursor: "pointer" }}>
             <div className="row">
               <div className="col-12 text-start">
@@ -312,7 +319,7 @@ const SelectPlan = ({}) => {
               </div>
             </div>
           </div>
-        </Link>
+        {/* </Link> */}
       </div>
     );
   };
