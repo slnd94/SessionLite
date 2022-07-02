@@ -66,8 +66,7 @@ const Plan = ({ plan, onClick, className, button, showTag, showPaymentDetails })
               button.onClick();
             }}
           >
-            <IconText icon="arrowRight" iconPosition="end" text={button.label} />
-            
+            {button.label}
           </Button>
         </div>
       ) : (

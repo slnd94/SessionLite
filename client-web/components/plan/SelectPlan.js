@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as TenantContext } from "../../context/TenantContext";
-import { Context as UserContext } from "../../context/UserContext";
 import api from "../../utils/api";
 import { useTranslation } from "next-i18next";
 import { Button, Alert, Progress } from "reactstrap";
@@ -23,20 +22,11 @@ const SelectPlan = ({}) => {
     state: { tenant },
     getTenant,
   } = useContext(TenantContext);
-  const { setUserEmailVerification } = useContext(UserContext);
 
   const [view, setView] = useState("select");
-
-  const [processingCheckoutSuccess, setProcessingCheckoutSuccess] =
-    useState(false);
-  const [checkoutSubmitted, setCheckoutSubmitted] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
   const [requestingPlans, setRequestingPlans] = useState(false);
   const [plans, setPlans] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [verificationResentSuccess, setVerificationResentSuccess] =
-    useState(false);
 
   const fetchPlans = async () => {
     setRequestingPlans(true);
@@ -73,10 +63,6 @@ const SelectPlan = ({}) => {
         passthrough: `{"user_id": "${auth?.user?._id}", "plan_id": "${selectedPlan._id}"}`,
         successCallback: (resp) => {
           setView("processing");
-          console.log(
-            "🚀 ~ file: SelectPlan.js ~ line 63 ~ useEffect ~ resp",
-            resp
-          );
           let counter = 0;
           const checkInterval = setInterval(async () => {
             counter++;
@@ -86,19 +72,14 @@ const SelectPlan = ({}) => {
             });
             if (response.status >= 200 && response.status < 300) {
               if (response.data.plan === selectedPlan._id) {
-                // setProcessingCheckoutSuccess(false);
                 clearInterval(checkInterval);
-                // setShowSuccess(true);
-                setView("success");
                 getTenant({ id: tenant._id });
-                router.push(router.asPath);
+                router.push("/tenant/register/success");
               }
               return { success: true };
             } else {
-              // setProcessingCheckoutSuccess(false);
               clearInterval(checkInterval);
               setView("error");
-              // setShowSuccess(false);
               return { success: false };
             }
           }, 1000);
@@ -131,7 +112,6 @@ const SelectPlan = ({}) => {
                 } else {
                   setView("confirm");
                 }
-                // router.push(router.asPath);
               }}
             />
           </>
@@ -185,7 +165,8 @@ const SelectPlan = ({}) => {
                   });
 
                   if (response.status >= 200 && response.status < 300) {
-                    setView("success");
+                    getTenant({ id: tenant._id });
+                    router.push("/tenant/register/success");
                     return { success: true };
                   } else {
                     setView("error");
@@ -262,61 +243,6 @@ const SelectPlan = ({}) => {
     );
   };
 
-  const Success = () => {
-    return (
-      <>
-        <div className="row mt-3">
-          <div className="col-12 d-flex justify-content-center">
-            <h1>
-              <IconText
-                icon="success"
-                iconContainerClass="display-4 text-secondary"
-                text={t("plan.Success!")}
-              />
-            </h1>
-          </div>
-        </div>
-        <div className="row mt-3">
-          <div className="col-12 d-flex justify-content-center fw-bold">
-            <h3>{t("plan.You're all set up... what's next?")}</h3>
-          </div>
-        </div>
-        <div className="row mt-3 d-flex justify-content-center">
-          <div className="col-12 col-md-6 text-center">
-            <SectionLink icon="home" title={t('tenant.Home')} route={`/tenant/${tenant?._id}`} description="Lorem Ipsum skjsdhfsdkfjhds fk jdhs djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfks jdfhsdkfjh " />            
-            <SectionLink icon="tenant" title={t('tenant.admin.Details')} route={`/tenant/${tenant?._id}/admin/details`} description="Lorem jd djdjIpsum djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfksjdf hsdkfjh " />
-            <SectionLink icon="users" title={t('tenant.admin.Users')} route={`/tenant/${tenant?._id}/admin/users`} description="Lorem Ipsum djfhd jfj dsf djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfksj dfhsdkfjh " />
-          </div>
-        </div>
-      </>
-    );
-  };
-
-  const SectionLink = ({ icon, title, description, route }) => {
-    return (
-      <div className="row list-item-box mb-3 d-flex justify-content-center">
-        <Link href={route}>
-          <div className="col-12" style={{ cursor: "pointer" }}>
-            <div className="row">
-              <div className="col-12 text-start">
-                <h5>
-                  <IconText
-                    icon={icon}
-                    iconContainerClass="display-6 text-secondary"
-                    text={title}
-                  />
-                </h5>
-              </div>
-              <div className="col-12 text-start">
-                {description}
-              </div>
-            </div>
-          </div>
-        </Link>
-      </div>
-    );
-  };
-
   const Error = () => {
     return <>error</>;
   };
@@ -327,7 +253,6 @@ const SelectPlan = ({}) => {
       {view === "confirm" ? <Confirm /> : <></>}
       {view === "checkout" ? <Checkout /> : <></>}
       {view === "processing" ? <Processing /> : <></>}
-      {view === "success" ? <Success /> : <></>}
       {view === "error" ? <Error /> : <></>}
     </>
   );
