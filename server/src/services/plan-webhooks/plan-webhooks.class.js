@@ -9,7 +9,6 @@ exports.PlanWebhooks = class PlanWebhooks {
   }
 
   async create (data, params) {
-    console.log("🚀 ~ file: plan-webhooks.class.js ~ line 12 ~ PlanWebhooks ~ create ~ data", data)
 
     // get the user/tenant
     const users = await this.app.service('users').find({
@@ -22,15 +21,11 @@ exports.PlanWebhooks = class PlanWebhooks {
         ]
       }
     });
-    console.log("🚀 ~ file: plan-webhooks.class.js ~ line 25 ~ PlanWebhooks ~ users ~ users", users)
     
     if(users.total !== 1) {
-      console.log('here 100')
       return Promise.reject(new errors.BadRequest("Issue with user account"));
     } else {
-      console.log('here 200')
       const user = users.data[0]; 
-      console.log("🚀 ~ file: plan-webhooks.class.js ~ line 33 ~ PlanWebhooks ~ create ~ user", user)
 
       //get the plan
       const plans = await this.app.service('plans').find({
@@ -38,15 +33,11 @@ exports.PlanWebhooks = class PlanWebhooks {
           paddlePlanId: data.subscription_plan_id
         }
       });
-      console.log("🚀 ~ file: plan-webhooks.class.js ~ line 40 ~ PlanWebhooks ~ plans ~ plans", plans)
 
       if(plans.total !== 1) {
-        console.log('here 300')
         return Promise.reject(new errors.BadRequest("Issue with specified plan"));
       } else {
-        console.log('here 400')
         const plan = plans.data[0];
-        console.log("🚀 ~ file: plan-webhooks.class.js ~ line 49 ~ PlanWebhooks ~ create ~ plan", plan)
         
         // TODO: Once users are established add in the allowances check here
 
