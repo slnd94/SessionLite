@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
@@ -15,6 +15,14 @@ const UserUnverified = ({}) => {
   const [processing, setProcessing] = useState(false);
   const [verificationResentSuccess, setVerificationResentSuccess] =
     useState(false);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   return (
     <>
       <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>

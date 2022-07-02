@@ -70,7 +70,7 @@ export default function RegisterSuccess() {
       </div>
       <div className="row mt-3">
         <div className="col-12 d-flex justify-content-center fw-bold">
-          <h3>{t("plan.You're all set up... what's next?")}</h3>
+          <h3>{t("plan.Your plan is all set up.  What's next?")}</h3>
         </div>
       </div>
       <div className="row mt-3 d-flex justify-content-center">

@@ -86,6 +86,11 @@ const SelectPlan = ({}) => {
         },
       });
     }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [view]);
 
   const Select = () => {
