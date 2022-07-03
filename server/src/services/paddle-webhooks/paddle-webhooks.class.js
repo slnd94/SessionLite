@@ -3,7 +3,7 @@ const errors = require("@feathersjs/errors");
 const errorMessages = require("../../utils/errorMessages");
 const crypto = require("crypto");
 const Serialize = require("php-serialize");
-exports.PlanWebhooks = class PlanWebhooks {
+exports.PaddleWebhooks = class PaddleWebhooks {
   constructor(options) {
     this.options = options || {};
   }
@@ -57,7 +57,7 @@ exports.PlanWebhooks = class PlanWebhooks {
         return verification;
       } catch (err) {
         console.log(
-          "🚀 ~ file: plan-webhooks.class.js ~ line 28 ~ PlanWebhooks ~ setup ~ err",
+          "🚀 ~ file: paddle-webhooks.class.js ~ line 28 ~ PaddleWebhooks ~ setup ~ err",
           err
         );
         return false;
