@@ -126,6 +126,11 @@
     "There was a problem with your registration": "There was a problem with your registration",
     "Thanks for registering": "Thanks for registering",
     "Already registered?": "Already registered?",
+    "sectionLinkDescriptions": {
+      "home": "Go to the Home screen for {{tenantName}}. Your users will land here when they use {{appName}}.",
+      "admin": "Your admin hub for {{tenantName}}. Manage your company details, branding, schedules, lessons, settings and more.",
+      "users": "Go to the Users admin screen. Invite users and manage your user list."
+    },
     "admin": {
       "Admin": "Admin",
       "Details": "Details",

@@ -58,6 +58,7 @@
     "moment": "^2.29.3",
     "mongodb-core": "^3.2.7",
     "mongoose": "^5.13.13",
+    "php-serialize": "^4.0.2",
     "serve-favicon": "^2.5.0",
     "stripe": "^9.1.0",
     "uuid": "^8.3.2",
