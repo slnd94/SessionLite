@@ -23,7 +23,26 @@ export default function RegisterSuccess() {
   const [processing, setProcessing] = useState(false);
   const router = useRouter();
 
-
+  const sectionLinks = [
+    {
+      icon: "home",
+      title: t("tenant.Home"),
+      route: `/tenant/${tenant?._id}`,
+      description: t('tenant.sectionLinkDescriptions.home', { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
+    },
+    {
+      icon: "tenantAdmin",
+      title: t("tenant.Admin"),
+      route: `/tenant/${tenant?._id}/admin/details`,
+      description: t('tenant.sectionLinkDescriptions.admin',  { tenantName: tenant.name })
+    },
+    {
+      icon: "users",
+      title: t("tenant.admin.Users"),
+      route: `/tenant/${tenant?._id}/admin/users`,
+      description: t('tenant.sectionLinkDescriptions.users')
+    }
+  ];
 
   const SectionLink = ({ icon, title, description, route }) => {
     return (
@@ -75,30 +94,15 @@ export default function RegisterSuccess() {
       </div>
       <div className="row mt-3 d-flex justify-content-center">
         <div className="col-12 col-md-6 text-center">
-          <SectionLink
-            icon="home"
-            title={t("tenant.Home")}
-            route={`/tenant/${tenant?._id}`}
-            description="Lorem Ipsum skjsdhfsdkfjhds fk jdhs djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfks jdfhsdkfjh "
+          {sectionLinks.map((sectionLink, index) => {
+            return <SectionLink
+            key={index}
+            icon={sectionLink.icon}
+            title={sectionLink.title}
+            route={sectionLink.route}
+            description={sectionLink.description}
           />
-          <SectionLink
-            icon="tenantAdmin"
-            title={t("tenant.Admin")}
-            route={`/tenant/${tenant?._id}/admin/details`}
-            description="Lorem Ipsum skjsdhfsdkfjhds fk jdhs djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfks jdfhsdkfjh "
-          />
-          <SectionLink
-            icon="tenant"
-            title={t("tenant.admin.Details")}
-            route={`/tenant/${tenant?._id}/admin/details`}
-            description="Lorem jd djdjIpsum djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfksjdf hsdkfjh "
-          />
-          <SectionLink
-            icon="users"
-            title={t("tenant.admin.Users")}
-            route={`/tenant/${tenant?._id}/admin/users`}
-            description="Lorem Ipsum djfhd jfj dsf djfh eufhwe fdfudhf dsfksjdhf ksdjfsdkfudhf kjfdhdfksj dfhsdkfjh "
-          />
+          })}
         </div>
       </div>
     </>
