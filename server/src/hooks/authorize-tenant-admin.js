@@ -6,19 +6,23 @@ const errorMessages = require('../utils/errorMessages');
 module.exports = (options = {}) => {
   return async context => {
     let idParam = null;
-    if(context.id) {
-      idParam = context.id;
-    } else if (context.data && context.data.tenantId) {
-      idParam = context.data.tenantId;
-    } else if (context.params.query && context.params.query.tenantId) {
-      idParam = context.params.query.tenantId;
+    switch (context.method) {
+      case 'get': case 'patch': case 'update': case 'remove':
+        idParam = context.id;
+        break;
+      case 'create': case 'find':
+        idParam = context.params.query.tenant;
+        break;
+      default:
+        idParam = null;
+        break;
     }
 
     if(!idParam) {
       return Promise.reject(new errors.BadRequest(errorMessages.badRequest));
     }
 
-    let authUserAdmin = false;
+    let auth = false;
 
     // authorize if:
     if(
@@ -27,10 +31,10 @@ module.exports = (options = {}) => {
       // or it's a sysAdmin user making the call
       || context.params.sysAdminUser
     ) {
-      authUserAdmin = true;
+      auth = true;
     }
 
-    if(!authUserAdmin) {
+    if(!auth) {
       // check to see if user is admin on the tenant
       const tenant = await context.app.service('tenants')
         .get(idParam, {
@@ -44,11 +48,11 @@ module.exports = (options = {}) => {
         && context.params.user
         && tenant.adminUsers
         && tenant.adminUsers.find(x => x.toString() === context.params.user._id.toString())) {
-        authUserAdmin = true;
+          auth = true;
       }
     }
     
-    if(authUserAdmin) {
+    if(auth) {
       return context;
     } else {
       return Promise.reject(new errors.Forbidden(errorMessages.forbidden));
