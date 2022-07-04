@@ -27,6 +27,7 @@
     "test": "npm run lint && npm run jest",
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
     "dev": "nodemon src/",
+    "heroku-postbuild": "export NODE_OPTIONS=--openssl-legacy-provider",
     "start": "src/",
     "lt": "lt --port 3030 --subdomain fnext-dev-server",
     "jest": "jest  --forceExit",

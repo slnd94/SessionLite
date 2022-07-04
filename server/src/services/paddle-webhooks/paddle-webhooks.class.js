@@ -60,6 +60,10 @@ exports.PaddleWebhooks = class PaddleWebhooks {
           "🚀 ~ file: paddle-webhooks.class.js ~ line 28 ~ PaddleWebhooks ~ setup ~ err",
           err
         );
+        console.log(
+          "🚀 ~ file: paddle-webhooks.class.js ~ line 28 ~ PaddleWebhooks ~ setup ~ err",
+          err.message
+        );
         return false;
       }
     };
