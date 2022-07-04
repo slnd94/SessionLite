@@ -48,9 +48,6 @@ exports.PaddleWebhooks = class PaddleWebhooks {
         const verifier = crypto.createVerify("sha1");
         verifier.update(serialized);
         verifier.end();
-        console.log("🚀 ~ file: paddle-webhooks.class.js ~ line 51 ~ PaddleWebhooks ~ setup ~ verifier", verifier)
-
-        console.log("🚀 ~ file: paddle-webhooks.class.js ~ line 69 ~ PaddleWebhooks ~ setup ~ mySig", mySig)
         const verification = verifier.verify(
           this.app.get("paddlePublicKey"),
           mySig
@@ -61,10 +58,6 @@ exports.PaddleWebhooks = class PaddleWebhooks {
         console.log(
           "🚀 ~ file: paddle-webhooks.class.js ~ line 28 ~ PaddleWebhooks ~ setup ~ err",
           err
-        );
-        console.log(
-          "🚀 ~ file: paddle-webhooks.class.js ~ line 28 ~ PaddleWebhooks ~ setup ~ err",
-          err.message
         );
         return false;
       }
