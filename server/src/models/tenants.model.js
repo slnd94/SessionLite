@@ -13,7 +13,12 @@ module.exports = function (app) {
     },
     createdByUser: { type : Schema.Types.ObjectId, ref: 'users', required: false },
     adminUsers: [{ type : Schema.Types.ObjectId, ref: 'users', required: true }],
-    plan: { type : Schema.Types.ObjectId, ref: 'plans', required: false }
+    plan: { type : Schema.Types.ObjectId, ref: 'plans', required: false },
+    paddle: {
+      subscriptionId: { type : Schema.Types.Number, required: false },
+      planId: { type : Schema.Types.String, required: false },
+      userId: { type : Schema.Types.Number, required: false }
+    }
   }, {
     timestamps: true
   });
