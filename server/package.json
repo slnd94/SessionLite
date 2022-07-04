@@ -27,7 +27,7 @@
     "test": "npm run lint && npm run jest",
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
     "dev": "nodemon src/",
-    "start": "node src/",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider node src/",
     "lt": "lt --port 3030 --subdomain fnext-dev-server",
     "jest": "jest  --forceExit",
     "publishheroku": "cd ../ && git subtree push --prefix server herokunextfeatherstest3-server master || true"
