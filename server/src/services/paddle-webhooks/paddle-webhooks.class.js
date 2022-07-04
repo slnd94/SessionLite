@@ -49,7 +49,6 @@ exports.PaddleWebhooks = class PaddleWebhooks {
         verifier.update(serialized);
         verifier.end();
         
-        console.log("🚀 ~ file: paddle-webhooks.class.js ~ line 56 ~ PaddleWebhooks ~ setup ~ this.app.get('paddlePublicKey')", this.app.get("paddlePublicKey"))
         // TODO: getting ERR_OSSL_UNSUPPORTED on this call in production (Heroku)
         const verification = verifier.verify(
           this.app.get("paddlePublicKey"),
@@ -69,7 +68,7 @@ exports.PaddleWebhooks = class PaddleWebhooks {
 
   async create(data, params) {
     // TODO: get virification working on Heroku (ERR_OSSL_UNSUPPORTED)
-    if (this.validateWebhook(data)) {
+    // if (this.validateWebhook(data)) {
       // get the user/tenant
       const users = await this.app.service("users").find({
         query: {
@@ -114,9 +113,9 @@ exports.PaddleWebhooks = class PaddleWebhooks {
             });
         }
       }
-    } else {
-      return Promise.reject(new errors.Forbidden(errorMessages.forbidden));
-    }
+    // } else {
+    //   return Promise.reject(new errors.Forbidden(errorMessages.forbidden));
+    // }
 
     return data;
   }
