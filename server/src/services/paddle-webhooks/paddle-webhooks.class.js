@@ -69,7 +69,7 @@ exports.PaddleWebhooks = class PaddleWebhooks {
 
   async create(data, params) {
     // TODO: get virification working on Heroku (ERR_OSSL_UNSUPPORTED)
-    // if (this.validateWebhook(data)) {
+    if (this.validateWebhook(data)) {
       // get the user/tenant
       const users = await this.app.service("users").find({
         query: {
@@ -114,9 +114,9 @@ exports.PaddleWebhooks = class PaddleWebhooks {
             });
         }
       }
-    // } else {
-    //   return Promise.reject(new errors.Forbidden(errorMessages.forbidden));
-    // }
+    } else {
+      return Promise.reject(new errors.Forbidden(errorMessages.forbidden));
+    }
 
     return data;
   }
