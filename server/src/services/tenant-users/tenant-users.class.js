@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-exports.TenantRooms = class TenantRooms {
+exports.TenantUsers = class TenantUsers {
   constructor (options) {
     this.options = options || {};
   }
@@ -8,8 +8,8 @@ exports.TenantRooms = class TenantRooms {
     this.app = app;
   }
 
-  async find (params) {    
-    return await this.app.service('rooms').find({
+  async find (params) {
+    return await this.app.service('users').find({
       query: {
         tenant: params.query.tenant,
         $skip: params.query.$skip,

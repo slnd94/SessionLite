@@ -31,7 +31,7 @@ module.exports = {
     find: [
       iff(isProvider('external'), disallow()),
       authenticate('jwt'),
-      authorizeUserAdmin()
+      // authorizeUserAdmin()
     ],
     get: [
       authenticate('jwt'),
