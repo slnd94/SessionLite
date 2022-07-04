@@ -49,6 +49,7 @@ exports.PaddleWebhooks = class PaddleWebhooks {
         verifier.update(serialized);
         verifier.end();
         
+        console.log("🚀 ~ file: paddle-webhooks.class.js ~ line 56 ~ PaddleWebhooks ~ setup ~ this.app.get('paddlePublicKey')", this.app.get("paddlePublicKey"))
         // TODO: getting ERR_OSSL_UNSUPPORTED on this call in production (Heroku)
         const verification = verifier.verify(
           this.app.get("paddlePublicKey"),
