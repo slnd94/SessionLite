@@ -1,7 +1,10 @@
 // Pagination
 .pagination-container {
   display: flex;
-  float: right;
+
+  &.pagination-right {
+    float: right;
+  }
 
   .total-count {
     margin: 4px 20px;
@@ -25,7 +28,7 @@
     &.active {
       .page-link {
         // border-color: $dark;
-        background-color: $primary;
+        background-color: $secondary;
         color: $white;
       }
     }

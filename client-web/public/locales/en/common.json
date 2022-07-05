@@ -154,6 +154,9 @@
         "Logo removed": "Logo removed",
         "Are you sure you want to update your details?": "Are you sure you want to update your details?",
         "Tenant details updated": "Tenant details updated"
+      },
+      "users": {
+        "Invite Users": "Invite Users"
       }
     }
   },

@@ -11,60 +11,45 @@ import IconText from "../../../../components/IconText";
 import styles from "../../../../styles/Tenant.module.scss";
 import UserList from "../../../../components/user/UserList";
 import Loader from "../../../../components/Loader";
+import { Button } from "reactstrap";
 
 export default function Users() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { tenantId } = router.query;
-  const [users, setUsers] = useState(null);
-  const [requestingUsers, setRequestingUsers] = useState(null);
-  const usersPerPage = 5;
-
-  const fetchUsers = async ({ skip, limit }) => {
-    setRequestingUsers(true);
-    const response = await api({
-      method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-users`,
-      params: {
-        tenant: tenantId,
-        $skip: skip,
-        $limit: limit,
-      },
-    });
-
-    if (response.status >= 200 && response.status < 300) {
-      setUsers(response.data);
-      setRequestingUsers(false);
-      return { success: true };
-    } else {
-      setUsers(null);
-      setRequestingUsers(false);
-      return { success: false };
-    }
-  };
-
-  useEffect(() => {
-    let isSubscribed = true;
-    fetchUsers({ skip: 0, limit: usersPerPage }).catch(console.error);
-    return () => (isSubscribed = false);
-  }, []);
+  const usersPerPage = 50;
 
   return (
     <Layout>
       <div className="row mt-0 ms-md-3">
-        <div className="col-12">
+        <div className="col-6">
           <h3 className={"title"}>{t("tenant.admin.Users")}</h3>
-          {requestingUsers ? (
-            <Loader />
-          ) : (
-            <>{users ? <UserList
-              users={users}
-              itemsPerPage={usersPerPage}
-              onSelectUser={() => {
-                
-              }}
-              t={t} /> : <></>}</>
-          )}
+        </div>
+        <div className="col-6 text-end">
+          <Button
+            // className={"btn-block"}
+            size="md"
+            color="secondary"
+            onClick={() => {
+              console.log("hi");
+            }}
+          >
+            <IconText
+              icon="add"
+              iconPosition="end"
+              text={t("tenant.admin.users.Invite Users")}
+            />
+          </Button>
+        </div>
+      </div>
+      <div className="row mt-0 ms-md-3">
+        <div className="col-12">
+          <UserList
+            tenant={tenantId}
+            itemsPerPage={usersPerPage}
+            onSelectUser={() => {}}
+            t={t}
+          />
         </div>
       </div>
     </Layout>
