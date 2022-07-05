@@ -127,9 +127,9 @@
     "Thanks for registering": "Thanks for registering",
     "Already registered?": "Already registered?",
     "sectionLinkDescriptions": {
-      "home": "Go to the Home screen for {{tenantName}}. Your users will land here when they use {{appName}}.",
-      "admin": "Your admin hub for {{tenantName}}. Manage your company details, branding, schedules, lessons, settings and more.",
-      "users": "Go to the Users admin screen. Invite users and manage your user list."
+      "home": "The {{tenantName}} home screen. Your users will land here when they use {{appName}}.",
+      "admin": "The {{tenantName}} admin hub for {{appName}}. Manage your company details, branding, schedules, lessons, settings and more.",
+      "users": "The {{tenantName}} Users admin screen. Invite users and manage your user list."
     },
     "admin": {
       "Admin": "Admin",
@@ -177,7 +177,8 @@
     "Confirm plan": "Confirm plan",
     "Processing your plan": "Processing your plan",
     "Success!": "Success!",
-    "Your plan is all set up.  What's next?": "Your plan is all set up.  What's next?"
+    "Your plan is all set up.  What's next?": "Your plan is all set up.  What's next?",
+    "{{tenantName}} is all set up and ready to use {{appName}}.  What's next?": "{{tenantName}} is all set up and ready to use {{appName}}.  What's next?"
   },
   "checkout": {
     "Checkout": "Checkout",

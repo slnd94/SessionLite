@@ -34,13 +34,13 @@ export default function RegisterSuccess() {
       icon: "tenantAdmin",
       title: t("tenant.Admin"),
       route: `/tenant/${tenant?._id}/admin/details`,
-      description: t('tenant.sectionLinkDescriptions.admin',  { tenantName: tenant.name })
+      description: t('tenant.sectionLinkDescriptions.admin',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
     },
     {
       icon: "users",
       title: t("tenant.admin.Users"),
       route: `/tenant/${tenant?._id}/admin/users`,
-      description: t('tenant.sectionLinkDescriptions.users')
+      description: t('tenant.sectionLinkDescriptions.users',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
     }
   ];
 
@@ -89,7 +89,7 @@ export default function RegisterSuccess() {
       </div>
       <div className="row mt-3">
         <div className="col-12 d-flex justify-content-center fw-bold">
-          <h3>{t("plan.Your plan is all set up.  What's next?")}</h3>
+          <h3>{t("plan.{{tenantName}} is all set up and ready to use {{appName}}.  What's next?", { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })}</h3>
         </div>
       </div>
       <div className="row mt-3 d-flex justify-content-center">
