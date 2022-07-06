@@ -13,7 +13,7 @@ import confirm from "../../../../utils/confirm";
 import IconText from "../../../../components/IconText";
 import styles from "../../../../styles/Tenant.module.scss";
 
-export default function Details() {
+export default function Brand() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { tenantId } = router.query;
@@ -31,7 +31,7 @@ export default function Details() {
     <Layout>
       <div className="row mt-0 ms-md-3">
         <div className="col-12">
-          <h3 className={"title"}>{t("tenant.admin.Details")}</h3>
+          <h3 className={"title"}>{t("tenant.admin.Brand")}</h3>
           <TenantDetailsForm
             processing={processing}
             defaults={{
@@ -56,7 +56,7 @@ export default function Details() {
                   setProcessing(false);
 
                   // notify user
-                  toast(t(`tenant.admin.details.Tenant details updated`), {
+                  toast(t(`tenant.admin.details.Details updated`), {
                     type: "success",
                   });
                 } else {

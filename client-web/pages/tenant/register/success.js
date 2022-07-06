@@ -31,10 +31,16 @@ export default function RegisterSuccess() {
       description: t('tenant.sectionLinkDescriptions.home', { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
     },
     {
-      icon: "tenantAdmin",
-      title: t("tenant.Admin"),
-      route: `/tenant/${tenant?._id}/admin/details`,
+      icon: "dashboard",
+      title: t("tenant.admin.Admin Dashboard"),
+      route: `/tenant/${tenant?._id}/admin/dashboard`,
       description: t('tenant.sectionLinkDescriptions.admin',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
+    },
+    {
+      icon: "brand",
+      title: t("tenant.admin.Brand"),
+      route: `/tenant/${tenant?._id}/admin/brand`,
+      description: t('tenant.sectionLinkDescriptions.brand',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
     },
     {
       icon: "users",

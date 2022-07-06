@@ -44,7 +44,7 @@ $water: #4e5d6c !default;
 $darkwater: rgb(75, 78, 74) !default;
 $brown: rgb(108, 89, 78);
 
-$primary: $darkwater !default;
+$primary: $water !default;
 $secondary: $pink !default;
 $success: $secondary !default;
 $success-light: lighten($success, 30%) !default;
@@ -142,7 +142,7 @@ $navbar-toggler-focus-width: 0rem;
 
 // // Modals
 
-$modal-content-bg: $lighter !default;
+$modal-content-bg: $white !default;
 
 $modal-header-border-color: rgba(0, 0, 0, 0.2) !default;
 

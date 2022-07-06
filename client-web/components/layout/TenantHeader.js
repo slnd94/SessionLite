@@ -35,7 +35,7 @@ function TenantHeader({ tenant, admin, fileAuth }) {
       {admin ? (
         <div className="d-flex col-1 justify-content-end align-items-center">
           <h5 className="m-0">
-            <Link href={`/tenant/${tenant._id}/admin/details`}>
+            <Link href={`/tenant/${tenant._id}/admin/dashboard`}>
               <Button color="default">
                 <IconText icon="tenantAdmin" text={t("tenant.Admin")} />
               </Button>
