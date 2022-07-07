@@ -5,13 +5,17 @@ const errorMessages = require('../utils/errorMessages');
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
+  console.log("🚀 ~ file: authorize-tenant-admin.js ~ line 8 ~ context", context)
     let idParam = null;
     switch (context.method) {
       case 'get': case 'patch': case 'update': case 'remove':
         idParam = context.id;
         break;
-      case 'create': case 'find':
+      case 'find':
         idParam = context.params.query.tenant;
+        break;
+      case 'create':
+        idParam = context.data.tenant;
         break;
       default:
         idParam = null;

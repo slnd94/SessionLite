@@ -65,8 +65,7 @@ const getAuth = (dispatch) => async () => {
 
 const signup =
   (dispatch) =>
-  async ({ firstName, lastName, email, password, tenantId }) => {
-    console.log("🚀 ~ file: AuthContext.js ~ line 67 ~ tenantId", tenantId);
+  async ({ firstName, lastName, email, password, tenantId, inviteId }) => {
     try {
       const response = await api({
         method: "post",
@@ -79,6 +78,8 @@ const signup =
           email,
           password,
           tenant: tenantId,
+          ...( inviteId ? { invite: inviteId } : {})
+          
         },
       });
       if (response.status >= 200 && response.status < 300) {
