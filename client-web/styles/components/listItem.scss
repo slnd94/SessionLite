@@ -43,10 +43,10 @@
   background-color: $lightest;
   border: 1px solid $lightest;
 
-  &.popular {
-  background-color: $secondary;
-  color: $white;
-  }
+  // &.popular {
+  // background-color: $secondary;
+  // color: $white;
+  // }
 
   &:hover {
     transform: scale(1.0175);

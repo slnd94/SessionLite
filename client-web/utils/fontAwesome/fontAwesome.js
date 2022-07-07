@@ -49,6 +49,7 @@ import faBox from "@fortawesome/fontawesome-free-solid/faBox";
 import faLock from "@fortawesome/fontawesome-free-solid/faLock";
 import faIdBadge from "@fortawesome/fontawesome-free-solid/faIdBadge";
 import faUserGraduate from "@fortawesome/fontawesome-free-solid/faUserGraduate";
+import faTable from "@fortawesome/fontawesome-free-solid/faTable";
 
 export const icons = {
   login: faSignInAlt,
@@ -72,7 +73,7 @@ export const icons = {
   wishlist: faHeart,
   detail: faEdit,
   sale: faReceipt,
-  plan: faReceipt,
+  plan: faCreditCard,
   report: faChartPie,
   dashboard: faChartPie,
   home: faHome,
@@ -91,7 +92,7 @@ export const icons = {
   releaseDate: faCalendarAlt,
   schedule: faCalendarAlt,
   images: faImage,
-  template: faBox,
+  template: faTable,
   ebook: faBookOpen,
   course: faGraduationCap,
   movie: faFilm,

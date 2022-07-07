@@ -18,9 +18,9 @@ exports.UserAccounts = class UserAccounts {
       .create(data)
       .then(result => {
         // send welcome/verification email to user
-        this.app.service('emails')
+        this.app.service('emails-sendinblue')
           .create({
-            template: this.app.get('welcomeVerificationEmailTemplate'),
+            templateId: this.app.get('welcomeVerificationEmailTemplate'),
             destination: data.email,
             data: {  
               appLogoUrl: `${this.app.get('appWebBaseUrl')}/images/siteLogoSmall.png`,
