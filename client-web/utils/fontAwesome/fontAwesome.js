@@ -85,7 +85,7 @@ export const icons = {
   tenant: faBuilding,
   brand: faFlag,
   tenantAdmin: faLock,
-  staff: faIdBadge,
+  team: faUsers,
   client: faUserGraduate,
   creator: faAddressCard,
   product: faBoxOpen,

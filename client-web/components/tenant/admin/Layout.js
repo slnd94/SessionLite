@@ -72,10 +72,10 @@ export default function Layout({ children }) {
       labelTabs: t("Clients"),
     },
     {
-      slug: `staff`,
-      icon: "staff",
-      labelPills: t("Staff"),
-      labelTabs: t("Staff"),
+      slug: `team`,
+      icon: "team",
+      labelPills: t("Team"),
+      labelTabs: t("Team"),
     },
     {
       slug: `schedule`,

@@ -140,7 +140,7 @@
       "Details": "Details",
       "Company Details": "Company Details",
       "Users": "Users",
-      "Staff": "Staff",
+      "Team": "Team",
       "Clients": "Clients",
       "Plan": "Plan",
       "Settings": "Settings",
@@ -160,8 +160,8 @@
         "Are you sure you want to update your details?": "Are you sure you want to update your details?",
         "Details updated": "Details updated"
       },
-      "staff": {
-        "Add Staff": "Add Staff"
+      "team": {
+        "Add Team Members": "Add Team Members"
       }
     }
   },

@@ -28,19 +28,19 @@ import {
   TabPane,
 } from "reactstrap";
 
-export default function Staff() {
+export default function Team() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { tenantId } = router.query;
   const usersPerPage = 1;
-  const [view, setView] = useState("staff");
+  const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
 
   return (
     <Layout>
       <div className="row mt-0 ms-md-3">
         <div className="col-12 col-md-6">
-          <h3>{t("tenant.admin.Staff")}</h3>
+          <h3>{t("tenant.admin.Team")}</h3>
         </div>
         <div className="col-12 col-md-6 text-md-end">
           <Button
@@ -57,7 +57,7 @@ export default function Staff() {
             <IconText
               icon="add"
               // iconPosition="end"
-              text={t("tenant.admin.staff.Add Staff")}
+              text={t("tenant.admin.team.Add Team Members")}
             />
           </Button>
           <Offcanvas isOpen={showInviteForm} direction="end">
@@ -66,7 +66,7 @@ export default function Staff() {
                 setShowInviteForm(false);
               }}
             >
-              {t("tenant.admin.staff.Add Staff")}
+              {t("tenant.admin.team.Add Team Members")}
             </OffcanvasHeader>
             <OffcanvasBody>
               <strong>This is the Offcanvas body.</strong>
@@ -82,12 +82,12 @@ export default function Staff() {
           <Nav pills>
             <NavItem>
               <NavLink
-                className={view === "staff" ? "active" : ""}
+                className={view === "team" ? "active" : ""}
                 onClick={() => {
-                  setView("staff");
+                  setView("team");
                 }}
               >
-                Staff
+                Team
               </NavLink>
             </NavItem>
             <NavItem>
@@ -103,7 +103,7 @@ export default function Staff() {
           </Nav>
 
           <TabContent activeTab={view} className="mt-3">
-            <TabPane tabId="staff">
+            <TabPane tabId="team">
               <div className="row">
                 <div className="col-12">
                   <UserList

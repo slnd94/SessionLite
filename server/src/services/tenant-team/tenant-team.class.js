@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-exports.TenantStaff = class TenantStaff {
+exports.TenantTeam = class TenantTeam {
   constructor (options) {
     this.options = options || {};
   }
