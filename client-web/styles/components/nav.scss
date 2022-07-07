@@ -63,6 +63,7 @@ div.section-nav {
   }
 
   .nav-link {
+    cursor: pointer;
     color: $body-color-light;
     padding: .75rem;
     background-color: $lightest;
@@ -73,6 +74,7 @@ div.section-nav {
     border-bottom-style: solid;
     border-radius: 0px;
     svg {
+      max-height: 2rem;
       color: $body-color-light;
     }
     &:hover {
@@ -84,7 +86,9 @@ div.section-nav {
       color: $body-color;
       font-weight: 500;
       border-color: $light;
+      // font-size: 1.15rem;
       svg {
+        // max-height: 3rem;
         color: $secondary;
       }
     }

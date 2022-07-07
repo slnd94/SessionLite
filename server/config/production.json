@@ -21,5 +21,6 @@
   "paddleApiBaseUrl": "paddleApiBaseUrl",
   "paddlePublicKey": "paddlePublicKey",
   "defaultUserCountryCode": "defaultUserCountryCode",
-  "filestackApiBaseUrl": "filestackApiBaseUrl"
+  "filestackApiBaseUrl": "filestackApiBaseUrl",
+  "sendInBlueApiKey": "sendInBlueApiKey"
 }

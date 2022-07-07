@@ -60,22 +60,22 @@ export default function Layout({ children }) {
 
   const subRoutes = [
     {
-      slug: `details`,
-      icon: "tenant",
-      labelPills: t("Details"),
-      labelTabs: t("Details"),
-    },
-    {
-      slug: `users`,
-      icon: "users",
-      labelPills: t("Users"),
-      labelTabs: t("Users"),
+      slug: `dashboard`,
+      icon: "dashboard",
+      labelPills: t("Dashboard"),
+      labelTabs: t("Dashboard"),
     },
     {
       slug: `clients`,
       icon: "client",
       labelPills: t("Clients"),
       labelTabs: t("Clients"),
+    },
+    {
+      slug: `team`,
+      icon: "team",
+      labelPills: t("Team"),
+      labelTabs: t("Team"),
     },
     {
       slug: `schedule`,
@@ -94,6 +94,12 @@ export default function Layout({ children }) {
       icon: "plan",
       labelPills: t("Plan"),
       labelTabs: t("Plan"),
+    },
+    {
+      slug: `brand`,
+      icon: "brand",
+      labelPills: t("Brand"),
+      labelTabs: t("Brand"),
     },
     {
       slug: `settings`,

@@ -11,10 +11,13 @@ import faHome from "@fortawesome/fontawesome-free-solid/faHome";
 import faUser from "@fortawesome/fontawesome-free-solid/faUser";
 import faUsers from "@fortawesome/fontawesome-free-solid/faUsers";
 import faUserCircle from "@fortawesome/fontawesome-free-solid/faUserCircle";
+// import faClipboardUser from "@fortawesome/fontawesome-free-solid/faClipboardUser";
 import faSlidersH from "@fortawesome/fontawesome-free-solid/faSlidersH";
 import faBuilding from "@fortawesome/fontawesome-free-solid/faBuilding";
+import faFlag from "@fortawesome/fontawesome-free-solid/faFlag";
 import faEdit from "@fortawesome/fontawesome-free-solid/faEdit";
 import faChartPie from "@fortawesome/fontawesome-free-solid/faChartPie";
+// import faGauge from "@fortawesome/fontawesome-free-regular/faGauge";
 import faExclamationCircle from "@fortawesome/fontawesome-free-solid/faExclamationCircle";
 import faArrowLeft from "@fortawesome/fontawesome-free-solid/faArrowLeft";
 import faArrowRight from "@fortawesome/fontawesome-free-solid/faArrowRight";
@@ -44,7 +47,9 @@ import faCheckCircle from "@fortawesome/fontawesome-free-regular/faCheckCircle";
 import faCog from "@fortawesome/fontawesome-free-solid/faCog";
 import faBox from "@fortawesome/fontawesome-free-solid/faBox";
 import faLock from "@fortawesome/fontawesome-free-solid/faLock";
-import faIdCard from "@fortawesome/fontawesome-free-solid/faIdCard";
+import faIdBadge from "@fortawesome/fontawesome-free-solid/faIdBadge";
+import faUserGraduate from "@fortawesome/fontawesome-free-solid/faUserGraduate";
+import faTable from "@fortawesome/fontawesome-free-solid/faTable";
 
 export const icons = {
   login: faSignInAlt,
@@ -68,8 +73,9 @@ export const icons = {
   wishlist: faHeart,
   detail: faEdit,
   sale: faReceipt,
-  plan: faReceipt,
+  plan: faCreditCard,
   report: faChartPie,
+  dashboard: faChartPie,
   home: faHome,
   user: faUser,
   users: faUsers,
@@ -77,14 +83,16 @@ export const icons = {
   account: faSlidersH,
   settings: faCog,
   tenant: faBuilding,
+  brand: faFlag,
   tenantAdmin: faLock,
-  client: faIdCard,
+  team: faUsers,
+  client: faUserGraduate,
   creator: faAddressCard,
   product: faBoxOpen,
   releaseDate: faCalendarAlt,
   schedule: faCalendarAlt,
   images: faImage,
-  template: faBox,
+  template: faTable,
   ebook: faBookOpen,
   course: faGraduationCap,
   movie: faFilm,

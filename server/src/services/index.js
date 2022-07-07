@@ -18,7 +18,8 @@ const fileAuth = require('./file-auth/file-auth.service.js');
 const plans = require('./plans/plans.service.js');
 const paddleWebhooks = require('./paddle-webhooks/paddle-webhooks.service.js');
 const tenantPlans = require('./tenant-plans/tenant-plans.service.js');
-const tenantUsers = require('./tenant-users/tenant-users.service.js');
+const tenantTeam = require('./tenant-team/tenant-team.service.js');
+const emailsSendinblue = require('./emails-sendinblue/emails-sendinblue.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -41,5 +42,6 @@ module.exports = function (app) {
   app.configure(plans);
   app.configure(paddleWebhooks);
   app.configure(tenantPlans);
-  app.configure(tenantUsers);
+  app.configure(tenantTeam);
+  app.configure(emailsSendinblue);
 };

@@ -128,14 +128,19 @@
     "Already registered?": "Already registered?",
     "sectionLinkDescriptions": {
       "home": "The {{tenantName}} home screen. Your users will land here when they use {{appName}}.",
-      "admin": "The {{tenantName}} admin hub for {{appName}}. Manage your company details, branding, schedules, lessons, settings and more.",
-      "users": "The {{tenantName}} Users admin screen. Invite users and manage your user list."
+      "admin": "Your admin area. Manage your plan, schedules, lessons, settings and more.",
+      "brand": "Your brand admin screen. Manage your company name and logo. Show your identity!",
+      "users": "Your user admin screen. Invite users and manage your user list."
     },
     "admin": {
       "Admin": "Admin",
+      "Admin Dashboard": "Admin Dashboard",
+      "Dashboard": "Dashboard",
+      "Brand": "Brand",
       "Details": "Details",
       "Company Details": "Company Details",
       "Users": "Users",
+      "Team": "Team",
       "Clients": "Clients",
       "Plan": "Plan",
       "Settings": "Settings",
@@ -153,10 +158,10 @@
         "Are you sure you want to remove this logo?": "Are you sure you want to remove this logo?",
         "Logo removed": "Logo removed",
         "Are you sure you want to update your details?": "Are you sure you want to update your details?",
-        "Tenant details updated": "Tenant details updated"
+        "Details updated": "Details updated"
       },
-      "users": {
-        "Invite Users": "Invite Users"
+      "team": {
+        "Add Team Members": "Add Team Members"
       }
     }
   },

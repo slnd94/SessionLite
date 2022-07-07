@@ -15,7 +15,7 @@ const UserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
     setRequestingUsers(true);
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-users`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team`,
       params: {
         $skip: skip,
         $limit: limit,
