@@ -9,13 +9,36 @@ exports.TenantTeam = class TenantTeam {
   }
 
   async find (params) {
-    return await this.app.service('users').find({
+    const users = await this.app.service('users').find({      
       query: {
         tenant: params.query.tenant,
         $skip: params.query.$skip,
-        $limit: params.query.$limit
+        $limit: params.query.$limit,
+        $select: {
+          _id: 1,
+          email: 1,
+          name: 1,
+          tenant: 1
+        }
       }
     });
+    // console.log("🚀 ~ file: tenant-team.class.js ~ line 23 ~ TenantTeam ~ users ~ users", users)
+
+    const invites = await this.app.service('user-invites').find({
+      query: {
+        tenant: params.query.tenant,
+        $skip: params.query.$skip,
+        $limit: params.query.$limit,
+        $select: {
+          _id: 1,
+          email: 1,
+          tenant: 1
+        }
+      }
+    });
+    // console.log("🚀 ~ file: tenant-team.class.js ~ line 36 ~ TenantTeam ~ invites ~ invites", invites)
+
+    return users;
   }
 
   async patch (id, data, params) {

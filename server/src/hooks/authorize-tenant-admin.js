@@ -5,7 +5,6 @@ const errorMessages = require('../utils/errorMessages');
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async context => {
-  console.log("🚀 ~ file: authorize-tenant-admin.js ~ line 8 ~ context", context)
     let idParam = null;
     switch (context.method) {
       case 'get': case 'patch': case 'update': case 'remove':

@@ -1,6 +1,7 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
 const { iff, isProvider, keep, disallow } = require('feathers-hooks-common');
+const authenticateUserStanding = require('../../hooks/authenticate-user-standing');
 
 const assemblePaymentIntent = require('../../hooks/assemble-payment-intent');
 
@@ -9,24 +10,24 @@ module.exports = {
     all: [],
     find: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ],
     get: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ],
-    create: [authenticate('jwt'), assemblePaymentIntent()],
+    create: [authenticate('jwt'), authenticateUserStanding(), assemblePaymentIntent()],
     update: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ],
     patch: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ],
     remove: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ]
   },
 
