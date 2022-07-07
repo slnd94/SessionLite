@@ -15,15 +15,15 @@ module.exports = function (app) {
     email: { type: String, unique: true, lowercase: true },
     password: { type: String },  
     name: { type: name },
-    locked: { type: Boolean, default: false },
+    locked: { type: Boolean, required: true, default: false },
     verification: {
       emailVerified: { type: Boolean, default: false },
       emailVerificationKey: { type: String, required: false },
       emailVerificationKeyExpiryDate: { type: Date, required: false }
-    },    
+    },  
+    active: { type: Boolean, required: true, default: true },
     sysAdmin: { type: Boolean, default: false },
     cart: [{ type: userCartEntry }],
-
     sales: [{ type : Schema.Types.ObjectId, ref: 'sales', required: true, default: [] }],
     purchasedProducts: [{ type : Schema.Types.ObjectId, ref: 'products', required: true, default: [] }]
   }, {

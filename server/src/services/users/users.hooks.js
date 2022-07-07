@@ -5,6 +5,7 @@ const {
 } = require('@feathersjs/authentication-local').hooks;
 
 const { iff, isProvider, keep, disallow } = require('feathers-hooks-common');
+const authenticateUserStanding = require('../../hooks/authenticate-user-standing');
 
 const protectUserSysAdminWrite = require('../../hooks/protect-user-sys-admin-write');
 
@@ -21,7 +22,8 @@ const keepFieldsExternal = [
   'email',
   'verification.emailVerified',
   'locked',
-  'tenant'
+  'tenant',
+  'active'
 ]
 
 module.exports = {
@@ -30,11 +32,11 @@ module.exports = {
     ],
     find: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt'),
+      authenticate('jwt'), authenticateUserStanding(),
       // authorizeUserAdmin()
     ],
     get: [
-      authenticate('jwt'),
+      authenticate('jwt'), authenticateUserStanding(),
       authorizeUserAdmin()
     ],
     create: [
@@ -44,7 +46,7 @@ module.exports = {
     update: [ 
       iff(isProvider('external'), disallow()),
       hashPassword('password'),  
-      authenticate('jwt'), 
+      authenticate('jwt'), authenticateUserStanding(), 
       protectUserSysAdminWrite(),
       protectUserEmailWrite(),
       protectUserVerificationWrite(),
@@ -53,7 +55,7 @@ module.exports = {
     patch: [
       iff(isProvider('external'), disallow()),
       hashPassword('password'),
-      authenticate('jwt'),
+      authenticate('jwt'), authenticateUserStanding(),
       protectUserSysAdminWrite(),
       protectUserEmailWrite(),
       protectUserVerificationWrite(),
@@ -61,7 +63,7 @@ module.exports = {
     ],
     remove: [ 
       iff(isProvider('external'), disallow()),
-      authenticate('jwt'),
+      authenticate('jwt'), authenticateUserStanding(),
       protectUserSysAdminWrite(),
       protectUserEmailWrite(),
       protectUserVerificationWrite(),

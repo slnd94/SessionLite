@@ -1,5 +1,6 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const { iff, isProvider, keep, disallow } = require('feathers-hooks-common');
+const authenticateUserStanding = require('../../hooks/authenticate-user-standing');
 
 const keepFieldsExternal = [
   '_id',
@@ -13,27 +14,27 @@ module.exports = {
     all: [],
     find: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ],
     get: [
       // iff(isProvider('external'), disallow()),
-      // authenticate('jwt')
+      // authenticate('jwt'), authenticateUserStanding()
     ],
     create: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ],
     update: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ],
     patch: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ],
     remove: [
       iff(isProvider('external'), disallow()),
-      authenticate('jwt')
+      authenticate('jwt'), authenticateUserStanding()
     ]
   },
 

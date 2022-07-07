@@ -1,10 +1,12 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const { protect } = require('@feathersjs/authentication-local').hooks;
+const authenticateUserStanding = require('../../hooks/authenticate-user-standing');
 const assignParamSysAdminUser = require('../../hooks/assign-param-sys-admin-user');
+
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt'), assignParamSysAdminUser() ],
+    all: [ authenticate('jwt'), authenticateUserStanding(), assignParamSysAdminUser() ],
     find: [],
     get: [],
     create: [],

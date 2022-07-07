@@ -1,4 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const authenticateUserStanding = require('../../hooks/authenticate-user-standing');
 const assignParamSysAdminUser = require('../../hooks/assign-param-sys-admin-user');
 const authorizeTenantAdmin = require('../../hooks/authorize-tenant-admin');
 const { iff, isProvider, keep, disallow } = require('feathers-hooks-common');
@@ -7,7 +8,7 @@ const sendUserInviteEmail = require('../../hooks/send-user-invite-email');
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt'), assignParamSysAdminUser() ],
+    all: [ authenticate('jwt'), authenticateUserStanding(), assignParamSysAdminUser() ],
     find: [
       iff(isProvider('external'), disallow()),
       authorizeTenantAdmin()
