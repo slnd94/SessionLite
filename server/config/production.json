@@ -22,5 +22,7 @@
   "paddlePublicKey": "paddlePublicKey",
   "defaultUserCountryCode": "defaultUserCountryCode",
   "filestackApiBaseUrl": "filestackApiBaseUrl",
-  "sendInBlueApiKey": "sendInBlueApiKey"
+  "sendInBlueApiKey": "sendInBlueApiKey",
+  "invitationTeamEmailTemplate": "invitationTeamEmailTemplate",
+  "invitationClientEmailTemplate": "invitationClientEmailTemplate"
 }

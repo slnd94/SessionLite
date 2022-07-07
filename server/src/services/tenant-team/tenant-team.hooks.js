@@ -9,7 +9,7 @@ module.exports = {
     get: [],
     create: [],
     update: [],
-    patch: [],
+    patch: [authorizeTenantAdmin()],
     remove: []
   },
 

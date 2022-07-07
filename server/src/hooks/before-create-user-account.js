@@ -9,6 +9,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     // reinforce the only fields we want added
     context.data = {
       tenant: context.data.tenant,
+      invite: context.data.invite,
       name: context.data.name,
       email: context.data.email,
       password: context.data.password,

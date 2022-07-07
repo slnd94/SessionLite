@@ -1,27 +1,19 @@
-// plans-model.js - A mongoose model
+// userInvites-model.js - A mongoose model
 // 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = 'plans';
+  const modelName = 'userInvites';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    index: { type: Number, required: true },
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    features: [{ type: String }],
-    paddlePlanId: { type: Number, required: false },
-    allowances: { 
-      activeUsers: { type: Number, required: true }
-    },
-    tag: { type: String, required: false },
-    recurringInterval: {
+    tenant: { type : Schema.Types.ObjectId, ref: 'tenants', required: true },
+    type: {
       type: String,
-      enum: ['day', 'week', 'month', 'year'],
+      enum: ['client', 'team'],
       required: true
     },
-    requiresCheckout: { type: Boolean, required: true }
+    email: { type: String, unique: true, lowercase: true, required: true },
   }, {
     timestamps: true
   });

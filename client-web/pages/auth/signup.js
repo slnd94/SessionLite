@@ -7,12 +7,14 @@ import SignUpForm from "../../components/auth/SignUpForm";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import api from "../../utils/api";
 import Link from "next/link";
 import TenantLogo from "../../components/tenant/TenantLogo";
 
 export default function Signup() {
   const {
     state: { tenant },
+    getTenant
   } = useContext(TenantContext);
   const {
     state: { auth, fileAuth, errorMessage },
@@ -22,9 +24,14 @@ export default function Signup() {
   const [processing, setProcessing] = useState(false);
   const { t } = useTranslation("common");
   const router = useRouter();
+  const { invite } = router.query;
 
   useEffect(() => {
     clearAuthErrorMessage();
+    if(router.query.tenant) {
+      console.log("🚀 ~ file: signup.js ~ line 32 ~ useEffect ~ router.query.tenant", router.query.tenant)
+      getTenant({ id: router.query.tenant })
+    }
   }, []);
 
   return (
@@ -41,7 +48,8 @@ export default function Signup() {
                   
                   const request = await signup({
                     ...data,
-                    tenantId: tenant?._id,
+                    ...(tenant?._id ? { tenantId: tenant._id } : {}),
+                    ...(invite ? { inviteId: invite } : {})
                   });
 
                   // refresh with new data

@@ -27,12 +27,13 @@ import {
   TabContent,
   TabPane,
 } from "reactstrap";
+import TenantAddTeamForm from "../../../../components/tenant/admin/TenantAddTeamForm";
 
 export default function Team() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { tenantId } = router.query;
-  const usersPerPage = 1;
+  const usersPerPage = 50;
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
 
@@ -69,7 +70,7 @@ export default function Team() {
               {t("tenant.admin.team.Add Team Members")}
             </OffcanvasHeader>
             <OffcanvasBody>
-              <strong>This is the Offcanvas body.</strong>
+              <TenantAddTeamForm tenant={tenantId} />
             </OffcanvasBody>
           </Offcanvas>
         </div>
@@ -97,7 +98,7 @@ export default function Team() {
                   setView("invites");
                 }}
               >
-                Invites
+                {t("tenant.admin.team.Invitations")}
               </NavLink>
             </NavItem>
           </Nav>
@@ -118,7 +119,7 @@ export default function Team() {
             <TabPane tabId="invites">
               <div className="row">
                 <div className="col-12">
-                  <h4>Invites</h4>
+                  <h4>{t("tenant.admin.team.Invitations")}</h4>
                 </div>
               </div>
             </TabPane>

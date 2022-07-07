@@ -14,9 +14,25 @@ exports.UserAccounts = class UserAccounts {
   }
 
   async create (data, params) {
+    console.log("🚀 ~ file: user-accounts.class.js ~ line 17 ~ UserAccounts ~ create ~ data", data)
+    if(data.invite) {
+      // ensure the invite was created for the specified tenant
+      // get the invite
+      const invite = await this.app.service('user-invites').get(data.invite);
+      if (!invite || invite.tenant.toString() !== data.tenant.toString()) {
+        // mismatched tenant and invite
+        return Promise.reject(new errors.BadRequest(errorMessages.badRequest));
+      }
+    }
+
     return this.app.service('users')
       .create(data)
-      .then(result => {
+      .then(async result => {
+        // delete the invite if it existed
+        if(data.invite) {
+          await this.app.service('user-invites').remove(data.invite);
+        }
+
         // send welcome/verification email to user
         this.app.service('emails-sendinblue')
           .create({

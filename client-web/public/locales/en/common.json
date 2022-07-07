@@ -161,7 +161,11 @@
         "Details updated": "Details updated"
       },
       "team": {
-        "Add Team Members": "Add Team Members"
+        "Add Team Members": "Add Team Members",
+        "Add Email Addresses": "Add Email Addresses",
+        "Send Invitations": "Send Invitations",
+        "Invitation": "Invitation",
+        "Invitations": "Invitations"
       }
     }
   },
