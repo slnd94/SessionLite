@@ -9,11 +9,14 @@ const UserListItem = ({ user, className, onClick, customButtons }) => {
 
   return (
     <div
-      className={`row list-item ${className}`}
+      className={`row list-item ${user.active ? "" : "inactive"} ${className}`}
       onClick={() => (onClick ? onClick() : null)}
     >
       <div className="col-12 col-md-6">
         <div>{user.name.family}, {user.name.given}</div>
+      </div>
+      <div className="col-12 col-md-6">
+        <div>{t(`tenant.admin.team.${user.active ? "Active" : "Inactive"}`)}</div>
       </div>
       <div className="col-12 col-md-6 text-end">
         {customButtons?.map((button, index) => (

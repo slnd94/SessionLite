@@ -10,6 +10,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     context.data = {
       tenant: context.data.tenant,
       invite: context.data.invite,
+      type: context.data.type,
       name: context.data.name,
       email: context.data.email,
       password: context.data.password,

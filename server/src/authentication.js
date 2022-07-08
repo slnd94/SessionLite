@@ -15,7 +15,6 @@ module.exports = app => {
     after: {
       create: [
         async (context) => {
-          console.log("🚀 ~ file: authentication.js ~ line 18 ~ context", context.result.user)
           if(context?.result?.user?.active && !context.result.user.locked) {
             // get the user tenant if available
             const tenant = context.result.user.tenant ? await context.app.service('tenants').get(context.result.user.tenant) : null;

@@ -33,7 +33,7 @@ export default function Team() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { tenantId } = router.query;
-  const usersPerPage = 50;
+  const usersPerPage = 10;
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
 

@@ -130,7 +130,8 @@
       "home": "The {{tenantName}} home screen. Your users will land here when they use {{appName}}.",
       "admin": "Your admin area. Manage your plan, schedules, lessons, settings and more.",
       "brand": "Your brand admin screen. Manage your company name and logo. Show your identity!",
-      "users": "Your user admin screen. Invite users and manage your user list."
+      "team": "Your {{tenantName}} team admin screen. Invite team members to use {{appName}} with you.",
+      "clients": "Your clients admin screen. Invite clients to use {{appName}} with you."
     },
     "admin": {
       "Admin": "Admin",
@@ -164,8 +165,12 @@
         "Add Team Members": "Add Team Members",
         "Add Email Addresses": "Add Email Addresses",
         "Send Invitations": "Send Invitations",
+        "Invitation sent": "Invitation sent",
+        "invitations sent": "invitations sent",
         "Invitation": "Invitation",
-        "Invitations": "Invitations"
+        "Invitations": "Invitations",
+        "Active": "Active",
+        "Inactive": "Inactive"
       }
     }
   },

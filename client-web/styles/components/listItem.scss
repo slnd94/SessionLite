@@ -4,6 +4,10 @@
   margin: 0;
   padding: .5rem;
 
+  &.inactive {
+    color: $body-color-light;
+  }
+
   &.list-item-lg {
     min-height: 3.5rem;
   }

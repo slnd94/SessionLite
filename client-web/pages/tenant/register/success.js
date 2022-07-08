@@ -43,10 +43,16 @@ export default function RegisterSuccess() {
       description: t('tenant.sectionLinkDescriptions.brand',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
     },
     {
-      icon: "users",
-      title: t("tenant.admin.Users"),
-      route: `/tenant/${tenant?._id}/admin/users`,
-      description: t('tenant.sectionLinkDescriptions.users',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
+      icon: "team",
+      title: t("tenant.admin.Team"),
+      route: `/tenant/${tenant?._id}/admin/team`,
+      description: t('tenant.sectionLinkDescriptions.team',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
+    },
+    {
+      icon: "client",
+      title: t("tenant.admin.Clients"),
+      route: `/tenant/${tenant?._id}/admin/clients`,
+      description: t('tenant.sectionLinkDescriptions.clients',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
     }
   ];
 
