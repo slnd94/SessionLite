@@ -30,7 +30,7 @@ export default function Brand() {
   return (
     <Layout>
       <div className="row mt-0 ms-md-3">
-        <div className="col-12">
+        <div className="col-12 col-md-6">
           <h3 className={"title"}>{t("tenant.admin.Brand")}</h3>
           <TenantDetailsForm
             processing={processing}
