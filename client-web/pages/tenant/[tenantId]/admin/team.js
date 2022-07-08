@@ -52,7 +52,7 @@ export default function Team() {
             onClick={() => {
               console.log("hi");
               setView("invites");
-              setShowInviteForm(true);
+              setShowInviteForm(true)
             }}
           >
             <IconText
@@ -80,12 +80,50 @@ export default function Team() {
       </div> */}
       <div className="row mt-4 ms-md-3">
         <div className="col-12">
-          <UserList
-            tenant={tenantId}
-            itemsPerPage={usersPerPage}
-            onSelectUser={() => {}}
-            t={t}
-          />
+          <Nav pills>
+            <NavItem>
+              <NavLink
+                className={view === "team" ? "active" : ""}
+                onClick={() => {
+                  setView("team");
+                }}
+              >
+                Team
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className={view === "invites" ? "active" : ""}
+                onClick={() => {
+                  setView("invites");
+                }}
+              >
+                {t("tenant.admin.team.Invitations")}
+              </NavLink>
+            </NavItem>
+          </Nav>
+
+          <TabContent activeTab={view} className="mt-3">
+            <TabPane tabId="team">
+              <div className="row">
+                <div className="col-12">
+                  <UserList
+                    tenant={tenantId}
+                    itemsPerPage={usersPerPage}
+                    onSelectUser={() => {}}
+                    t={t}
+                  />
+                </div>
+              </div>
+            </TabPane>
+            <TabPane tabId="invites">
+              <div className="row">
+                <div className="col-12">
+                  <h4>{t("tenant.admin.team.Invitations")}</h4>
+                </div>
+              </div>
+            </TabPane>
+          </TabContent>
         </div>
       </div>
     </Layout>
