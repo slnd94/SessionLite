@@ -22,6 +22,12 @@ module.exports = function (app) {
       emailVerificationKeyExpiryDate: { type: Date, required: false }
     },  
     active: { type: Boolean, required: true, default: true },
+    type: {
+      type: String,
+      enum: ['client', 'team'],
+      required: true,
+      default: 'client'
+    },
     sysAdmin: { type: Boolean, default: false },
     cart: [{ type: userCartEntry }],
     sales: [{ type : Schema.Types.ObjectId, ref: 'sales', required: true, default: [] }],

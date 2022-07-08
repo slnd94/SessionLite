@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { ReactMultiEmail, isEmail } from "react-multi-email";
 import "react-multi-email/style.css";
+import { toast } from "react-toastify";
 import api from "../../../utils/api";
 import {
   Form,
@@ -69,6 +70,11 @@ function TenantAddTeamForm({ tenant }) {
               // getTenant({ id: tenant._id });
               // router.push("/tenant/register/success");
               setProcessing(false);
+              // notify user
+              const notificationString = addEmails.length === 1 ? t("tenant.admin.team.Invitation sent") : `${addEmails.length} ${t("tenant.admin.team.invitations sent")}`;
+              toast(notificationString, {
+                type: "success",
+              });
               setAddEmails([]);
               return { success: true };
             } else {

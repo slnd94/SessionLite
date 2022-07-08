@@ -35,6 +35,7 @@ exports.TenantRegistration = class TenantRegistration {
           // create the user account
           const userAccount = await this.app.service('user-accounts').create({
             ...data.account,
+            type: 'team',
             tenant: tenant._id
           });
 

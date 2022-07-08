@@ -15,13 +15,16 @@ exports.UserAccounts = class UserAccounts {
 
   async create (data, params) {
     console.log("🚀 ~ file: user-accounts.class.js ~ line 17 ~ UserAccounts ~ create ~ data", data)
+    let invite = null;
     if(data.invite) {
       // ensure the invite was created for the specified tenant
       // get the invite
-      const invite = await this.app.service('user-invites').get(data.invite);
+      invite = await this.app.service('user-invites').get(data.invite);
       if (!invite || invite.tenant.toString() !== data.tenant.toString()) {
         // mismatched tenant and invite
         return Promise.reject(new errors.BadRequest(errorMessages.badRequest));
+      } else {
+        data.type = invite.type;
       }
     }
 
