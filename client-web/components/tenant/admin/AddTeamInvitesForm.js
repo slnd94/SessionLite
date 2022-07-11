@@ -16,7 +16,7 @@ import {
 import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
 
-function AddTeamInvitesForm({ tenant }) {
+function AddTeamInvitesForm({ tenant, onAddInvite }) {
   const { t } = useTranslation("common");
   const [processing, setProcessing] = useState(false);
   const [addEmails, setAddEmails] = useState([]);
@@ -24,8 +24,17 @@ function AddTeamInvitesForm({ tenant }) {
 
   return (
     <>
-      <p>{t("tenant.admin.team.Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you.", { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })}</p>
-      <p>{t("tenant.admin.team.If you have more than one email address to add, separate the addresses with a comma.")}</p>
+      <p>
+        {t(
+          "tenant.admin.team.Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you.",
+          { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME }
+        )}
+      </p>
+      <p>
+        {t(
+          "tenant.admin.team.If you have more than one email address to add, separate the addresses with a comma."
+        )}
+      </p>
       <ReactMultiEmail
         placeholder={t("tenant.admin.team.Add Email Addresses")}
         emails={addEmails}
@@ -51,7 +60,13 @@ function AddTeamInvitesForm({ tenant }) {
           );
         }}
       />
-      {emailRequiredError ? <div style={{color: "red"}}>{t("tenant.admin.team.At least one email address is required")}</div> : <></>}
+      {emailRequiredError ? (
+        <div style={{ color: "red" }}>
+          {t("tenant.admin.team.At least one email address is required")}
+        </div>
+      ) : (
+        <></>
+      )}
       {processing ? (
         <Loader />
       ) : (
@@ -87,6 +102,9 @@ function AddTeamInvitesForm({ tenant }) {
                   type: "success",
                 });
                 setAddEmails([]);
+                if (onAddInvite) {
+                  onAddInvite();
+                }
                 return { success: true };
               } else {
                 // setView("error");

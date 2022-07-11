@@ -32,10 +32,11 @@ import TeamUserList from "../../../../components/user/TeamUserList";
 import TeamInvitesList from "../../../../components/user/TeamInvitesList";
 
 export default function Team() {
-  const { t } = useTranslation("common"); 
+  const { t } = useTranslation("common");
   const router = useRouter();
   const { tenantId } = router.query;
-  const usersPerPage = 5;
+  const usersPerPage = 10;
+  const invitesPerPage = 10;
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
 
@@ -54,7 +55,7 @@ export default function Team() {
             onClick={() => {
               console.log("hi");
               setView("invites");
-              setShowInviteForm(true)
+              setShowInviteForm(true);
             }}
           >
             <IconText
@@ -72,7 +73,13 @@ export default function Team() {
               {t("tenant.admin.team.Add Team Members")}
             </OffcanvasHeader>
             <OffcanvasBody>
-              <AddTeamInvitesForm tenant={tenantId} />
+              <AddTeamInvitesForm
+                tenant={tenantId}
+                onAddInvite={() => {
+                  setShowInviteForm(false);
+                  setView("invites");
+                }}
+              />
             </OffcanvasBody>
           </Offcanvas>
         </div>
@@ -109,24 +116,32 @@ export default function Team() {
             <TabPane tabId="team">
               <div className="row">
                 <div className="col-12">
-                  <TeamUserList
-                    tenant={tenantId}
-                    itemsPerPage={usersPerPage}
-                    onSelectUser={() => {}}
-                    t={t}
-                  />
+                  {view === "team" ? (
+                    <TeamUserList
+                      tenant={tenantId}
+                      itemsPerPage={usersPerPage}
+                      onSelectUser={() => {}}
+                      t={t}
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </TabPane>
             <TabPane tabId="invites">
               <div className="row">
                 <div className="col-12">
-                  <TeamInvitesList
-                    tenant={tenantId}
-                    itemsPerPage={usersPerPage}
-                    onSelectInvite={() => {}}
-                    t={t}
-                  />
+                  {view === "invites" ? (
+                    <TeamInvitesList
+                      tenant={tenantId}
+                      itemsPerPage={invitesPerPage}
+                      onSelectInvite={() => {}}
+                      t={t}
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </TabPane>
