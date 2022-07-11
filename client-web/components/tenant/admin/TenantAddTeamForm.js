@@ -22,14 +22,10 @@ function TenantAddTeamForm({ tenant }) {
   const [addEmails, setAddEmails] = useState([]);
   const [emailRequiredError, setEmailRequiredError] = useState(false);
 
-  // const sendInvites = async () => {
-  //   console.log("🚀 ~ file: TenantAddTeamForm.js ~ line 20 ~ TenantAddTeamForm ~ addEmails", addEmails)
-
-  //   const
-  // }
-
   return (
     <>
+      <p>{t("tenant.admin.team.Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you.", { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })}</p>
+      <p>{t("tenant.admin.team.If you have more than one email address to add, separate the addresses with a comma.")}</p>
       <ReactMultiEmail
         placeholder={t("tenant.admin.team.Add Email Addresses")}
         emails={addEmails}
