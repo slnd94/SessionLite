@@ -20,11 +20,12 @@ function TenantAddTeamForm({ tenant }) {
   const { t } = useTranslation("common");
   const [processing, setProcessing] = useState(false);
   const [addEmails, setAddEmails] = useState([]);
+  const [emailRequiredError, setEmailRequiredError] = useState(false);
 
   // const sendInvites = async () => {
   //   console.log("🚀 ~ file: TenantAddTeamForm.js ~ line 20 ~ TenantAddTeamForm ~ addEmails", addEmails)
 
-  //   const 
+  //   const
   // }
 
   return (
@@ -34,6 +35,11 @@ function TenantAddTeamForm({ tenant }) {
         emails={addEmails}
         onChange={(_emails) => {
           setAddEmails(_emails);
+          if (_emails.length < 1) {
+            setEmailRequiredError(true);
+          } else {
+            setEmailRequiredError(false);
+          }
         }}
         validateEmail={(email) => {
           return isEmail(email); // return boolean
@@ -49,38 +55,48 @@ function TenantAddTeamForm({ tenant }) {
           );
         }}
       />
+      {emailRequiredError ? <div style={{color: "red"}}>{t("tenant.admin.team.At least one email address is required")}</div> : <></>}
       {processing ? (
         <Loader />
       ) : (
         <Button
           className={"btn-block-md-down mt-3"}
-          disabled={addEmails.length < 1}
+          // disabled={addEmails.length < 1}
           onClick={async () => {
-            // add the invites
-            setProcessing(true);
-            const response = await api({
-              method: "patch",
-              url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team/${tenant}`,
-              params: {
-                addInviteEmailAddresses: addEmails,
-              },
-            });
-
-            if (response.status >= 200 && response.status < 300) {
-              // getTenant({ id: tenant._id });
-              // router.push("/tenant/register/success");
-              setProcessing(false);
-              // notify user
-              const notificationString = addEmails.length === 1 ? t("tenant.admin.team.Invitation sent") : `${addEmails.length} ${t("tenant.admin.team.invitations sent")}`;
-              toast(notificationString, {
-                type: "success",
-              });
-              setAddEmails([]);
-              return { success: true };
+            if (addEmails.length < 1) {
+              setEmailRequiredError(true);
             } else {
-              // setView("error");
-              setProcessing(false);
-              return { success: false };
+              // add the invites
+              setProcessing(true);
+              const response = await api({
+                method: "patch",
+                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team/${tenant}`,
+                params: {
+                  addInviteEmailAddresses: addEmails,
+                },
+              });
+
+              if (response.status >= 200 && response.status < 300) {
+                // getTenant({ id: tenant._id });
+                // router.push("/tenant/register/success");
+                setProcessing(false);
+                // notify user
+                const notificationString =
+                  addEmails.length === 1
+                    ? t("tenant.admin.team.Invitation sent")
+                    : `${addEmails.length} ${t(
+                        "tenant.admin.team.invitations sent"
+                      )}`;
+                toast(notificationString, {
+                  type: "success",
+                });
+                setAddEmails([]);
+                return { success: true };
+              } else {
+                // setView("error");
+                setProcessing(false);
+                return { success: false };
+              }
             }
           }}
         >
