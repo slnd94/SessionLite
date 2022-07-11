@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import api from "../../../../utils/api";
 import IconText from "../../../../components/IconText";
 import styles from "../../../../styles/Tenant.module.scss";
-import UserList from "../../../../components/user/UserList";
+import UserList from "../../../../components/user/TeamUserList";
 import Loader from "../../../../components/Loader";
 import {
   Button,
@@ -27,13 +27,15 @@ import {
   TabContent,
   TabPane,
 } from "reactstrap";
-import TenantAddTeamForm from "../../../../components/tenant/admin/TenantAddTeamForm";
+import AddTeamInvitesForm from "../../../../components/tenant/admin/AddTeamInvitesForm";
+import TeamUserList from "../../../../components/user/TeamUserList";
+import TeamInvitesList from "../../../../components/user/TeamInvitesList";
 
 export default function Team() {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common"); 
   const router = useRouter();
   const { tenantId } = router.query;
-  const usersPerPage = 10;
+  const usersPerPage = 5;
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
 
@@ -70,7 +72,7 @@ export default function Team() {
               {t("tenant.admin.team.Add Team Members")}
             </OffcanvasHeader>
             <OffcanvasBody>
-              <TenantAddTeamForm tenant={tenantId} />
+              <AddTeamInvitesForm tenant={tenantId} />
             </OffcanvasBody>
           </Offcanvas>
         </div>
@@ -107,7 +109,7 @@ export default function Team() {
             <TabPane tabId="team">
               <div className="row">
                 <div className="col-12">
-                  <UserList
+                  <TeamUserList
                     tenant={tenantId}
                     itemsPerPage={usersPerPage}
                     onSelectUser={() => {}}
@@ -119,7 +121,12 @@ export default function Team() {
             <TabPane tabId="invites">
               <div className="row">
                 <div className="col-12">
-                  <h4>{t("tenant.admin.team.Invitations")}</h4>
+                  <TeamInvitesList
+                    tenant={tenantId}
+                    itemsPerPage={usersPerPage}
+                    onSelectInvite={() => {}}
+                    t={t}
+                  />
                 </div>
               </div>
             </TabPane>

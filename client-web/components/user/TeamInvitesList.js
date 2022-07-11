@@ -5,56 +5,56 @@ import { useTranslation } from "next-i18next";
 import { PlaceholderButton } from "reactstrap";
 import api from "../../utils/api";
 import PaginatedList from "../PaginatedList";
-import UserListItem from "./UserListItem";
+import InviteListItem from "./InviteListItem";
 
-const UserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
-  const [users, setUsers] = useState(null);
-  const [requestingUsers, setRequestingUsers] = useState(null);
+const TeamInvitesList = ({ tenant, onSelectInvite, itemsPerPage, t }) => {
+  const [invites, setInvites] = useState(null);
+  const [requestingInvites, setRequestingInvites] = useState(null);
 
-  const fetchUsers = async ({ skip, limit }) => {
-    setRequestingUsers(true);
+  const fetchInvites = async ({ skip, limit }) => {
+    setRequestingInvites(true);
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites`,
       params: {
         $skip: skip,
         $limit: limit,
         ...(tenant ? { tenant } : {}),
-      },
+      }
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setUsers(response.data);
-      setRequestingUsers(false);
+      setInvites(response.data);
+      setRequestingInvites(false);
       return { success: true };
     } else {
-      setUsers(null);
-      setRequestingUsers(false);
+      setInvites(null);
+      setRequestingInvites(false);
       return { success: false };
     }
   };
 
   useEffect(() => {
     let isSubscribed = true;
-    fetchUsers({ skip: 0, limit: itemsPerPage }).catch(console.error);
+    fetchInvites({ skip: 0, limit: itemsPerPage }).catch(console.error);
     return () => (isSubscribed = false);
   }, []);
 
   return (
     <>
       <PaginatedList
-        items={users?.data?.length ? users : []}
-        itemComponent={UserListItem}
+        items={invites?.data?.length ? invites : []}
+        itemComponent={InviteListItem}
         itemComponentCustomProps={{}}
-        itemPropName={"user"}
-        itemsListedName={t("tenant.users")}
+        itemPropName={"invite"}
+        itemsListedName={t("tenant.invites")}
         itemsPerPage={itemsPerPage}
         requestItemsFunc={async ({ skip, limit }) => {
-          await fetchUsers({ skip, limit });
+          await fetchInvites({ skip, limit });
         }}
         showPaginationBottom
         hidePaginationForSinglePage
-        itemNavRoute={"/users"}
+        itemNavRoute={"/invites"}
         showLink={true}
         t={t}
         // onRef={ref => (this.paginatedList = ref)}
@@ -63,11 +63,11 @@ const UserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
   );
 };
 
-UserList.propTypes = {
-  users: PropTypes.array,
+TeamInvitesList.propTypes = {
+  invitates: PropTypes.array,
   onSelectUser: PropTypes.func,
 };
 
-UserList.defaultProps = {};
+TeamInvitesList.defaultProps = {};
 
-export default UserList;
+export default TeamInvitesList;

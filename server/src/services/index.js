@@ -21,6 +21,7 @@ const tenantPlans = require('./tenant-plans/tenant-plans.service.js');
 const tenantTeam = require('./tenant-team/tenant-team.service.js');
 const emailsSendinblue = require('./emails-sendinblue/emails-sendinblue.service.js');
 const userInvites = require('./user-invites/user-invites.service.js');
+const tenantTeamInvites = require('./tenant-team-invites/tenant-team-invites.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -46,4 +47,5 @@ module.exports = function (app) {
   app.configure(tenantTeam);
   app.configure(emailsSendinblue);
   app.configure(userInvites);
+  app.configure(tenantTeamInvites);
 };

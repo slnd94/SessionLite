@@ -16,7 +16,7 @@ import {
 import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
 
-function TenantAddTeamForm({ tenant }) {
+function AddTeamInvitesForm({ tenant }) {
   const { t } = useTranslation("common");
   const [processing, setProcessing] = useState(false);
   const [addEmails, setAddEmails] = useState([]);
@@ -103,10 +103,10 @@ function TenantAddTeamForm({ tenant }) {
   );
 }
 
-TenantAddTeamForm.propTypes = {
+AddTeamInvitesForm.propTypes = {
   onSubmit: PropTypes.func,
   processing: PropTypes.bool,
   defaults: PropTypes.object,
 };
 
-export default TenantAddTeamForm;
+export default AddTeamInvitesForm;
