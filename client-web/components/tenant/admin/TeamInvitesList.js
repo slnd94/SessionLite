@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { useTranslation } from "next-i18next";
 // import Plan from "./Plan";
 import { PlaceholderButton } from "reactstrap";
-import api from "../../utils/api";
-import PaginatedList from "../PaginatedList";
-import InviteListItem from "./InviteListItem";
+import api from "../../../utils/api";
+import PaginatedList from "../../PaginatedList";
+import InviteListItem from "../../user/InviteListItem";
 
 const TeamInvitesList = ({ tenant, onSelectInvite, itemsPerPage, t }) => {
   const [invites, setInvites] = useState(null);

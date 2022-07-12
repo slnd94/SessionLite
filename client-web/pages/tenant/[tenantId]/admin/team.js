@@ -17,8 +17,8 @@ import {
   TabPane,
 } from "reactstrap";
 import AddTeamInvitesForm from "../../../../components/tenant/admin/AddTeamInvitesForm";
-import TeamUserList from "../../../../components/user/TeamUserList";
-import TeamInvitesList from "../../../../components/user/TeamInvitesList";
+import TeamUserList from "../../../../components/tenant/admin/TeamUserList";
+import TeamInvitesList from "../../../../components/tenant/admin/TeamInvitesList";
 import ManageTeamInvite from "../../../../components/tenant/admin/ManageTeamInvite";
 
 export default function Team() {
