@@ -7,38 +7,7 @@ import api from "../../../utils/api";
 import PaginatedList from "../../PaginatedList";
 import InviteListItem from "../../user/InviteListItem";
 
-const TeamInvitesList = ({ tenant, onSelectInvite, itemsPerPage, t }) => {
-  const [invites, setInvites] = useState(null);
-  const [requestingInvites, setRequestingInvites] = useState(null);
-
-  const fetchInvites = async ({ skip, limit }) => {
-    setRequestingInvites(true);
-    const response = await api({
-      method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites`,
-      params: {
-        $skip: skip,
-        $limit: limit,
-        ...(tenant ? { tenant } : {}),
-      }
-    });
-
-    if (response.status >= 200 && response.status < 300) {
-      setInvites(response.data);
-      setRequestingInvites(false);
-      return { success: true };
-    } else {
-      setInvites(null);
-      setRequestingInvites(false);
-      return { success: false };
-    }
-  };
-
-  useEffect(() => {
-    let isSubscribed = true;
-    fetchInvites({ skip: 0, limit: itemsPerPage }).catch(console.error);
-    return () => (isSubscribed = false);
-  }, []);
+const TeamInvitesList = ({ tenant, onSelectInvite, itemsPerPage, invites, fetchInvites, resetPaginationSignal, t }) => {
 
   return (
     <>
@@ -59,6 +28,7 @@ const TeamInvitesList = ({ tenant, onSelectInvite, itemsPerPage, t }) => {
           onSelectInvite(invite)
         }}
         showLink={true}
+        resetPaginationSignal={resetPaginationSignal}
         t={t}
         // onRef={ref => (this.paginatedList = ref)}
       />
@@ -67,8 +37,9 @@ const TeamInvitesList = ({ tenant, onSelectInvite, itemsPerPage, t }) => {
 };
 
 TeamInvitesList.propTypes = {
-  // invites: PropTypes.array,
+  invites: PropTypes.object,
   onSelectUser: PropTypes.func,
+  fetchInvites: PropTypes.func
 };
 
 TeamInvitesList.defaultProps = {};

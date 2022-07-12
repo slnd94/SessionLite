@@ -66,6 +66,7 @@ const PaginatedList = (props) => {
     hidePaginationForSinglePage,
     itemsPerPage,
     forcePage,
+    resetPaginationSignal,
     t,
   } = props;
   const ItemComponent = props.itemComponent;
@@ -96,6 +97,17 @@ const PaginatedList = (props) => {
       }
     }
   }, [forcePage]);
+
+  useEffect(() => {
+    // reset to first page
+    setPageNumber(0);
+    if (props.requestItemsFunc) {
+      props.requestItemsFunc({
+        skip: 0,
+        limit: itemsPerPage,
+      });
+    }
+  }, [resetPaginationSignal]);
 
   return (
     <>
