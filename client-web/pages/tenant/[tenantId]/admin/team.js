@@ -80,7 +80,7 @@ export default function Team() {
             size="md"
             color="secondary"
             onClick={() => {
-              setView("invites");
+              // setView("invites");
               setShowInviteForm(true);
             }}
           >
