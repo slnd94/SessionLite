@@ -1,41 +1,35 @@
-import { useContext, useState, useEffect } from "react";
+import { useState } from "react";
 import Layout from "../../../../components/tenant/admin/Layout";
-import { Context as AuthContext } from "../../../../context/AuthContext";
-import { Context as TenantContext } from "../../../../context/TenantContext";
-import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import api from "../../../../utils/api";
+import { toast } from "react-toastify";
 import IconText from "../../../../components/IconText";
-import styles from "../../../../styles/Tenant.module.scss";
-import UserList from "../../../../components/user/UserList";
-import Loader from "../../../../components/Loader";
 import {
   Button,
-  Card,
-  CardText,
-  CardTitle,
-  Col,
   Nav,
   NavItem,
   NavLink,
   Offcanvas,
   OffcanvasBody,
   OffcanvasHeader,
-  Row,
   TabContent,
   TabPane,
 } from "reactstrap";
-import TenantAddTeamForm from "../../../../components/tenant/admin/TenantAddTeamForm";
+import AddTeamInvitesForm from "../../../../components/tenant/admin/AddTeamInvitesForm";
+import TeamUserList from "../../../../components/user/TeamUserList";
+import TeamInvitesList from "../../../../components/user/TeamInvitesList";
+import ManageTeamInvite from "../../../../components/tenant/admin/ManageTeamInvite";
 
 export default function Team() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { tenantId } = router.query;
   const usersPerPage = 10;
+  const invitesPerPage = 10;
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
+  const [selectedInvite, setSelectedInvite] = useState(null);
 
   return (
     <Layout>
@@ -50,9 +44,8 @@ export default function Team() {
             size="md"
             color="secondary"
             onClick={() => {
-              console.log("hi");
               setView("invites");
-              setShowInviteForm(true)
+              setShowInviteForm(true);
             }}
           >
             <IconText
@@ -61,6 +54,37 @@ export default function Team() {
               text={t("tenant.admin.team.Add Team Members")}
             />
           </Button>
+
+          <Offcanvas isOpen={selectedInvite} direction="end" keyboard={true}>
+            <OffcanvasHeader
+              toggle={() => {
+                setSelectedInvite(null);
+              }}
+            >
+              {t("tenant.admin.team.Manage Invitation")}
+            </OffcanvasHeader>
+            <OffcanvasBody>
+              <ManageTeamInvite
+                invite={selectedInvite}
+                tenant={tenantId}
+                onResendInvite={() => {
+                  // notify user
+                  toast(t("tenant.admin.team.Invitation re-sent"), {
+                    type: "success",
+                  });
+                }}
+                onRevokeInvite={() => {
+                  // notify user
+                  toast(t("tenant.admin.team.Invitation revoked"), {
+                    type: "success",
+                  });
+                  setSelectedInvite(null);
+                  setView("team");
+                }}
+              />
+            </OffcanvasBody>
+          </Offcanvas>
+
           <Offcanvas isOpen={showInviteForm} direction="end" keyboard={true}>
             <OffcanvasHeader
               toggle={() => {
@@ -70,14 +94,17 @@ export default function Team() {
               {t("tenant.admin.team.Add Team Members")}
             </OffcanvasHeader>
             <OffcanvasBody>
-              <TenantAddTeamForm tenant={tenantId} />
+              <AddTeamInvitesForm
+                tenant={tenantId}
+                onAddInvite={() => {
+                  setShowInviteForm(false);
+                  setView("invites");
+                }}
+              />
             </OffcanvasBody>
           </Offcanvas>
         </div>
       </div>
-      {/* <div className="row mt-2 ms-md-3">
-        <div className="col-12">You have 12 user slots available</div>
-      </div> */}
       <div className="row mt-4 ms-md-3">
         <div className="col-12">
           <Nav pills>
@@ -107,19 +134,34 @@ export default function Team() {
             <TabPane tabId="team">
               <div className="row">
                 <div className="col-12">
-                  <UserList
-                    tenant={tenantId}
-                    itemsPerPage={usersPerPage}
-                    onSelectUser={() => {}}
-                    t={t}
-                  />
+                  {view === "team" ? (
+                    <TeamUserList
+                      tenant={tenantId}
+                      itemsPerPage={usersPerPage}
+                      onSelectUser={() => {}}
+                      t={t}
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </TabPane>
             <TabPane tabId="invites">
               <div className="row">
                 <div className="col-12">
-                  <h4>{t("tenant.admin.team.Invitations")}</h4>
+                  {view === "invites" ? (
+                    <TeamInvitesList
+                      tenant={tenantId}
+                      itemsPerPage={invitesPerPage}
+                      onSelectInvite={(invite) => {
+                        setSelectedInvite(invite);
+                      }}
+                      t={t}
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </TabPane>

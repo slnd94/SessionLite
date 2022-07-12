@@ -1,0 +1,103 @@
+/* eslint-disable no-unused-vars */
+const errors = require("@feathersjs/errors");
+exports.TenantTeamInvites = class TenantTeamInvites {
+  constructor(options) {
+    this.options = options || {};
+  }
+
+  setup(app) {
+    this.app = app;
+  }
+
+  async find(params) {
+    const invites = await this.app.service("user-invites").find({
+      query: {
+        tenant: params.query.tenant,
+        type: "team",
+        $skip: params.query.$skip,
+        $limit: params.query.$limit,
+        $select: {
+          _id: 1,
+          email: 1,
+          tenant: 1,
+        },
+      },
+    });
+
+    return invites;
+  }
+
+  async patch(id, data, params) {
+    if (data.resendInvite) {
+      // ensure the invite belongs to this tenant
+      const invite = await this.app
+        .service("user-invites")
+        .get(data.resendInvite, {
+          query: {
+            $select: {
+              tenant: 1,
+              email: 1,
+            },
+          },
+        });
+      if (invite?.tenant._id.toString() === id.toString()) {
+        // get the tenant
+        const tenant = await this.app.service("tenants").get(id, {
+          query: {
+            $select: {
+              name: 1,
+            },
+          },
+        });
+        if (tenant) {
+          // resend the invite
+          // send invitation email to user
+          this.app.service("emails-sendinblue").create({
+            templateId: this.app.get("invitationTeamEmailTemplate"),
+            destination: invite.email,
+            data: {
+              appName: this.app.get("appName"),
+              tenantName: tenant.name,
+              registrationUrl: `${this.app.get(
+                "appWebBaseUrl"
+              )}/auth/signup?invite=${invite._id}&tenant=${tenant._id}`,
+              privacyPolicyUrl: this.app.get("privacyPolicyUrl"),
+            },
+          });
+          return { success: true };
+        }
+      } else {
+        return Promise.reject(new errors.BadRequest("invalid invite"));
+      }
+    } else if (data.revokeInvite) {
+      // ensure the invite belongs to this tenant
+      const invite = await this.app
+        .service("user-invites")
+        .get(data.revokeInvite, {
+          query: {
+            $select: {
+              tenant: 1,
+              email: 1,
+            },
+          },
+        });
+      if (invite?.tenant._id.toString() === id.toString()) {
+        // get the tenant
+        const tenant = await this.app.service("tenants").get(id, {
+          query: {
+            $select: {
+              _id: 1,
+            },
+          },
+        });
+        if (tenant) {
+          // revoke (remove) the invite
+          await this.app.service('user-invites').remove(data.revokeInvite);
+          return { success: true };
+        }
+      } else {
+        return Promise.reject(new errors.BadRequest("invalid invite"));
+      }
+    }
+  }
+};

@@ -27,7 +27,6 @@ exports.TenantTeam = class TenantTeam {
         }
       }
     });
-    // console.log("🚀 ~ file: tenant-team.class.js ~ line 23 ~ TenantTeam ~ users ~ users", users)
 
     const invites = await this.app.service('user-invites').find({
       query: {
@@ -41,16 +40,12 @@ exports.TenantTeam = class TenantTeam {
         }
       }
     });
-    // console.log("🚀 ~ file: tenant-team.class.js ~ line 36 ~ TenantTeam ~ invites ~ invites", invites)
 
     return users;
   }
 
   async patch (id, data, params) {
-    const { sysAdminUser } = params;
-
     if(data.addInviteEmailAddresses) {
-      // console.log("🚀 ~ file: tenant-team.class.js ~ line 25 ~ TenantTeam ~ patch ~ data.addInvites", data.addInviteEmailAddresses)
       data.addInviteEmailAddresses.forEach(async emailAddress => {
         // check to see if this email has already been used
         const existingInvites = await this.app.service('user-invites').find({

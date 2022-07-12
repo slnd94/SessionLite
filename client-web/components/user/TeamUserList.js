@@ -7,7 +7,7 @@ import api from "../../utils/api";
 import PaginatedList from "../PaginatedList";
 import UserListItem from "./UserListItem";
 
-const UserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
+const TeamUserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
   const [users, setUsers] = useState(null);
   const [requestingUsers, setRequestingUsers] = useState(null);
 
@@ -63,11 +63,11 @@ const UserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
   );
 };
 
-UserList.propTypes = {
+TeamUserList.propTypes = {
   users: PropTypes.array,
   onSelectUser: PropTypes.func,
 };
 
-UserList.defaultProps = {};
+TeamUserList.defaultProps = {};
 
-export default UserList;
+export default TeamUserList;
