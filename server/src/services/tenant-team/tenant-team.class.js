@@ -23,7 +23,8 @@ exports.TenantTeam = class TenantTeam {
           active: 1
         },
         $sort: {
-          "name.family": 1
+          "name.family": 1,
+          "name.given": 1
         }
       }
     });
