@@ -43,34 +43,11 @@ exports.EmailsSendinblue = class EmailsSendinblue {
     };
 
     this.apiInstance.sendTransacEmail(sendSmtpEmail).then(
-      function (res) {
-        console.log("API called successfully. Returned data: " + JSON.stringify(res));
-      },
+      function (res) {},
       function (error) {
         console.error(error);
       }
     );
-
-    // const emailParams = {
-    //   // ConfigurationSetName: "testDestinationWeebleDevEmailNotifications",
-    //   Source: this.app.get("emailSourceAddress"),
-    //   Template: data.template,
-    //   Destination: {
-    //     ToAddresses: [data.destination],
-    //   },
-    //   TemplateData: JSON.stringify({
-    //     appUrl: this.app.get("host"),
-    //     appLogoUrl: `${this.app.get("host")}/logoSmall.png`,
-    //     dateTime: `${getFormattedDateLong(curDateTime)} ${getFormattedTime(
-    //       curDateTime
-    //     )}`,
-    //     ...data.data,
-    //   }),
-    // };
-    // this.ses.sendTemplatedEmail(emailParams, function (err, data) {
-    //   // if (err) console.log(err, err.stack); // an error occurred
-    //   // else     console.log(data);           // successful response
-    // });
 
     return data;
   }

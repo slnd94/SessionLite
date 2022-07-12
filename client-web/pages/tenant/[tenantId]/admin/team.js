@@ -87,7 +87,7 @@ export default function Team() {
             <IconText
               icon="add"
               // iconPosition="end"
-              text={t("tenant.admin.team.Add Team Members")}
+              text={t("tenant.admin.team.Invite Team Members")}
             />
           </Button>
 
@@ -130,7 +130,7 @@ export default function Team() {
                 setShowInviteForm(false);
               }}
             >
-              {t("tenant.admin.team.Add Team Members")}
+              {t("tenant.admin.team.Invite Team Members")}
             </OffcanvasHeader>
             <OffcanvasBody>
               <AddTeamInvitesForm
