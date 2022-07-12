@@ -93,30 +93,29 @@ export default function VerifyEmail() {
                 </p>
                 {tenant ? (
                   <Link href={`/tenant/${tenant._id}`}>
-                    <Button size="md" color="secondary" className="m-0">
-                      {userTenantAdminAuthorized && !tenant.plan ? (
-                        <IconText
-                          icon="arrowRight"
-                          iconPosition="end"
-                          text={t("Continue")}
-                        />
-                      ) : (
-                        t("tenant.Home")
-                      )}
-                    </Button>
+                    <a>
+                      <Button size="md" color="secondary" className="m-0">
+                        {userTenantAdminAuthorized && !tenant.plan ? (
+                          <IconText
+                            icon="arrowRight"
+                            iconPosition="end"
+                            text={t("Continue")}
+                          />
+                        ) : (
+                          t("tenant.Home")
+                        )}
+                      </Button>
+                    </a>
                   </Link>
                 ) : (
                   <Link href={"/"}>
-                    <Button size="md" color="secondary" className="m-0">
-                      {t("Home")}
-                    </Button>
+                    <a>
+                      <Button size="md" color="secondary" className="m-0">
+                        {t("Home")}
+                      </Button>
+                    </a>
                   </Link>
                 )}
-                {/* <Link href="/user/profile">
-                  {t("user.Manage your profile")}
-                </Link>
-                <br />
-                <Link href="/">{t("Browse content")}</Link> */}
               </div>
             ) : null}
             {verifiedStatus === "FAILED" ? (

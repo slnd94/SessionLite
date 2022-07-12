@@ -75,38 +75,6 @@ exports.PaymentWebhooks = class PaymentWebhooks {
                   .remove(null, {
                     query: { userId: paymentIntent.userId }
                   })
-
-                // send order confirmation email to user
-                // this.app.service('emails')
-                //   .create({
-                //     template: 'WeebleOrderConfirmation',
-                //     destination: user.email,
-                //     data: {                  
-                //       user: {
-                //         name: user.name
-                //       },
-                //       saleItems: user.cart.map(item => ({
-                //         imageUrl: `${this.app.get('stripeSecretKey')}${item.product.images.thumbnail}`,
-                //         title: item.product.title,
-                //         creator: item.product.creators[0],
-                //         pricePaid: getAmountString(item.product.price)
-                //       })),
-                //       pricePaid: { 
-                //         subtotal: getAmountString({
-                //           cents: cartSubtotal,
-                //           currencyCode: userCurrencyCode
-                //         }),
-                //         taxes: cartTaxes.map(tax => ({
-                //           description: getTaxDescriptionString(tax),
-                //           amount: getAmountString(tax.amount)
-                //         })),
-                //         total: getAmountString({
-                //           cents: cartTotal,
-                //           currencyCode: userCurrencyCode
-                //         })
-                //       }
-                //     }
-                //   })
               ]);
             }
           }          

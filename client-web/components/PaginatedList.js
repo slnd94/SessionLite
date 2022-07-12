@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Pagination from "./Pagination";
@@ -65,6 +65,8 @@ const PaginatedList = (props) => {
     showPaginationBottom,
     hidePaginationForSinglePage,
     itemsPerPage,
+    forcePage,
+    resetPaginationSignal,
     t,
   } = props;
   const ItemComponent = props.itemComponent;
@@ -83,6 +85,29 @@ const PaginatedList = (props) => {
   } else {
     renderItems = items;
   }
+
+  useEffect(() => {
+    if (Number.isInteger(forcePage)) {
+      setPageNumber(forcePage);
+      if (props.requestItemsFunc) {
+        props.requestItemsFunc({
+          skip: forcePage * itemsPerPage,
+          limit: itemsPerPage,
+        });
+      }
+    }
+  }, [forcePage]);
+
+  useEffect(() => {
+    // reset to first page
+    setPageNumber(0);
+    if (props.requestItemsFunc) {
+      props.requestItemsFunc({
+        skip: 0,
+        limit: itemsPerPage,
+      });
+    }
+  }, [resetPaginationSignal]);
 
   return (
     <>

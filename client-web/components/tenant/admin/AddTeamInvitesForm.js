@@ -72,7 +72,6 @@ function AddTeamInvitesForm({ tenant, onAddInvite }) {
       ) : (
         <Button
           className={"btn-block-md-down mt-3"}
-          // disabled={addEmails.length < 1}
           onClick={async () => {
             if (addEmails.length < 1) {
               setEmailRequiredError(true);
@@ -81,15 +80,13 @@ function AddTeamInvitesForm({ tenant, onAddInvite }) {
               setProcessing(true);
               const response = await api({
                 method: "patch",
-                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team/${tenant}`,
+                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites/${tenant}`,
                 params: {
-                  addInviteEmailAddresses: addEmails,
+                  inviteEmailAddresses: addEmails,
                 },
               });
 
               if (response.status >= 200 && response.status < 300) {
-                // getTenant({ id: tenant._id });
-                // router.push("/tenant/register/success");
                 setProcessing(false);
                 // notify user
                 const notificationString =

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../../../../components/tenant/admin/Layout";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -17,9 +17,10 @@ import {
   TabPane,
 } from "reactstrap";
 import AddTeamInvitesForm from "../../../../components/tenant/admin/AddTeamInvitesForm";
-import TeamUserList from "../../../../components/user/TeamUserList";
-import TeamInvitesList from "../../../../components/user/TeamInvitesList";
+import TeamUserList from "../../../../components/tenant/admin/TeamUserList";
+import TeamInvitesList from "../../../../components/tenant/admin/TeamInvitesList";
 import ManageTeamInvite from "../../../../components/tenant/admin/ManageTeamInvite";
+import api from "../../../../utils/api";
 
 export default function Team() {
   const { t } = useTranslation("common");
@@ -30,6 +31,41 @@ export default function Team() {
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
   const [selectedInvite, setSelectedInvite] = useState(null);
+  const [invites, setInvites] = useState(null);
+  const [
+    teamInvitesResetPaginationSignal,
+    setTeamInvitesResetPaginationSignal,
+  ] = useState(null);
+
+  const fetchInvites = async ({ skip, limit }) => {
+    // setRequestingInvites(true);
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites`,
+      params: {
+        $skip: skip,
+        $limit: limit,
+        ...(tenantId ? { tenant: tenantId } : {}),
+      },
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setInvites(response.data);
+      // setRequestingInvites(false);
+      return { success: true };
+    } else {
+      setInvites(null);
+      // setRequestingInvites(false);
+      return { success: false };
+    }
+  };
+
+  useEffect(() => {
+    if (view === "invites") {
+      fetchInvites({ skip: 0, limit: invitesPerPage }).catch(console.error);
+    } else {
+    }
+  }, [view]);
 
   return (
     <Layout>
@@ -51,7 +87,7 @@ export default function Team() {
             <IconText
               icon="add"
               // iconPosition="end"
-              text={t("tenant.admin.team.Add Team Members")}
+              text={t("tenant.admin.team.Invite Team Members")}
             />
           </Button>
 
@@ -79,7 +115,10 @@ export default function Team() {
                     type: "success",
                   });
                   setSelectedInvite(null);
-                  setView("team");
+                  if (view === "invites") {
+                    // signal the component to reset the pagination
+                    setTeamInvitesResetPaginationSignal(Date.now());
+                  }
                 }}
               />
             </OffcanvasBody>
@@ -91,7 +130,7 @@ export default function Team() {
                 setShowInviteForm(false);
               }}
             >
-              {t("tenant.admin.team.Add Team Members")}
+              {t("tenant.admin.team.Invite Team Members")}
             </OffcanvasHeader>
             <OffcanvasBody>
               <AddTeamInvitesForm
@@ -154,9 +193,12 @@ export default function Team() {
                     <TeamInvitesList
                       tenant={tenantId}
                       itemsPerPage={invitesPerPage}
+                      fetchInvites={fetchInvites}
+                      invites={invites}
                       onSelectInvite={(invite) => {
                         setSelectedInvite(invite);
                       }}
+                      resetPaginationSignal={teamInvitesResetPaginationSignal}
                       t={t}
                     />
                   ) : (

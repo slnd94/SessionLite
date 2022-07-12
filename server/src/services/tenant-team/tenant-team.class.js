@@ -29,57 +29,6 @@ exports.TenantTeam = class TenantTeam {
       }
     });
 
-    const invites = await this.app.service('user-invites').find({
-      query: {
-        tenant: params.query.tenant,
-        $skip: params.query.$skip,
-        $limit: params.query.$limit,
-        $select: {
-          _id: 1,
-          email: 1,
-          tenant: 1
-        }
-      }
-    });
-
     return users;
-  }
-
-  async patch (id, data, params) {
-    if(data.addInviteEmailAddresses) {
-      data.addInviteEmailAddresses.forEach(async emailAddress => {
-        // check to see if this email has already been used
-        const existingInvites = await this.app.service('user-invites').find({
-          query: {
-            email: emailAddress,
-            tenant: id
-          }
-        });
-  
-        if(existingInvites.total === 0) {
-          const existingUsers = await this.app.service('users').find({
-            query: {
-              email: emailAddress
-            }
-          });
-    
-          if(existingUsers.total === 0) {
-            try{
-              const invite = await this.app.service('user-invites').create({
-                tenant: id,
-                type: "team",
-                email: emailAddress
-              });
-            } catch(err) {
-              console.log("🚀 ~ file: tenant-team.class.js ~ line 50 ~ TenantTeam ~ patch ~ err", err)
-            }
-          }
-        }
-      });
-
-      return { success: true }
-    } else if (data.removeInvites) {
-
-    }
   }
 };

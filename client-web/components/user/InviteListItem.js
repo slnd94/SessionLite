@@ -11,6 +11,7 @@ const InviteListItem = ({ invite, className, onClick, customButtons }) => {
   return (
     <div
       className={`row list-item ${className}`}
+      style={{overflow: 'hidden'}}
       onClick={() => (onClick ? onClick() : null)}
     >
       <div className="col-12 col-md-6">

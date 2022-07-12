@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { useTranslation } from "next-i18next";
 // import Plan from "./Plan";
 import { PlaceholderButton } from "reactstrap";
-import api from "../../utils/api";
-import PaginatedList from "../PaginatedList";
-import UserListItem from "./UserListItem";
+import api from "../../../utils/api";
+import PaginatedList from "../../PaginatedList";
+import UserListItem from "../../user/UserListItem";
 
 const TeamUserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
   const [users, setUsers] = useState(null);

@@ -28,7 +28,39 @@ exports.TenantTeamInvites = class TenantTeamInvites {
   }
 
   async patch(id, data, params) {
-    if (data.resendInvite) {
+    if(data.inviteEmailAddresses) {
+      await Promise.all(data.inviteEmailAddresses.map(async emailAddress => {
+        // check to see if this email has already been used
+        const existingInvites = await this.app.service('user-invites').find({
+          query: {
+            email: emailAddress,
+            tenant: id
+          }
+        });
+
+        if(existingInvites.total === 0) {
+          const existingUsers = await this.app.service('users').find({
+            query: {
+              email: emailAddress
+            }
+          });
+
+          if(existingUsers.total === 0) {
+            try{
+              await this.app.service('user-invites').create({
+                tenant: id,
+                type: "team",
+                email: emailAddress
+              });
+            } catch(err) {
+              console.log("🚀 ~ file: tenant-team.class.js ~ line 50 ~ TenantTeam ~ patch ~ err", err)
+            }
+          }
+        }
+      }));
+
+      return { success: true }
+    } else if (data.resendInvite) {
       // ensure the invite belongs to this tenant
       const invite = await this.app
         .service("user-invites")
