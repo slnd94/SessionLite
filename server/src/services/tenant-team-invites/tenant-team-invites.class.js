@@ -47,7 +47,7 @@ exports.TenantTeamInvites = class TenantTeamInvites {
 
           if(existingUsers.total === 0) {
             try{
-              const invite = await this.app.service('user-invites').create({
+              await this.app.service('user-invites').create({
                 tenant: id,
                 type: "team",
                 email: emailAddress
@@ -57,7 +57,6 @@ exports.TenantTeamInvites = class TenantTeamInvites {
             }
           }
         }
-        console.log('added!')
       }));
 
       return { success: true }
