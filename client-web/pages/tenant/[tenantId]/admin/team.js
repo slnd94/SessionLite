@@ -21,6 +21,7 @@ import TeamUserList from "../../../../components/tenant/admin/TeamUserList";
 import TeamInvitesList from "../../../../components/tenant/admin/TeamInvitesList";
 import ManageTeamInvite from "../../../../components/tenant/admin/ManageTeamInvite";
 import api from "../../../../utils/api";
+import ManageTeamUser from "../../../../components/tenant/admin/ManageTeamUser";
 
 export default function Team() {
   const { t } = useTranslation("common");
@@ -30,15 +31,42 @@ export default function Team() {
   const invitesPerPage = 10;
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
-  const [selectedInvite, setSelectedInvite] = useState(null);
+  
   const [invites, setInvites] = useState(null);
+  const [selectedInvite, setSelectedInvite] = useState(null);
   const [
     teamInvitesResetPaginationSignal,
     setTeamInvitesResetPaginationSignal,
   ] = useState(null);
 
+  const [users, setUsers] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [
+    teamUsersResetPaginationSignal,
+    setTeamUsersResetPaginationSignal,
+  ] = useState(null);
+
+  const fetchUsers = async ({ skip, limit }) => {
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team`,
+      params: {
+        $skip: skip,
+        $limit: limit,
+        ...(tenantId ? { tenant: tenantId } : {}),
+      },
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setUsers(response.data);
+      return { success: true };
+    } else {
+      setUsers(null);
+      return { success: false };
+    }
+  };
+
   const fetchInvites = async ({ skip, limit }) => {
-    // setRequestingInvites(true);
     const response = await api({
       method: "get",
       url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites`,
@@ -51,11 +79,9 @@ export default function Team() {
 
     if (response.status >= 200 && response.status < 300) {
       setInvites(response.data);
-      // setRequestingInvites(false);
       return { success: true };
     } else {
       setInvites(null);
-      // setRequestingInvites(false);
       return { success: false };
     }
   };
@@ -63,7 +89,8 @@ export default function Team() {
   useEffect(() => {
     if (view === "invites") {
       fetchInvites({ skip: 0, limit: invitesPerPage }).catch(console.error);
-    } else {
+    } else if (view === "team") {
+      fetchUsers({ skip: 0, limit: invitesPerPage }).catch(console.error);
     }
   }, [view]);
 
@@ -124,6 +151,46 @@ export default function Team() {
             </OffcanvasBody>
           </Offcanvas>
 
+          <Offcanvas isOpen={selectedUser} direction="end" keyboard={true}>
+            <OffcanvasHeader
+              toggle={() => {
+                setSelectedUser(null);
+              }}
+            >
+              {t("tenant.admin.team.Manage User")}
+            </OffcanvasHeader>
+            <OffcanvasBody>
+              <ManageTeamUser
+                user={selectedUser}
+                tenant={tenantId}
+                onDeactivateUser={() => {
+                  // notify user
+                  toast(t("tenant.admin.team.User deactivated"), {
+                    type: "success",
+                  });
+                  // setSelectedInvite(null);
+                  if (view === "team") {
+                    setSelectedUser(null)
+                    // signal the component to reset the pagination
+                    setTeamUsersResetPaginationSignal(Date.now());
+                  }
+                }}
+                onActivateUser={() => {
+                  // notify user
+                  toast(t("tenant.admin.team.User activated"), {
+                    type: "success",
+                  });
+                  // setSelectedInvite(null);
+                  if (view === "team") {
+                    setSelectedUser(null)
+                    // signal the component to reset the pagination
+                    setTeamUsersResetPaginationSignal(Date.now());
+                  }
+                }}
+              />
+            </OffcanvasBody>
+          </Offcanvas>
+
           <Offcanvas isOpen={showInviteForm} direction="end" keyboard={true}>
             <OffcanvasHeader
               toggle={() => {
@@ -157,7 +224,7 @@ export default function Team() {
                   setView("team");
                 }}
               >
-              {t("tenant.admin.team.Team")}
+                {t("tenant.admin.team.Team")}
               </NavLink>
             </NavItem>
             <NavItem>
@@ -178,9 +245,13 @@ export default function Team() {
                 <div className="col-12">
                   {view === "team" ? (
                     <TeamUserList
-                      tenant={tenantId}
                       itemsPerPage={usersPerPage}
-                      onSelectUser={() => {}}
+                      fetchUsers={fetchUsers}
+                      users={users}
+                      onSelectUser={(user) => {
+                        setSelectedUser(user);
+                      }}
+                      resetPaginationSignal={teamUsersResetPaginationSignal}
                       t={t}
                     />
                   ) : (
@@ -192,12 +263,17 @@ export default function Team() {
             <TabPane tabId="invites">
               <div className="row">
                 <div className="col-12">
-                  {invites && !invites.data?.length ?
-                    <h6>{t("tenant.admin.team.There are no outstanding team member invitations")}</h6> : <></>
-                  }
+                  {invites && !invites.data?.length ? (
+                    <h6>
+                      {t(
+                        "tenant.admin.team.There are no outstanding team member invitations"
+                      )}
+                    </h6>
+                  ) : (
+                    <></>
+                  )}
                   {view === "invites" ? (
                     <TeamInvitesList
-                      tenant={tenantId}
                       itemsPerPage={invitesPerPage}
                       fetchInvites={fetchInvites}
                       invites={invites}

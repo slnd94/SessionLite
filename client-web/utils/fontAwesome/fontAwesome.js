@@ -8,9 +8,12 @@ import faCreditCard from "@fortawesome/fontawesome-free-solid/faCreditCard";
 import faStripe from "@fortawesome/fontawesome-free-brands/faStripe";
 import faHeart from "@fortawesome/fontawesome-free-solid/faHeart";
 import faHome from "@fortawesome/fontawesome-free-solid/faHome";
+import faEnvelope from "@fortawesome/fontawesome-free-solid/faEnvelope";
 import faUser from "@fortawesome/fontawesome-free-solid/faUser";
 import faUsers from "@fortawesome/fontawesome-free-solid/faUsers";
 import faUserCircle from "@fortawesome/fontawesome-free-solid/faUserCircle";
+import faUserCheck from "@fortawesome/fontawesome-free-solid/faUserCheck";
+import faUserSlash from "@fortawesome/fontawesome-free-solid/faUserSlash";
 // import faClipboardUser from "@fortawesome/fontawesome-free-solid/faClipboardUser";
 import faSlidersH from "@fortawesome/fontawesome-free-solid/faSlidersH";
 import faBuilding from "@fortawesome/fontawesome-free-solid/faBuilding";
@@ -43,7 +46,8 @@ import faEye from "@fortawesome/fontawesome-free-regular/faEye";
 import faDollarSign from "@fortawesome/fontawesome-free-solid/faDollarSign";
 import faReceipt from "@fortawesome/fontawesome-free-solid/faReceipt";
 import faPencil from "@fortawesome/fontawesome-free-solid/faPencilAlt";
-import faCheckCircle from "@fortawesome/fontawesome-free-regular/faCheckCircle";
+import faCheckCircle from "@fortawesome/fontawesome-free-solid/faCheckCircle";
+import faWindowClose from "@fortawesome/fontawesome-free-solid/faWindowClose";
 import faCog from "@fortawesome/fontawesome-free-solid/faCog";
 import faBox from "@fortawesome/fontawesome-free-solid/faBox";
 import faLock from "@fortawesome/fontawesome-free-solid/faLock";
@@ -53,6 +57,7 @@ import faTable from "@fortawesome/fontawesome-free-solid/faTable";
 
 export const icons = {
   login: faSignInAlt,
+  email: faEnvelope,
   logout: faSignOutAlt,
   error: faExclamationCircle,
   success: faCheckCircle,
@@ -78,6 +83,8 @@ export const icons = {
   dashboard: faChartPie,
   home: faHome,
   user: faUser,
+  userActive: faCheckCircle,
+  userInactive: faWindowClose,
   users: faUsers,
   profile: faUser,
   account: faSlidersH,

@@ -51,7 +51,7 @@ function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
           onClick={() => {
             confirm(
               t(
-                "tenant.admin.team.Are you sure you want to revoke this invitation? The user will no longer be able to sign up from this email."
+                "tenant.admin.team.Are you sure you want to revoke this invitation? The invitee will no longer be able to sign up using this invitation."
               )
             ).then(async () => {
               const response = await api({

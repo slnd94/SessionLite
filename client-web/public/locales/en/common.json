@@ -99,6 +99,10 @@
     "User profile updated": "User profile updated",
     "User account updated": "User account updated",
     "Invalid current password": "Invalid current password",
+    "Active": "Active",
+    "Account is active": "Account is active",
+    "Inactive": "Inactive",
+    "Account is inactive": "Account is inactive",
     "account": {
       "verification": {
         "We need to verify your account. You should receive an email with a verification link.": "We need to verify your account. You should receive an email with a verification link.",
@@ -179,10 +183,21 @@
         "Revoke Invitation": "Revoke Invitation",
         "Are you sure you want to re-send this invitation?": "Are you sure you want to re-send this invitation?",
         "Invitation re-sent": "Invitation re-sent",
-        "Are you sure you want to revoke this invitation? The user will no longer be able to sign up from this email.": "Are you sure you want to revoke this invitation? The user will no longer be able to sign up from this email.",
+        "Are you sure you want to revoke this invitation? The invitee will no longer be able to sign up using this invitation.": "Are you sure you want to revoke this invitation? The invitee will no longer be able to sign up using this invitation.",
         "Invitation revoked": "Invitation revoked",
+        "Manage User": "Manage User",
         "Active": "Active",
-        "Inactive": "Inactive"
+        "Inactive": "Inactive",
+        "Activate User": "Activate User",
+        "User activated": "User activated",
+        "There was a problem activating this user": "There was a problem activating this user",
+        "You cannot activate yourself": "You cannot activate yourself",
+        "User deactivated": "User deactivated",
+        "There was a problem deactivating this user": "There was a problem deactivating this user",
+        "You cannot deactivate yourself": "You cannot deactivate yourself",
+        "Deactivate User": "Deactivate User",
+        "Are you sure you want to deactivate this user? The user will no longer be able to sign in to {{appName}}.": "Are you sure you want to deactivate this user? The user will no longer be able to sign in to {{appName}}.",
+        "Are you sure you want to activate this user? The user will be able to sign in to {{appName}}.": "Are you sure you want to activate this user? The user will be able to sign in to {{appName}}."
       }
     }
   },

@@ -1,44 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useTranslation } from "next-i18next";
-// import Plan from "./Plan";
-import { PlaceholderButton } from "reactstrap";
-import api from "../../../utils/api";
 import PaginatedList from "../../PaginatedList";
 import UserListItem from "../../user/UserListItem";
 
-const TeamUserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
-  const [users, setUsers] = useState(null);
-  const [requestingUsers, setRequestingUsers] = useState(null);
-
-  const fetchUsers = async ({ skip, limit }) => {
-    setRequestingUsers(true);
-    const response = await api({
-      method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team`,
-      params: {
-        $skip: skip,
-        $limit: limit,
-        ...(tenant ? { tenant } : {}),
-      },
-    });
-
-    if (response.status >= 200 && response.status < 300) {
-      setUsers(response.data);
-      setRequestingUsers(false);
-      return { success: true };
-    } else {
-      setUsers(null);
-      setRequestingUsers(false);
-      return { success: false };
-    }
-  };
-
-  useEffect(() => {
-    let isSubscribed = true;
-    fetchUsers({ skip: 0, limit: itemsPerPage }).catch(console.error);
-    return () => (isSubscribed = false);
-  }, []);
+const TeamUserList = ({ onSelectUser, itemsPerPage, users, fetchUsers, resetPaginationSignal, t }) => {
 
   return (
     <>
@@ -54,10 +19,12 @@ const TeamUserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
         }}
         showPaginationBottom
         hidePaginationForSinglePage
-        itemNavRoute={"/users"}
+        itemOnClick={user => {
+          onSelectUser(user)
+        }}
         showLink={true}
+        resetPaginationSignal={resetPaginationSignal}
         t={t}
-        // onRef={ref => (this.paginatedList = ref)}
       />
     </>
   );
@@ -66,6 +33,7 @@ const TeamUserList = ({ tenant, onSelectUser, itemsPerPage, t }) => {
 TeamUserList.propTypes = {
   users: PropTypes.array,
   onSelectUser: PropTypes.func,
+  fetchUsers: PropTypes.func
 };
 
 TeamUserList.defaultProps = {};
