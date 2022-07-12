@@ -14,7 +14,6 @@ exports.UserAccounts = class UserAccounts {
   }
 
   async create (data, params) {
-    console.log("🚀 ~ file: user-accounts.class.js ~ line 17 ~ UserAccounts ~ create ~ data", data)
     let invite = null;
     if(data.invite) {
       // ensure the invite was created for the specified tenant

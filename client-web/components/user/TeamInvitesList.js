@@ -54,7 +54,10 @@ const TeamInvitesList = ({ tenant, onSelectInvite, itemsPerPage, t }) => {
         }}
         showPaginationBottom
         hidePaginationForSinglePage
-        itemNavRoute={"/invites"}
+        // itemNavRoute={"/invites"}
+        itemOnClick={invite => {
+          onSelectInvite(invite)
+        }}
         showLink={true}
         t={t}
         // onRef={ref => (this.paginatedList = ref)}
@@ -64,7 +67,7 @@ const TeamInvitesList = ({ tenant, onSelectInvite, itemsPerPage, t }) => {
 };
 
 TeamInvitesList.propTypes = {
-  invitates: PropTypes.array,
+  // invites: PropTypes.array,
   onSelectUser: PropTypes.func,
 };
 

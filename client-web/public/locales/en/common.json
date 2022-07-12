@@ -172,6 +172,13 @@
         "invitations sent": "invitations sent",
         "Invitation": "Invitation",
         "Invitations": "Invitations",
+        "Manage Invitation": "Manage Invitation",
+        "Re-send Invitation": "Re-send Invitation",
+        "Revoke Invitation": "Revoke Invitation",
+        "Are you sure you want to re-send this invitation?": "Are you sure you want to re-send this invitation?",
+        "Invitation re-sent": "Invitation re-sent",
+        "Are you sure you want to revoke this invitation? The user will no longer be able to sign up from this email.": "Are you sure you want to revoke this invitation? The user will no longer be able to sign up from this email.",
+        "Invitation revoked": "Invitation revoked",
         "Active": "Active",
         "Inactive": "Inactive"
       }
