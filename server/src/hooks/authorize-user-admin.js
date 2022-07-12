@@ -61,7 +61,6 @@ module.exports = (options = {}) => {
             ],
           },
         });
-        console.log("🚀 ~ file: authorize-user-admin.js ~ line 64 ~ subjectUser ~ subjectUser", subjectUser)
 
         if (
           subjectUser?.tenant?.adminUsers.find(
