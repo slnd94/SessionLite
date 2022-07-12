@@ -164,6 +164,7 @@
       "team": {
         "Invite Team Members": "Invite Team Members",
         "Add Email Addresses": "Add Email Addresses",
+        "There are no outstanding team member invitations": "There are no outstanding team member invitations",
         "Send Invitations": "Send Invitations",
         "At least one email address is required": "At least one email address is required",
         "Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you.": "Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you.",

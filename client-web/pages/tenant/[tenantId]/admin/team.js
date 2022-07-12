@@ -137,7 +137,10 @@ export default function Team() {
                 tenant={tenantId}
                 onAddInvite={() => {
                   setShowInviteForm(false);
-                  setView("invites");
+                  if (view === "invites") {
+                    // signal the component to reset the pagination
+                    setTeamInvitesResetPaginationSignal(Date.now());
+                  }
                 }}
               />
             </OffcanvasBody>
@@ -189,6 +192,9 @@ export default function Team() {
             <TabPane tabId="invites">
               <div className="row">
                 <div className="col-12">
+                  {invites && !invites.data?.length ?
+                    <h6>{t("tenant.admin.team.There are no outstanding team member invitations")}</h6> : <></>
+                  }
                   {view === "invites" ? (
                     <TeamInvitesList
                       tenant={tenantId}
