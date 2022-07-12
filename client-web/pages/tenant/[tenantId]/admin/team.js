@@ -157,7 +157,7 @@ export default function Team() {
                   setView("team");
                 }}
               >
-                Team
+              {t("tenant.admin.team.Team")}
               </NavLink>
             </NavItem>
             <NavItem>
