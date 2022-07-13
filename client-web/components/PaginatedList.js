@@ -67,7 +67,7 @@ const PaginatedList = (props) => {
     itemsPerPage,
     forcePage,
     requestItemsFunc,
-    resetPaginationSignal,
+    requestItemsSignal,
     t,
   } = props;
   const ItemComponent = props.itemComponent;
@@ -108,7 +108,7 @@ const PaginatedList = (props) => {
         limit: itemsPerPage,
       });
     }
-  }, [resetPaginationSignal]);
+  }, [requestItemsSignal]);
 
   return (
     <>

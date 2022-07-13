@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import PaginatedList from "../../PaginatedList";
 import InviteListItem from "../../user/InviteListItem";
 
-const TeamInvitesList = ({ onSelectInvite, itemsPerPage, invites, fetchInvites, resetPaginationSignal, t }) => {
+const TeamInvitesList = ({ onSelectInvite, itemsPerPage, invites, fetchInvites, requestItemsSignal, t }) => {
 
   return (
     <>
@@ -23,7 +23,7 @@ const TeamInvitesList = ({ onSelectInvite, itemsPerPage, invites, fetchInvites, 
           onSelectInvite(invite)
         }}
         showLink={true}
-        resetPaginationSignal={resetPaginationSignal}
+        requestItemsSignal={requestItemsSignal}
         t={t}
       />
     </>
