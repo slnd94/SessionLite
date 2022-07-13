@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import "react-multi-email/style.css";
 import api from "../../../utils/api";
@@ -8,13 +8,38 @@ import { useTranslation } from "next-i18next";
 import UserCard from "../../user/UserCard";
 import { Context as AuthContext } from "../../../context/AuthContext";
 
-function ManageTeamUser({ user, tenant, onDeactivateUser, onActivateUser }) {
+function ManageTeamUser({ userId, tenant, onDeactivateUser, onActivateUser }) {
   const { t } = useTranslation("common");
   const {
     state: { auth },
   } = useContext(AuthContext);
   const [activateError, setActivateError] = useState(false);
   const [deactivateError, setDeactivateError] = useState(false);
+  const [user, setUser] = useState(false);
+
+  const fetchUser = async () => {
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
+      // params: {
+      //   $skip: skip,
+      //   $limit: limit,
+      //   ...(tenantId ? { tenant: tenantId } : {}),
+      // },
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setUser(response.data);
+      return { success: true };
+    } else {
+      setUser(null);
+      return { success: false };
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <>
@@ -45,6 +70,7 @@ function ManageTeamUser({ user, tenant, onDeactivateUser, onActivateUser }) {
                   if (onDeactivateUser) {
                     onDeactivateUser();
                   }
+                  fetchUser();
                   return { success: true };
                 } else {
                   setDeactivateError(true);
@@ -80,6 +106,7 @@ function ManageTeamUser({ user, tenant, onDeactivateUser, onActivateUser }) {
                   if (onActivateUser) {
                     onActivateUser();
                   }
+                  fetchUser();
                   return { success: true };
                 } else {
                   setActivateError(true);

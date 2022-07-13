@@ -161,7 +161,7 @@ export default function Team() {
             </OffcanvasHeader>
             <OffcanvasBody>
               <ManageTeamUser
-                user={selectedUser}
+                userId={selectedUser?._id}
                 tenant={tenantId}
                 onDeactivateUser={() => {
                   // notify user
@@ -170,7 +170,6 @@ export default function Team() {
                   });
                   // setSelectedInvite(null);
                   if (view === "team") {
-                    setSelectedUser(null)
                     // signal the component to reset the pagination
                     setTeamUsersRequestItemsSignal(Date.now());
                   }
@@ -182,7 +181,6 @@ export default function Team() {
                   });
                   // setSelectedInvite(null);
                   if (view === "team") {
-                    setSelectedUser(null)
                     // signal the component to reset the pagination
                     setTeamUsersRequestItemsSignal(Date.now());
                   }
@@ -224,7 +222,7 @@ export default function Team() {
                   setView("team");
                 }}
               >
-                <IconText icon="user" text={t("tenant.admin.team.Team")} />
+                <IconText icon="user" text={t("tenant.admin.team.Registered")} />
               </NavLink>
             </NavItem>
             <NavItem>

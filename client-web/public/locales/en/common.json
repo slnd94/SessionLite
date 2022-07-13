@@ -167,6 +167,8 @@
       },
       "team": {
         "Team": "Team",
+        "Registered": "Registered",
+        "Registered Team Members": "Registered Team Members",
         "Invite Team Members": "Invite Team Members",
         "Add Email Addresses": "Add Email Addresses",
         "There are no outstanding team member invitations": "There are no outstanding team member invitations",
