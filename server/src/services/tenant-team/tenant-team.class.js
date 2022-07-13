@@ -43,13 +43,10 @@ exports.TenantTeam = class TenantTeam {
 
   async patch(id, data, params) {
     if (data.updateUser) {
-      console.log('here 100');
       // check to see if the requested user is the current user
       if(data.updateUser.toString() === params.user._id.toString()) {
-        console.log('here 200');
         return Promise.reject(new errors.BadRequest("You cannot modify yourself"));
       }
-      console.log('here 300');
       // check that the requested user is in the user's tenant
       const user = await this.app.service("users").get(data.updateUser, {
         query: {
@@ -59,30 +56,51 @@ exports.TenantTeam = class TenantTeam {
           },
         },
       });
-      console.log('here 400', user);
 
       if (user?.tenant.toString() === id.toString()) {
-        console.log('here 500');
         // enforce only the fields that should be able to update here
         const updateData = {
           ...(Object.hasOwn(data, 'active') ? { active: data.active }: {})
         }
-        console.log('here 600', updateData);
         // update the user
-        return this.app
+        await this.app
           .service("users")
           .patch(data.updateUser, updateData)
-          .then((res) => {
-            console.log('here 700', res);
-            return { success: true };
-          });
+
+        // update tenant admin users as needed
+        const tenant = await this.app.service("tenants").get(id);
+        if (tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === user._id.toString())) {
+          if (data.tenantAdmin === false) {
+            // remove tenant admin access for the user
+            const updatedAdminUsers = tenant.adminUsers.filter(item => item.toString() !== data.updateUser.toString())
+            await this.app
+            .service("tenants")
+            .patch(id, { adminUsers: updatedAdminUsers });
+          }
+        }
+        if (tenant?.adminUsers && !tenant.adminUsers.find(x => x._id.toString() === user._id.toString())) {
+          if (data.tenantAdmin) {
+            // add tenant admin access for the user
+            await this.app
+            .service("tenants")
+            .patch(id, { adminUsers: [
+              ...tenant.adminUsers,
+              data.updateUser
+            ] });
+          }
+        }
+
+
+
+        
+        return { success: true };
       } else {
         return Promise.reject(new errors.BadRequest("invalid user"));
       }
     } else if (data.deactivateUser) {
       // check to see the requested user is not the current user
       if(data.deactivateUser.toString() === params.user._id.toString()) {
-        return Promise.reject(new errors.BadRequest("You cannot deactivate yourself"));
+        return Promise.reject(new errors.BadRequest("You cannot modify your own permissions"));
       }
       // check that the requested user is in the user's tenant
       const user = await this.app.service("users").get(data.deactivateUser, {

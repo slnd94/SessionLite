@@ -50,6 +50,7 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
               processing={processing}
               defaults={{
                 active: user.active,
+                tenantAdmin: user.tenantAdmin
               }}
               ownUser={auth?.user?._id === user?._id}
               onSubmit={async (data) => {
@@ -74,6 +75,19 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
                   confirmListItems.push(t(
                     "tenant.admin.team.The user will consume one allowed active team member on your {{appName}} plan", 
                     { appName: process.env.NEXT_APP_NAME }
+                  ));
+                }   
+
+                if(user.tenantAdmin && !data.tenantAdmin) {
+                  // user is having tenant admin access revoked
+                  confirmListItems.push(t(
+                    "tenant.admin.team.The user will no longer be able access the admin area"
+                  ));
+                }
+                if(data.active && !user.tenantAdmin && data.tenantAdmin) {
+                  // user is being granted tenant admin access
+                  confirmListItems.push(t(
+                    "tenant.admin.team.The user will be able access the admin area and perform all admin actions"
                   ));
                 }    
 
@@ -118,7 +132,7 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
 
       {auth?.user?._id === user?._id && user?.active ? (
         <div className="mt-3 d-flex justify-content-end">
-          {t(`tenant.admin.team.You cannot deactivate yourself`)}
+          {t(`tenant.admin.team.You cannot modify your own permissions`)}
         </div>
       ) : null}
       {updateError ? (

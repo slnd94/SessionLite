@@ -22,7 +22,7 @@ exports.AuthUser = class AuthUser {
       },
       isVerified: params.user.verification.emailVerified,
       isLocked: params.user.locked,
-      isTenantAdmin: tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === params.user._id.toString()) ? true : false,
+      tenantAdmin: tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === params.user._id.toString()) ? true : false,
       // tenant if available:
       ...(tenant
         ? {tenant: {

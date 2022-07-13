@@ -201,13 +201,15 @@
         "You cannot activate yourself": "You cannot activate yourself",
         "User deactivated": "User deactivated",
         "There was a problem deactivating this user": "There was a problem deactivating this user",
-        "You cannot deactivate yourself": "You cannot deactivate yourself",
+        "You cannot modify your own permissions": "You cannot modify your own permissions",
         "Deactivate User": "Deactivate User",
         "Are you sure you want to update this user?": "Are you sure you want to update this user?",
         "The user will no longer be able to sign in on {{appName}}": "The user will no longer be able to sign in on {{appName}}",
         "The user will be able to sign in on {{appName}}": "The user will be able to sign in on {{appName}}",
         "The user will consume one allowed active team member on your {{appName}} plan": "The user will consume one allowed active team member on your {{appName}} plan",
-        "You will gain back one allowed active team member on your {{appName}} plan": "You will gain back one allowed active team member on your {{appName}} plan"
+        "You will gain back one allowed active team member on your {{appName}} plan": "You will gain back one allowed active team member on your {{appName}} plan",
+        "The user will no longer be able access the admin area": "The user will no longer be able access the admin area",
+        "The user will be able access the admin area and perform all admin actions": "The user will be able access the admin area and perform all admin actions"
       }
     }
   },

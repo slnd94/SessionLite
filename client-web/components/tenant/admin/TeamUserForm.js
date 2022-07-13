@@ -12,7 +12,7 @@ import { useForm, Controller } from "react-hook-form";
 import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
 
-function TeamUserForm({ onSubmit, processing, defaults: { active }, ownUser }) {
+function TeamUserForm({ onSubmit, processing, defaults: { active, tenantAdmin }, ownUser }) {
   const {
     handleSubmit,
     control,
@@ -20,14 +20,15 @@ function TeamUserForm({ onSubmit, processing, defaults: { active }, ownUser }) {
   } = useForm({
     defaultValues: {
       active,
+      tenantAdmin
     },
   });
-  console.log("🚀 ~ file: TeamUserForm.js ~ line 20 ~ defaults", active);
 
   const { t } = useTranslation("common");
 
   const formRules = {
     active: {},
+    tenantAdmin: {}
   };
 
   return (
@@ -54,6 +55,29 @@ function TeamUserForm({ onSubmit, processing, defaults: { active }, ownUser }) {
           />
           <FormFeedback>
             {errors?.active?.message && errors.active.message}
+          </FormFeedback>
+        </FormGroup>
+        <FormGroup className="">
+          <Label style={{ minWidth: "200px" }} for="tenantAdmin">
+            {t("tenant.admin.team.Administrator")}
+          </Label>
+          <Controller
+            name="tenantAdmin"
+            control={control}
+            rules={formRules.tenantAdmin}
+            render={({ field: { ref, ...field } }) => (
+              <Input
+                {...field}
+                type="checkbox"
+                innerRef={ref}
+                invalid={!!errors?.tenantAdmin}
+                defaultChecked={tenantAdmin}
+                disabled={ownUser}
+              />
+            )}
+          />
+          <FormFeedback>
+            {errors?.tenantAdmin?.message && errors.tenantAdmin.message}
           </FormFeedback>
         </FormGroup>
       </div>
