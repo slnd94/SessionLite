@@ -163,6 +163,17 @@ export default function Team() {
               <ManageTeamUser
                 userId={selectedUser?._id}
                 tenant={tenantId}
+                onUpdateUser={() => {
+                  // notify user
+                  toast(t("tenant.admin.team.User updated"), {
+                    type: "success",
+                  });
+                  // setSelectedInvite(null);
+                  if (view === "team") {
+                    // signal the component to reset the pagination
+                    setTeamUsersRequestItemsSignal(Date.now());
+                  }
+                }}
                 onDeactivateUser={() => {
                   // notify user
                   toast(t("tenant.admin.team.User deactivated"), {

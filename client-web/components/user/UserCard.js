@@ -12,7 +12,7 @@ const UserCard = ({ user, className, onClick, customButtons }) => {
     <>
       {user ? (
         <div
-          className={`row  ${className}`}
+          className={`row list-item-box ${className}`}
           onClick={() => (onClick ? onClick() : null)}
         >
           <div className="col-12 col-md-6">

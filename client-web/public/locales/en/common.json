@@ -190,6 +190,10 @@
         "Manage User": "Manage User",
         "Active": "Active",
         "Inactive": "Inactive",
+        "Active user": "Active user",
+        "{{tenantName}} administrator": "{{tenantName}} administrator",
+        "User updated": "User updated",
+        "There was a problem updating this user": "There was a problem updating this user",
         "Activate User": "Activate User",
         "User activated": "User activated",
         "There was a problem activating this user": "There was a problem activating this user",
@@ -198,8 +202,11 @@
         "There was a problem deactivating this user": "There was a problem deactivating this user",
         "You cannot deactivate yourself": "You cannot deactivate yourself",
         "Deactivate User": "Deactivate User",
-        "Are you sure you want to deactivate this user? The user will no longer be able to sign in to {{appName}}.": "Are you sure you want to deactivate this user? The user will no longer be able to sign in to {{appName}}.",
-        "Are you sure you want to activate this user? The user will be able to sign in to {{appName}}.": "Are you sure you want to activate this user? The user will be able to sign in to {{appName}}."
+        "Are you sure you want to update this user?": "Are you sure you want to update this user?",
+        "The user will no longer be able to sign in on {{appName}}": "The user will no longer be able to sign in on {{appName}}",
+        "The user will be able to sign in on {{appName}}": "The user will be able to sign in on {{appName}}",
+        "The user will consume one allowed active team member on your {{appName}} plan": "The user will consume one allowed active team member on your {{appName}} plan",
+        "You will gain back one allowed active team member on your {{appName}} plan": "You will gain back one allowed active team member on your {{appName}} plan"
       }
     }
   },

@@ -34,7 +34,44 @@ exports.TenantTeam = class TenantTeam {
   }
 
   async patch(id, data, params) {
-    if (data.deactivateUser) {
+    if (data.updateUser) {
+      console.log('here 100');
+      // check to see if the requested user is the current user
+      if(data.updateUser.toString() === params.user._id.toString()) {
+        console.log('here 200');
+        return Promise.reject(new errors.BadRequest("You cannot modify yourself"));
+      }
+      console.log('here 300');
+      // check that the requested user is in the user's tenant
+      const user = await this.app.service("users").get(data.updateUser, {
+        query: {
+          $select: {
+            _id: 1,
+            tenant: 1,
+          },
+        },
+      });
+      console.log('here 400', user);
+
+      if (user?.tenant.toString() === id.toString()) {
+        console.log('here 500');
+        // enforce only the fields that should be able to update here
+        const updateData = {
+          ...(Object.hasOwn(data, 'active') ? { active: data.active }: {})
+        }
+        console.log('here 600', updateData);
+        // update the user
+        return this.app
+          .service("users")
+          .patch(data.updateUser, updateData)
+          .then((res) => {
+            console.log('here 700', res);
+            return { success: true };
+          });
+      } else {
+        return Promise.reject(new errors.BadRequest("invalid user"));
+      }
+    } else if (data.deactivateUser) {
       // check to see the requested user is not the current user
       if(data.deactivateUser.toString() === params.user._id.toString()) {
         return Promise.reject(new errors.BadRequest("You cannot deactivate yourself"));

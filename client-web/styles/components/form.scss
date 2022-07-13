@@ -4,3 +4,11 @@
 .form-control:disabled, .form-control[readonly] {
   background-color: $gray-400;
 }
+
+.form-check-input[type=checkbox] {
+  border-radius: $border-radius;
+}
+
+.form-check-input:checked {
+  background-color: $secondary;
+}
