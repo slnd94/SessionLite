@@ -66,7 +66,8 @@ const PaginatedList = (props) => {
     hidePaginationForSinglePage,
     itemsPerPage,
     forcePage,
-    resetPaginationSignal,
+    requestItemsFunc,
+    requestItemsSignal,
     t,
   } = props;
   const ItemComponent = props.itemComponent;
@@ -89,8 +90,8 @@ const PaginatedList = (props) => {
   useEffect(() => {
     if (Number.isInteger(forcePage)) {
       setPageNumber(forcePage);
-      if (props.requestItemsFunc) {
-        props.requestItemsFunc({
+      if (requestItemsFunc) {
+        requestItemsFunc({
           skip: forcePage * itemsPerPage,
           limit: itemsPerPage,
         });
@@ -100,14 +101,14 @@ const PaginatedList = (props) => {
 
   useEffect(() => {
     // reset to first page
-    setPageNumber(0);
-    if (props.requestItemsFunc) {
-      props.requestItemsFunc({
-        skip: 0,
+    // setPageNumber(0);
+    if (requestItemsFunc) {
+      requestItemsFunc({
+        skip: pageNumber * itemsPerPage,
         limit: itemsPerPage,
       });
     }
-  }, [resetPaginationSignal]);
+  }, [requestItemsSignal]);
 
   return (
     <>
@@ -135,8 +136,8 @@ const PaginatedList = (props) => {
                 customContainerClass=""
                 onPageChange={(page) => {
                   setPageNumber(page.selected);
-                  if (props.requestItemsFunc) {
-                    props.requestItemsFunc({
+                  if (requestItemsFunc) {
+                    requestItemsFunc({
                       skip: page.selected * itemsPerPage,
                       limit: itemsPerPage,
                     });
@@ -195,8 +196,8 @@ const PaginatedList = (props) => {
                 customContainerClass=""
                 onPageChange={(page) => {
                   setPageNumber(page.selected);
-                  if (props.requestItemsFunc) {
-                    props.requestItemsFunc({
+                  if (requestItemsFunc) {
+                    requestItemsFunc({
                       skip: page.selected * itemsPerPage,
                       limit: itemsPerPage,
                     });

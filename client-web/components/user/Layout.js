@@ -35,7 +35,7 @@ export default function Layout({ children }) {
       icon: "cart",
       labelPills: t("cart.Your Cart"),
       labelTabs: t("cart.Cart"),
-      badge: cart?.items.length || false,
+      // badge: cart?.items.length || false,
     },
   ];
 
@@ -44,7 +44,7 @@ export default function Layout({ children }) {
       {auth?.status === "SIGNED_IN" ? (
         <>
           <div className="row ms-md-n5">
-            <div className="col-2 col-lg-3 col-md-4 pe-0 section-nav left-nav-md-up ms-n4 ms-md-n3">
+            <div className="col-2 col-xl-2 col-md-3 pe-0 section-nav left-nav-md-up ms-n4 ms-md-n3">
               <h5 className="title d-none d-md-block">
                 <IconText icon="user" text={getFullName(auth.user.name)} />
               </h5>
@@ -54,7 +54,9 @@ export default function Layout({ children }) {
                 subRoutes={subRoutes}
               />
             </div>
-            <div className="col-10 col-lg-9 col-md-8 pt-2 ms-3">{children}</div>
+            <div className="col-10 col-xl-10 col-md-9 pt-2 ms-3">
+              {children}
+            </div>
           </div>
         </>
       ) : auth?.status === "SIGNED_OUT" ? (

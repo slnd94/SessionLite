@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import PaginatedList from "../../PaginatedList";
 import UserListItem from "../../user/UserListItem";
 
-const TeamUserList = ({ onSelectUser, itemsPerPage, users, fetchUsers, resetPaginationSignal, t }) => {
+const TeamUserList = ({ onSelectUser, itemsPerPage, users, fetchUsers, requestItemsSignal, t }) => {
 
   return (
     <>
@@ -23,7 +23,7 @@ const TeamUserList = ({ onSelectUser, itemsPerPage, users, fetchUsers, resetPagi
           onSelectUser(user)
         }}
         showLink={true}
-        resetPaginationSignal={resetPaginationSignal}
+        requestItemsSignal={requestItemsSignal}
         t={t}
       />
     </>
@@ -31,7 +31,7 @@ const TeamUserList = ({ onSelectUser, itemsPerPage, users, fetchUsers, resetPagi
 };
 
 TeamUserList.propTypes = {
-  users: PropTypes.array,
+  users: PropTypes.object,
   onSelectUser: PropTypes.func,
   fetchUsers: PropTypes.func
 };

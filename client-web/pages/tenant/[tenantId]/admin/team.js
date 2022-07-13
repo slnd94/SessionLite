@@ -35,15 +35,15 @@ export default function Team() {
   const [invites, setInvites] = useState(null);
   const [selectedInvite, setSelectedInvite] = useState(null);
   const [
-    teamInvitesResetPaginationSignal,
-    setTeamInvitesResetPaginationSignal,
+    teamInvitesRequestItemsSignal,
+    setTeamInvitesRequestItemsSignal,
   ] = useState(null);
 
   const [users, setUsers] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [
-    teamUsersResetPaginationSignal,
-    setTeamUsersResetPaginationSignal,
+    teamUsersRequestItemsSignal,
+    setTeamUsersRequestItemsSignal,
   ] = useState(null);
 
   const fetchUsers = async ({ skip, limit }) => {
@@ -118,7 +118,7 @@ export default function Team() {
             />
           </Button>
 
-          <Offcanvas isOpen={selectedInvite} direction="end" keyboard={true}>
+          <Offcanvas isOpen={!!selectedInvite} direction="end" keyboard={true}>
             <OffcanvasHeader
               toggle={() => {
                 setSelectedInvite(null);
@@ -144,14 +144,14 @@ export default function Team() {
                   setSelectedInvite(null);
                   if (view === "invites") {
                     // signal the component to reset the pagination
-                    setTeamInvitesResetPaginationSignal(Date.now());
+                    setTeamInvitesRequestItemsSignal(Date.now());
                   }
                 }}
               />
             </OffcanvasBody>
           </Offcanvas>
 
-          <Offcanvas isOpen={selectedUser} direction="end" keyboard={true}>
+          <Offcanvas isOpen={!!selectedUser} direction="end" keyboard={true}>
             <OffcanvasHeader
               toggle={() => {
                 setSelectedUser(null);
@@ -172,7 +172,7 @@ export default function Team() {
                   if (view === "team") {
                     setSelectedUser(null)
                     // signal the component to reset the pagination
-                    setTeamUsersResetPaginationSignal(Date.now());
+                    setTeamUsersRequestItemsSignal(Date.now());
                   }
                 }}
                 onActivateUser={() => {
@@ -184,7 +184,7 @@ export default function Team() {
                   if (view === "team") {
                     setSelectedUser(null)
                     // signal the component to reset the pagination
-                    setTeamUsersResetPaginationSignal(Date.now());
+                    setTeamUsersRequestItemsSignal(Date.now());
                   }
                 }}
               />
@@ -206,7 +206,7 @@ export default function Team() {
                   setShowInviteForm(false);
                   if (view === "invites") {
                     // signal the component to reset the pagination
-                    setTeamInvitesResetPaginationSignal(Date.now());
+                    setTeamInvitesRequestItemsSignal(Date.now());
                   }
                 }}
               />
@@ -224,7 +224,7 @@ export default function Team() {
                   setView("team");
                 }}
               >
-                {t("tenant.admin.team.Team")}
+                <IconText icon="user" text={t("tenant.admin.team.Team")} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -234,7 +234,7 @@ export default function Team() {
                   setView("invites");
                 }}
               >
-                {t("tenant.admin.team.Invitations")}
+              <IconText icon="email" text={t("tenant.admin.team.Invitations")} />
               </NavLink>
             </NavItem>
           </Nav>
@@ -251,7 +251,7 @@ export default function Team() {
                       onSelectUser={(user) => {
                         setSelectedUser(user);
                       }}
-                      resetPaginationSignal={teamUsersResetPaginationSignal}
+                      requestItemsSignal={teamUsersRequestItemsSignal}
                       t={t}
                     />
                   ) : (
@@ -280,7 +280,7 @@ export default function Team() {
                       onSelectInvite={(invite) => {
                         setSelectedInvite(invite);
                       }}
-                      resetPaginationSignal={teamInvitesResetPaginationSignal}
+                      requestItemsSignal={teamInvitesRequestItemsSignal}
                       t={t}
                     />
                   ) : (
