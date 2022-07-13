@@ -10,6 +10,8 @@ exports.TenantTeam = class TenantTeam {
   }
 
   async find(params) {
+    const tenant = await this.app.service('tenants').get(params.query.tenant);
+
     const users = await this.app.service("users").find({
       query: {
         tenant: params.query.tenant,
@@ -29,6 +31,12 @@ exports.TenantTeam = class TenantTeam {
         },
       },
     });
+
+    // add on the tenantAdmin field
+    users.data = users.data.map(user => ({
+      ...user,
+      tenantAdmin: tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === user._id.toString()) ? true : false,
+    }));
 
     return users;
   }

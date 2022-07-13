@@ -11,6 +11,7 @@ import faHome from "@fortawesome/fontawesome-free-solid/faHome";
 import faEnvelope from "@fortawesome/fontawesome-free-solid/faEnvelope";
 import faUser from "@fortawesome/fontawesome-free-solid/faUser";
 import faUsers from "@fortawesome/fontawesome-free-solid/faUsers";
+import faUserCog from "@fortawesome/fontawesome-free-solid/faUserCog";
 import faUserCircle from "@fortawesome/fontawesome-free-solid/faUserCircle";
 import faUserCheck from "@fortawesome/fontawesome-free-solid/faUserCheck";
 import faUserSlash from "@fortawesome/fontawesome-free-solid/faUserSlash";
@@ -91,7 +92,7 @@ export const icons = {
   settings: faCog,
   tenant: faBuilding,
   brand: faFlag,
-  tenantAdmin: faLock,
+  tenantAdmin: faUserCog,
   team: faUsers,
   client: faUserGraduate,
   creator: faAddressCard,
