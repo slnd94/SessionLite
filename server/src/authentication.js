@@ -30,7 +30,7 @@ module.exports = app => {
               isVerified: context.result.user.verification.emailVerified,
               locked: context.result.user.locked,
               active: context.result.user.locked,
-              isTenantAdmin: tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === context.result.user._id.toString()) ? true : false,
+              tenantAdmin: tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === context.result.user._id.toString()) ? true : false,
               // tenant if available:
               ...(tenant
                 ? {tenant: {

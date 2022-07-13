@@ -3,6 +3,7 @@ import { useTranslation } from "next-i18next";
 import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 import { getFullName } from "../../helpers/nameHelpers";
+import IconText from "../IconText";
 
 const UserListItem = ({ user, className, onClick, customButtons }) => {
   const { t } = useTranslation("common");
@@ -12,11 +13,27 @@ const UserListItem = ({ user, className, onClick, customButtons }) => {
       className={`row list-item ${user.active ? "" : "inactive"} ${className}`}
       onClick={() => (onClick ? onClick() : null)}
     >
-      <div className="col-12 col-md-6">
-        <div>{user.name.family}, {user.name.given}</div>
+      <div className="col-12 col-md-4">
+        <div>
+          {user.name.family}, {user.name.given}
+        </div>
       </div>
-      <div className="col-12 col-md-6">
-        <div>{t(`tenant.admin.team.${user.active ? "Active" : "Inactive"}`)}</div>
+      <div className="col-12 col-md-4">
+        <div>
+          {t(`tenant.admin.team.${user.active ? "Active" : "Inactive"}`)}
+        </div>
+      </div>
+      <div className="col-12 col-md-4">
+      <div>
+          {user.tenantAdmin ? (
+            <IconText
+              icon="tenantAdmin"
+              text={t(`tenant.admin.team.Administrator`)}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       <div className="col-12 col-md-6 text-end">
         {customButtons?.map((button, index) => (

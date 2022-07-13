@@ -105,7 +105,7 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
                   setEditMode(true);
                 }}
               >
-                {t("tenant.admin.details.Upload logo")}
+                {t(`tenant.admin.details.${tenant?.logo?.handle ? "Change logo" : "Upload logo"}`)}
               </Button>
               {tenant?.logo?.handle ? (
                 <Button

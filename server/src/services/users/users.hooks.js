@@ -15,6 +15,8 @@ const protectUserVerificationWrite = require('../../hooks/protect-user-verificat
 
 const authorizeUserAdmin = require('../../hooks/authorize-user-admin');
 
+const addUserTenantAdmin = require('../../hooks/add-user-tenant-admin');
+
 const keepFieldsExternal = [
   '_id',
   'name.family',
@@ -87,6 +89,7 @@ module.exports = {
     get: [
       // if the call is from external source, only keep the allowed fields
       iff(isProvider('external'), keep(...keepFieldsExternal)),
+      addUserTenantAdmin(),
       // protect password at all times
       // Always must be the last hook
       protect('password')
@@ -94,6 +97,7 @@ module.exports = {
     create: [
       // if the call is from external source, only keep the allowed fields
       iff(isProvider('external'), keep(...keepFieldsExternal)),
+      
       // protect password at all times
       // Always must be the last hook
       protect('password')

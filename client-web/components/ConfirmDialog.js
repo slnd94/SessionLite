@@ -1,22 +1,46 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { translate } from 'react-i18next';
-import { confirmable } from 'react-confirm';
-import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import React from "react";
+import PropTypes from "prop-types";
+import { translate } from "react-i18next";
+import { confirmable } from "react-confirm";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import { useTranslation } from "next-i18next";
 
-const ConfirmDialog = ({show, proceed, cancel, confirmation, options }) => {
+const ConfirmDialog = ({ show, proceed, cancel, confirmation, options }) => {
   const { t } = useTranslation("common");
   return (
     <Modal isOpen={show} toggle={() => cancel()}>
-      <ModalHeader toggle={() => cancel()}>{options.confirmHeaderText || t('Are you sure?')}</ModalHeader>
+      <ModalHeader toggle={() => cancel()}>
+        {options.confirmHeaderText || t("Are you sure?")}
+      </ModalHeader>
       <ModalBody>
-        <div className={'mb-3'}>
-          {confirmation || t('Are you sure?')}
+        <div className={"mb-3"}>
+          {confirmation || t("Are you sure?")}
+          {options?.listItems?.length > 0 ? (
+            <ul className="my-4">
+              {options.listItems.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="d-flex justify-content-end">
-          <Button color="primary" autoFocus className="px-4" onClick={() => proceed()}>{options.proceedLabel || t('Yes')}</Button>
-          <Button color="default" className="px-4 ms-2" onClick={() => cancel()}>{options.cancelLabel || t('No')}</Button>
+          <Button
+            color="primary"
+            autoFocus
+            className="px-4"
+            onClick={() => proceed()}
+          >
+            {options.proceedLabel || t("Yes")}
+          </Button>
+          <Button
+            color="default"
+            className="px-4 ms-2"
+            onClick={() => cancel()}
+          >
+            {options.cancelLabel || t("No")}
+          </Button>
         </div>
       </ModalBody>
     </Modal>
@@ -24,17 +48,17 @@ const ConfirmDialog = ({show, proceed, cancel, confirmation, options }) => {
 };
 
 ConfirmDialog.propTypes = {
-  show: PropTypes.bool,            // from confirmable. indicates if the dialog is shown or not.
-  proceed: PropTypes.func,         // from confirmable. call to close the dialog with promise resolved.
-  cancel: PropTypes.func,          // from confirmable. call to close the dialog with promise rejected.
-  dismiss: PropTypes.func,         // from confirmable. call to only close the dialog.
-  confirmation: PropTypes.string,  // arguments of your confirm function
-  options: PropTypes.object
+  show: PropTypes.bool, // from confirmable. indicates if the dialog is shown or not.
+  proceed: PropTypes.func, // from confirmable. call to close the dialog with promise resolved.
+  cancel: PropTypes.func, // from confirmable. call to close the dialog with promise rejected.
+  dismiss: PropTypes.func, // from confirmable. call to only close the dialog.
+  confirmation: PropTypes.string, // arguments of your confirm function
+  options: PropTypes.object,
 };
 
 ConfirmDialog.defaultProps = {
-  options: {}
+  options: {},
 };
 
 // confirmable HOC pass props `show`, `dismiss`, `cancel` and `proceed` to your component.
-export default (confirmable(ConfirmDialog));
+export default confirmable(ConfirmDialog);
