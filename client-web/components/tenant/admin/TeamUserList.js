@@ -31,7 +31,7 @@ const TeamUserList = ({ onSelectUser, itemsPerPage, users, fetchUsers, requestIt
 };
 
 TeamUserList.propTypes = {
-  users: PropTypes.array,
+  users: PropTypes.object,
   onSelectUser: PropTypes.func,
   fetchUsers: PropTypes.func
 };

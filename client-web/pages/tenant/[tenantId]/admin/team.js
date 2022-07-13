@@ -118,7 +118,7 @@ export default function Team() {
             />
           </Button>
 
-          <Offcanvas isOpen={selectedInvite} direction="end" keyboard={true}>
+          <Offcanvas isOpen={!!selectedInvite} direction="end" keyboard={true}>
             <OffcanvasHeader
               toggle={() => {
                 setSelectedInvite(null);
@@ -151,7 +151,7 @@ export default function Team() {
             </OffcanvasBody>
           </Offcanvas>
 
-          <Offcanvas isOpen={selectedUser} direction="end" keyboard={true}>
+          <Offcanvas isOpen={!!selectedUser} direction="end" keyboard={true}>
             <OffcanvasHeader
               toggle={() => {
                 setSelectedUser(null);
@@ -224,7 +224,7 @@ export default function Team() {
                   setView("team");
                 }}
               >
-                {t("tenant.admin.team.Team")}
+                <IconText icon="user" text={t("tenant.admin.team.Team")} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -234,7 +234,7 @@ export default function Team() {
                   setView("invites");
                 }}
               >
-                {t("tenant.admin.team.Invitations")}
+              <IconText icon="email" text={t("tenant.admin.team.Invitations")} />
               </NavLink>
             </NavItem>
           </Nav>
