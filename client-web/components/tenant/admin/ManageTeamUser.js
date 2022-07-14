@@ -7,7 +7,7 @@ import confirm from "../../../utils/confirm";
 import { useTranslation } from "next-i18next";
 import UserCard from "../../user/UserCard";
 import { Context as AuthContext } from "../../../context/AuthContext";
-import TeamUserForm from "./TeamUserForm";
+import ManageTeamUserForm from "./ManageTeamUserForm";
 
 function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActivateUser }) {
   const { t } = useTranslation("common");
@@ -44,9 +44,8 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
       {user ? (
         <>
           <UserCard user={user} />
-          {/* <TeamUserForm user={user} /> */}
           <div className="mt-5">
-            <TeamUserForm
+            <ManageTeamUserForm
               processing={processing}
               defaults={{
                 active: user.active,

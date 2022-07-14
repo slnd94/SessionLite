@@ -10,8 +10,15 @@ exports.TenantTeamInvites = class TenantTeamInvites {
   }
 
   async find(params) {
+    // assign the search term on email if provided
+    if(params.query.search) {
+      params.query['email'] = { $regex: new RegExp(params.query.search, 'i') };
+    }
+    delete params.query.search;
+
     const invites = await this.app.service("user-invites").find({
       query: {
+        ...params.query,
         tenant: params.query.tenant,
         type: "team",
         $skip: params.query.$skip,

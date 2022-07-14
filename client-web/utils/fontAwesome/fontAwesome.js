@@ -92,7 +92,7 @@ export const icons = {
   settings: faCog,
   tenant: faBuilding,
   brand: faFlag,
-  tenantAdmin: faUserCog,
+  tenantAdmin: faLock,
   team: faUsers,
   client: faUserGraduate,
   creator: faAddressCard,
