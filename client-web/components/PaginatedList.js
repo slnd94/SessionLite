@@ -98,7 +98,7 @@ const PaginatedList = (props) => {
         requestItemsFunc({
           skip: forcePage * itemsPerPage,
           limit: itemsPerPage,
-          search: searchTerm
+          search: searchTerm,
         });
       }
     }
@@ -111,16 +111,14 @@ const PaginatedList = (props) => {
       requestItemsFunc({
         skip: pageNumber * itemsPerPage,
         limit: itemsPerPage,
-        search: searchTerm
+        search: searchTerm,
       });
     }
   }, [requestItemsSignal]);
 
   useEffect(() => {
     setPageNumber(0);
-    console.log("here 100");
     if (requestItemsFunc) {
-      console.log("here 200");
       requestItemsFunc({
         skip: 0 * itemsPerPage,
         limit: itemsPerPage,
@@ -135,7 +133,7 @@ const PaginatedList = (props) => {
         <TextSearch
           placeholder={searchPlaceholder}
           onSubmit={(data) => {
-            setSearchTerm(data.search)
+            setSearchTerm(data.search);
           }}
         />
       ) : (
@@ -169,7 +167,7 @@ const PaginatedList = (props) => {
                     requestItemsFunc({
                       skip: page.selected * itemsPerPage,
                       limit: itemsPerPage,
-                      search: searchTerm
+                      search: searchTerm,
                     });
                   }
                 }}
@@ -230,7 +228,7 @@ const PaginatedList = (props) => {
                     requestItemsFunc({
                       skip: page.selected * itemsPerPage,
                       limit: itemsPerPage,
-                      search: searchTerm
+                      search: searchTerm,
                     });
                   }
                 }}

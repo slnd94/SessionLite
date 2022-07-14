@@ -31,7 +31,7 @@ const TeamInvitesList = ({
         showLink={true}
         requestItemsSignal={requestItemsSignal}
         showSearch={true}
-        searchPlaceholder={t("user.Email")}
+        searchPlaceholder={t("tenant.admin.team.Email Search")}
         t={t}
       />
     </>

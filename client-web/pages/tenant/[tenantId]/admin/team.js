@@ -31,21 +31,16 @@ export default function Team() {
   const invitesPerPage = 10;
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
-  
+
   const [invites, setInvites] = useState(null);
   const [selectedInvite, setSelectedInvite] = useState(null);
-  const [
-    teamInvitesRequestItemsSignal,
-    setTeamInvitesRequestItemsSignal,
-  ] = useState(null);
+  const [teamInvitesRequestItemsSignal, setTeamInvitesRequestItemsSignal] =
+    useState(null);
 
-  
   const [users, setUsers] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [
-    teamUsersRequestItemsSignal,
-    setTeamUsersRequestItemsSignal,
-  ] = useState(null);
+  const [teamUsersRequestItemsSignal, setTeamUsersRequestItemsSignal] =
+    useState(null);
 
   const fetchInvites = async ({ skip, limit, search }) => {
     const response = await api({
@@ -55,7 +50,7 @@ export default function Team() {
         $skip: skip,
         $limit: limit,
         ...(tenantId ? { tenant: tenantId } : {}),
-        ...(search ? { search } : {})
+        ...(search ? { search } : {}),
       },
     });
 
@@ -68,7 +63,6 @@ export default function Team() {
     }
   };
 
-
   const fetchUsers = async ({ skip, limit, search }) => {
     const response = await api({
       method: "get",
@@ -77,7 +71,7 @@ export default function Team() {
         $skip: skip,
         $limit: limit,
         ...(tenantId ? { tenant: tenantId } : {}),
-        ...(search ? { search } : {})
+        ...(search ? { search } : {}),
       },
     });
 
@@ -247,7 +241,10 @@ export default function Team() {
                   setView("invites");
                 }}
               >
-              <IconText icon="email" text={t("tenant.admin.team.Invitations")} />
+                <IconText
+                  icon="email"
+                  text={t("tenant.admin.team.Invitations")}
+                />
               </NavLink>
             </NavItem>
           </Nav>
@@ -267,6 +264,13 @@ export default function Team() {
                       requestItemsSignal={teamUsersRequestItemsSignal}
                       t={t}
                     />
+                  ) : (
+                    <></>
+                  )}
+                  {users && !users.data?.length ? (
+                    <h6 className="mt-4">
+                      {t("tenant.admin.team.No users found")}
+                    </h6>
                   ) : (
                     <></>
                   )}
@@ -291,9 +295,9 @@ export default function Team() {
                     <></>
                   )}
                   {invites && !invites.data?.length ? (
-                    <h6>
+                    <h6 className="mt-4">
                       {t(
-                        "tenant.admin.team.No outstanding team member invitations found"
+                        "tenant.admin.team.No outstanding invitations found"
                       )}
                     </h6>
                   ) : (
