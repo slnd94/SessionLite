@@ -35,7 +35,10 @@ const UserUnverified = ({}) => {
           <h3 className="title">{t("auth.Welcome!")}</h3>
           <p>
             {t(
-              "user.account.verification.We need to verify your account. You should receive an email with a verification link."
+              "user.account.verification.We need to verify your account. We have sent an email to {{emailAddress}} with a verification link.",
+              {
+                emailAddress: auth?.user?.email
+              }
             )}
           </p>
           {processing ? (
