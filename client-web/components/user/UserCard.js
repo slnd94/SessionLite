@@ -17,20 +17,34 @@ const UserCard = ({ user, className, onClick, customButtons }) => {
         >
           <div className="col-12 col-md-6">
             <h4>{getFullName(user.name)}</h4>
-            <IconText icon="email" text={user.email} />
-            <br />
-            {user.active ? (
-              <IconText
-                icon="userActive"
-                text={t("user.Account is active")}
-                className="text-success fw-bold"
-              />
+            <div className="mt-2">
+              <IconText icon="email" text={user.email} />
+            </div>
+            {user.tenantAdmin ? (
+              <div className="mt-2">
+                <IconText
+                  icon="tenantAdmin"
+                  text={t("tenant.admin.team.Administrator")}
+                  className="fw-bold"
+                />
+              </div>
             ) : (
-              <IconText
-                icon="userInactive"
-                text={t("user.Account is inactive")}
-              />
+              <></>
             )}
+            <div className="mt-2">
+              {user.active ? (
+                <IconText
+                  icon="userActive"
+                  text={t("user.Account is active")}
+                  className="text-success"
+                />
+              ) : (
+                <IconText
+                  icon="userInactive"
+                  text={t("user.Account is inactive")}
+                />
+              )}
+            </div>
           </div>
           <div className="col-12 col-md-6 text-end">
             {customButtons?.map((button, index) => (

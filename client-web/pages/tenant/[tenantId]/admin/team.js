@@ -32,6 +32,7 @@ export default function Team() {
   const [view, setView] = useState("team");
   const [showInviteForm, setShowInviteForm] = useState(false);
   
+  const [invitesSearch, setInvitesSearch] = useState(null);
   const [invites, setInvites] = useState(null);
   const [selectedInvite, setSelectedInvite] = useState(null);
   const [
@@ -39,6 +40,16 @@ export default function Team() {
     setTeamInvitesRequestItemsSignal,
   ] = useState(null);
 
+  useEffect(() => {
+    if(invitesSearch?.length) {
+      fetchInvites({ skip: 0, limit: invitesPerPage, search: invitesSearch })
+    } else {
+      setTeamInvitesRequestItemsSignal(Date.now())
+    }
+  }, [invitesSearch]);
+
+  
+  const [usersSearch, setUsersSearch] = useState(null);
   const [users, setUsers] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [
@@ -46,27 +57,15 @@ export default function Team() {
     setTeamUsersRequestItemsSignal,
   ] = useState(null);
 
-  const fetchUsers = async ({ skip, limit }) => {
-    const response = await api({
-      method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team`,
-      params: {
-        $skip: skip,
-        $limit: limit,
-        ...(tenantId ? { tenant: tenantId } : {}),
-      },
-    });
-
-    if (response.status >= 200 && response.status < 300) {
-      setUsers(response.data);
-      return { success: true };
+  useEffect(() => {
+    if(usersSearch?.length) {
+      fetchUsers({ skip: 0, limit: usersPerPage, search: usersSearch })
     } else {
-      setUsers(null);
-      return { success: false };
+      setTeamUsersRequestItemsSignal(Date.now())
     }
-  };
+  }, [usersSearch]);
 
-  const fetchInvites = async ({ skip, limit }) => {
+  const fetchInvites = async ({ skip, limit, search }) => {
     const response = await api({
       method: "get",
       url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites`,
@@ -74,6 +73,7 @@ export default function Team() {
         $skip: skip,
         $limit: limit,
         ...(tenantId ? { tenant: tenantId } : {}),
+        ...(search ? { search }: invitesSearch ? { search: invitesSearch } : {})
       },
     });
 
@@ -82,6 +82,28 @@ export default function Team() {
       return { success: true };
     } else {
       setInvites(null);
+      return { success: false };
+    }
+  };
+
+
+  const fetchUsers = async ({ skip, limit, search }) => {
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team`,
+      params: {
+        $skip: skip,
+        $limit: limit,
+        ...(tenantId ? { tenant: tenantId } : {}),
+        ...(search ? { search }: usersSearch ? { search: usersSearch } : {})
+      },
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setUsers(response.data);
+      return { success: true };
+    } else {
+      setUsers(null);
       return { success: false };
     }
   };
@@ -233,7 +255,7 @@ export default function Team() {
                   setView("team");
                 }}
               >
-                <IconText icon="user" text={t("tenant.admin.team.Registered")} />
+                <IconText icon="user" text={t("tenant.admin.team.Users")} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -260,6 +282,14 @@ export default function Team() {
                       onSelectUser={(user) => {
                         setSelectedUser(user);
                       }}
+                      searchFunc={({ search }) => {
+                        if(search?.length) {
+                          setUsersSearch(search)
+                        } else {
+                          // signal a reset of the list
+                          setUsersSearch(null)
+                        }
+                      }}
                       requestItemsSignal={teamUsersRequestItemsSignal}
                       t={t}
                     />
@@ -272,15 +302,6 @@ export default function Team() {
             <TabPane tabId="invites">
               <div className="row">
                 <div className="col-12">
-                  {invites && !invites.data?.length ? (
-                    <h6>
-                      {t(
-                        "tenant.admin.team.There are no outstanding team member invitations"
-                      )}
-                    </h6>
-                  ) : (
-                    <></>
-                  )}
                   {view === "invites" ? (
                     <TeamInvitesList
                       itemsPerPage={invitesPerPage}
@@ -289,9 +310,26 @@ export default function Team() {
                       onSelectInvite={(invite) => {
                         setSelectedInvite(invite);
                       }}
+                      searchFunc={({ search }) => {
+                        if(search?.length) {
+                          setInvitesSearch(search)
+                        } else {
+                          // signal a reset of the list
+                          setInvitesSearch(null)
+                        }
+                      }}
                       requestItemsSignal={teamInvitesRequestItemsSignal}
                       t={t}
                     />
+                  ) : (
+                    <></>
+                  )}
+                  {invites && !invites.data?.length ? (
+                    <h6>
+                      {t(
+                        "tenant.admin.team.No outstanding team member invitations found"
+                      )}
+                    </h6>
                   ) : (
                     <></>
                   )}

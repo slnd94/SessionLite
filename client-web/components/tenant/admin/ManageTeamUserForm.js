@@ -12,7 +12,7 @@ import { useForm, Controller } from "react-hook-form";
 import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
 
-function TeamUserForm({ onSubmit, processing, defaults: { active, tenantAdmin }, ownUser }) {
+function ManageTeamUserForm({ onSubmit, processing, defaults: { active, tenantAdmin }, ownUser }) {
   const {
     handleSubmit,
     control,
@@ -92,11 +92,11 @@ function TeamUserForm({ onSubmit, processing, defaults: { active, tenantAdmin },
   );
 }
 
-TeamUserForm.propTypes = {
+ManageTeamUserForm.propTypes = {
   onSubmit: PropTypes.func,
   processing: PropTypes.bool,
   defaults: PropTypes.object,
   ownUser: PropTypes.bool,
 };
 
-export default TeamUserForm;
+export default ManageTeamUserForm;

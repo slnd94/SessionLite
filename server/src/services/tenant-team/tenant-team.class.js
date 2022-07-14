@@ -10,10 +10,15 @@ exports.TenantTeam = class TenantTeam {
   }
 
   async find(params) {
-    const tenant = await this.app.service('tenants').get(params.query.tenant);
+    // assign the search term on name if provided
+    if(params.query.search) {
+      params.query['name.family'] = { $regex: new RegExp(params.query.search, 'i') };
+    }
+    delete params.query.search;
 
     const users = await this.app.service("users").find({
       query: {
+        ...params.query,
         tenant: params.query.tenant,
         type: "team",
         $skip: params.query.$skip,
@@ -33,6 +38,7 @@ exports.TenantTeam = class TenantTeam {
     });
 
     // add on the tenantAdmin field
+    const tenant = await this.app.service('tenants').get(params.query.tenant);
     users.data = users.data.map(user => ({
       ...user,
       tenantAdmin: tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === user._id.toString()) ? true : false,
