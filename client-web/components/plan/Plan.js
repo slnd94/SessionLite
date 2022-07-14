@@ -27,7 +27,7 @@ const Plan = ({
     >
       {plan.tag && showTag ? (
         <Badge
-          color="primary"
+          color="secondary"
           size="xl"
           className="p-1 pt-2 mt-n3 mb-2"
           // style={{ paddingTop: '100px', marginTop: "-20px", marginBottom: "10px" }}
@@ -78,7 +78,7 @@ const Plan = ({
             className={"btn-block"}
             size="lg"
             // color="secondary"
-            color={plan.tag ? "primary" : "secondary"}
+            color={plan.tag ? "secondary" : "primary"}
             onClick={() => {
               button.onClick();
             }}
