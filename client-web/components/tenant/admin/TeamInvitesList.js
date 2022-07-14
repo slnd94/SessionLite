@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import PaginatedList from "../../PaginatedList";
 import InviteListItem from "../../user/InviteListItem";
-import TextSearch from "../../TextSearch";
 
 const TeamInvitesList = ({
   onSelectInvite,
@@ -10,17 +9,10 @@ const TeamInvitesList = ({
   invites,
   fetchInvites,
   requestItemsSignal,
-  searchFunc,
   t,
 }) => {
   return (
     <>
-      <TextSearch
-        placeholder={t("user.Email")}
-        onSubmit={(data) => {
-          searchFunc({ search: data.search });
-        }}
-      />
       <PaginatedList
         items={invites?.data?.length ? invites : []}
         itemComponent={InviteListItem}
@@ -28,8 +20,8 @@ const TeamInvitesList = ({
         itemPropName={"invite"}
         itemsListedName={t("tenant.invites")}
         itemsPerPage={itemsPerPage}
-        requestItemsFunc={async ({ skip, limit }) => {
-          await fetchInvites({ skip, limit });
+        requestItemsFunc={async ({ skip, limit, search }) => {
+          await fetchInvites({ skip, limit, search });
         }}
         showPaginationBottom
         hidePaginationForSinglePage
@@ -38,6 +30,8 @@ const TeamInvitesList = ({
         }}
         showLink={true}
         requestItemsSignal={requestItemsSignal}
+        showSearch={true}
+        searchPlaceholder={t("user.Email")}
         t={t}
       />
     </>

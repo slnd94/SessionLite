@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import PaginatedList from "../../PaginatedList";
 import UserListItem from "../../user/UserListItem";
-import TextSearch from "../../TextSearch";
 
 const TeamUserList = ({
   onSelectUser,
@@ -10,17 +9,10 @@ const TeamUserList = ({
   users,
   fetchUsers,
   requestItemsSignal,
-  searchFunc,
   t,
 }) => {
   return (
     <>
-      <TextSearch
-        placeholder={t("user.Last Name")}
-        onSubmit={(data) => {
-          searchFunc({ search: data.search });
-        }}
-      />
       <PaginatedList
         items={users?.data?.length ? users : []}
         itemComponent={UserListItem}
@@ -28,8 +20,8 @@ const TeamUserList = ({
         itemPropName={"user"}
         itemsListedName={t("tenant.users")}
         itemsPerPage={itemsPerPage}
-        requestItemsFunc={async ({ skip, limit }) => {
-          await fetchUsers({ skip, limit });
+        requestItemsFunc={async ({ skip, limit, search }) => {
+          await fetchUsers({ skip, limit, search });
         }}
         showPaginationBottom
         hidePaginationForSinglePage
@@ -38,6 +30,8 @@ const TeamUserList = ({
         }}
         showLink={true}
         requestItemsSignal={requestItemsSignal}
+        showSearch={true}
+        searchPlaceholder={t("user.Last Name")}
         t={t}
       />
     </>
