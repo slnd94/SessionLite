@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Pagination from "./Pagination";
 import Loader from "./Loader";
+import TextSearch from "./TextSearch";
 
 const shouldShowPagination = ({
   items,
@@ -50,6 +51,7 @@ const shouldShowPaginationBottom = ({
 
 const PaginatedList = (props) => {
   const [pageNumber, setPageNumber] = useState(0);
+  const [searchTerm, setSearchTerm] = useState(null);
   const router = useRouter();
 
   const {
@@ -68,6 +70,8 @@ const PaginatedList = (props) => {
     forcePage,
     requestItemsFunc,
     requestItemsSignal,
+    showSearch,
+    searchPlaceholder,
     t,
   } = props;
   const ItemComponent = props.itemComponent;
@@ -94,6 +98,7 @@ const PaginatedList = (props) => {
         requestItemsFunc({
           skip: forcePage * itemsPerPage,
           limit: itemsPerPage,
+          search: searchTerm
         });
       }
     }
@@ -106,12 +111,36 @@ const PaginatedList = (props) => {
       requestItemsFunc({
         skip: pageNumber * itemsPerPage,
         limit: itemsPerPage,
+        search: searchTerm
       });
     }
   }, [requestItemsSignal]);
 
+  useEffect(() => {
+    setPageNumber(0);
+    console.log("here 100");
+    if (requestItemsFunc) {
+      console.log("here 200");
+      requestItemsFunc({
+        skip: 0 * itemsPerPage,
+        limit: itemsPerPage,
+        search: searchTerm,
+      });
+    }
+  }, [searchTerm]);
+
   return (
     <>
+      {showSearch ? (
+        <TextSearch
+          placeholder={searchPlaceholder}
+          onSubmit={(data) => {
+            setSearchTerm(data.search)
+          }}
+        />
+      ) : (
+        <></>
+      )}
       {requestingItems && !items.data ? (
         <Loader />
       ) : (
@@ -140,6 +169,7 @@ const PaginatedList = (props) => {
                     requestItemsFunc({
                       skip: page.selected * itemsPerPage,
                       limit: itemsPerPage,
+                      search: searchTerm
                     });
                   }
                 }}
@@ -200,6 +230,7 @@ const PaginatedList = (props) => {
                     requestItemsFunc({
                       skip: page.selected * itemsPerPage,
                       limit: itemsPerPage,
+                      search: searchTerm
                     });
                   }
                 }}
@@ -229,6 +260,8 @@ PaginatedList.propTypes = {
   showPaginationTop: PropTypes.bool,
   showPaginationBottom: PropTypes.bool,
   hidePaginationForSinglePage: PropTypes.bool,
+  showSearch: PropTypes.bool,
+  searchPlaceholder: PropTypes.string,
   t: PropTypes.func,
   onRef: PropTypes.func,
 };
@@ -241,6 +274,8 @@ PaginatedList.defaultProps = {
   itemComponentCustomProps: {},
   showLink: true,
   hidePaginationForSinglePage: true,
+  showSearch: false,
+  searchPlaceholder: null,
 };
 
 export default PaginatedList;
