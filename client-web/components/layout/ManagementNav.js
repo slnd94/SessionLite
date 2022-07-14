@@ -24,13 +24,13 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
           <NavItem key={subRoute.slug}>
             <Link href={`/${routePrefix}/${subRoute.slug}`} passHref>
               <a
-                className={`nav-link d-sm-flex justify-content-center justify-content-md-start ${
+                className={`nav-link d-block text-center text-md-start  ${
                   currentPath === "/" + routePrefix + "/" + subRoute.slug
                     ? "active"
                     : ""
                 }`}
               >
-                <FontAwesomeIcon style={{minHeight: "1rem", maxHeight: "2rem"}} className="d-block d-md-none" icon={icons[subRoute.icon]} />
+                <FontAwesomeIcon style={{minHeight: "1rem", maxHeight: "2rem", margin: "auto"}} className="d-block d-md-none" icon={icons[subRoute.icon]} />
                 <IconText
                   className="d-none d-md-block"
                   icon={subRoute.icon}
