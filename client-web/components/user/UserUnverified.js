@@ -5,6 +5,7 @@ import { Context as UserContext } from "../../context/UserContext";
 import { useTranslation } from "next-i18next";
 import { Button, Alert, Progress } from "reactstrap";
 import Loader from "../Loader";
+import UpdateEmailForm from "../UpdateEmailForm";
 
 const UserUnverified = ({}) => {
   const { t } = useTranslation("common");
@@ -13,6 +14,7 @@ const UserUnverified = ({}) => {
   } = useContext(AuthContext);
   const { setUserEmailVerification } = useContext(UserContext);
   const [processing, setProcessing] = useState(false);
+  const [showEmailUpdateForm, setShowEmailUpdateForm] = useState(false);
   const [verificationResentSuccess, setVerificationResentSuccess] =
     useState(false);
 
@@ -34,43 +36,85 @@ const UserUnverified = ({}) => {
         <div className="col-12">
           <h3 className="title">{t("auth.Welcome!")}</h3>
           <p>
+            {t("user.account.verification.We need to verify your account.")}
+          </p>
+          <p>
             {t(
-              "user.account.verification.We need to verify your account. We have sent an email to {{emailAddress}} with a verification link.",
-              {
-                emailAddress: auth?.user?.email
-              }
+              "user.account.verification.We have sent an email with a verification link to"
             )}
+            :<span className="fw-bold ms-2">{auth?.user?.email}</span>
           </p>
           {processing ? (
             <Loader />
           ) : (
-            <Button
-              size="md"
-              className="btn-block-md-down"
-              onClick={() => {
-                setProcessing(true);
-                setUserEmailVerification({ id: auth.user._id }).then((res) => {
-                  setProcessing(false);
-                  if (res.vertificationSetSuccess) {
-                    setVerificationResentSuccess(true);
-                    setTimeout(() => {
-                      setVerificationResentSuccess(false);
-                    }, 10000);
-                  }
-                });
-              }}
-            >
-              {t("user.account.verification.Send me a new email")}
-            </Button>
-          )}
+            <>
+              <Button
+                size="md"
+                color="default"
+                className="btn-block-md-down"
+                onClick={() => {
+                  setProcessing(true);
+                  setUserEmailVerification({ id: auth.user._id }).then(
+                    (res) => {
+                      setProcessing(false);
+                      if (res.vertificationSetSuccess) {
+                        setVerificationResentSuccess(true);
+                        setTimeout(() => {
+                          setVerificationResentSuccess(false);
+                        }, 10000);
+                      }
+                    }
+                  );
+                }}
+              >
+                {t("user.account.verification.Send me a new email")}
+              </Button>
 
-          {verificationResentSuccess ? (
-            <Alert className="mt-4" color="success" fade={false}>
-              {t(
-                `user.account.verification.Verification mail re-sent. Check your email for the new link.`
+              {showEmailUpdateForm ? (
+                <div>
+                  <UpdateEmailForm
+                    onSubmit={(data) => {
+                      console.log(
+                        "🚀 ~ file: UserUnverified.js ~ line 79 ~ UserUnverified ~ data",
+                        data
+                      );
+                    }}
+                    defaults={{
+                      email: auth?.user?.email,
+                    }}
+                  />
+                  <Button
+                    size="md"
+                    color="default"
+                    className="btn-block-md-down ms-lg-3"
+                    onClick={() => {
+                      setShowEmailUpdateForm(false);
+                    }}
+                  >
+                    {t("Cancel")}
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  size="md"
+                  color="default"
+                  className="btn-block-md-down ms-lg-3"
+                  onClick={() => {
+                    setShowEmailUpdateForm(true);
+                  }}
+                >
+                  {t("user.account.verification.Change the email address")}
+                </Button>
               )}
-            </Alert>
-          ) : null}
+              {verificationResentSuccess ? (
+                <Alert className="mt-4" color="success" fade={false}>
+                  {t(
+                    `user.account.verification.Verification mail re-sent. Check your email for the new link.`
+                  )}
+                </Alert>
+              ) : null}
+            </>
+          )}
         </div>
       </div>
     </>

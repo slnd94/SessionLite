@@ -105,12 +105,14 @@
     "Account is inactive": "Account is inactive",
     "account": {
       "verification": {
-        "We need to verify your account. We have sent an email to {{emailAddress}} with a verification link.": "We need to verify your account. We have sent an email to {{emailAddress}} with a verification link.",
+        "We need to verify your account.": "We need to verify your account.",
+        "We have sent an email with a verification link to": "We have sent an email with a verification link to",
         "We need to verify your account. You should receive an email with a verification link.": "We need to verify your account. You should receive an email with a verification link.",
         "Your account has been verified": "Your account has been verified",
         "Your account could not be verified": "Your account could not be verified",
         "The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.": "The link in your email is valid for 24 hours after we send it to you.  If it has been longer than 24 hours, you can request a new email.",
         "Send me a new email": "Send me a new email",
+        "Change the email address": "Change the email address",
         "Verification mail re-sent. Check your email for the new link.": "Verification mail re-sent. Check your email for the new link.",
         "Thanks for verifying your account. What's next?": "Thanks for verifying your account. What's next?"
       }
