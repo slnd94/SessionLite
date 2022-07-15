@@ -30,6 +30,7 @@ const Plan = ({
           color="secondary"
           size="xl"
           className="p-1 pt-2 mt-n3 mb-2"
+          style={{height: "40px"}}
           // style={{ paddingTop: '100px', marginTop: "-20px", marginBottom: "10px" }}
         >
           <h5>{t(`plan.${plan.tag}`)}</h5>
@@ -82,6 +83,7 @@ const Plan = ({
             onClick={() => {
               button.onClick();
             }}
+            disabled={!!button.disabled}
           >
             {button.label}
           </Button>

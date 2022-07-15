@@ -4,15 +4,14 @@ import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as TenantContext } from "../../context/TenantContext";
 import api from "../../utils/api";
 import { useTranslation } from "next-i18next";
-import { Button, Alert, Progress } from "reactstrap";
+import { Button, Progress } from "reactstrap";
 import Loader from "../Loader";
 import PlanList from "./PlanList";
 import Plan from "./Plan";
 import { useRouter } from "next/router";
 import IconText from "../IconText";
-import Link from "next/link";
 
-const SelectPlan = ({}) => {
+const SelectPlan = ({ showProgress, currentPlan }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const {
@@ -98,18 +97,22 @@ const SelectPlan = ({}) => {
       <>
         {plans ? (
           <>
-            <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
-              <div className="col-12">
-                <Progress value={60} striped={true} color="secondary" />
+            {showProgress ? (
+              <div className="row mt-2 mb-4 pt-2" style={{ opacity: "90%" }}>
+                <div className="col-12">
+                  <Progress value={60} striped={true} color="secondary" />
+                </div>
               </div>
-            </div>
-            <div className="row mt-4">
+            ) : null}
+
+            <div className="row">
               <div className="col-12">
                 <h3>{t("plan.Select Your Plan to Continue")}</h3>
               </div>
             </div>
             <PlanList
               plans={plans}
+              currentPlan={currentPlan}
               onSelectPlan={(plan) => {
                 setSelectedPlan(plan);
                 if (plan.requiresCheckout) {
@@ -130,12 +133,14 @@ const SelectPlan = ({}) => {
   const Confirm = () => {
     return (
       <>
-        <div className="row mt-2 pt-2">
-          <div className="col-12">
-            <Progress value={80} striped={true} color="secondary" />
+        {showProgress ? (
+          <div className="row mt-2 mb-4 pt-2">
+            <div className="col-12">
+              <Progress value={80} striped={true} color="secondary" />
+            </div>
           </div>
-        </div>
-        <div className="row mt-4">
+        ) : null}
+        <div className="row">
           <div className="col-12 col-md-6 mb-5">
             <h3>{t("plan.Selected Plan")}</h3>
             <Plan
@@ -195,12 +200,14 @@ const SelectPlan = ({}) => {
   const Checkout = () => {
     return (
       <>
-        <div className="row mt-2 pt-2">
-          <div className="col-12">
-            <Progress value={80} striped={true} color="secondary" />
+        {showProgress ? (
+          <div className="row mt-2 mb-4 pt-2">
+            <div className="col-12">
+              <Progress value={80} striped={true} color="secondary" />
+            </div>
           </div>
-        </div>
-        <div className="row mt-4">
+        ) : null}
+        <div className="row">
           <div className="col-12 col-md-6 mb-5">
             <h3>{t("plan.Selected Plan")}</h3>
             <Plan
@@ -263,8 +270,14 @@ const SelectPlan = ({}) => {
   );
 };
 
-SelectPlan.propTypes = {};
+SelectPlan.propTypes = {
+  showProgress: PropTypes.bool,
+  currentPlan: PropTypes.object
+};
 
-SelectPlan.defaultProps = {};
+SelectPlan.defaultProps = {
+  showProgress: false,
+  currentPlan: null
+};
 
 export default SelectPlan;

@@ -2,22 +2,29 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "next-i18next";
 import Plan from "./Plan";
-import { PlaceholderButton } from "reactstrap";
 
-const PlanList = ({ plans, onSelectPlan }) => {
+const PlanList = ({ plans, currentPlan, onSelectPlan }) => {
   const { t } = useTranslation("common");
+
+  const isCurrentPlan = (plan) => {
+    return currentPlan?._id.toString() === plan._id.toString();
+  }
   return (
     <div className="row">
       {plans?.map((plan) => (
-        <div key={plan._id} className={`col-12 col-md-${Math.floor(12/plans.length)} d-flex justify-content-center`}>
+        <div key={plan._id} className={`col-12 col-lg-${Math.floor(12/plans.length)} d-flex justify-content-center`}>
           <Plan
-            plan={plan}
+            plan={{
+              ...plan,
+              ...(isCurrentPlan(plan) ? { tag: "Your Current Plan" } : {})
+            }}
             className={plan.tag ? 'popular' : ''}
-            button={{
-              label: t("plan.Select this plan"),
+            button={isCurrentPlan(plan) ? null : {
+              label: currentPlan ? t("plan.Move to this plan") : t("plan.Select this plan"),
               onClick: () => {
                 onSelectPlan(plan)
-              }
+              },
+              disabled: isCurrentPlan(plan)
             }}
             
           />
@@ -29,9 +36,12 @@ const PlanList = ({ plans, onSelectPlan }) => {
 
 PlanList.propTypes = {
   plans: PropTypes.array,
+  currentPlan: PropTypes.object,
   onSelectPlan: PropTypes.func,
 };
 
-PlanList.defaultProps = {};
+PlanList.defaultProps = {
+  currentPlan: null
+};
 
 export default PlanList;

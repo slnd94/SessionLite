@@ -12,6 +12,30 @@ exports.TenantPlans = class TenantPlans {
     this.app = app;
   }
 
+  async get (id, params) {
+    ////////////////
+    // get the tenant's current plan
+    ////////////////
+
+    const tenant = await this.app.service('tenants')
+      .get(id, {
+        query: {
+          $select: {
+            plan: 1,
+          },
+          $populate: [
+            {
+              path: 'plan',
+              // select: 'name description features prices'
+            }
+          ]
+        }
+      });
+      console.log("🚀 ~ file: tenant-plans.class.js ~ line 21 ~ TenantPlans ~ get ~ tenant", tenant)
+
+      return tenant.plan;
+  }
+
   async patch(id, data, params) {
     // limit based on allowed fields and only those supplied
     data = {

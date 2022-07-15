@@ -176,7 +176,7 @@ function Layout({ children, brandName }) {
       )}
       <main className={`${styles.main} p-4 px-md-5 py-md-4`}>
         {showUserVerification ? <UserUnverified /> : <></>}
-        {showSelectTenantPlan ? <SelectPlan /> : <></>}
+        {showSelectTenantPlan ? <SelectPlan showProgress={true} /> : <></>}
         {showChildren ? <>{children}</> : <></>}
       </main>
       <Footer />

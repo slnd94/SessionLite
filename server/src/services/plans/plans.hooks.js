@@ -14,7 +14,8 @@ module.exports = {
     find: [assignParamUserCountry()],
     get: [
       iff(context => (context.params.headers && context.params.headers.authorization), authenticate('jwt'), authenticateUserStanding()),
-      assignParamSysAdminUser()
+      assignParamSysAdminUser(),
+      assignParamUserCountry()
     ],
     create: [ authenticate('jwt'), authenticateUserStanding(), assignParamSysAdminUser(), authorizeSysAdmin() ],
     update: [ authenticate('jwt'), authenticateUserStanding(), assignParamSysAdminUser(), authorizeSysAdmin() ],
@@ -25,7 +26,7 @@ module.exports = {
   after: {
     all: [],
     find: [addPlanPrices()],
-    get: [],
+    get: [addPlanPrices()],
     create: [],
     update: [],
     patch: [],
