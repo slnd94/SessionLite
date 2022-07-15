@@ -114,17 +114,17 @@ export default function Layout({ children }) {
       {userAuthorized ? (
         <>
           <div className="row ms-md-n5">
-            <div className="col-2 col-xl-2 col-md-3 pe-0 section-nav left-nav-md-up ms-n4 ms-md-n3">
-              <h5 className="title d-none d-md-block">
-                <IconText icon="tenantAdmin" text={t("tenant.Admin")} />
-              </h5>
+            <div className="col-2 col-lg-2 col-md-3 pe-0 section-nav left-nav-md-up ms-n4 ms-md-n3">
+              <h6 className="title d-none d-md-block">
+                <IconText icon="tenantAdmin" text={t("tenant.Admin Console")} />
+              </h6>
               <ManagementNav
                 routePrefix={`tenant/${tenantId}/admin`}
                 labelPrefix="tenant.admin"
                 subRoutes={subRoutes}
               />
             </div>
-            <div className="col-10 col-xl-10 col-md-9 pt-2 ms-3">
+            <div className="col-10 col-lg-10 col-md-9 pt-2 ms-3">
               {children}
             </div>
           </div>
