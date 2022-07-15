@@ -107,6 +107,10 @@
       "verification": {
         "We need to verify your account.": "We need to verify your account.",
         "We have sent an email with a verification link to": "We have sent an email with a verification link to",
+        "Didn't get the email?": "Didn't get the email?",
+        "Not the correct email address?": "Not the correct email address?",
+        "Update email and send a new verification link to": "Update email and send a new verification link to",
+        "Update and send verification link": "Update and send verification link",
         "We need to verify your account. You should receive an email with a verification link.": "We need to verify your account. You should receive an email with a verification link.",
         "Your account has been verified": "Your account has been verified",
         "Your account could not be verified": "Your account could not be verified",
