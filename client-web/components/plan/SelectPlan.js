@@ -158,7 +158,7 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
                   router.push(router.asPath);
                 }}
               >
-                <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+                <IconText icon="arrowLeft" text={t("plan.Change selected plan")} />
               </Button>
               <Button
                 className="mt-4 btn-block-md-down"
@@ -225,7 +225,7 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
                   router.push(router.asPath);
                 }}
               >
-                <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+                <IconText icon="arrowLeft" text={t("plan.Change selected plan")} />
               </Button>
             </div>
           </div>

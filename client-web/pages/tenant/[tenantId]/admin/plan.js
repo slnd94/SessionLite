@@ -97,7 +97,7 @@ export default function TenantPlan() {
                       setView("select");
                     }}
                   >
-                    {t("plan.Change plan")}
+                    {t("plan.View available plans")}
                   </Button>
                 </>
               ) : null}
