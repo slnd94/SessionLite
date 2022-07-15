@@ -48,13 +48,13 @@ function Header({ brandName }) {
 
   return (
     <div>
-      <Navbar className={`navbar-dark bg-primary`} color="faded" expand="sm">
+      <Navbar className={`navbar-light bg-white`} color="faded" expand="sm">
         <NavbarBrand href="/" className="mr-auto">
           <Image
             src="/images/siteLogoSmall.png"
             alt={brandName}
-            width={160}
-            height={24}
+            width={200}
+            height={30}
           />
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
