@@ -12,18 +12,14 @@ import { useForm, Controller } from "react-hook-form";
 import Loader from "./Loader";
 import { useTranslation } from "next-i18next";
 
-function UpdateEmailForm({
-  onSubmit,
-  processing,
-  defaults: { email },
-}) {
+function UpdateEmailForm({ emailFieldLabel, submitButtonLabel, onSubmit, onCancel, processing, defaults: { email } }) {
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email
+      email,
     },
   });
 
@@ -36,7 +32,7 @@ function UpdateEmailForm({
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label>{t("user.Email")}</Label>
+        <Label>{emailFieldLabel || t("user.Email")}</Label>
         <Controller
           name="email"
           control={control}
@@ -58,16 +54,31 @@ function UpdateEmailForm({
       {processing ? (
         <Loader />
       ) : (
-        <Button className={"btn-block-md-down"} type="submit">
-          {t("user.Save")}
-        </Button>
+        <>
+          <Button className={"btn-block-md-down"} type="submit">
+            {submitButtonLabel || t("Save")}
+          </Button>
+          <Button
+            size="md"
+            color="default"
+            className="btn-block-md-down ms-md-3"
+            onClick={() => {
+              onCancel();
+            }}
+          >
+            {t("Cancel")}
+          </Button>
+        </>
       )}
     </Form>
   );
 }
 
 UpdateEmailForm.propTypes = {
+  emailFieldLabel: PropTypes.string,
+  submitButtonLabel: PropTypes.string,
   onSubmit: PropTypes.func,
+  onCancel: PropTypes.func,
   processing: PropTypes.bool,
   defaults: PropTypes.object,
 };

@@ -4,13 +4,15 @@ import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as UserContext } from "../../context/UserContext";
 import { useTranslation } from "next-i18next";
 import { Button, Alert, Progress } from "reactstrap";
-import Loader from "../Loader";
 import UpdateEmailForm from "../UpdateEmailForm";
+import api from "../../utils/api";
+import { toast } from "react-toastify";
 
 const UserUnverified = ({}) => {
   const { t } = useTranslation("common");
   const {
     state: { auth },
+    getAuth,
   } = useContext(AuthContext);
   const { setUserEmailVerification } = useContext(UserContext);
   const [processing, setProcessing] = useState(false);
@@ -44,24 +46,26 @@ const UserUnverified = ({}) => {
             )}
             :<span className="fw-bold ms-2">{auth?.user?.email}</span>
           </p>
-          {processing ? (
-            <Loader />
-          ) : (
-            <>
+            <div className="mt-5">
+              {t("user.account.verification.Didn't get the email?")}
               <Button
                 size="md"
                 color="default"
-                className="btn-block-md-down"
+                className="btn-block-md-down ms-md-3"
                 onClick={() => {
                   setProcessing(true);
                   setUserEmailVerification({ id: auth.user._id }).then(
                     (res) => {
                       setProcessing(false);
                       if (res.vertificationSetSuccess) {
-                        setVerificationResentSuccess(true);
-                        setTimeout(() => {
-                          setVerificationResentSuccess(false);
-                        }, 10000);
+                        toast(
+                          t(
+                            `user.account.verification.Verification mail re-sent. Check your email for the new link.`
+                          ),
+                          {
+                            type: "success",
+                          }
+                        );
                       }
                     }
                   );
@@ -69,52 +73,81 @@ const UserUnverified = ({}) => {
               >
                 {t("user.account.verification.Send me a new email")}
               </Button>
+            </div>
 
-              {showEmailUpdateForm ? (
-                <div>
-                  <UpdateEmailForm
-                    onSubmit={(data) => {
+            {showEmailUpdateForm ? (
+              <div className="mt-5">
+                <UpdateEmailForm
+                  emailFieldLabel={`${t(
+                    "user.account.verification.Update email and send a new verification link to"
+                  )}:`}
+                  submitButtonLabel={t(
+                    "user.account.verification.Update and send verification link"
+                  )}
+                  onSubmit={async (data) => {
+                    setProcessing(true);
+                    const response = await api({
+                      method: "patch",
+                      url: `${process.env.NEXT_PUBLIC_API_URL}/user-accounts/${auth.user._id}`,
+                      params: {
+                        email: data.email,
+                      },
+                    });
+
+                    if (response.status >= 200 && response.status < 300) {
+                      setProcessing(false);
                       console.log(
-                        "🚀 ~ file: UserUnverified.js ~ line 79 ~ UserUnverified ~ data",
-                        data
+                        "🚀 ~ file: UserUnverified.js ~ line 104 ~ onSubmit={ ~ response",
+                        response
                       );
-                    }}
-                    defaults={{
-                      email: auth?.user?.email,
-                    }}
-                  />
-                  <Button
-                    size="md"
-                    color="default"
-                    className="btn-block-md-down ms-lg-3"
-                    onClick={() => {
-                      setShowEmailUpdateForm(false);
-                    }}
-                  >
-                    {t("Cancel")}
-                  </Button>
-                </div>
-              ) : (
+                      getAuth();
+                      if (response.data.vertificationSetSuccess) {
+                        setShowEmailUpdateForm(false);
+                        toast(
+                          t(
+                            `user.account.verification.Verification mail re-sent. Check your email for the new link.`
+                          ),
+                          {
+                            type: "success",
+                          }
+                        );
+                      }
+                      return { success: true };
+                    } else {
+                      setProcessing(false);
+                      return { success: false };
+                    }
+                  }}
+                  onCancel={() => {
+                    setShowEmailUpdateForm(false);
+                  }}
+                  defaults={{
+                    email: auth?.user?.email,
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="mt-5">
+                {t("user.account.verification.Not the correct email address?")}
                 <Button
                   size="md"
                   color="default"
-                  className="btn-block-md-down ms-lg-3"
+                  className="btn-block-md-down ms-md-3"
                   onClick={() => {
                     setShowEmailUpdateForm(true);
                   }}
                 >
                   {t("user.account.verification.Change the email address")}
                 </Button>
-              )}
-              {verificationResentSuccess ? (
-                <Alert className="mt-4" color="success" fade={false}>
-                  {t(
-                    `user.account.verification.Verification mail re-sent. Check your email for the new link.`
-                  )}
-                </Alert>
-              ) : null}
-            </>
-          )}
+              </div>
+            )}
+            {verificationResentSuccess ? (
+              <Alert className="mt-4" color="success" fade={false}>
+                {t(
+                  `user.account.verification.Verification mail re-sent. Check your email for the new link.`
+                )}
+              </Alert>
+            ) : null}
         </div>
       </div>
     </>
