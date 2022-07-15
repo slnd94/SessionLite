@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 import { Button, Alert, Progress } from "reactstrap";
 import UpdateEmailForm from "../UpdateEmailForm";
 import api from "../../utils/api";
+import confirm from "../../utils/confirm";
 import { toast } from "react-toastify";
 
 const UserUnverified = ({}) => {
@@ -85,6 +86,17 @@ const UserUnverified = ({}) => {
                     "user.account.verification.Update and send verification link"
                   )}
                   onSubmit={async (data) => {
+                    confirm(
+                      t(
+                        "user.account.verification.Are you sure you want to change your email address?", 
+                        { appName: process.env.NEXT_APP_NAME }
+                      ), {
+                        listItems: [
+                          t("user.account.verification.Your account sign in email will be updated"),
+                          t("user.account.verification.We will send you a new link to verify your account")
+                        ]
+                      }
+                    ).then(async () => {
                     setProcessing(true);
                     const response = await api({
                       method: "patch",
@@ -96,13 +108,17 @@ const UserUnverified = ({}) => {
 
                     if (response.status >= 200 && response.status < 300) {
                       setProcessing(false);
-                      console.log(
-                        "🚀 ~ file: UserUnverified.js ~ line 104 ~ onSubmit={ ~ response",
-                        response
-                      );
                       getAuth();
                       if (response.data.vertificationSetSuccess) {
                         setShowEmailUpdateForm(false);
+                        toast(
+                          t(
+                            `user.account.verification.Account email updated`
+                          ),
+                          {
+                            type: "success",
+                          }
+                        );
                         toast(
                           t(
                             `user.account.verification.Verification mail re-sent. Check your email for the new link.`
@@ -117,6 +133,7 @@ const UserUnverified = ({}) => {
                       setProcessing(false);
                       return { success: false };
                     }
+                  })
                   }}
                   onCancel={() => {
                     setShowEmailUpdateForm(false);
