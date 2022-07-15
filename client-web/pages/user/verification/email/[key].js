@@ -94,7 +94,7 @@ export default function VerifyEmail() {
                 {tenant ? (
                   <Link href={`/tenant/${tenant._id}`}>
                     <a>
-                      <Button size="md" color="secondary" className="m-0">
+                      <Button size="md" color="secondary" className="m-0 btn-block-md-down">
                         {userTenantAdminAuthorized && !tenant.plan ? (
                           <IconText
                             icon="arrowRight"
