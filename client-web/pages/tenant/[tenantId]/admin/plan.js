@@ -40,7 +40,7 @@ export default function TenantPlan() {
   const fetchCurrentPlan = async () => {
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/plans/${tenant.plan}`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-plans/${tenantId}`
     });
 
     if (response.status >= 200 && response.status < 300) {

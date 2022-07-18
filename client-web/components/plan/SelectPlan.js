@@ -4,7 +4,7 @@ import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as TenantContext } from "../../context/TenantContext";
 import api from "../../utils/api";
 import { useTranslation } from "next-i18next";
-import { Button, Progress } from "reactstrap";
+import { Alert, Button, Progress } from "reactstrap";
 import Loader from "../Loader";
 import PlanList from "./PlanList";
 import Plan from "./Plan";
@@ -23,12 +23,12 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
   } = useContext(TenantContext);
 
   const [view, setView] = useState("select");
-  const [requestingPlans, setRequestingPlans] = useState(false);
+
+  const [error, setError] = useState(null);
   const [plans, setPlans] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   const fetchPlans = async () => {
-    setRequestingPlans(true);
     const response = await api({
       method: "get",
       url: `${process.env.NEXT_PUBLIC_API_URL}/plans?$sort[index]=1`,
@@ -36,11 +36,9 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
 
     if (response.status >= 200 && response.status < 300) {
       setPlans(response.data.data);
-      setRequestingPlans(false);
       return { success: true };
     } else {
       setPlans(null);
-      setRequestingPlans(false);
       return { success: false };
     }
   };
@@ -84,6 +82,10 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
           }, 1000);
         },
       });
+    }
+
+    if (view !== "error") {
+      setError(null);
     }
 
     window.scrollTo({
@@ -158,7 +160,10 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
                   router.push(router.asPath);
                 }}
               >
-                <IconText icon="arrowLeft" text={t("plan.Change selected plan")} />
+                <IconText
+                  icon="arrowLeft"
+                  text={t("plan.Change selected plan")}
+                />
               </Button>
               <Button
                 className="mt-4 btn-block-md-down"
@@ -179,6 +184,7 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
                     router.push("/tenant/register/success");
                     return { success: true };
                   } else {
+                    setError(response.response.data);
                     setView("error");
                     return { success: false };
                   }
@@ -225,7 +231,10 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
                   router.push(router.asPath);
                 }}
               >
-                <IconText icon="arrowLeft" text={t("plan.Change selected plan")} />
+                <IconText
+                  icon="arrowLeft"
+                  text={t("plan.Change selected plan")}
+                />
               </Button>
             </div>
           </div>
@@ -256,7 +265,53 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
   };
 
   const Error = () => {
-    return <>error</>;
+    return (
+      <>
+        {error ? (
+          <Alert color="danger" fade={false}>
+            {t(`tenant.admin.plan.errors.${error.message}`)}
+          </Alert>
+        ) : null}
+
+        {error.message === "Tenant not within plan allowances" ? (
+          <PlanAllowancesError />
+        ) : null}
+
+        <Button
+          className="mt-4 btn-block-md-down"
+          color="default"
+          onClick={() => {
+            setView("select");
+            setSelectedPlan(null);
+            router.push(router.asPath);
+          }}
+        >
+          <IconText icon="arrowLeft" text={t("plan.Change selected plan")} />
+        </Button>
+      </>
+    );
+  };
+
+  const PlanAllowancesError = () => {
+    return (
+      <>
+        <div className="my-5">
+          <h5>{t("tenant.admin.plan.errors.What are your options?")}</h5>
+          <ul>
+            <li>
+              {t(
+                "tenant.admin.plan.errors.Select a plan with more users allowed"
+              )}
+            </li>
+            <li>
+              {t(
+                "tenant.admin.plan.errors.Deactivate users or revoke invitations to bring your usage within the plan allowance"
+              )}
+            </li>
+          </ul>
+        </div>
+      </>
+    );
   };
 
   return (
@@ -272,12 +327,12 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
 
 SelectPlan.propTypes = {
   showProgress: PropTypes.bool,
-  currentPlan: PropTypes.object
+  currentPlan: PropTypes.object,
 };
 
 SelectPlan.defaultProps = {
   showProgress: false,
-  currentPlan: null
+  currentPlan: null,
 };
 
 export default SelectPlan;

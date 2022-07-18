@@ -13,7 +13,7 @@ module.exports = {
     all: [],
     find: [assignParamUserCountry()],
     get: [
-      iff(context => (context.params.headers && context.params.headers.authorization), authenticate('jwt'), authenticateUserStanding()),
+      iff(context => (context?.params?.headers?.authorization), authenticate('jwt'), authenticateUserStanding()),
       assignParamSysAdminUser(),
       assignParamUserCountry()
     ],
@@ -25,8 +25,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [addPlanPrices()],
-    get: [addPlanPrices()],
+    find: [iff(context => (!context?.params?.excludePrices), addPlanPrices())],
+    get: [iff(context => (!context?.params?.excludePrices), addPlanPrices())],
     create: [],
     update: [],
     patch: [],

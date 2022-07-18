@@ -21,13 +21,19 @@ exports.TenantTeam = class TenantTeam {
       : {};
     delete params.query.search;
 
+    // enforce only the fields we want to be able to query on
+    params.query = {
+      tenant: params.query.tenant,
+      $skip: params.query.$skip,
+      $limit: params.query.$limit,
+      ...(params.query.active ? { active: params.query.active } : {})
+    }
+
     const users = await this.app.service("users").find({
       query: {
         ...nameSearchQuery,
-        tenant: params.query.tenant,
+        ...params.query,
         type: "team",
-        $skip: params.query.$skip,
-        $limit: params.query.$limit,
         $select: {
           _id: 1,
           email: 1,

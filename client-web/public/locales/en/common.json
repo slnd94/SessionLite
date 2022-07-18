@@ -230,7 +230,13 @@
       "plan": {
         "Your Current Plan":  "Your Current Plan",
         "Select Your Plan":  "Select Your Plan",
-        "Confirm Your Plan":  "Confirm Your Plan"
+        "Confirm Your Plan":  "Confirm Your Plan",
+        "errors": {
+          "Tenant not within plan allowances": "The selected plan is not eligible based on your current users.",
+          "What are your options?": "What are your options?",
+          "Select a plan with more users allowed": "Select a plan with more users allowed",
+          "Deactivate users or revoke invitations to bring your usage within the plan allowance": "Deactivate users or revoke invitations to bring your usage within the plan allowance"
+        }
       }
     }
   },
@@ -251,6 +257,7 @@
     "Free": "Free",
     "Selected Plan": "Selected Plan",
     "Change selected plan": "Change selected plan",
+    "Try again": "Try again",
     "You will be billed now, then once per month": "You will be billed now, then once per month",
     "Checkout": "Checkout",
     "Confirm": "Confirm",
