@@ -66,11 +66,11 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
         <>
           <div className="row m-0 p-0">
             <div className="col-12 m-0 p-0">
-              <h5 className={"title"}>{t("tenant.admin.details.Logo")}</h5>
+              <h5 className={"title"}>{t("tenant.admin.brand.Logo")}</h5>
             </div>
           </div>
           <div className="row m-0 p-0">
-            <div className="col-12 col-lg-5 m-0 p-0 pt-3 d-flex justify-content-center">
+            <div className="col-12 m-0 p-0 pt-3 d-flex justify-content-center">
               {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
                 <TenantLogo
                   handle={tenant.logo.handle}
@@ -90,14 +90,14 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
                     <IconText
                       icon="image"
                       iconContainerClass="icon-large"
-                      text={t("tenant.admin.details.No logo selected")}
+                      text={t("tenant.admin.brand.No logo selected")}
                     />
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="col-12 col-lg-5 m-0 p-0">
+            <div className="col-12 m-0 p-0">
               <Button
                 className={"btn-block"}
                 color="default"
@@ -105,7 +105,7 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
                   setEditMode(true);
                 }}
               >
-                {t(`tenant.admin.details.${tenant?.logo?.handle ? "Change logo" : "Upload logo"}`)}
+                {t(`tenant.admin.brand.${tenant?.logo?.handle ? "Change logo" : "Upload logo"}`)}
               </Button>
               {tenant?.logo?.handle ? (
                 <Button
@@ -114,14 +114,14 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
                   onClick={() => {
                     confirm(
                       t(
-                        "tenant.admin.details.Are you sure you want to remove this logo?"
+                        "tenant.admin.brand.Are you sure you want to remove this logo?"
                       )
                     ).then(async () => {
                       removeTenantLogo();
                     });
                   }}
                 >
-                  {t("tenant.admin.details.Remove logo")}
+                  {t("tenant.admin.brand.Remove logo")}
                 </Button>
               ) : (
                 null
@@ -139,7 +139,7 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
             security: fileAuth.uploadTenantLogo,
           }}
           pickerOptions={{
-            fromSources: ["local_file_system"],
+            fromSources: ["local_file_system", "url", "imagesearch"],
             accept: ["image/jpeg", "image/png"],
             onClose: () => {
               setEditMode(false);

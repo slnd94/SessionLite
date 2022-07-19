@@ -30,13 +30,13 @@ function TenantDetailsForm({
   const { t } = useTranslation("common");
 
   const formRules = {
-    name: { required: t("tenant.admin.details.Name is required") }
+    name: { required: t("tenant.admin.brand.Name is required") }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label>{t("tenant.admin.details.Name")}</Label>
+        <Label>{t("tenant.admin.brand.Name")}</Label>
         <Controller
           name="name"
           control={control}
@@ -58,7 +58,7 @@ function TenantDetailsForm({
       {processing ? (
         <Loader />
       ) : (
-        <Button className={"btn-block-md-down"} type="submit">
+        <Button className={"btn-block"} type="submit">
           {t("user.Save")}
         </Button>
       )}

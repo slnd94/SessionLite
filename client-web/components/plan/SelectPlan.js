@@ -11,7 +11,7 @@ import Plan from "./Plan";
 import { useRouter } from "next/router";
 import IconText from "../IconText";
 
-const SelectPlan = ({ showProgress, currentPlan }) => {
+const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const {
@@ -177,7 +177,7 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
               >
                 <IconText
                   icon="arrowLeft"
-                  text={t("plan.Change selected plan")}
+                  text={t("plan.Change plan")}
                 />
               </Button>
               <Button
@@ -248,7 +248,7 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
               >
                 <IconText
                   icon="arrowLeft"
-                  text={t("plan.Change selected plan")}
+                  text={t("plan.Change plan")}
                 />
               </Button>
             </div>
@@ -301,7 +301,7 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
             router.push(router.asPath);
           }}
         >
-          <IconText icon="arrowLeft" text={t("plan.Change selected plan")} />
+          <IconText icon="arrowLeft" text={t("plan.Change plan")} />
         </Button>
       </>
     );
@@ -331,7 +331,17 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
 
   return (
     <>
-      {view === "select" ? <Select /> : null}
+      {backLink ? (
+        <IconText
+          className="mb-3 fw-bold"
+          icon="arrowLeft"
+          text={backLink.text}
+          onClick={() => {
+            backLink.onClick();
+          }}
+        />
+      ) : null}
+      {view === "select" ? <Select backLink /> : null}
       {view === "confirm" ? <Confirm /> : null}
       {view === "checkout" ? <Checkout /> : null}
       {view === "processing" ? <Processing /> : null}
@@ -343,11 +353,13 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
 SelectPlan.propTypes = {
   showProgress: PropTypes.bool,
   currentPlan: PropTypes.object,
+  backLink: PropTypes.object,
 };
 
 SelectPlan.defaultProps = {
   showProgress: false,
   currentPlan: null,
+  backLink: null,
 };
 
 export default SelectPlan;
