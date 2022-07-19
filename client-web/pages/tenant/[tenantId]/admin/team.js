@@ -265,14 +265,14 @@ export default function Team() {
                       t={t}
                     />
                   ) : (
-                    <></>
+                    null
                   )}
                   {users && !users.data?.length ? (
                     <h6 className="mt-4">
                       {t("tenant.admin.team.No users found")}
                     </h6>
                   ) : (
-                    <></>
+                    null
                   )}
                 </div>
               </div>
@@ -292,7 +292,7 @@ export default function Team() {
                       t={t}
                     />
                   ) : (
-                    <></>
+                    null
                   )}
                   {invites && !invites.data?.length ? (
                     <h6 className="mt-4">
@@ -301,7 +301,7 @@ export default function Team() {
                       )}
                     </h6>
                   ) : (
-                    <></>
+                    null
                   )}
                 </div>
               </div>

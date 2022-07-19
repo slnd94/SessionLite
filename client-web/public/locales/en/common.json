@@ -180,8 +180,9 @@
       "team": {
         "Team": "Team",
         "Users": "Users",
-        "Name Search": "Name Search",
-        "Email Search": "Email Search",
+        "Search Name": "Search Name",
+        "Search Email": "Search Email",
+        "Search Name or Email": "Search Name or Email",
         "Administrator": "Administrator",
         "Registered": "Registered",
         "Registered Team Members": "Registered Team Members",
@@ -226,6 +227,17 @@
         "You will gain back one allowed active team member on your {{appName}} plan": "You will gain back one allowed active team member on your {{appName}} plan",
         "The user will no longer be able access the admin area": "The user will no longer be able access the admin area",
         "The user will be able access the admin area and perform all admin actions": "The user will be able access the admin area and perform all admin actions"
+      },
+      "plan": {
+        "Your Current Plan":  "Your Current Plan",
+        "Select Your Plan":  "Select Your Plan",
+        "Confirm Your Plan":  "Confirm Your Plan",
+        "errors": {
+          "Tenant not within plan allowances": "The selected plan is not eligible based on your current users.",
+          "What are your options?": "What are your options?",
+          "Select a plan with more users allowed": "Select a plan with more users allowed",
+          "Deactivate users or revoke invitations to bring your usage within the plan allowance": "Deactivate users or revoke invitations to bring your usage within the plan allowance"
+        }
       }
     }
   },
@@ -234,15 +246,19 @@
     "Products": "Products"
   },
   "plan": {
+    "Your Current Plan": "Your Current Plan",
     "Select Your Plan": "Select Your Plan",
     "Select Your Plan to Continue": "Select Your Plan to Continue",
     "Select this plan": "Select this plan",
+    "View available plans": "View available plans",
+    "Move to this plan": "Move to this plan",
     "Including taxes and fees": "Including taxes and fees",
     "Most Popular": "Most Popular",
     "month": "month",
     "Free": "Free",
     "Selected Plan": "Selected Plan",
-    "Change plan": "Change plan",
+    "Change selected plan": "Change selected plan",
+    "Try again": "Try again",
     "You will be billed now, then once per month": "You will be billed now, then once per month",
     "Checkout": "Checkout",
     "Confirm": "Confirm",

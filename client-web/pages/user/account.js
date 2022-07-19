@@ -60,7 +60,7 @@ export default function Profile() {
               <Link href="/auth/signin">{t("auth.Sign in")}</Link>
             </>
           ) : (
-            <></>
+            null
           )}
           {errorMessage?.length ? (
             <Alert color="danger" fade={false}>

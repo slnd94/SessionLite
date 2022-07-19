@@ -5,7 +5,7 @@ div.section-nav {
       top: 0;
       left: 0;
       height: 110vh;
-      padding-top: 20px;
+      padding-top: 30px;
       // padding-left: 30px;
       margin-top: -24px;
       background-color: $lightest;
@@ -130,7 +130,7 @@ div.section-nav {
       .nav-link {
         color: $dark;
         &:hover {
-          color: $light !important;
+          color: $secondary !important;
         }
         svg {
           font-size: 3.6rem;

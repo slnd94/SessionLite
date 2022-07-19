@@ -164,20 +164,11 @@ function Layout({ children, brandName }) {
       />
       <PaddleLoader />
 
-      <Header brandName={brandName} />
-      {tenant && !unverifiedUserAccount() ? (
-        <TenantHeader
-          tenant={tenant}
-          admin={userTenantAdminAuthorized}
-          fileAuth={fileAuth}
-        />
-      ) : (
-        <></>
-      )}
+      <Header brandName={brandName} tenantAdmin={userTenantAdminAuthorized} />
       <main className={`${styles.main} p-4 px-md-5 py-md-4`}>
-        {showUserVerification ? <UserUnverified /> : <></>}
-        {showSelectTenantPlan ? <SelectPlan /> : <></>}
-        {showChildren ? <>{children}</> : <></>}
+        {showUserVerification ? <UserUnverified /> : null}
+        {showSelectTenantPlan ? <SelectPlan showProgress={true} /> : null}
+        {showChildren ? <>{children}</> : null}
       </main>
       <Footer />
     </div>

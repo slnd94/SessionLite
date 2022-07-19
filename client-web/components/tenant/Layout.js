@@ -66,7 +66,7 @@ export default function Layout({ children }) {
           <div className="col-12">{children}</div>
         </div>
       ) : (
-        <></>
+        null
       )}
     </>
   );

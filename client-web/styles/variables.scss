@@ -44,8 +44,8 @@ $water: #4e5d6c !default;
 $darkwater: rgb(75, 78, 74) !default;
 $brown: rgb(108, 89, 78);
 
-$primary: $purple-100 !default;
-$secondary: $purple-300 !default;
+$primary: $charcoal !default;
+$secondary: $pink !default;
 $success: $secondary !default;
 $success-light: lighten($success, 30%) !default;
 $info: $blue-200 !default;
@@ -67,7 +67,7 @@ $font-size-base: 1rem;
 
 // // Components
 
-$border-radius: 0px !default;
+$border-radius: 4px !default;
 $border-radius-lg: $border-radius !default;
 $border-radius-sm: $border-radius !default;
 

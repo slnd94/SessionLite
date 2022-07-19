@@ -137,7 +137,7 @@ const PaginatedList = (props) => {
           }}
         />
       ) : (
-        <></>
+        null
       )}
       {requestingItems && !items.data ? (
         <Loader />
@@ -174,7 +174,7 @@ const PaginatedList = (props) => {
               />
             </div>
           ) : (
-            <></>
+            null
           )}
           <div style={{ marginBottom: ".6rem" }}>
             {renderItems.data &&
@@ -235,7 +235,7 @@ const PaginatedList = (props) => {
               />
             </div>
           ) : (
-            <></>
+            null
           )}
         </>
       )}

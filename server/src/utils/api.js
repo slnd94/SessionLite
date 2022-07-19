@@ -1,12 +1,10 @@
 const axios = require("axios");
-// import { parseCookies } from "nookies";
 
 module.exports = {
   api: async ({
     method,
     url,
     params,
-    accessToken,
     headers = {},
     responseType
   }) => {

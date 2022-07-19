@@ -75,7 +75,7 @@ export default function Register() {
           </div>
         </div>
       ) : (
-        <></>
+        null
       )}
       {auth?.status === "SIGNED_IN" ? (
         <>
@@ -100,7 +100,7 @@ export default function Register() {
           )}
         </>
       ) : (
-        <></>
+        null
       )}
     </>
   );

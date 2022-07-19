@@ -7,7 +7,7 @@ module.exports = {
   before: {
     all: [ authenticate('jwt'), authenticateUserStanding(), assignParamSysAdminUser() ],
     find: [],
-    get: [],
+    get: [authorizeTenantAdmin()],
     create: [],
     update: [],
     patch: [authorizeTenantAdmin()],

@@ -19,6 +19,8 @@
   "fileStackApiKey": "fileStackApiKey",
   "fileStackAppSecret": "fileStackAppSecret",
   "paddleApiBaseUrl": "paddleApiBaseUrl",
+  "paddleVendorId": "paddleVendorId",
+  "paddleVendorAuthCode": "paddleVendorAuthCode",
   "paddlePublicKey": "paddlePublicKey",
   "defaultUserCountryCode": "defaultUserCountryCode",
   "filestackApiBaseUrl": "filestackApiBaseUrl",

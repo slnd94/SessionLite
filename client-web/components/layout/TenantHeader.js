@@ -23,7 +23,7 @@ function TenantHeader({ tenant, admin, fileAuth }) {
                   viewFileAuth={fileAuth?.viewTenantLogo}
                 />
               ) : (
-                <></>
+                null
               )}
               <span className="d-none d-md-inline-block pt-2">
                 {tenant.name}
@@ -45,7 +45,7 @@ function TenantHeader({ tenant, admin, fileAuth }) {
           </h5>
         </div>
       ) : (
-        <></>
+        null
       )}
     </div>
   );

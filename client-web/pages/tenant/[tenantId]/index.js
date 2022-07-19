@@ -98,7 +98,7 @@ export default function Tenant() {
             />
           </>
         ) : (
-          <></>
+          null
         )}
       </div>
     </Layout>

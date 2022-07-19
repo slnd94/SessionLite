@@ -4,15 +4,14 @@ import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as TenantContext } from "../../context/TenantContext";
 import api from "../../utils/api";
 import { useTranslation } from "next-i18next";
-import { Button, Alert, Progress } from "reactstrap";
+import { Alert, Button, Progress } from "reactstrap";
 import Loader from "../Loader";
 import PlanList from "./PlanList";
 import Plan from "./Plan";
 import { useRouter } from "next/router";
 import IconText from "../IconText";
-import Link from "next/link";
 
-const SelectPlan = ({}) => {
+const SelectPlan = ({ showProgress, currentPlan }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const {
@@ -24,12 +23,12 @@ const SelectPlan = ({}) => {
   } = useContext(TenantContext);
 
   const [view, setView] = useState("select");
-  const [requestingPlans, setRequestingPlans] = useState(false);
+
+  const [error, setError] = useState(null);
   const [plans, setPlans] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   const fetchPlans = async () => {
-    setRequestingPlans(true);
     const response = await api({
       method: "get",
       url: `${process.env.NEXT_PUBLIC_API_URL}/plans?$sort[index]=1`,
@@ -37,11 +36,9 @@ const SelectPlan = ({}) => {
 
     if (response.status >= 200 && response.status < 300) {
       setPlans(response.data.data);
-      setRequestingPlans(false);
       return { success: true };
     } else {
       setPlans(null);
-      setRequestingPlans(false);
       return { success: false };
     }
   };
@@ -87,6 +84,10 @@ const SelectPlan = ({}) => {
       });
     }
 
+    if (view !== "error") {
+      setError(null);
+    }
+
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -98,18 +99,22 @@ const SelectPlan = ({}) => {
       <>
         {plans ? (
           <>
-            <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
-              <div className="col-12">
-                <Progress value={60} striped={true} color="secondary" />
+            {showProgress ? (
+              <div className="row mt-2 mb-4 pt-2" style={{ opacity: "90%" }}>
+                <div className="col-12">
+                  <Progress value={60} striped={true} color="secondary" />
+                </div>
               </div>
-            </div>
-            <div className="row mt-4">
+            ) : null}
+
+            <div className="row">
               <div className="col-12">
-                <h3>{t("plan.Select Your Plan to Continue")}</h3>
+                <h3>{t("plan.Select Your Plan")}</h3>
               </div>
             </div>
             <PlanList
               plans={plans}
+              currentPlan={currentPlan}
               onSelectPlan={(plan) => {
                 setSelectedPlan(plan);
                 if (plan.requiresCheckout) {
@@ -120,9 +125,7 @@ const SelectPlan = ({}) => {
               }}
             />
           </>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </>
     );
   };
@@ -130,12 +133,14 @@ const SelectPlan = ({}) => {
   const Confirm = () => {
     return (
       <>
-        <div className="row mt-2 pt-2">
-          <div className="col-12">
-            <Progress value={80} striped={true} color="secondary" />
+        {showProgress ? (
+          <div className="row mt-2 mb-4 pt-2">
+            <div className="col-12">
+              <Progress value={80} striped={true} color="secondary" />
+            </div>
           </div>
-        </div>
-        <div className="row mt-4">
+        ) : null}
+        <div className="row">
           <div className="col-12 col-md-6 mb-5">
             <h3>{t("plan.Selected Plan")}</h3>
             <Plan
@@ -153,7 +158,10 @@ const SelectPlan = ({}) => {
                   router.push(router.asPath);
                 }}
               >
-                <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+                <IconText
+                  icon="arrowLeft"
+                  text={t("plan.Change selected plan")}
+                />
               </Button>
               <Button
                 className="mt-4 btn-block-md-down"
@@ -174,6 +182,7 @@ const SelectPlan = ({}) => {
                     router.push("/tenant/register/success");
                     return { success: true };
                   } else {
+                    setError(response.response.data);
                     setView("error");
                     return { success: false };
                   }
@@ -195,12 +204,14 @@ const SelectPlan = ({}) => {
   const Checkout = () => {
     return (
       <>
-        <div className="row mt-2 pt-2">
-          <div className="col-12">
-            <Progress value={80} striped={true} color="secondary" />
+        {showProgress ? (
+          <div className="row mt-2 mb-4 pt-2">
+            <div className="col-12">
+              <Progress value={80} striped={true} color="secondary" />
+            </div>
           </div>
-        </div>
-        <div className="row mt-4">
+        ) : null}
+        <div className="row">
           <div className="col-12 col-md-6 mb-5">
             <h3>{t("plan.Selected Plan")}</h3>
             <Plan
@@ -218,7 +229,10 @@ const SelectPlan = ({}) => {
                   router.push(router.asPath);
                 }}
               >
-                <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+                <IconText
+                  icon="arrowLeft"
+                  text={t("plan.Change selected plan")}
+                />
               </Button>
             </div>
           </div>
@@ -249,22 +263,74 @@ const SelectPlan = ({}) => {
   };
 
   const Error = () => {
-    return <>error</>;
+    return (
+      <>
+        {error ? (
+          <Alert color="danger" fade={false}>
+            {t(`tenant.admin.plan.errors.${error.message}`)}
+          </Alert>
+        ) : null}
+
+        {error.message === "Tenant not within plan allowances" ? (
+          <PlanAllowancesError />
+        ) : null}
+
+        <Button
+          className="mt-4 btn-block-md-down"
+          color="default"
+          onClick={() => {
+            setView("select");
+            setSelectedPlan(null);
+            router.push(router.asPath);
+          }}
+        >
+          <IconText icon="arrowLeft" text={t("plan.Change selected plan")} />
+        </Button>
+      </>
+    );
+  };
+
+  const PlanAllowancesError = () => {
+    return (
+      <>
+        <div className="my-5">
+          <h5>{t("tenant.admin.plan.errors.What are your options?")}</h5>
+          <ul>
+            <li>
+              {t(
+                "tenant.admin.plan.errors.Select a plan with more users allowed"
+              )}
+            </li>
+            <li>
+              {t(
+                "tenant.admin.plan.errors.Deactivate users or revoke invitations to bring your usage within the plan allowance"
+              )}
+            </li>
+          </ul>
+        </div>
+      </>
+    );
   };
 
   return (
     <>
-      {view === "select" ? <Select /> : <></>}
-      {view === "confirm" ? <Confirm /> : <></>}
-      {view === "checkout" ? <Checkout /> : <></>}
-      {view === "processing" ? <Processing /> : <></>}
-      {view === "error" ? <Error /> : <></>}
+      {view === "select" ? <Select /> : null}
+      {view === "confirm" ? <Confirm /> : null}
+      {view === "checkout" ? <Checkout /> : null}
+      {view === "processing" ? <Processing /> : null}
+      {view === "error" ? <Error /> : null}
     </>
   );
 };
 
-SelectPlan.propTypes = {};
+SelectPlan.propTypes = {
+  showProgress: PropTypes.bool,
+  currentPlan: PropTypes.object,
+};
 
-SelectPlan.defaultProps = {};
+SelectPlan.defaultProps = {
+  showProgress: false,
+  currentPlan: null,
+};
 
 export default SelectPlan;

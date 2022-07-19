@@ -46,7 +46,7 @@ export default function Home() {
                       </a>
                     </Link>
                   ) : (
-                    <></>
+                    null
                   )}
                   <br />
                   <Link href="/products">{t("products.Products")}</Link>
@@ -56,7 +56,7 @@ export default function Home() {
           </div>
         </>
       ) : (
-        <></>
+        null
       )}
     </>
   );

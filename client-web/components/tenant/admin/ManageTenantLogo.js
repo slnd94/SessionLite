@@ -124,7 +124,7 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
                   {t("tenant.admin.details.Remove logo")}
                 </Button>
               ) : (
-                <></>
+                null
               )}
             </div>
           </div>
@@ -154,7 +154,7 @@ const ManageTenantLogo = ({ fileAuth, tenant, onUpdate }) => {
           }}
         />
       ) : (
-        <></>
+        null
       )}
     </>
   );

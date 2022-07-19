@@ -126,7 +126,7 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
           </div>
         </>
       ) : (
-        <></>
+        null
       )}
 
       {auth?.user?._id === user?._id && user?.active ? (

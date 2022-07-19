@@ -97,7 +97,7 @@ function UserCheckoutStripeForm({
               {t("checkout.Place your order")}
             </Button>
           ) : (
-            <></>
+            null
           )}
         </>
       )}
