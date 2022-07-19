@@ -29,9 +29,13 @@ export default function Brand() {
 
   return (
     <Layout>
-      <div className="row mt-0 ms-md-3">
-        <div className="col-12 col-md-6">
+    <div className="row mt-0 ms-md-3">
+      <div className="col-12 col-md-6">
           <h3 className={"title"}>{t("tenant.admin.Brand")}</h3>
+        </div></div>
+      <div className="row mt-0 ms-md-3">
+        <div className="col-12 col-md-6 mb-5">
+              <h5 className={"title"}>{t("tenant.admin.brand.Details")}</h5>
           <TenantDetailsForm
             processing={processing}
             defaults={{
@@ -40,7 +44,7 @@ export default function Brand() {
             onSubmit={async (data) => {
               confirm(
                 t(
-                  "tenant.admin.details.Are you sure you want to update your details?"
+                  "tenant.admin.brand.Are you sure you want to update your details?"
                 )
               ).then(async () => {
                 setProcessing(true);
@@ -56,7 +60,7 @@ export default function Brand() {
                   setProcessing(false);
 
                   // notify user
-                  toast(t(`tenant.admin.details.Details updated`), {
+                  toast(t(`tenant.admin.brand.Details updated`), {
                     type: "success",
                   });
                 } else {
@@ -67,9 +71,7 @@ export default function Brand() {
             }}
           />
         </div>
-      </div>
-      <div className="row mt-5 ms-md-3">
-        <div className="col-12" style={{ height: "100px" }}>
+        <div className="col-12 col-md-6">
           {processing ? (
             <Loader />
           ) : (
@@ -83,7 +85,7 @@ export default function Brand() {
                 setProcessing(false);
 
                 // notify user
-                toast(t(`tenant.admin.details.Logo updated`), {
+                toast(t(`tenant.admin.brand.Logo updated`), {
                   type: "success",
                 });
               }}

@@ -79,36 +79,53 @@ export default function TenantPlan() {
       <div className="row mt-0 ms-md-3">
         <div className="col-12">
           {view === "current" ? (
-            <div>
-              {/* {JSON.stringify(tenant.plan)} */}
-              {currentPlan ? (
-                <>
-                  <div className="row mt-0">
-                    <div className="col-12">
-                      <h3>{t("tenant.admin.plan.Your Current Plan")}</h3>
+            <div className="row">
+              <div className="col-12 col-md-6 mb-5">
+                {/* {JSON.stringify(tenant.plan)} */}
+                {currentPlan ? (
+                  <>
+                    <div className="row mt-0">
+                      <div className="col-12">
+                        <h3>{t("tenant.admin.plan.Your Current Plan")}</h3>
+                      </div>
                     </div>
+                    <Plan
+                      plan={currentPlan}
+                      className={currentPlan.tag ? "popular" : ""}
+                    />
+                    <Button
+                      className="mt-4 btn-block-md-down"
+                      size="lg"
+                      color="secondary"
+                      onClick={() => {
+                        setView("select");
+                      }}
+                    >
+                      {t("plan.View available plans")}
+                    </Button>
+                  </>
+                ) : null}
+              </div>
+              <div className="col-12 col-md-6">
+                <div className="row mt-0">
+                  <div className="col-12">
+                    <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                   </div>
-                  <Plan
-                    plan={currentPlan}
-                    className={currentPlan.tag ? "popular" : ""}
-                  />
-                  <Button
-                    className="mt-4 btn-block-md-down"
-                    size="lg"
-                    color="secondary"
-                    onClick={() => {
-                      setView("select");
-                    }}
-                  >
-                    {t("plan.View available plans")}
-                  </Button>
-                </>
-              ) : null}
+                </div>
+              </div>
             </div>
           ) : null}
           {view === "select" ? (
             <div>
-              <SelectPlan currentPlan={currentPlan} />
+              <SelectPlan
+                currentPlan={currentPlan}
+                backLink={{
+                  text: t("Cancel"),
+                  onClick: () => {
+                    setView("current");
+                  },
+                }}
+              />
             </div>
           ) : null}
           {view === "confirm" ? <div>Confirm plan</div> : null}

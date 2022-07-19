@@ -87,7 +87,7 @@ function Header({ brandName, tenantAdmin }) {
                                 viewFileAuth={fileAuth?.viewTenantLogo}
                               />
                             ) : null}
-                            <h6 className="d-none d-md-inline-block pt-2">
+                            <h6 className={`${tenant?.logo?.handle ? "d-none d-md-inline-block" : "d-inline-block"} pt-2`}>
                               {tenant.name}
                             </h6>
                           </span>

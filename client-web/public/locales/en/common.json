@@ -163,7 +163,8 @@
       "Settings": "Settings",
       "Templates": "Templates",
       "Schedule": "Schedule",
-      "details": {
+      "brand": {
+        "Details": "Details",
         "Name": "Name",
         "Name is required": "Name is required",
         "Logo": "Logo",
@@ -230,6 +231,7 @@
       },
       "plan": {
         "Your Current Plan":  "Your Current Plan",
+        "Your Current Usage": "Your Current Usage",
         "Select Your Plan":  "Select Your Plan",
         "Confirm Your Plan":  "Confirm Your Plan",
         "errors": {
@@ -257,7 +259,7 @@
     "month": "month",
     "Free": "Free",
     "Selected Plan": "Selected Plan",
-    "Change selected plan": "Change selected plan",
+    "Change plan": "Change plan",
     "Try again": "Try again",
     "You will be billed now, then once per month": "You will be billed now, then once per month",
     "Checkout": "Checkout",
