@@ -34,7 +34,7 @@ export default function TenantPlan() {
   const {
     state: { tenant },
   } = useContext(TenantContext);
-  const [view, setView] = useState("select");
+  const [view, setView] = useState("current");
   const [currentPlan, setCurrentPlan] = useState(null);
 
   const fetchCurrentPlan = async () => {
