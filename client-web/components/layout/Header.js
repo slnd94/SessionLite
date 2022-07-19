@@ -53,7 +53,7 @@ function Header({ brandName }) {
           <Image
             src="/images/siteLogoSmall.png"
             alt={brandName}
-            width={200}
+            width={214}
             height={30}
           />
         </NavbarBrand>
