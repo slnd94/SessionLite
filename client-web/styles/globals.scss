@@ -69,10 +69,12 @@ div {
   }
 }
 
-.tenant-header {
+.header-bar {
   background-color: $white;
-  opacity: 90%;
   left: 0;
   width: 100%;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+  &.sticky-top {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  }
 }

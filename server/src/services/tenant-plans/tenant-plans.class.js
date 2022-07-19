@@ -55,7 +55,6 @@ exports.TenantPlans = class TenantPlans {
             plan.allowances.users.team.invites) ||
         (plan.allowances?.users?.team?.total > -1 &&
           tenantUsage.users.team.total > plan.allowances.users.team.total) ||
-
         (plan.allowances?.users?.client?.active > -1 &&
           tenantUsage.users.client.active >
             plan.allowances.users.client.active) ||
@@ -65,7 +64,6 @@ exports.TenantPlans = class TenantPlans {
         (plan.allowances?.users?.client?.total > -1 &&
           tenantUsage.users.client.total >
             plan.allowances.users.client.total) ||
-
         (plan.allowances?.users?.total?.active > -1 &&
           tenantUsage.users.total.active >
             plan.allowances.users.total.active) ||
@@ -76,8 +74,9 @@ exports.TenantPlans = class TenantPlans {
           tenantUsage.users.total.total > plan.allowances.users.total.total)
       ) {
         return false;
+      } else {
+        return true;
       }
-      return false;
     };
   }
 

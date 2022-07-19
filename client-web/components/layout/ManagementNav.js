@@ -49,7 +49,7 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
                     {subRoute.badge}
                   </Badge>
                 ) : (
-                  <></>
+                  null
                 )}
               </a>
             </Link>

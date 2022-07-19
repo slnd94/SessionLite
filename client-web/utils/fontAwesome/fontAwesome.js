@@ -57,9 +57,9 @@ import faUserGraduate from "@fortawesome/fontawesome-free-solid/faUserGraduate";
 import faTable from "@fortawesome/fontawesome-free-solid/faTable";
 
 export const icons = {
-  login: faSignInAlt,
+  signin: faSignInAlt,
   email: faEnvelope,
-  logout: faSignOutAlt,
+  signout: faSignOutAlt,
   error: faExclamationCircle,
   success: faCheckCircle,
   arrowLeft: faArrowLeft,

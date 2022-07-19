@@ -70,7 +70,7 @@ const CheckoutSummary = ({ cart }) => {
           </tbody>
         </table>
       ) : (
-        <></>
+        null
       )}
     </>
   );

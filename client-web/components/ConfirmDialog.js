@@ -22,7 +22,7 @@ const ConfirmDialog = ({ show, proceed, cancel, confirmation, options }) => {
               ))}
             </ul>
           ) : (
-            <></>
+            null
           )}
         </div>
         <div className="d-md-flex justify-content-md-end">

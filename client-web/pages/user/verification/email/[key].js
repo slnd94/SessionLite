@@ -159,7 +159,7 @@ export default function VerifyEmail() {
             ) : null}
           </>
         ) : (
-          <></>
+          null
         )}
       </div>
     </>

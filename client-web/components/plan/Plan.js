@@ -36,7 +36,7 @@ const Plan = ({
           <h5>{t(`plan.${plan.tag}`)}</h5>
         </Badge>
       ) : (
-        <></>
+        null
       )}
       <h4 className={"title"}>{plan.name}</h4>
 
@@ -65,13 +65,13 @@ const Plan = ({
         {plan.subscription.price.gross > 0 ? (
           <div>{t("plan.Including taxes and fees")}</div>
         ) : (
-          <></>
+          null
         )}
       </div>
       {showPaymentDetails ? (
         <div className="fw-bold mt-3">{getPlanPaymentDetailsString()}</div>
       ) : (
-        <></>
+        null
       )}
       {button ? (
         <div className="mt-3 d-flex align-items-end justify-content-full">
@@ -89,7 +89,7 @@ const Plan = ({
           </Button>
         </div>
       ) : (
-        <></>
+        null
       )}
     </div>
   );

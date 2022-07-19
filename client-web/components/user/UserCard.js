@@ -29,7 +29,7 @@ const UserCard = ({ user, className, onClick, customButtons }) => {
                 />
               </div>
             ) : (
-              <></>
+              null
             )}
             <div className="mt-2">
               {user.active ? (
@@ -63,7 +63,7 @@ const UserCard = ({ user, className, onClick, customButtons }) => {
           </div>
         </div>
       ) : (
-        <></>
+        null
       )}
     </>
   );

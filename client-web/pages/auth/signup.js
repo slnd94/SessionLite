@@ -14,7 +14,7 @@ import TenantLogo from "../../components/tenant/TenantLogo";
 export default function Signup() {
   const {
     state: { tenant },
-    getTenant
+    getTenant,
   } = useContext(TenantContext);
   const {
     state: { auth, fileAuth, errorMessage },
@@ -28,9 +28,12 @@ export default function Signup() {
 
   useEffect(() => {
     clearAuthErrorMessage();
-    if(router.query.tenant) {
-      console.log("🚀 ~ file: signup.js ~ line 32 ~ useEffect ~ router.query.tenant", router.query.tenant)
-      getTenant({ id: router.query.tenant })
+    if (router.query.tenant) {
+      console.log(
+        "🚀 ~ file: signup.js ~ line 32 ~ useEffect ~ router.query.tenant",
+        router.query.tenant
+      );
+      getTenant({ id: router.query.tenant });
     }
   }, []);
 
@@ -39,36 +42,34 @@ export default function Signup() {
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
           <div className="col-12 col-sm-6">
-            <div className="section-box">
-              <h5 className={"title"}>{t("auth.Sign Up")}</h5>
-              <SignUpForm
-                processing={processing}
-                onSubmit={async (data) => {
-                  setProcessing(true);
-                  
-                  const request = await signup({
-                    ...data,
-                    ...(tenant?._id ? { tenantId: tenant._id } : {}),
-                    ...(invite ? { inviteId: invite } : {})
-                  });
+            <h5 className={"title"}>{t("auth.Sign Up")}</h5>
+            <SignUpForm
+              processing={processing}
+              onSubmit={async (data) => {
+                setProcessing(true);
 
-                  // refresh with new data
-                  await router.push(router.asPath);
+                const request = await signup({
+                  ...data,
+                  ...(tenant?._id ? { tenantId: tenant._id } : {}),
+                  ...(invite ? { inviteId: invite } : {}),
+                });
 
-                  setProcessing(false);
-                }}
-              />
-              {errorMessage ? (
-                <Alert color="danger" fade={false}>
-                  {t(`auth.There was a problem with your sign in`)}
-                </Alert>
-              ) : null}
-              <div className="mt-4">
-                <span style={{ marginRight: "10px" }}>
-                  {t(`auth.Already have an account?`)}
-                </span>
-                <Link href="/auth/signin">{t("auth.Sign in")}</Link>
-              </div>
+                // refresh with new data
+                await router.push(router.asPath);
+
+                setProcessing(false);
+              }}
+            />
+            {errorMessage ? (
+              <Alert color="danger" fade={false}>
+                {t(`auth.There was a problem with your sign in`)}
+              </Alert>
+            ) : null}
+            <div className="mt-4">
+              <span style={{ marginRight: "10px" }}>
+                {t(`auth.Already have an account?`)}
+              </span>
+              <Link href="/auth/signin">{t("auth.Sign in")}</Link>
             </div>
           </div>
           <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
@@ -83,9 +84,7 @@ export default function Signup() {
             )}
           </div>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
       {auth?.status === "SIGNED_IN" ? (
         <>
           <h4 className="title">{t("auth.Thanks for signing up")}</h4>
@@ -106,9 +105,7 @@ export default function Signup() {
                     </Link>
                     <br />
                   </>
-                ) : (
-                  <></>
-                )}
+                ) : null}
                 <Link href="/user/profile">
                   {t("user.Manage your profile")}
                 </Link>
@@ -118,9 +115,7 @@ export default function Signup() {
             </>
           )}
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 }

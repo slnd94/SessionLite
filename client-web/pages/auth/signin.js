@@ -35,37 +35,35 @@ export default function Signin() {
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
           <div className="col-12 col-sm-6">
-            <div className="section-box">
-              <h5 className={"title"}>{t("auth.Sign In")}</h5>
-              <SignInForm
-                processing={processing}
-                onSubmit={async (data) => {
-                  setProcessing(true);
-                  const request = await signin(data);
-                  if (request.success) {
-                    setProcessing(false);
-                    if (redirect) {
-                      router.push({
-                        pathname: redirect,
-                        query: redirectQuery || {},
-                      });
-                    }
-                  } else {
-                    setProcessing(false);
+            <h5 className={"title"}>{t("auth.Sign In")}</h5>
+            <SignInForm
+              processing={processing}
+              onSubmit={async (data) => {
+                setProcessing(true);
+                const request = await signin(data);
+                if (request.success) {
+                  setProcessing(false);
+                  if (redirect) {
+                    router.push({
+                      pathname: redirect,
+                      query: redirectQuery || {},
+                    });
                   }
-                }}
-              />
-              {errorMessage ? (
-                <Alert color="danger" fade={false}>
-                  {t(`auth.There was a problem with your sign in`)}
-                </Alert>
-              ) : null}
-              <div className="mt-4">
-                <span style={{ marginRight: "10px" }}>
-                  {t(`auth.Need an account?`)}
-                </span>
-                <Link href="/auth/signup">{t("auth.Sign up")}</Link>
-              </div>
+                } else {
+                  setProcessing(false);
+                }
+              }}
+            />
+            {errorMessage ? (
+              <Alert color="danger" fade={false}>
+                {t(`auth.There was a problem with your sign in`)}
+              </Alert>
+            ) : null}
+            <div className="mt-4">
+              <span style={{ marginRight: "10px" }}>
+                {t(`auth.Need an account?`)}
+              </span>
+              <Link href="/auth/signup">{t("auth.Sign up")}</Link>
             </div>
           </div>
           <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
@@ -80,9 +78,7 @@ export default function Signin() {
             )}
           </div>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
       {auth?.status === "SIGNED_IN" ? (
         <>
           <h4 className="title">{t("auth.You are signed in")}</h4>
@@ -95,17 +91,13 @@ export default function Signin() {
                 </Link>
                 <br />
               </>
-            ) : (
-              <></>
-            )}
+            ) : null}
             <Link href="/user/profile">{t("user.Manage your profile")}</Link>
             <br />
             <Link href="/">{t("Browse content")}</Link>
           </p>
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 }

@@ -65,7 +65,7 @@ function AddTeamInvitesForm({ tenant, onAddInvite }) {
           {t("tenant.admin.team.At least one email address is required")}
         </div>
       ) : (
-        <></>
+        null
       )}
       {processing ? (
         <Loader />

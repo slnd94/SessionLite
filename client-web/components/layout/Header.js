@@ -13,7 +13,6 @@ import {
   Nav,
   NavLink,
   NavItem,
-  Badge,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -26,8 +25,9 @@ import IconText from "../IconText";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import styles from "../../styles/Header.module.scss";
+import TenantLogo from "../tenant/TenantLogo";
 
-function Header({ brandName }) {
+function Header({ brandName, tenantAdmin }) {
   const {
     state: { tenant },
   } = useContext(TenantContext);
@@ -46,8 +46,16 @@ function Header({ brandName }) {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [router.asPath]);
+
   return (
-    <div>
+    <div
+      className={`header-bar ${
+        auth?.status === "SIGNED_OUT" ? "sticky-top" : ""
+      }`}
+    >
       <Navbar className={`navbar-light bg-white`} color="faded" expand="sm">
         <NavbarBrand href="/" className="mr-auto">
           <Image
@@ -63,81 +71,351 @@ function Header({ brandName }) {
         ) : (
           <Collapse isOpen={isOpen} navbar className="justify-content-sm-end">
             <Nav navbar>
-              {auth?.status === "SIGNED_IN" ? (
-                <>
-                  <UncontrolledDropdown nav>
-                    <DropdownToggle nav>
-                      <IconText className="d-none d-sm-inline" icon={"user"} />
-                      <IconText
-                        className="d-inline d-sm-none"
-                        icon={"user"}
-                        text={getFullName(auth.user.name)}
-                      />
-                    </DropdownToggle>
-                    <DropdownMenu style={{ zIndex: 10000 }}>
-                      <Link href="/user/profile" passHref>
-                        <DropdownItem>
-                          {getFullName(auth.user.name)}
-                        </DropdownItem>
+              <div className="d-none d-sm-flex">
+                {auth?.status === "SIGNED_IN" ? (
+                  <>
+                    {tenant ? (
+                      <UncontrolledDropdown nav>
+                        <DropdownToggle nav caret>
+                          <span style={{ cursor: "pointer" }}>
+                            {tenant?.logo?.handle &&
+                            fileAuth?.viewTenantLogo ? (
+                              <TenantLogo
+                                handle={tenant.logo.handle}
+                                size="xs"
+                                className="me-3"
+                                viewFileAuth={fileAuth?.viewTenantLogo}
+                              />
+                            ) : null}
+                            <h6 className="d-none d-md-inline-block pt-2">
+                              {tenant.name}
+                            </h6>
+                          </span>
+                        </DropdownToggle>
+                        <DropdownMenu
+                          style={{
+                            zIndex: 10000,
+                            paddingLeft: "10px",
+                            paddingRight: "10px",
+                          }}
+                        >
+                          <Link href={`/tenant/${tenant._id}`} passHref>
+                            <DropdownItem>
+                              <IconText icon="home" text={t("tenant.Home")} />
+                            </DropdownItem>
+                          </Link>
+                          <Link href="/user/profile" passHref>
+                            <DropdownItem>
+                              <IconText
+                                icon="user"
+                                text={t("user.Your Profile")}
+                              />
+                            </DropdownItem>
+                          </Link>
+                          {tenantAdmin ? (
+                            <>
+                              <DropdownItem divider />
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/dashboard`}
+                                passHref
+                              >
+                                <DropdownItem>
+                                  <IconText
+                                    icon="dashboard"
+                                    text={t("tenant.admin.Dashboard")}
+                                  />
+                                </DropdownItem>
+                              </Link>
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/clients`}
+                                passHref
+                              >
+                                <DropdownItem>
+                                  <IconText
+                                    icon="client"
+                                    text={t("tenant.admin.Clients")}
+                                  />
+                                </DropdownItem>
+                              </Link>
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/team`}
+                                passHref
+                              >
+                                <DropdownItem>
+                                  <IconText
+                                    icon="team"
+                                    text={t("tenant.admin.Team")}
+                                  />
+                                </DropdownItem>
+                              </Link>
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/plan`}
+                                passHref
+                              >
+                                <DropdownItem>
+                                  <IconText
+                                    icon="plan"
+                                    text={t("tenant.admin.Plan")}
+                                  />
+                                </DropdownItem>
+                              </Link>
+                              <DropdownItem divider />
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/settings`}
+                                passHref
+                              >
+                                <DropdownItem>
+                                  <IconText
+                                    icon="settings"
+                                    text={t("tenant.admin.Settings")}
+                                  />
+                                </DropdownItem>
+                              </Link>
+                            </>
+                          ) : null}
+                          <DropdownItem divider />
+                          <Link href="/auth/signout" passHref>
+                            <DropdownItem>
+                              <IconText
+                                icon="signout"
+                                text={t("auth.Sign out")}
+                              />
+                            </DropdownItem>
+                          </Link>
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
+                    ) : (
+                      <UncontrolledDropdown nav>
+                        <DropdownToggle nav>
+                          <IconText
+                            className="d-none d-sm-inline"
+                            icon={"user"}
+                          />
+                          <IconText
+                            className="d-inline d-sm-none"
+                            icon={"user"}
+                            text={getFullName(auth.user.name)}
+                          />
+                        </DropdownToggle>
+                        <DropdownMenu style={{ zIndex: 10000 }}>
+                          <Link href="/user/profile" passHref>
+                            <DropdownItem>
+                              <IconText
+                                icon="user"
+                                text={t("user.Your Profile")}
+                              />
+                            </DropdownItem>
+                          </Link>
+                          <DropdownItem divider />
+                          <Link href="/auth/signout" passHref>
+                            <DropdownItem>
+                              <IconText
+                                icon="signout"
+                                text={t("auth.Sign out")}
+                              />
+                            </DropdownItem>
+                          </Link>
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
+                    )}
+                  </>
+                ) : null}
+                {auth?.status === "SIGNED_OUT" ? (
+                  <>
+                    <NavItem className="d-flex align-items-center me-1">
+                      <Link href="/auth/signin" passHref>
+                        <NavLink>
+                          <IconText icon="signin" text={t("auth.Sign in")} />
+                        </NavLink>
                       </Link>
-                      <DropdownItem divider />
-                      <Link href="/user/profile" passHref>
-                        <DropdownItem>Your Profile</DropdownItem>
+                    </NavItem>
+                    <NavItem>
+                      <Link href="/tenant/register" passHref>
+                        <NavLink>
+                          <Button size="lg" color="secondary">
+                            {t("tenant.Try it Free")}
+                          </Button>
+                        </NavLink>
                       </Link>
-                      <Link href="/user/cart" passHref>
-                        <DropdownItem>Your Cart</DropdownItem>
-                      </Link>
-                      <Link href="/auth/signout" passHref>
-                        <DropdownItem>{t("auth.Sign out")}</DropdownItem>
-                      </Link>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
+                    </NavItem>
+                  </>
+                ) : null}
+              </div>
 
-                  <NavItem>
-                    <Link href="/user/cart" passHref>
-                      <NavLink>
-                        {cart?.items?.length > 0 && (
-                          <Badge
-                            color="secondary"
-                            pill
-                            style={{ float: "right", marginTop: "-10px" }}
-                          >
-                            {cart.items.length}
-                          </Badge>
-                        )}
-                        <IconText
-                          className="d-none d-sm-inline"
-                          icon={"cart"}
-                        />
-                        <IconText
-                          className="d-inline d-sm-none"
-                          icon={"cart"}
-                          text={t("user.cart.Your Cart")}
-                        />
-                      </NavLink>
-                    </Link>
-                  </NavItem>
-                </>
-              ) : auth?.status === "SIGNED_OUT" ? (
-                <>
-                <NavItem>
-                  <Link href="/auth/signin" passHref>
-                    <NavLink>{t("auth.Sign in")}</NavLink>
-                  </Link>
-                </NavItem>
-                  <NavItem>
-                    <Link href="/tenant/register" passHref>
-                      <NavLink>
-                        <Button size="lg" color="secondary">
-                          {t("tenant.Try it Free")}
-                        </Button>
-                      </NavLink>
-                    </Link>
-                  </NavItem>
-                </>
-              ) : (
-                <></>
-              )}
+              <div className="d-inline d-sm-none mt-3">
+                {auth?.status === "SIGNED_IN" ? (
+                  <>
+                    {tenant ? (
+                      <>
+                        <NavItem className=" my-3">
+                          <Link href={`/tenant/${tenant._id}`} passHref>
+                            <span style={{ cursor: "pointer" }}>
+                              {tenant?.logo?.handle &&
+                              fileAuth?.viewTenantLogo ? (
+                                <TenantLogo
+                                  handle={tenant.logo.handle}
+                                  size="xs"
+                                  className="me-3"
+                                  viewFileAuth={fileAuth?.viewTenantLogo}
+                                />
+                              ) : null}
+                              <h6 className="d-inline pt-2">{tenant.name}</h6>
+                            </span>
+                          </Link>
+                        </NavItem>
+                        <DropdownItem divider />
+                        <NavItem>
+                          <Link href={`/tenant/${tenant._id}`} passHref>
+                            <NavLink>
+                              <IconText icon="home" text={t("tenant.Home")} />
+                            </NavLink>
+                          </Link>
+                        </NavItem>
+                        <NavItem>
+                          <Link href="/user/profile" passHref>
+                            <NavLink>
+                              <IconText
+                                icon="user"
+                                text={t("user.Your Profile")}
+                              />
+                            </NavLink>
+                          </Link>
+                        </NavItem>
+                        {tenantAdmin ? (
+                          <>
+                            <DropdownItem divider />
+                            <NavItem>
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/dashboard`}
+                                passHref
+                              >
+                                <NavLink>
+                                  <IconText
+                                    icon="dashboard"
+                                    text={t("tenant.admin.Dashboard")}
+                                  />
+                                </NavLink>
+                              </Link>
+                            </NavItem>
+                            <NavItem>
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/clients`}
+                                passHref
+                              >
+                                <NavLink>
+                                  <IconText
+                                    icon="client"
+                                    text={t("tenant.admin.Clients")}
+                                  />
+                                </NavLink>
+                              </Link>
+                            </NavItem>
+                            <NavItem>
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/team`}
+                                passHref
+                              >
+                                <NavLink>
+                                  <IconText
+                                    icon="team"
+                                    text={t("tenant.admin.Team")}
+                                  />
+                                </NavLink>
+                              </Link>
+                            </NavItem>
+                            <NavItem>
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/plan`}
+                                passHref
+                              >
+                                <NavLink>
+                                  <IconText
+                                    icon="plan"
+                                    text={t("tenant.admin.Plan")}
+                                  />
+                                </NavLink>
+                              </Link>
+                            </NavItem>
+                            <DropdownItem divider />
+                            <NavItem>
+                              <Link
+                                href={`/tenant/${tenant._id}/admin/settings`}
+                                passHref
+                              >
+                                <NavLink>
+                                  <IconText
+                                    icon="settings"
+                                    text={t("tenant.admin.Settings")}
+                                  />
+                                </NavLink>
+                              </Link>
+                            </NavItem>
+                          </>
+                        ) : null}
+                        <DropdownItem divider />
+                        <NavItem>
+                          <Link href="/auth/signout" passHref>
+                            <NavLink>
+                              <IconText
+                                icon="signout"
+                                text={t("auth.Sign out")}
+                              />
+                            </NavLink>
+                          </Link>
+                        </NavItem>
+                      </>
+                    ) : (
+                      <UncontrolledDropdown nav>
+                        <DropdownToggle nav>
+                          <IconText
+                            className="d-none d-sm-inline"
+                            icon={"user"}
+                          />
+                          <IconText
+                            className="d-inline d-sm-none"
+                            icon={"user"}
+                            text={getFullName(auth.user.name)}
+                          />
+                        </DropdownToggle>
+                        <DropdownMenu style={{ zIndex: 10000 }}>
+                          <Link href="/user/profile" passHref>
+                            <DropdownItem>
+                              <IconText
+                                icon="user"
+                                text={t("user.Your Profile")}
+                              />
+                            </DropdownItem>
+                          </Link>
+                          <DropdownItem divider />
+                          <Link href="/auth/signout" passHref>
+                            <DropdownItem>{t("auth.Sign out")}</DropdownItem>
+                          </Link>
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
+                    )}
+                  </>
+                ) : null}
+                {auth?.status === "SIGNED_OUT" ? (
+                  <>
+                    <NavItem>
+                      <Link href="/tenant/register" passHref>
+                        <NavLink>
+                          <Button size="md" color="secondary">
+                            {t("tenant.Try it Free")}
+                          </Button>
+                        </NavLink>
+                      </Link>
+                    </NavItem>
+                    <NavItem className="d-flex align-items-center me-3">
+                      <Link href="/auth/signin" passHref>
+                        <NavLink>
+                          <IconText icon="signin" text={t("auth.Sign in")} />
+                        </NavLink>
+                      </Link>
+                    </NavItem>
+                  </>
+                ) : null}
+              </div>
             </Nav>
           </Collapse>
         )}

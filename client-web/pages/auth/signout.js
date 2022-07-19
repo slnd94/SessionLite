@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Context as AuthContext } from "../../context/AuthContext";
+import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as UserContext } from "../../context/UserContext";
 import styles from "../../styles/Signout.module.scss";
 import Link from "next/link";
@@ -14,11 +15,13 @@ export default function SignOut() {
     clearErrorMessage: clearAuthErrorMessage,
   } = useContext(AuthContext);
   const { clearUser } = useContext(UserContext);
+  const { clearTenant } = useContext(TenantContext);
 
   useEffect(() => {
     clearAuthErrorMessage();
     signout();
     clearUser();
+    clearTenant();
   }, []);
 
   return (
@@ -36,7 +39,7 @@ export default function SignOut() {
           </p>
         </>
       ) : (
-        <></>
+        null
       )}
     </>
   );

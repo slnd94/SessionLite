@@ -109,7 +109,7 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
 
             <div className="row">
               <div className="col-12">
-                <h3>{t("plan.Select Your Plan to Continue")}</h3>
+                <h3>{t("plan.Select Your Plan")}</h3>
               </div>
             </div>
             <PlanList
@@ -125,9 +125,7 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
               }}
             />
           </>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </>
     );
   };
@@ -316,11 +314,11 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
 
   return (
     <>
-      {view === "select" ? <Select /> : <></>}
-      {view === "confirm" ? <Confirm /> : <></>}
-      {view === "checkout" ? <Checkout /> : <></>}
-      {view === "processing" ? <Processing /> : <></>}
-      {view === "error" ? <Error /> : <></>}
+      {view === "select" ? <Select /> : null}
+      {view === "confirm" ? <Confirm /> : null}
+      {view === "checkout" ? <Checkout /> : null}
+      {view === "processing" ? <Processing /> : null}
+      {view === "error" ? <Error /> : null}
     </>
   );
 };

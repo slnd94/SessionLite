@@ -31,7 +31,7 @@ const UserListItem = ({ user, className, onClick, customButtons }) => {
               text={t(`tenant.admin.team.Administrator`)}
             />
           ) : (
-            <></>
+            null
           )}
         </div>
       </div>

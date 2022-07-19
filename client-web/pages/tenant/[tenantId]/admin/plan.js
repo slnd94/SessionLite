@@ -34,13 +34,13 @@ export default function TenantPlan() {
   const {
     state: { tenant },
   } = useContext(TenantContext);
-  const [view, setView] = useState("current");
+  const [view, setView] = useState("select");
   const [currentPlan, setCurrentPlan] = useState(null);
 
   const fetchCurrentPlan = async () => {
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-plans/${tenantId}`
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-plans/${tenantId}`,
     });
 
     if (response.status >= 200 && response.status < 300) {
@@ -88,7 +88,10 @@ export default function TenantPlan() {
                       <h3>{t("tenant.admin.plan.Your Current Plan")}</h3>
                     </div>
                   </div>
-                  <Plan plan={currentPlan} className={currentPlan.tag ? "popular" : ""} />
+                  <Plan
+                    plan={currentPlan}
+                    className={currentPlan.tag ? "popular" : ""}
+                  />
                   <Button
                     className="mt-4 btn-block-md-down"
                     size="lg"
