@@ -16,6 +16,7 @@ exports.TenantTeam = class TenantTeam {
           $or: [
             { "name.family": { $regex: new RegExp(params.query.search, "i") } },
             { "name.given": { $regex: new RegExp(params.query.search, "i") } },
+            { "email": { $regex: new RegExp(params.query.search, "i") } }
           ],
         }
       : {};

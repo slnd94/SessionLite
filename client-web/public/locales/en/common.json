@@ -180,8 +180,9 @@
       "team": {
         "Team": "Team",
         "Users": "Users",
-        "Name Search": "Name Search",
-        "Email Search": "Email Search",
+        "Search Name": "Search Name",
+        "Search Email": "Search Email",
+        "Search Name or Email": "Search Name or Email",
         "Administrator": "Administrator",
         "Registered": "Registered",
         "Registered Team Members": "Registered Team Members",
