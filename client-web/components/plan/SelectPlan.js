@@ -26,9 +26,11 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
 
   const [error, setError] = useState(null);
   const [plans, setPlans] = useState(null);
+  const [requestingPlans, setRequestingPlans] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   const fetchPlans = async () => {
+    setRequestingPlans(true);
     const response = await api({
       method: "get",
       url: `${process.env.NEXT_PUBLIC_API_URL}/plans?$sort[index]=1`,
@@ -36,9 +38,11 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
 
     if (response.status >= 200 && response.status < 300) {
       setPlans(response.data.data);
+      setRequestingPlans(false);
       return { success: true };
     } else {
       setPlans(null);
+      setRequestingPlans(false);
       return { success: false };
     }
   };
@@ -97,35 +101,48 @@ const SelectPlan = ({ showProgress, currentPlan }) => {
   const Select = () => {
     return (
       <>
-        {plans ? (
-          <>
-            {showProgress ? (
-              <div className="row mt-2 mb-4 pt-2" style={{ opacity: "90%" }}>
-                <div className="col-12">
-                  <Progress value={60} striped={true} color="secondary" />
-                </div>
-              </div>
-            ) : null}
-
-            <div className="row">
-              <div className="col-12">
-                <h3>{t("plan.Select Your Plan")}</h3>
-              </div>
+        {requestingPlans ? (
+          <div className="d-flex flex-column">
+            <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+              <Loader />
             </div>
-            <PlanList
-              plans={plans}
-              currentPlan={currentPlan}
-              onSelectPlan={(plan) => {
-                setSelectedPlan(plan);
-                if (plan.requiresCheckout) {
-                  setView("checkout");
-                } else {
-                  setView("confirm");
-                }
-              }}
-            />
+          </div>
+        ) : (
+          <>
+            {plans ? (
+              <>
+                {showProgress ? (
+                  <div
+                    className="row mt-2 mb-4 pt-2"
+                    style={{ opacity: "90%" }}
+                  >
+                    <div className="col-12">
+                      <Progress value={60} striped={true} color="secondary" />
+                    </div>
+                  </div>
+                ) : null}
+
+                <div className="row">
+                  <div className="col-12">
+                    <h3>{t("plan.Select Your Plan")}</h3>
+                  </div>
+                </div>
+                <PlanList
+                  plans={plans}
+                  currentPlan={currentPlan}
+                  onSelectPlan={(plan) => {
+                    setSelectedPlan(plan);
+                    if (plan.requiresCheckout) {
+                      setView("checkout");
+                    } else {
+                      setView("confirm");
+                    }
+                  }}
+                />
+              </>
+            ) : null}
           </>
-        ) : null}
+        )}
       </>
     );
   };

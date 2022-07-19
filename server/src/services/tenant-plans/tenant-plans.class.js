@@ -94,16 +94,11 @@ exports.TenantPlans = class TenantPlans {
     });
 
     const plan = await this.app.service("plans").get(tenant.plan);
-
-    const returnVar = {
+    
+    return {
       ...plan,
       usage: await this.getTenantUsage(id),
     };
-    console.log(
-      "🚀 ~ file: tenant-plans.class.js ~ line 75 ~ TenantPlans ~ get ~ returnVar",
-      returnVar
-    );
-    return returnVar;
   }
 
   async patch(id, data, params) {
