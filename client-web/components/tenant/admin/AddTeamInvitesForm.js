@@ -80,7 +80,7 @@ function AddTeamInvitesForm({ tenant, onAddInvite }) {
               setProcessing(true);
               const response = await api({
                 method: "patch",
-                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites/${tenant}`,
+                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-user-invites/${tenant}`,
                 params: {
                   inviteEmailAddresses: addEmails,
                 },

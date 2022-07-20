@@ -27,7 +27,7 @@ function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
             ).then(async () => {
               const response = await api({
                 method: "patch",
-                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites/${tenant}`,
+                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-user-invites/${tenant}`,
                 params: {
                   resendInvite: invite._id,
                 },
@@ -56,7 +56,7 @@ function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
             ).then(async () => {
               const response = await api({
                 method: "patch",
-                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites/${tenant}`,
+                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-user-invites/${tenant}`,
                 params: {
                   revokeInvite: invite._id,
                 },

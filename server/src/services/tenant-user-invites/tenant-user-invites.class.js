@@ -16,13 +16,18 @@ exports.TenantTeamInvites = class TenantTeamInvites {
     }
     delete params.query.search;
 
+    // enforce only the fields we want to be able to query on
+    params.query = {
+      tenant: params.query.tenant,
+      $skip: params.query.$skip,
+      $limit: params.query.$limit,
+      ...(params.query.email ? { email: params.query.email } : {}),
+      ...(params.query.type ? { type: params.query.type } : {})
+    }
+
     const invites = await this.app.service("user-invites").find({
       query: {
         ...params.query,
-        tenant: params.query.tenant,
-        type: "team",
-        $skip: params.query.$skip,
-        $limit: params.query.$limit,
         $select: {
           _id: 1,
           email: 1,
@@ -60,7 +65,7 @@ exports.TenantTeamInvites = class TenantTeamInvites {
                 email: emailAddress
               });
             } catch(err) {
-              console.log("🚀 ~ file: tenant-team.class.js ~ line 50 ~ TenantTeam ~ patch ~ err", err)
+              console.log("🚀 ~ file: tenant-users.class.js ~ line 50 ~ TenantTeam ~ patch ~ err", err)
             }
           }
         }

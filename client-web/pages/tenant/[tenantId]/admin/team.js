@@ -45,10 +45,11 @@ export default function Team() {
   const fetchInvites = async ({ skip, limit, search }) => {
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-user-invites`,
       params: {
         $skip: skip,
         $limit: limit,
+        type: "team",
         ...(tenantId ? { tenant: tenantId } : {}),
         ...(search ? { search } : {}),
       },
@@ -66,10 +67,11 @@ export default function Team() {
   const fetchUsers = async ({ skip, limit, search }) => {
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-users`,
       params: {
         $skip: skip,
         $limit: limit,
+        type: "team",
         ...(tenantId ? { tenant: tenantId } : {}),
         ...(search ? { search } : {}),
       },

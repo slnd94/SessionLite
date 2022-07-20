@@ -101,7 +101,7 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
                   setProcessing(true);
                   const response = await api({
                     method: "patch",
-                    url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team/${tenant}`,
+                    url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-users/${tenant}`,
                     params: {
                       updateUser: user._id,
                       ...data
