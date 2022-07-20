@@ -8,7 +8,7 @@ import {
 import confirm from "../../../utils/confirm";
 import { useTranslation } from "next-i18next";
 
-function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
+function ManageClientInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
   const { t } = useTranslation("common");
 
   return (
@@ -22,7 +22,7 @@ function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
           onClick={() => {
             confirm(
               t(
-                "tenant.admin.team.Are you sure you want to re-send this invitation?"
+                "tenant.admin.client.Are you sure you want to re-send this invitation?"
               )
             ).then(async () => {
               const response = await api({
@@ -42,7 +42,7 @@ function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
             });
           }}
         >
-          {t("tenant.admin.team.Re-send Invitation")}
+          {t("tenant.admin.client.Re-send Invitation")}
         </Button>
         <Button
           className={"btn-block-md-down"}
@@ -51,7 +51,7 @@ function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
           onClick={() => {
             confirm(
               t(
-                "tenant.admin.team.Are you sure you want to revoke this invitation? The invitee will no longer be able to sign up using this invitation."
+                "tenant.admin.client.Are you sure you want to revoke this invitation? The invitee will no longer be able to sign up using this invitation."
               )
             ).then(async () => {
               const response = await api({
@@ -71,18 +71,18 @@ function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
             });
           }}
         >
-          {t("tenant.admin.team.Revoke Invitation")}
+          {t("tenant.admin.client.Revoke Invitation")}
         </Button>
       </div>
     </>
   );
 }
 
-ManageTeamInvite.propTypes = {
+ManageClientInvite.propTypes = {
   invite: PropTypes.object,
   tenant: PropTypes.string,
   onResendInvite: PropTypes.func,
   onRevokeInvite: PropTypes.func
 };
 
-export default ManageTeamInvite;
+export default ManageClientInvite;

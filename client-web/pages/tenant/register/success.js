@@ -50,7 +50,7 @@ export default function RegisterSuccess() {
     },
     {
       icon: "client",
-      title: t("tenant.admin.Clients"),
+      title: t("tenant.admin.client"),
       route: `/tenant/${tenant?._id}/admin/clients`,
       description: t('tenant.sectionLinkDescriptions.clients',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
     }

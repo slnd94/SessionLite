@@ -7,9 +7,9 @@ import confirm from "../../../utils/confirm";
 import { useTranslation } from "next-i18next";
 import UserCard from "../../user/UserCard";
 import { Context as AuthContext } from "../../../context/AuthContext";
-import ManageTeamUserForm from "./ManageTeamUserForm";
+import ManageClientUserForm from "./ManageClientUserForm";
 
-function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActivateUser }) {
+function ManageClientUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActivateUser }) {
   const { t } = useTranslation("common");
   const {
     state: { auth },
@@ -45,7 +45,7 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
         <>
           <UserCard user={user} />
           <div className="mt-5">
-            <ManageTeamUserForm
+            <ManageClientUserForm
               processing={processing}
               defaults={{
                 active: user.active,
@@ -57,22 +57,22 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
                 if(user.active && !data.active) {
                   // user is being inactivated
                   confirmListItems.push(t(
-                    "tenant.admin.team.The user will no longer be able to sign in on {{appName}}", 
+                    "tenant.admin.client.The user will no longer be able to sign in on {{appName}}", 
                     { appName: process.env.NEXT_APP_NAME }
                   ));
                   confirmListItems.push(t(
-                    "tenant.admin.team.You will gain back one allowed active team member on your {{appName}} plan", 
+                    "tenant.admin.client.You will gain back one allowed active client user on your {{appName}} plan", 
                     { appName: process.env.NEXT_APP_NAME }
                   ));
                 }
                 if(!user.active && data.active) {
                   // user is being activated
                   confirmListItems.push(t(
-                    "tenant.admin.team.The user will be able to sign in on {{appName}}", 
+                    "tenant.admin.client.The user will be able to sign in on {{appName}}", 
                     { appName: process.env.NEXT_APP_NAME }
                   ));
                   confirmListItems.push(t(
-                    "tenant.admin.team.The user will consume one allowed active team member on your {{appName}} plan", 
+                    "tenant.admin.client.The user will consume one allowed active client user on your {{appName}} plan", 
                     { appName: process.env.NEXT_APP_NAME }
                   ));
                 }   
@@ -80,19 +80,19 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
                 if(user.tenantAdmin && !data.tenantAdmin) {
                   // user is having tenant admin access revoked
                   confirmListItems.push(t(
-                    "tenant.admin.team.The user will no longer be able access the admin area"
+                    "tenant.admin.client.The user will no longer be able access the admin area"
                   ));
                 }
                 if(data.active && !user.tenantAdmin && data.tenantAdmin) {
                   // user is being granted tenant admin access
                   confirmListItems.push(t(
-                    "tenant.admin.team.The user will be able access the admin area and perform all admin actions"
+                    "tenant.admin.client.The user will be able access the admin area and perform all admin actions"
                   ));
                 }    
 
                 confirm(
                   t(
-                    "tenant.admin.team.Are you sure you want to update this user?", 
+                    "tenant.admin.client.Are you sure you want to update this user?", 
                     { appName: process.env.NEXT_APP_NAME }
                   ), {
                     listItems: confirmListItems
@@ -131,33 +131,33 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
 
       {auth?.user?._id === user?._id && user?.active ? (
         <div className="mt-3 d-flex justify-content-end">
-          {t(`tenant.admin.team.You cannot modify your own permissions`)}
+          {t(`tenant.admin.client.You cannot modify your own permissions`)}
         </div>
       ) : null}
       {updateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.team.There was a problem updating this user`)}
+          {t(`tenant.admin.client.There was a problem updating this user`)}
         </Alert>
       ) : null}
       {deactivateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.team.There was a problem deactivating this user`)}
+          {t(`tenant.admin.client.There was a problem deactivating this user`)}
         </Alert>
       ) : null}
       {activateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.team.There was a problem activating this user`)}
+          {t(`tenant.admin.client.There was a problem activating this user`)}
         </Alert>
       ) : null}
     </>
   );
 }
 
-ManageTeamUser.propTypes = {
+ManageClientUser.propTypes = {
   user: PropTypes.object,
   tenant: PropTypes.string,
   onDeactivateUser: PropTypes.func,
   onActivateUser: PropTypes.func,
 };
 
-export default ManageTeamUser;
+export default ManageClientUser;

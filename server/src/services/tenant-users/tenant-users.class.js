@@ -27,14 +27,14 @@ exports.TenantTeam = class TenantTeam {
       tenant: params.query.tenant,
       $skip: params.query.$skip,
       $limit: params.query.$limit,
-      ...(params.query.active ? { active: params.query.active } : {})
+      ...(params.query.active ? { active: params.query.active } : {}),
+      ...(params.query.type ? { type: params.query.type } : {})
     }
-
+    
     const users = await this.app.service("users").find({
       query: {
         ...nameSearchQuery,
         ...params.query,
-        type: "team",
         $select: {
           _id: 1,
           email: 1,

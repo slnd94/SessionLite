@@ -13,7 +13,7 @@ exports.TenantPlans = class TenantPlans {
 
     this.getTenantUsage = async (tenantId) => {
       // get the count of active team users
-      const team = await this.app.service("tenant-team").find({
+      const team = await this.app.service("tenant-users").find({
         query: {
           tenant: tenantId,
           active: true,
@@ -23,7 +23,7 @@ exports.TenantPlans = class TenantPlans {
       });
 
       // get the count of active team user invites
-      const teamInvites = await this.app.service("tenant-team-invites").find({
+      const teamInvites = await this.app.service("tenant-user-invites").find({
         query: {
           tenant: tenantId,
           $skip: 0,

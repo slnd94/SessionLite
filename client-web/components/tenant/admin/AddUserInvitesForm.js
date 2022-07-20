@@ -16,7 +16,7 @@ import {
 import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
 
-function AddTeamInvitesForm({ tenant, onAddInvite }) {
+function AddUserInvitesForm({ tenant, type, onAddInvite }) {
   const { t } = useTranslation("common");
   const [processing, setProcessing] = useState(false);
   const [addEmails, setAddEmails] = useState([]);
@@ -80,9 +80,10 @@ function AddTeamInvitesForm({ tenant, onAddInvite }) {
               setProcessing(true);
               const response = await api({
                 method: "patch",
-                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-team-invites/${tenant}`,
+                url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-user-invites/${tenant}`,
                 params: {
                   inviteEmailAddresses: addEmails,
+                  type
                 },
               });
 
@@ -118,10 +119,10 @@ function AddTeamInvitesForm({ tenant, onAddInvite }) {
   );
 }
 
-AddTeamInvitesForm.propTypes = {
+AddUserInvitesForm.propTypes = {
   onSubmit: PropTypes.func,
   processing: PropTypes.bool,
   defaults: PropTypes.object,
 };
 
-export default AddTeamInvitesForm;
+export default AddUserInvitesForm;

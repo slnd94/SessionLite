@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import PaginatedList from "../../PaginatedList";
 import InviteListItem from "../../user/InviteListItem";
 
-const TeamInvitesList = ({
+const UserInvitesList = ({
   onSelectInvite,
   itemsPerPage,
   invites,
@@ -38,12 +38,12 @@ const TeamInvitesList = ({
   );
 };
 
-TeamInvitesList.propTypes = {
+UserInvitesList.propTypes = {
   invites: PropTypes.object,
   onSelectUser: PropTypes.func,
   fetchInvites: PropTypes.func,
 };
 
-TeamInvitesList.defaultProps = {};
+UserInvitesList.defaultProps = {};
 
-export default TeamInvitesList;
+export default UserInvitesList;

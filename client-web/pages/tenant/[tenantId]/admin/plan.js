@@ -4,26 +4,10 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { Context as TenantContext } from "../../../../context/TenantContext";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
-import IconText from "../../../../components/IconText";
 import {
-  Button,
-  Nav,
-  NavItem,
-  NavLink,
-  Offcanvas,
-  OffcanvasBody,
-  OffcanvasHeader,
-  TabContent,
-  TabPane,
+  Button
 } from "reactstrap";
-import AddTeamInvitesForm from "../../../../components/tenant/admin/AddTeamInvitesForm";
-import TeamUserList from "../../../../components/tenant/admin/TeamUserList";
-import TeamInvitesList from "../../../../components/tenant/admin/TeamInvitesList";
-import ManageTeamInvite from "../../../../components/tenant/admin/ManageTeamInvite";
 import api from "../../../../utils/api";
-import ManageTeamUser from "../../../../components/tenant/admin/ManageTeamUser";
-import TenantPlanCurrent from "../../../../components/tenant/admin/CurrentPlan";
 import SelectPlan from "../../../../components/plan/SelectPlan";
 import Plan from "../../../../components/plan/Plan";
 
@@ -120,7 +104,7 @@ export default function TenantPlan() {
               <SelectPlan
                 currentPlan={currentPlan}
                 backLink={{
-                  text: t("Cancel"),
+                  text: t("Back"),
                   onClick: () => {
                     setView("current");
                   },
