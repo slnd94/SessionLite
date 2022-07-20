@@ -83,6 +83,7 @@ function AddTeamInvitesForm({ tenant, onAddInvite }) {
                 url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-user-invites/${tenant}`,
                 params: {
                   inviteEmailAddresses: addEmails,
+                  type: "team"
                 },
               });
 

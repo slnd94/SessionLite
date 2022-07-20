@@ -11,8 +11,8 @@ exports.TenantTeamInvites = class TenantTeamInvites {
 
   async find(params) {
     // assign the search term on email if provided
-    if(params.query.search) {
-      params.query['email'] = { $regex: new RegExp(params.query.search, 'i') };
+    if (params.query.search) {
+      params.query["email"] = { $regex: new RegExp(params.query.search, "i") };
     }
     delete params.query.search;
 
@@ -22,8 +22,8 @@ exports.TenantTeamInvites = class TenantTeamInvites {
       $skip: params.query.$skip,
       $limit: params.query.$limit,
       ...(params.query.email ? { email: params.query.email } : {}),
-      ...(params.query.type ? { type: params.query.type } : {})
-    }
+      ...(params.query.type ? { type: params.query.type } : {}),
+    };
 
     const invites = await this.app.service("user-invites").find({
       query: {
@@ -40,38 +40,49 @@ exports.TenantTeamInvites = class TenantTeamInvites {
   }
 
   async patch(id, data, params) {
-    if(data.inviteEmailAddresses) {
-      await Promise.all(data.inviteEmailAddresses.map(async emailAddress => {
-        // check to see if this email has already been used
-        const existingInvites = await this.app.service('user-invites').find({
-          query: {
-            email: emailAddress,
-            tenant: id
-          }
-        });
-
-        if(existingInvites.total === 0) {
-          const existingUsers = await this.app.service('users').find({
-            query: {
-              email: emailAddress
-            }
-          });
-
-          if(existingUsers.total === 0) {
-            try{
-              await this.app.service('user-invites').create({
-                tenant: id,
-                type: "team",
-                email: emailAddress
+    if (data.inviteEmailAddresses) {
+      if (!data.type || !(data.type === "team" || data.type === "client")) {
+        return Promise.reject(new errors.BadRequest("invalid invite"));
+      } else {
+        await Promise.all(
+          data.inviteEmailAddresses.map(async (emailAddress) => {
+            // check to see if this email has already been used
+            const existingInvites = await this.app
+              .service("user-invites")
+              .find({
+                query: {
+                  email: emailAddress,
+                  tenant: id,
+                },
               });
-            } catch(err) {
-              console.log("🚀 ~ file: tenant-users.class.js ~ line 50 ~ TenantTeam ~ patch ~ err", err)
-            }
-          }
-        }
-      }));
 
-      return { success: true }
+            if (existingInvites.total === 0) {
+              const existingUsers = await this.app.service("users").find({
+                query: {
+                  email: emailAddress,
+                },
+              });
+
+              if (existingUsers.total === 0) {
+                try {
+                  await this.app.service("user-invites").create({
+                    tenant: id,
+                    type: data.type,
+                    email: emailAddress,
+                  });
+                } catch (err) {
+                  console.log(
+                    "🚀 ~ file: tenant-users.class.js ~ line 50 ~ TenantTeam ~ patch ~ err",
+                    err
+                  );
+                }
+              }
+            }
+          })
+        );
+
+        return { success: true };
+      }
     } else if (data.resendInvite) {
       // ensure the invite belongs to this tenant
       const invite = await this.app
@@ -136,7 +147,7 @@ exports.TenantTeamInvites = class TenantTeamInvites {
         });
         if (tenant) {
           // revoke (remove) the invite
-          await this.app.service('user-invites').remove(data.revokeInvite);
+          await this.app.service("user-invites").remove(data.revokeInvite);
           return { success: true };
         }
       } else {

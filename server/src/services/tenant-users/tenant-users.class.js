@@ -30,8 +30,7 @@ exports.TenantTeam = class TenantTeam {
       ...(params.query.active ? { active: params.query.active } : {}),
       ...(params.query.type ? { type: params.query.type } : {})
     }
-
-    console.log("🚀 ~ file: tenant-users.class.js ~ line 27 ~ TenantTeam ~ find ~ params.query", params.query)
+    
     const users = await this.app.service("users").find({
       query: {
         ...nameSearchQuery,
