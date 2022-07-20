@@ -92,6 +92,7 @@ exports.TenantTeamInvites = class TenantTeamInvites {
             $select: {
               tenant: 1,
               email: 1,
+              type: 1
             },
           },
         });
@@ -108,7 +109,7 @@ exports.TenantTeamInvites = class TenantTeamInvites {
           // resend the invite
           // send invitation email to user
           this.app.service("emails-sendinblue").create({
-            templateId: this.app.get("invitationTeamEmailTemplate"),
+            templateId: this.app.get(invite?.type === "team" ? "invitationTeamEmailTemplate" : "invitationClientEmailTemplate"),
             destination: invite.email,
             data: {
               appName: this.app.get("appName"),

@@ -16,9 +16,9 @@ import {
   TabContent,
   TabPane,
 } from "reactstrap";
-import AddTeamInvitesForm from "../../../../components/tenant/admin/AddTeamInvitesForm";
-import TeamUserList from "../../../../components/tenant/admin/TeamUserList";
-import TeamInvitesList from "../../../../components/tenant/admin/TeamInvitesList";
+import AddUserInvitesForm from "../../../../components/tenant/admin/AddUserInvitesForm";
+import UserList from "../../../../components/tenant/admin/UserList";
+import UserInvitesList from "../../../../components/tenant/admin/UserInvitesList";
 import ManageTeamInvite from "../../../../components/tenant/admin/ManageTeamInvite";
 import api from "../../../../utils/api";
 import ManageTeamUser from "../../../../components/tenant/admin/ManageTeamUser";
@@ -29,17 +29,17 @@ export default function Team() {
   const { tenantId } = router.query;
   const usersPerPage = 10;
   const invitesPerPage = 10;
-  const [view, setView] = useState("team");
+  const [view, setView] = useState("users");
   const [showInviteForm, setShowInviteForm] = useState(false);
 
   const [invites, setInvites] = useState(null);
   const [selectedInvite, setSelectedInvite] = useState(null);
-  const [teamInvitesRequestItemsSignal, setTeamInvitesRequestItemsSignal] =
+  const [invitesRequestItemsSignal, setInvitesRequestItemsSignal] =
     useState(null);
 
   const [users, setUsers] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [teamUsersRequestItemsSignal, setTeamUsersRequestItemsSignal] =
+  const [usersRequestItemsSignal, setUsersRequestItemsSignal] =
     useState(null);
 
   const fetchInvites = async ({ skip, limit, search }) => {
@@ -89,7 +89,7 @@ export default function Team() {
   useEffect(() => {
     if (view === "invites") {
       fetchInvites({ skip: 0, limit: invitesPerPage }).catch(console.error);
-    } else if (view === "team") {
+    } else if (view === "users") {
       fetchUsers({ skip: 0, limit: invitesPerPage }).catch(console.error);
     }
   }, [view]);
@@ -144,7 +144,7 @@ export default function Team() {
                   setSelectedInvite(null);
                   if (view === "invites") {
                     // signal the component to reset the pagination
-                    setTeamInvitesRequestItemsSignal(Date.now());
+                    setInvitesRequestItemsSignal(Date.now());
                   }
                 }}
               />
@@ -169,9 +169,9 @@ export default function Team() {
                     type: "success",
                   });
                   // setSelectedInvite(null);
-                  if (view === "team") {
+                  if (view === "users") {
                     // signal the component to reset the pagination
-                    setTeamUsersRequestItemsSignal(Date.now());
+                    setUsersRequestItemsSignal(Date.now());
                   }
                 }}
                 onDeactivateUser={() => {
@@ -180,9 +180,9 @@ export default function Team() {
                     type: "success",
                   });
                   // setSelectedInvite(null);
-                  if (view === "team") {
+                  if (view === "users") {
                     // signal the component to reset the pagination
-                    setTeamUsersRequestItemsSignal(Date.now());
+                    setUsersRequestItemsSignal(Date.now());
                   }
                 }}
                 onActivateUser={() => {
@@ -191,9 +191,9 @@ export default function Team() {
                     type: "success",
                   });
                   // setSelectedInvite(null);
-                  if (view === "team") {
+                  if (view === "users") {
                     // signal the component to reset the pagination
-                    setTeamUsersRequestItemsSignal(Date.now());
+                    setUsersRequestItemsSignal(Date.now());
                   }
                 }}
               />
@@ -209,13 +209,14 @@ export default function Team() {
               {t("tenant.admin.team.Invite Team Members")}
             </OffcanvasHeader>
             <OffcanvasBody>
-              <AddTeamInvitesForm
+              <AddUserInvitesForm
                 tenant={tenantId}
+                type="team"
                 onAddInvite={() => {
                   setShowInviteForm(false);
                   if (view === "invites") {
                     // signal the component to reset the pagination
-                    setTeamInvitesRequestItemsSignal(Date.now());
+                    setInvitesRequestItemsSignal(Date.now());
                   }
                 }}
               />
@@ -228,9 +229,9 @@ export default function Team() {
           <Nav pills>
             <NavItem>
               <NavLink
-                className={view === "team" ? "active" : ""}
+                className={view === "users" ? "active" : ""}
                 onClick={() => {
-                  setView("team");
+                  setView("users");
                 }}
               >
                 <IconText icon="user" text={t("tenant.admin.team.Users")} />
@@ -252,18 +253,18 @@ export default function Team() {
           </Nav>
 
           <TabContent activeTab={view} className="mt-3">
-            <TabPane tabId="team">
+            <TabPane tabId="users">
               <div className="row">
                 <div className="col-12">
-                  {view === "team" ? (
-                    <TeamUserList
+                  {view === "users" ? (
+                    <UserList
                       itemsPerPage={usersPerPage}
                       fetchUsers={fetchUsers}
                       users={users}
                       onSelectUser={(user) => {
                         setSelectedUser(user);
                       }}
-                      requestItemsSignal={teamUsersRequestItemsSignal}
+                      requestItemsSignal={usersRequestItemsSignal}
                       t={t}
                     />
                   ) : (
@@ -283,14 +284,14 @@ export default function Team() {
               <div className="row">
                 <div className="col-12">
                   {view === "invites" ? (
-                    <TeamInvitesList
+                    <UserInvitesList
                       itemsPerPage={invitesPerPage}
                       fetchInvites={fetchInvites}
                       invites={invites}
                       onSelectInvite={(invite) => {
                         setSelectedInvite(invite);
                       }}
-                      requestItemsSignal={teamInvitesRequestItemsSignal}
+                      requestItemsSignal={invitesRequestItemsSignal}
                       t={t}
                     />
                   ) : (

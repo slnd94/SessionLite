@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import PaginatedList from "../../PaginatedList";
 import UserListItem from "../../user/UserListItem";
 
-const TeamUserList = ({
+const UserList = ({
   onSelectUser,
   itemsPerPage,
   users,
@@ -38,13 +38,13 @@ const TeamUserList = ({
   );
 };
 
-TeamUserList.propTypes = {
+UserList.propTypes = {
   users: PropTypes.object,
   onSelectUser: PropTypes.func,
   fetchUsers: PropTypes.func,
   searcFunc: PropTypes.func,
 };
 
-TeamUserList.defaultProps = {};
+UserList.defaultProps = {};
 
-export default TeamUserList;
+export default UserList;
