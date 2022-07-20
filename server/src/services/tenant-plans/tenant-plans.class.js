@@ -93,7 +93,7 @@ exports.TenantPlans = class TenantPlans {
       },
     });
 
-    const plan = await this.app.service("plans").get(tenant.plan);
+    const plan = await this.app.service("plans").get(tenant.plan, params);
     
     return {
       ...plan,

@@ -103,7 +103,7 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
       <>
         {requestingPlans ? (
           <div className="d-flex flex-column">
-            <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+            <div className="d-flex flex-grow-1 justify-content-center align-items-center">
               <Loader />
             </div>
           </div>
