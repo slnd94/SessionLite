@@ -120,7 +120,7 @@ export default function TenantPlan() {
               <SelectPlan
                 currentPlan={currentPlan}
                 backLink={{
-                  text: t("Cancel"),
+                  text: t("Back"),
                   onClick: () => {
                     setView("current");
                   },
