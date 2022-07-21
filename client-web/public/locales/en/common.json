@@ -178,8 +178,16 @@
         "Are you sure you want to update your details?": "Are you sure you want to update your details?",
         "Details updated": "Details updated"
       },
+      "users": {
+        "Active": "Active",
+        "Invites": "Invites",
+        "Total": "Total",
+        "Totals": "Totals"
+      },
       "team": {
         "Team": "Team",
+        "Team Member": "Team Member",
+        "Team Members": "Team Members",
         "Users": "Users",
         "Search Name": "Search Name",
         "Search Email": "Search Email",
@@ -230,7 +238,8 @@
         "The user will be able access the admin area and perform all admin actions": "The user will be able access the admin area and perform all admin actions"
       },
       "client": {
-        "Cliemt": "Cliemt",
+        "Client": "Client",
+        "Clients": "Clients",
         "Users": "Users",
         "Search Name": "Search Name",
         "Search Email": "Search Email",

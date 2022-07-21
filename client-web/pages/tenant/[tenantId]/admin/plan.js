@@ -4,12 +4,11 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { Context as TenantContext } from "../../../../context/TenantContext";
 import { useRouter } from "next/router";
-import {
-  Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 import api from "../../../../utils/api";
 import SelectPlan from "../../../../components/plan/SelectPlan";
 import Plan from "../../../../components/plan/Plan";
+import TenantUsage from "../../../../components/tenant/admin/TenantUsage";
 
 export default function TenantPlan() {
   const { t } = useTranslation("common");
@@ -64,10 +63,10 @@ export default function TenantPlan() {
         <div className="col-12">
           {view === "current" ? (
             <div className="row">
-              <div className="col-12 col-md-6 mb-5">
-                {/* {JSON.stringify(tenant.plan)} */}
-                {currentPlan ? (
-                  <>
+              {/* {JSON.stringify(tenant.plan)} */}
+              {currentPlan ? (
+                <>
+                  <div className="col-12 col-md-6 mb-5">
                     <div className="row mt-0">
                       <div className="col-12">
                         <h3>{t("tenant.admin.plan.Your Current Plan")}</h3>
@@ -87,16 +86,19 @@ export default function TenantPlan() {
                     >
                       {t("plan.View available plans")}
                     </Button>
-                  </>
-                ) : null}
-              </div>
-              <div className="col-12 col-md-6">
-                <div className="row mt-0">
-                  <div className="col-12">
-                    <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                   </div>
-                </div>
-              </div>
+                  <div className="col-12 col-md-6">
+                    <div className="row mt-0">
+                      <div className="col-12">
+                        <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
+                      </div>
+                      <div className="col-12 list-item-box p-3">
+                        <TenantUsage usage={currentPlan.usage} />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : null}
             </div>
           ) : null}
           {view === "select" ? (

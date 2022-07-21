@@ -30,14 +30,12 @@ const Plan = ({
           color="secondary"
           size="xl"
           className="p-1 pt-2 mt-n3 mb-2"
-          style={{height: "40px"}}
+          style={{ height: "40px" }}
           // style={{ paddingTop: '100px', marginTop: "-20px", marginBottom: "10px" }}
         >
           <h5>{t(`plan.${plan.tag}`)}</h5>
         </Badge>
-      ) : (
-        null
-      )}
+      ) : null}
       <h4 className={"title"}>{plan.name}</h4>
 
       <div className="fs-6 fw-bold">{plan.description}</div>
@@ -48,31 +46,30 @@ const Plan = ({
           ))}
         </ul>
       </div>
-      <div>
-        <Amount
-          amount={{
-            figure: plan.subscription.price.gross,
-            currencyCode: plan.subscription.currency,
-          }}
-          className="mr-4"
-          style={{ fontSize: "2.25rem" }}
-          t={t}
-        />
-        <sup className="ms-1 fs-6">
-          ({plan.subscription.currency})/
-          {t(`plan.${plan.subscription.interval}`)}
-        </sup>
-        {plan.subscription.price.gross > 0 ? (
-          <div>{t("plan.Including taxes and fees")}</div>
-        ) : (
-          null
-        )}
-      </div>
+      {plan.subscription ? (
+        <div>
+          <Amount
+            amount={{
+              figure: plan.subscription.price.gross,
+              currencyCode: plan.subscription.currency,
+            }}
+            className="mr-4"
+            style={{ fontSize: "2.25rem" }}
+            t={t}
+          />
+          <sup className="ms-1 fs-6">
+            ({plan.subscription.currency})/
+            {t(`plan.${plan.subscription.interval}`)}
+          </sup>
+          {plan.subscription.price.gross > 0 ? (
+            <div>{t("plan.Including taxes and fees")}</div>
+          ) : null}
+        </div>
+      ) : null}
+
       {showPaymentDetails ? (
         <div className="fw-bold mt-3">{getPlanPaymentDetailsString()}</div>
-      ) : (
-        null
-      )}
+      ) : null}
       {button ? (
         <div className="mt-3 d-flex align-items-end justify-content-full">
           <Button
@@ -88,9 +85,7 @@ const Plan = ({
             {button.label}
           </Button>
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
     </div>
   );
 };

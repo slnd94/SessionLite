@@ -7,6 +7,81 @@ exports.TenantTeam = class TenantTeam {
 
   setup(app) {
     this.app = app;
+
+    this.getTenantUserCounts = async (tenantId) => {
+      // get the count of active team users
+      const activeTeam = await this.app.service("tenant-users").find({
+        query: {
+          tenant: tenantId,
+          type: "team",
+          active: true,
+          $skip: 0,
+          $limit: 0,
+        },
+      });
+
+      // get the count of active team user invites
+      const teamInvites = await this.app.service("tenant-user-invites").find({
+        query: {
+          tenant: tenantId,
+          type: "team",
+          $skip: 0,
+          $limit: 0,
+        },
+      });
+
+      // get the count of active team users
+      const activeClients = await this.app.service("tenant-users").find({
+        query: {
+          tenant: tenantId,
+          type: "client",
+          active: true,
+          $skip: 0,
+          $limit: 0,
+        },
+      });
+
+      // get the count of active team user invites
+      const clientInvites = await this.app.service("tenant-user-invites").find({
+        query: {
+          tenant: tenantId,
+          type: "client",
+          $skip: 0,
+          $limit: 0,
+        },
+      });
+
+      return {
+        team: {
+          active: activeTeam.total,
+          invites: teamInvites.total,
+          total: activeTeam.total + teamInvites.total,
+        },
+        client: {
+          active: activeClients.total,
+          invites: clientInvites.total,
+          total: activeClients.total + clientInvites.total,
+        },
+        total: {
+          active: activeTeam.total + activeClients.total,
+          invites: teamInvites.total + clientInvites.total,
+          total:
+            activeTeam.total +
+            teamInvites.total +
+            activeClients.total +
+            clientInvites.total,
+        },
+      };
+    };
+  }
+
+  async get(id, params) {
+    if(params.get) {
+      if(params.get === "counts") {
+        return await this.getTenantUserCounts(id);
+      }
+    }
+    return false;
   }
 
   async find(params) {
@@ -16,7 +91,7 @@ exports.TenantTeam = class TenantTeam {
           $or: [
             { "name.family": { $regex: new RegExp(params.query.search, "i") } },
             { "name.given": { $regex: new RegExp(params.query.search, "i") } },
-            { "email": { $regex: new RegExp(params.query.search, "i") } }
+            { email: { $regex: new RegExp(params.query.search, "i") } },
           ],
         }
       : {};
@@ -28,9 +103,9 @@ exports.TenantTeam = class TenantTeam {
       $skip: params.query.$skip,
       $limit: params.query.$limit,
       ...(params.query.active ? { active: params.query.active } : {}),
-      ...(params.query.type ? { type: params.query.type } : {})
-    }
-    
+      ...(params.query.type ? { type: params.query.type } : {}),
+    };
+
     const users = await this.app.service("users").find({
       query: {
         ...nameSearchQuery,
@@ -115,11 +190,9 @@ exports.TenantTeam = class TenantTeam {
         ) {
           if (data.tenantAdmin) {
             // add tenant admin access for the user
-            await this.app
-              .service("tenants")
-              .patch(id, {
-                adminUsers: [...tenant.adminUsers, data.updateUser],
-              });
+            await this.app.service("tenants").patch(id, {
+              adminUsers: [...tenant.adminUsers, data.updateUser],
+            });
           }
         }
 
