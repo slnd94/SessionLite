@@ -36,7 +36,7 @@ function ManageClientUserForm({ onSubmit, processing, defaults: { active, tenant
       <div className="mx-2">
         <FormGroup className="">
           <Label style={{ minWidth: "200px" }} for="active">
-            {t("tenant.admin.client.Active user")}
+            {t("tenant.admin.users.Active user")}
           </Label>
           <Controller
             name="active"
@@ -59,7 +59,7 @@ function ManageClientUserForm({ onSubmit, processing, defaults: { active, tenant
         </FormGroup>
         <FormGroup className="">
           <Label style={{ minWidth: "200px" }} for="tenantAdmin">
-            {t("tenant.admin.client.Administrator")}
+            {t("tenant.admin.team.Administrator")}
           </Label>
           <Controller
             name="tenantAdmin"

@@ -36,7 +36,7 @@ function ManageTeamUserForm({ onSubmit, processing, defaults: { active, tenantAd
       <div className="mx-2">
         <FormGroup className="">
           <Label style={{ minWidth: "200px" }} for="active">
-            {t("tenant.admin.team.Active user")}
+            {t("tenant.admin.users.Active user")}
           </Label>
           <Controller
             name="active"

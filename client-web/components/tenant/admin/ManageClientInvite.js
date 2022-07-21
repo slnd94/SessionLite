@@ -22,7 +22,7 @@ function ManageClientInvite({ invite, tenant, onResendInvite, onRevokeInvite }) 
           onClick={() => {
             confirm(
               t(
-                "tenant.admin.client.Are you sure you want to re-send this invitation?"
+                "tenant.admin.users.Are you sure you want to re-send this invitation?"
               )
             ).then(async () => {
               const response = await api({
@@ -42,7 +42,7 @@ function ManageClientInvite({ invite, tenant, onResendInvite, onRevokeInvite }) 
             });
           }}
         >
-          {t("tenant.admin.client.Re-send Invitation")}
+          {t("tenant.admin.users.Re-send Invitation")}
         </Button>
         <Button
           className={"btn-block-md-down"}
@@ -51,7 +51,7 @@ function ManageClientInvite({ invite, tenant, onResendInvite, onRevokeInvite }) 
           onClick={() => {
             confirm(
               t(
-                "tenant.admin.client.Are you sure you want to revoke this invitation? The invitee will no longer be able to sign up using this invitation."
+                "tenant.admin.users.Are you sure you want to revoke this invitation? The invitee will no longer be able to sign up using this invitation."
               )
             ).then(async () => {
               const response = await api({
@@ -71,7 +71,7 @@ function ManageClientInvite({ invite, tenant, onResendInvite, onRevokeInvite }) 
             });
           }}
         >
-          {t("tenant.admin.client.Revoke Invitation")}
+          {t("tenant.admin.users.Revoke Invitation")}
         </Button>
       </div>
     </>
