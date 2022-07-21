@@ -46,17 +46,6 @@ export default function TenantPlan() {
     }
   }, [view]);
 
-  const getTitle = () => {
-    switch (view) {
-      case "current":
-        return t("tenant.admin.plan.Your Current Plan");
-      case "select":
-        return t("tenant.admin.plan.Select Your Plan");
-      case "confirm":
-        return t("tenant.admin.plan.Confirm Your Plan");
-    }
-  };
-
   return (
     <Layout>
       <div className="row mt-0 ms-md-3">
@@ -114,7 +103,6 @@ export default function TenantPlan() {
               />
             </div>
           ) : null}
-          {view === "confirm" ? <div>Confirm plan</div> : null}
         </div>
       </div>
     </Layout>
