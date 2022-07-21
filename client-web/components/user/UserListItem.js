@@ -20,7 +20,7 @@ const UserListItem = ({ user, className, onClick, customButtons }) => {
       </div>
       <div className="col-12 col-md-4">
         <div>
-          {t(`tenant.admin.team.${user.active ? "Active" : "Inactive"}`)}
+          {t(`tenant.admin.users.${user.active ? "Active" : "Inactive"}`)}
         </div>
       </div>
       <div className="col-12 col-md-4">

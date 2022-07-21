@@ -25,18 +25,19 @@ function AddUserInvitesForm({ tenant, type, onAddInvite }) {
   return (
     <>
       <p>
-        {t(
-          "tenant.admin.team.Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you.",
+        {t(type === "team" ?
+          "tenant.admin.team.Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you."
+          : "tenant.admin.client.Add email addresses and send invitations to your clients to sign up and start using {{appName}} with you.",
           { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME }
         )}
       </p>
       <p>
         {t(
-          "tenant.admin.team.If you have more than one email address to add, separate the addresses with a comma."
+          "tenant.admin.users.If you have more than one email address to add, separate the addresses with a comma."
         )}
       </p>
       <ReactMultiEmail
-        placeholder={t("tenant.admin.team.Add Email Addresses")}
+        placeholder={t("tenant.admin.users.Add Email Addresses")}
         emails={addEmails}
         onChange={(_emails) => {
           setAddEmails(_emails);
@@ -62,7 +63,7 @@ function AddUserInvitesForm({ tenant, type, onAddInvite }) {
       />
       {emailRequiredError ? (
         <div style={{ color: "red" }}>
-          {t("tenant.admin.team.At least one email address is required")}
+          {t("tenant.admin.users.At least one email address is required")}
         </div>
       ) : (
         null
@@ -92,9 +93,9 @@ function AddUserInvitesForm({ tenant, type, onAddInvite }) {
                 // notify user
                 const notificationString =
                   addEmails.length === 1
-                    ? t("tenant.admin.team.Invitation sent")
+                    ? t("tenant.admin.users.Invitation sent")
                     : `${addEmails.length} ${t(
-                        "tenant.admin.team.invitations sent"
+                        "tenant.admin.users.invitations sent"
                       )}`;
                 toast(notificationString, {
                   type: "success",
@@ -112,7 +113,7 @@ function AddUserInvitesForm({ tenant, type, onAddInvite }) {
             }
           }}
         >
-          {t("tenant.admin.team.Send Invitations")}
+          {t("tenant.admin.users.Send Invitations")}
         </Button>
       )}
     </>

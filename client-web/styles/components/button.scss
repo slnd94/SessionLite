@@ -1,18 +1,18 @@
 .btn {
   color: $body-color;
-  background-color: $lighter;
+  background-color: $lightest;
   box-shadow: 0 0 0 0.05rem $light;
-  border-color: $lighter;
+  border-color: $lightest;
   &:focus,
   &:active {
     box-shadow: 0 0 0 0.1rem $light;
-    border-color: $lighter;
-    background-color: $lighter;
+    border-color: $lightest;
+    background-color: $lightest;
   }
   &:hover {
     color: $body-color;
-    background-color: $lighter;
-    border-color: $lighter;
+    background-color: $white;
+    border-color: $lightest;
   }
   &.btn-danger {
     color: $white;

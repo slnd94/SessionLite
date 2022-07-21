@@ -57,7 +57,7 @@ function ManageClientUser({ userId, tenant, onUpdateUser, onDeactivateUser, onAc
                 if(user.active && !data.active) {
                   // user is being inactivated
                   confirmListItems.push(t(
-                    "tenant.admin.client.The user will no longer be able to sign in on {{appName}}", 
+                    "tenant.admin.users.The user will no longer be able to sign in on {{appName}}", 
                     { appName: process.env.NEXT_APP_NAME }
                   ));
                   confirmListItems.push(t(
@@ -68,7 +68,7 @@ function ManageClientUser({ userId, tenant, onUpdateUser, onDeactivateUser, onAc
                 if(!user.active && data.active) {
                   // user is being activated
                   confirmListItems.push(t(
-                    "tenant.admin.client.The user will be able to sign in on {{appName}}", 
+                    "tenant.admin.users.The user will be able to sign in on {{appName}}", 
                     { appName: process.env.NEXT_APP_NAME }
                   ));
                   confirmListItems.push(t(
@@ -80,19 +80,19 @@ function ManageClientUser({ userId, tenant, onUpdateUser, onDeactivateUser, onAc
                 if(user.tenantAdmin && !data.tenantAdmin) {
                   // user is having tenant admin access revoked
                   confirmListItems.push(t(
-                    "tenant.admin.client.The user will no longer be able access the admin area"
+                    "tenant.admin.team.The user will no longer be able access the admin area"
                   ));
                 }
                 if(data.active && !user.tenantAdmin && data.tenantAdmin) {
                   // user is being granted tenant admin access
                   confirmListItems.push(t(
-                    "tenant.admin.client.The user will be able access the admin area and perform all admin actions"
+                    "tenant.admin.team.The user will be able access the admin area and perform all admin actions"
                   ));
                 }    
 
                 confirm(
                   t(
-                    "tenant.admin.client.Are you sure you want to update this user?", 
+                    "tenant.admin.users.Are you sure you want to update this user?", 
                     { appName: process.env.NEXT_APP_NAME }
                   ), {
                     listItems: confirmListItems
@@ -131,22 +131,22 @@ function ManageClientUser({ userId, tenant, onUpdateUser, onDeactivateUser, onAc
 
       {auth?.user?._id === user?._id && user?.active ? (
         <div className="mt-3 d-flex justify-content-end">
-          {t(`tenant.admin.client.You cannot modify your own permissions`)}
+          {t(`tenant.admin.team.You cannot modify your own permissions`)}
         </div>
       ) : null}
       {updateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.client.There was a problem updating this user`)}
+          {t(`tenant.admin.users.There was a problem updating this user`)}
         </Alert>
       ) : null}
       {deactivateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.client.There was a problem deactivating this user`)}
+          {t(`tenant.admin.users.There was a problem deactivating this user`)}
         </Alert>
       ) : null}
       {activateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.client.There was a problem activating this user`)}
+          {t(`tenant.admin.users.There was a problem activating this user`)}
         </Alert>
       ) : null}
     </>

@@ -57,7 +57,7 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
                 if(user.active && !data.active) {
                   // user is being inactivated
                   confirmListItems.push(t(
-                    "tenant.admin.team.The user will no longer be able to sign in on {{appName}}", 
+                    "tenant.admin.users.The user will no longer be able to sign in on {{appName}}", 
                     { appName: process.env.NEXT_APP_NAME }
                   ));
                   confirmListItems.push(t(
@@ -68,7 +68,7 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
                 if(!user.active && data.active) {
                   // user is being activated
                   confirmListItems.push(t(
-                    "tenant.admin.team.The user will be able to sign in on {{appName}}", 
+                    "tenant.admin.users.The user will be able to sign in on {{appName}}", 
                     { appName: process.env.NEXT_APP_NAME }
                   ));
                   confirmListItems.push(t(
@@ -92,7 +92,7 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
 
                 confirm(
                   t(
-                    "tenant.admin.team.Are you sure you want to update this user?", 
+                    "tenant.admin.users.Are you sure you want to update this user?", 
                     { appName: process.env.NEXT_APP_NAME }
                   ), {
                     listItems: confirmListItems
@@ -136,17 +136,17 @@ function ManageTeamUser({ userId, tenant, onUpdateUser, onDeactivateUser, onActi
       ) : null}
       {updateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.team.There was a problem updating this user`)}
+          {t(`tenant.admin.users.There was a problem updating this user`)}
         </Alert>
       ) : null}
       {deactivateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.team.There was a problem deactivating this user`)}
+          {t(`tenant.admin.users.There was a problem deactivating this user`)}
         </Alert>
       ) : null}
       {activateError ? (
         <Alert color="danger" fade={false}>
-          {t(`tenant.admin.team.There was a problem activating this user`)}
+          {t(`tenant.admin.users.There was a problem activating this user`)}
         </Alert>
       ) : null}
     </>

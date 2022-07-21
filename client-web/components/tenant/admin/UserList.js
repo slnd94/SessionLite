@@ -31,7 +31,7 @@ const UserList = ({
         showLink={true}
         requestItemsSignal={requestItemsSignal}
         showSearch={true}
-        searchPlaceholder={t("tenant.admin.team.Search Name or Email")}
+        searchPlaceholder={t("tenant.admin.users.Search Name or Email")}
         t={t}
       />
     </>

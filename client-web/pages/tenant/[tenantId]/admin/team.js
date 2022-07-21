@@ -124,7 +124,7 @@ export default function Team() {
                 setSelectedInvite(null);
               }}
             >
-              {t("tenant.admin.team.Manage Invitation")}
+              {t("tenant.admin.users.Manage Invitation")}
             </OffcanvasHeader>
             <OffcanvasBody>
               <ManageTeamInvite
@@ -132,13 +132,13 @@ export default function Team() {
                 tenant={tenantId}
                 onResendInvite={() => {
                   // notify user
-                  toast(t("tenant.admin.team.Invitation re-sent"), {
+                  toast(t("tenant.admin.users.Invitation re-sent"), {
                     type: "success",
                   });
                 }}
                 onRevokeInvite={() => {
                   // notify user
-                  toast(t("tenant.admin.team.Invitation revoked"), {
+                  toast(t("tenant.admin.users.Invitation revoked"), {
                     type: "success",
                   });
                   setSelectedInvite(null);
@@ -157,7 +157,7 @@ export default function Team() {
                 setSelectedUser(null);
               }}
             >
-              {t("tenant.admin.team.Manage User")}
+              {t("tenant.admin.users.Manage User")}
             </OffcanvasHeader>
             <OffcanvasBody>
               <ManageTeamUser
@@ -165,7 +165,7 @@ export default function Team() {
                 tenant={tenantId}
                 onUpdateUser={() => {
                   // notify user
-                  toast(t("tenant.admin.team.User updated"), {
+                  toast(t("tenant.admin.users.User updated"), {
                     type: "success",
                   });
                   // setSelectedInvite(null);
@@ -176,7 +176,7 @@ export default function Team() {
                 }}
                 onDeactivateUser={() => {
                   // notify user
-                  toast(t("tenant.admin.team.User deactivated"), {
+                  toast(t("tenant.admin.users.User deactivated"), {
                     type: "success",
                   });
                   // setSelectedInvite(null);
@@ -234,7 +234,7 @@ export default function Team() {
                   setView("users");
                 }}
               >
-                <IconText icon="user" text={t("tenant.admin.team.Users")} />
+                <IconText icon="user" text={t("tenant.admin.users.Users")} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -246,7 +246,7 @@ export default function Team() {
               >
                 <IconText
                   icon="email"
-                  text={t("tenant.admin.team.Invitations")}
+                  text={t("tenant.admin.users.Invitations")}
                 />
               </NavLink>
             </NavItem>
@@ -272,7 +272,7 @@ export default function Team() {
                   )}
                   {users && !users.data?.length ? (
                     <h6 className="mt-4">
-                      {t("tenant.admin.team.No users found")}
+                      {t("tenant.admin.users.No users found")}
                     </h6>
                   ) : (
                     null
@@ -300,7 +300,7 @@ export default function Team() {
                   {invites && !invites.data?.length ? (
                     <h6 className="mt-4">
                       {t(
-                        "tenant.admin.team.No outstanding invitations found"
+                        "tenant.admin.users.No outstanding invitations found"
                       )}
                     </h6>
                   ) : (

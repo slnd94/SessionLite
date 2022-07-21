@@ -124,7 +124,7 @@ export default function Clients() {
                 setSelectedInvite(null);
               }}
             >
-              {t("tenant.admin.client.Manage Invitation")}
+              {t("tenant.admin.users.Manage Invitation")}
             </OffcanvasHeader>
             <OffcanvasBody>
               <ManageClientInvite
@@ -132,13 +132,13 @@ export default function Clients() {
                 tenant={tenantId}
                 onResendInvite={() => {
                   // notify user
-                  toast(t("tenant.admin.client.Invitation re-sent"), {
+                  toast(t("tenant.admin.users.Invitation re-sent"), {
                     type: "success",
                   });
                 }}
                 onRevokeInvite={() => {
                   // notify user
-                  toast(t("tenant.admin.client.Invitation revoked"), {
+                  toast(t("tenant.admin.users.Invitation revoked"), {
                     type: "success",
                   });
                   setSelectedInvite(null);
@@ -157,7 +157,7 @@ export default function Clients() {
                 setSelectedUser(null);
               }}
             >
-              {t("tenant.admin.client.Manage User")}
+              {t("tenant.admin.users.Manage User")}
             </OffcanvasHeader>
             <OffcanvasBody>
               <ManageClientUser
@@ -165,7 +165,7 @@ export default function Clients() {
                 tenant={tenantId}
                 onUpdateUser={() => {
                   // notify user
-                  toast(t("tenant.admin.client.User updated"), {
+                  toast(t("tenant.admin.users.User updated"), {
                     type: "success",
                   });
                   // setSelectedInvite(null);
@@ -176,7 +176,7 @@ export default function Clients() {
                 }}
                 onDeactivateUser={() => {
                   // notify user
-                  toast(t("tenant.admin.client.User deactivated"), {
+                  toast(t("tenant.admin.users.User deactivated"), {
                     type: "success",
                   });
                   // setSelectedInvite(null);
@@ -187,7 +187,7 @@ export default function Clients() {
                 }}
                 onActivateUser={() => {
                   // notify user
-                  toast(t("tenant.admin.client.User activated"), {
+                  toast(t("tenant.admin.users.User activated"), {
                     type: "success",
                   });
                   // setSelectedInvite(null);
@@ -234,7 +234,7 @@ export default function Clients() {
                   setView("users");
                 }}
               >
-                <IconText icon="user" text={t("tenant.admin.client.Users")} />
+                <IconText icon="user" text={t("tenant.admin.users.Users")} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -246,7 +246,7 @@ export default function Clients() {
               >
                 <IconText
                   icon="email"
-                  text={t("tenant.admin.client.Invitations")}
+                  text={t("tenant.admin.users.Invitations")}
                 />
               </NavLink>
             </NavItem>
@@ -272,7 +272,7 @@ export default function Clients() {
                   )}
                   {users && !users.data?.length ? (
                     <h6 className="mt-4">
-                      {t("tenant.admin.client.No users found")}
+                      {t("tenant.admin.users.No users found")}
                     </h6>
                   ) : (
                     null
@@ -300,7 +300,7 @@ export default function Clients() {
                   {invites && !invites.data?.length ? (
                     <h6 className="mt-4">
                       {t(
-                        "tenant.admin.client.No outstanding invitations found"
+                        "tenant.admin.users.No outstanding invitations found"
                       )}
                     </h6>
                   ) : (
