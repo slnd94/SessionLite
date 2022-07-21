@@ -23,7 +23,7 @@ const Plan = ({
 
   return (
     <div
-      className={`row list-item-box mb-2 d-flex flex-direction-vertical justify-content-full align-content-full ${className}`}
+      className={`row section-box mb-2 d-flex flex-direction-vertical justify-content-full align-content-full ${className}`}
     >
       {plan.tag && showTag ? (
         <Badge

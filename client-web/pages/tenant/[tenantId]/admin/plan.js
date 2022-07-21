@@ -46,17 +46,6 @@ export default function TenantPlan() {
     }
   }, [view]);
 
-  const getTitle = () => {
-    switch (view) {
-      case "current":
-        return t("tenant.admin.plan.Your Current Plan");
-      case "select":
-        return t("tenant.admin.plan.Select Your Plan");
-      case "confirm":
-        return t("tenant.admin.plan.Confirm Your Plan");
-    }
-  };
-
   return (
     <Layout>
       <div className="row mt-0 ms-md-3">
@@ -92,10 +81,8 @@ export default function TenantPlan() {
                       <div className="col-12">
                         <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                       </div>
-                      <div className="col-12 list-item-box p-3">
-                        <TenantUsage usage={currentPlan.usage} />
-                      </div>
                     </div>
+                    <TenantUsage usage={currentPlan.usage} />
                   </div>
                 </>
               ) : null}
@@ -114,7 +101,6 @@ export default function TenantPlan() {
               />
             </div>
           ) : null}
-          {view === "confirm" ? <div>Confirm plan</div> : null}
         </div>
       </div>
     </Layout>
