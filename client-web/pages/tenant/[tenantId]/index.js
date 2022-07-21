@@ -72,7 +72,7 @@ export default function Tenant() {
               itemComponent={({ room }) => {
                 return (
                   <div
-                    className={`row list-item-box`}
+                    className={`row section-box`}
                     onClick={() => (onClick ? onClick() : null)}
                   >
                     <div className="col-12">

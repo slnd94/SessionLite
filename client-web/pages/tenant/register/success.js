@@ -58,7 +58,7 @@ export default function RegisterSuccess() {
 
   const SectionLink = ({ icon, title, description, route }) => {
     return (
-      <div className="row list-item-box mb-3 d-flex justify-content-center">
+      <div className="row section-box mb-3 d-flex justify-content-center">
         <Link href={route}>
           <div className="col-12" style={{ cursor: "pointer" }}>
             <div className="row">

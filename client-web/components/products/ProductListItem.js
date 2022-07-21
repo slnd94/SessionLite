@@ -13,7 +13,7 @@ const ProductListItem = ({ product, className, onClick, customButtons }) => {
 
   return (
     <div
-      className={`row list-item-box ${className}`}
+      className={`row section-box ${className}`}
       onClick={() => (onClick ? onClick() : null)}
     >
       <div className="col-12 col-md-6">

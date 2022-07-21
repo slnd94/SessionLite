@@ -66,10 +66,8 @@ export default function Dashboard() {
                       <div className="col-12">
                         <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                       </div>
-                      <div className="col-12 list-item-box p-3">
-                        <TenantUsage usage={currentPlan.usage} />
-                      </div>
                     </div>
+                    <TenantUsage usage={currentPlan.usage} />
                   </div>
                 </>
               ) : null}
