@@ -97,7 +97,7 @@ exports.TenantPlans = class TenantPlans {
     
     return {
       ...plan,
-      usage: await this.getTenantUsage(id),
+      usage: { users: await this.app.service("tenant-users").get(id, { get: "counts" }) }
     };
   }
 
