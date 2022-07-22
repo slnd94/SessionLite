@@ -97,7 +97,7 @@ exports.TenantPlans = class TenantPlans {
     
     return {
       ...plan,
-      usage: { users: await this.app.service("tenant-users").get(id, { get: "counts" }) }
+      usage: { users: await this.app.service("tenant-users").get(id, { query: { get: "counts" } }) }
     };
   }
 
@@ -137,7 +137,7 @@ exports.TenantPlans = class TenantPlans {
               tenantUsage,
             })
           ) {
-            // see if the requested plan is the same one already applied
+            // TODO: see if the requested plan is the same one already applied
             if (tenant.plan) {
               // updating the existing tenant plan
               // is the tenant currently eligible for this plan?

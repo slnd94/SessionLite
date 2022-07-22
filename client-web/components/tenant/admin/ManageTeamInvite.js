@@ -71,7 +71,7 @@ function ManageTeamInvite({ invite, tenant, onResendInvite, onRevokeInvite }) {
             });
           }}
         >
-          {t("tenant.admin.team.Revoke Invitation")}
+          {t("tenant.admin.users.Revoke Invitation")}
         </Button>
       </div>
     </>
