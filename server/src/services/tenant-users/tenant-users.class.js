@@ -76,10 +76,8 @@ exports.TenantTeam = class TenantTeam {
   }
 
   async get(id, params) {
-    if(params.get) {
-      if(params.get === "counts") {
-        return await this.getTenantUserCounts(id);
-      }
+    if (params?.query?.get === "counts") {
+      return await this.getTenantUserCounts(id);
     }
     return false;
   }
