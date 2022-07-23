@@ -11,42 +11,11 @@ exports.TenantPlans = class TenantPlans {
   setup(app) {
     this.app = app;
 
-    this.getTenantUsage = async (tenantId) => {
-      // get the count of active team users
-      const team = await this.app.service("tenant-users").find({
-        query: {
-          tenant: tenantId,
-          active: true,
-          $skip: 0,
-          $limit: 0,
-        },
-      });
-
-      // get the count of active team user invites
-      const teamInvites = await this.app.service("tenant-user-invites").find({
-        query: {
-          tenant: tenantId,
-          $skip: 0,
-          $limit: 0,
-        },
-      });
-
-      return {
-        users: {
-          team: {
-            active: team.total,
-            invites: teamInvites.total,
-            total: team.total + teamInvites.total,
-          },
-        },
-      };
-    };
-
     this.checkAllowance = ({ allowance, usage }) => {
       return !(allowance > -1 && usage > allowance);
     };
 
-    this.tenantWithinPlanAllowances = async ({ plan, tenantUsage }) => {
+    this.tenantWithinPlanAllowances = ({ plan, tenantUsage }) => {
       if (
         (plan.allowances?.users?.team?.active > -1 &&
           tenantUsage.users.team.active > plan.allowances.users.team.active) ||
@@ -102,6 +71,7 @@ exports.TenantPlans = class TenantPlans {
   }
 
   async patch(id, data, params) {
+    
     // Get the tenant
     const tenant = await this.app.service("tenants").get(id);
 
@@ -130,9 +100,11 @@ exports.TenantPlans = class TenantPlans {
         } else {
           // is the tenant currently eligible for this plan?
           // get the tenant's current allowance usage
-          const tenantUsage = await this.getTenantUsage(id);
+          const tenantUsage = {
+            users: await this.app.service("tenant-users").get(id, { query: { get: "counts" } })
+          };
           if (
-            await this.tenantWithinPlanAllowances({
+            this.tenantWithinPlanAllowances({
               plan: requestedPlan,
               tenantUsage,
             })
@@ -154,7 +126,7 @@ exports.TenantPlans = class TenantPlans {
                     vendor_id: this.app.get("paddleVendorId"),
                     vendor_auth_code: this.app.get("paddleVendorAuthCode"),
                     subscription_id: tenant.paddle.subscriptionId,
-                    plan_id: requestedPlan.paddlePlanId,
+                    plan_id: requestedPlan.paddle.productId,
                     prorate: true,
                     bill_immediately: true,
                   },

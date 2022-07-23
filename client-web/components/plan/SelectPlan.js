@@ -56,7 +56,7 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
   useEffect(() => {
     if (view === "checkout") {
       Paddle.Checkout.open({
-        product: selectedPlan.paddlePlanId,
+        product: selectedPlan.paddle.productId,
         method: "inline",
         frameTarget: "paddle-inline-checkout",
         frameStyle: "width:100%;",
