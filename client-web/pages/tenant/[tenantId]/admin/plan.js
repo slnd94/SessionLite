@@ -9,6 +9,7 @@ import api from "../../../../utils/api";
 import SelectPlan from "../../../../components/plan/SelectPlan";
 import Plan from "../../../../components/plan/Plan";
 import TenantUsage from "../../../../components/tenant/admin/TenantUsage";
+import { tenantPlanEligibility } from "../../../../utils/planUtils";
 
 export default function TenantPlan() {
   const { t } = useTranslation("common");
@@ -19,6 +20,7 @@ export default function TenantPlan() {
   } = useContext(TenantContext);
   const [view, setView] = useState("current");
   const [currentPlan, setCurrentPlan] = useState(null);
+  const [currentUsage, setCurrentUsage] = useState(null);
 
   const fetchCurrentPlan = async () => {
     const response = await api({
@@ -35,8 +37,24 @@ export default function TenantPlan() {
     }
   };
 
+  const fetchCurrentUsage = async () => {
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-usage/${tenantId}`,
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setCurrentUsage(response.data);
+      return { success: true };
+    } else {
+      setCurrentUsage(null);
+      return { success: false };
+    }
+  };
+
   useEffect(() => {
     fetchCurrentPlan();
+    fetchCurrentUsage();
   }, []);
 
   useEffect(() => {
@@ -53,7 +71,7 @@ export default function TenantPlan() {
           {view === "current" ? (
             <div className="row">
               {/* {JSON.stringify(tenant.plan)} */}
-              {currentPlan ? (
+              {currentPlan && currentUsage ? (
                 <>
                   <div className="col-12 col-md-6 mb-5">
                     <div className="row mt-0">
@@ -64,6 +82,7 @@ export default function TenantPlan() {
                     <Plan
                       plan={currentPlan}
                       className={currentPlan.tag ? "popular" : ""}
+                      eligibility={tenantPlanEligibility({ plan: currentPlan, usage: currentUsage })}
                     />
                     <Button
                       className="mt-4 btn-block-md-down"
@@ -82,7 +101,7 @@ export default function TenantPlan() {
                         <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                       </div>
                     </div>
-                    <TenantUsage usage={currentPlan.usage} />
+                    <TenantUsage usage={currentUsage} />
                   </div>
                 </>
               ) : null}

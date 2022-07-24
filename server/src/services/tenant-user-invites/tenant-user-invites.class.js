@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const errors = require("@feathersjs/errors");
-exports.TenantTeamInvites = class TenantTeamInvites {
+exports.TenantUserInvites = class TenantUserInvites {
   constructor(options) {
     this.options = options || {};
   }
@@ -72,7 +72,7 @@ exports.TenantTeamInvites = class TenantTeamInvites {
                   });
                 } catch (err) {
                   console.log(
-                    "🚀 ~ file: tenant-users.class.js ~ line 50 ~ TenantTeam ~ patch ~ err",
+                    "🚀 ~ file: tenant-users.class.js ~ line 50 ~ TenantUser ~ patch ~ err",
                     err
                   );
                 }

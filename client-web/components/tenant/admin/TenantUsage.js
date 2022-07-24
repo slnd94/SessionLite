@@ -1,17 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormFeedback,
-  Button,
-} from "reactstrap";
-import { useForm, Controller } from "react-hook-form";
-import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
-import Plan from "../../plan/Plan";
 
 function TenantUsage({ usage, className }) {
   const { t } = useTranslation("common");

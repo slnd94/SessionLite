@@ -3,15 +3,14 @@ import PropTypes from "prop-types";
 import { useTranslation } from "next-i18next";
 import Amount from "../commerce/Amount";
 import { Button, Badge } from "reactstrap";
-import IconText from "../IconText";
 
 const Plan = ({
   plan,
-  onClick,
   className,
   button,
   showTag,
   showPaymentDetails,
+  eligibility
 }) => {
   const { t } = useTranslation("common");
 
@@ -31,7 +30,6 @@ const Plan = ({
           size="xl"
           className="p-1 pt-2 mt-n3 mb-2"
           style={{ height: "40px" }}
-          // style={{ paddingTop: '100px', marginTop: "-20px", marginBottom: "10px" }}
         >
           <h5>{t(`plan.${plan.tag}`)}</h5>
         </Badge>
@@ -76,7 +74,7 @@ const Plan = ({
             className={"btn-block"}
             size="lg"
             // color="secondary"
-            color={plan.tag ? "secondary" : "primary"}
+            color={plan.tag ? "secondary" : "default"}
             onClick={() => {
               button.onClick();
             }}
@@ -92,7 +90,8 @@ const Plan = ({
 
 Plan.propTypes = {
   plans: PropTypes.array,
-  onSelectPlan: PropTypes.func,
+  button: PropTypes.object,
+  eligibility: PropTypes.object
 };
 
 Plan.defaultProps = {

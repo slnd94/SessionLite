@@ -18,25 +18,25 @@ export default function Dashboard() {
     state: { tenant },
   } = useContext(TenantContext);
   const [view, setView] = useState("current");
-  const [currentPlan, setCurrentPlan] = useState(null);
+  const [currentUsage, setCurrentUsage] = useState(null);
 
-  const fetchCurrentPlan = async () => {
+  const fetchCurrentUsage = async () => {
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-plans/${tenantId}`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-usage/${tenantId}`,
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setCurrentPlan(response.data);
+      setCurrentUsage(response.data);
       return { success: true };
     } else {
-      setCurrentPlan(null);
+      setCurrentUsage(null);
       return { success: false };
     }
   };
 
   useEffect(() => {
-    fetchCurrentPlan();
+    fetchCurrentUsage();
   }, []);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Dashboard() {
         <div className="col-12">
           {view === "current" ? (
             <div className="row">
-              {currentPlan ? (
+              {currentUsage ? (
                 <>
                   <div className="col-12 col-md-6 mb-5">
                     <div className="row mt-0">
@@ -67,7 +67,7 @@ export default function Dashboard() {
                         <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                       </div>
                     </div>
-                    <TenantUsage usage={currentPlan.usage} />
+                    {currentUsage ? <TenantUsage usage={currentUsage} /> : null}
                   </div>
                 </>
               ) : null}

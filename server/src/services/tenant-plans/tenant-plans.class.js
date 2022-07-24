@@ -61,13 +61,8 @@ exports.TenantPlans = class TenantPlans {
         },
       },
     });
-
-    const plan = await this.app.service("plans").get(tenant.plan, params);
     
-    return {
-      ...plan,
-      usage: { users: await this.app.service("tenant-users").get(id, { query: { get: "counts" } }) }
-    };
+    return await this.app.service("plans").get(tenant.plan, params);
   }
 
   async patch(id, data, params) {
@@ -101,7 +96,7 @@ exports.TenantPlans = class TenantPlans {
           // is the tenant currently eligible for this plan?
           // get the tenant's current allowance usage
           const tenantUsage = {
-            users: await this.app.service("tenant-users").get(id, { query: { get: "counts" } })
+            users: await this.app.service("tenant-usage").get(id)
           };
           if (
             this.tenantWithinPlanAllowances({
