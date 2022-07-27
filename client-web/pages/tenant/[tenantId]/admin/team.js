@@ -300,7 +300,7 @@ export default function Team() {
                   {invites && !invites.data?.length ? (
                     <h6 className="mt-4">
                       {t(
-                        "tenant.admin.users.No outstanding invitations found"
+                        "tenant.admin.users.No open invitations found"
                       )}
                     </h6>
                   ) : (

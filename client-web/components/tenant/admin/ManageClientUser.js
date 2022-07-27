@@ -55,7 +55,7 @@ function ManageClientUser({ userId, tenant, onUpdateUser, onDeactivateUser, onAc
               onSubmit={async (data) => {
                 const confirmListItems = [];
                 if(user.active && !data.active) {
-                  // user is being inactivated
+                  // user is being deactivated
                   confirmListItems.push(t(
                     "tenant.admin.users.The user will no longer be able to sign in on {{appName}}", 
                     { appName: process.env.NEXT_APP_NAME }
@@ -63,6 +63,9 @@ function ManageClientUser({ userId, tenant, onUpdateUser, onDeactivateUser, onAc
                   confirmListItems.push(t(
                     "tenant.admin.client.You will gain back one allowed active client user on your {{appName}} plan", 
                     { appName: process.env.NEXT_APP_NAME }
+                  ));
+                  confirmListItems.push(t(
+                    "tenant.admin.users.The user will remain in your list, in case you want to reactivate them in the future"
                   ));
                 }
                 if(!user.active && data.active) {

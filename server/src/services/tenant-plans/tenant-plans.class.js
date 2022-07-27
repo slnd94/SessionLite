@@ -93,15 +93,11 @@ exports.TenantPlans = class TenantPlans {
             new errors.BadRequest("Invalid plan requested")
           );
         } else {
-          // is the tenant currently eligible for this plan?
-          // get the tenant's current allowance usage
-          const tenantUsage = {
-            users: await this.app.service("tenant-usage").get(id)
-          };
+          // is the tenant's usage currently eligible for this plan?
           if (
             this.tenantWithinPlanAllowances({
               plan: requestedPlan,
-              tenantUsage,
+              tenantUsage: await this.app.service("tenant-usage").get(id),
             })
           ) {
             // TODO: see if the requested plan is the same one already applied

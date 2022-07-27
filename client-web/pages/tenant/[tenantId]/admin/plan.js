@@ -80,9 +80,11 @@ export default function TenantPlan() {
                       </div>
                     </div>
                     <Plan
-                      plan={currentPlan}
+                      plan={{
+                        ...currentPlan,
+                        eligibility: tenantPlanEligibility({ plan: currentPlan, usage: currentUsage })
+                      }}
                       className={currentPlan.tag ? "popular" : ""}
-                      eligibility={tenantPlanEligibility({ plan: currentPlan, usage: currentUsage })}
                     />
                     <Button
                       className="mt-4 btn-block-md-down"
@@ -111,6 +113,7 @@ export default function TenantPlan() {
             <div>
               <SelectPlan
                 currentPlan={currentPlan}
+                currentUsage={currentUsage}
                 backLink={{
                   text: t("Back"),
                   onClick: () => {

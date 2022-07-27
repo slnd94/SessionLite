@@ -4,14 +4,23 @@ import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as TenantContext } from "../../context/TenantContext";
 import api from "../../utils/api";
 import { useTranslation } from "next-i18next";
-import { Alert, Button, Progress } from "reactstrap";
+import {
+  Alert,
+  Button,
+  Offcanvas,
+  OffcanvasBody,
+  OffcanvasHeader,
+  Progress,
+} from "reactstrap";
 import Loader from "../Loader";
 import PlanList from "./PlanList";
 import Plan from "./Plan";
 import { useRouter } from "next/router";
 import IconText from "../IconText";
+import { tenantPlanEligibility } from "../../utils/planUtils";
+import TenantUsage from "../tenant/admin/TenantUsage";
 
-const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
+const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const {
@@ -28,6 +37,8 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
   const [plans, setPlans] = useState(null);
   const [requestingPlans, setRequestingPlans] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [detailPlan, setDetailPlan] =
+    useState(null);
 
   const fetchPlans = async () => {
     setRequestingPlans(true);
@@ -37,7 +48,17 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setPlans(response.data.data);
+      setPlans(response.data.data.map((plan) => ({
+        ...plan,
+        ...(currentUsage
+          ? {
+              eligibility: tenantPlanEligibility({
+                plan: plan,
+                usage: currentUsage,
+              }),
+            }
+          : {}),
+      })));
       setRequestingPlans(false);
       return { success: true };
     } else {
@@ -138,9 +159,65 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
                       setView("confirm");
                     }
                   }}
+                  onShowEligibilityDetail={(plan) => {
+                    setDetailPlan(plan);
+                  }}
                 />
               </>
             ) : null}
+            <Offcanvas
+              isOpen={!!detailPlan}
+              direction="end"
+              keyboard={true}
+            >
+              <OffcanvasHeader
+                toggle={() => {
+                  setDetailPlan(null);
+                }}
+              >
+                {t("tenant.admin.plan.Plan/Usage Details")}
+              </OffcanvasHeader>
+              <OffcanvasBody>
+                <h5>{t("plan.Plan")}: {detailPlan?.name}</h5>
+                <p>To use this plan, you cannot exceed any of the user counts shown here:</p>
+                <TenantUsage usage={detailPlan?.allowances} />
+                <p className="mt-5">Here are your current user counts, with those that exceed the plan's allowances highlighted:</p>
+                <TenantUsage usage={currentUsage} planEligibility={detailPlan?.eligibility} />
+                <h5 className="mt-5">What are your options?</h5>
+                <ul>
+                  <li>Choose a different plan</li>
+                  <li>Deactivate some active users (clients or team members)</li>
+                  <li>Revoke some open invitations (clients or team members)</li>
+                </ul>
+                <Button
+                  className="mt-4 btn-block"
+                  color="default"
+                  onClick={() => {
+                    router.push(`/tenant/${tenant._id}/admin/clients`);
+                  }}
+                >
+                  {t("tenant.admin.client.Manage Clients")}
+                </Button>
+                <Button
+                  className="mt-2 btn-block"
+                  color="default"
+                  onClick={() => {
+                    router.push(`/tenant/${tenant._id}/admin/team`);
+                  }}
+                >
+                  {t("tenant.admin.team.Manage Team Members")}
+                </Button>
+                <Button
+                  className="mt-2 btn-block"
+                  color="default"
+                  onClick={() => {
+                    setDetailPlan(null);
+                  }}
+                >
+                  <IconText icon="arrowLeft" text={t("tenant.admin.plan.Back to plans")} />
+                </Button>
+              </OffcanvasBody>
+            </Offcanvas>
           </>
         )}
       </>
@@ -165,7 +242,7 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
               showTag={false}
               showPaymentDetails={selectedPlan.requiresCheckout}
             />
-            <div className="d-flex justify-content-between">
+            <div className="d-md-flex justify-content-md-between">
               <Button
                 className="mt-4 btn-block-md-down"
                 color="default"
@@ -175,10 +252,7 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
                   router.push(router.asPath);
                 }}
               >
-                <IconText
-                  icon="arrowLeft"
-                  text={t("plan.Change plan")}
-                />
+                <IconText icon="arrowLeft" text={t("plan.Change plan")} />
               </Button>
               <Button
                 className="mt-4 btn-block-md-down"
@@ -246,10 +320,7 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
                   router.push(router.asPath);
                 }}
               >
-                <IconText
-                  icon="arrowLeft"
-                  text={t("plan.Change plan")}
-                />
+                <IconText icon="arrowLeft" text={t("plan.Change plan")} />
               </Button>
             </div>
           </div>
@@ -353,6 +424,7 @@ const SelectPlan = ({ showProgress, currentPlan, backLink }) => {
 SelectPlan.propTypes = {
   showProgress: PropTypes.bool,
   currentPlan: PropTypes.object,
+  currentUsage: PropTypes.object,
   backLink: PropTypes.object,
 };
 
