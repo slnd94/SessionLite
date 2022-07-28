@@ -7,10 +7,8 @@ module.exports = (options = {}) => {
   return async (context) => {
     if(context.method === 'get') {
 
-      const plan = context.result;
-      console.log("🚀 ~ file: add-plan-prices.js ~ line 11 ~ return ~ plan", plan)
-
       //// ONLINE
+      // const plan = context.result;
       // const paddleResponse = await api({
       //   method: "get",
       //   url: `${context.app.get("paddleApiBaseUrl")}/prices\?product_ids=${plan.paddle.productId}\&customer_country=${context.params.userCountry.code}`,
