@@ -179,9 +179,9 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
               </OffcanvasHeader>
               <OffcanvasBody>
                 <h5>{t("plan.Plan")}: {detailPlan?.name}</h5>
-                <p>To use this plan, you cannot exceed any of the user counts shown here:</p>
+                <p>To subscribe with this plan, you cannot exceed any of the user counts shown here:</p>
                 <TenantUsage usage={detailPlan?.allowances} />
-                <p className="mt-5">Here are your current user counts, with those that exceed the plan's allowances highlighted:</p>
+                <p className="mt-5">Here are your current user counts, highlighting counts that exceed the plan's limts:</p>
                 <TenantUsage usage={currentUsage} planEligibility={detailPlan?.eligibility} />
                 <h5 className="mt-5">What are your options?</h5>
                 <ul>
