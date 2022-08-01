@@ -18,7 +18,8 @@ import Plan from "./Plan";
 import { useRouter } from "next/router";
 import IconText from "../IconText";
 import { tenantPlanEligibility } from "../../utils/planUtils";
-import TenantUsage from "../tenant/admin/TenantUsage";
+import UserCounts from "../tenant/admin/UserCounts";
+import PlanUsageCompare from "./PlanUsageCompare";
 
 const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
   const { t } = useTranslation("common");
@@ -178,17 +179,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
                 {t("tenant.admin.plan.Plan/Usage Details")}
               </OffcanvasHeader>
               <OffcanvasBody>
-                <h5>{t("plan.Plan")}: {detailPlan?.name}</h5>
-                <p>To subscribe with this plan, you cannot exceed any of the user counts shown here:</p>
-                <TenantUsage usage={detailPlan?.allowances} />
-                <p className="mt-5">Here are your current user counts, highlighting counts that exceed the plan's limts:</p>
-                <TenantUsage usage={currentUsage} planEligibility={detailPlan?.eligibility} />
-                <h5 className="mt-5">What are your options?</h5>
-                <ul>
-                  <li>Choose a different plan</li>
-                  <li>Deactivate some active users (clients or team members)</li>
-                  <li>Revoke some open invitations (clients or team members)</li>
-                </ul>
+                <PlanUsageCompare plan={detailPlan} usage={currentUsage} />
                 <Button
                   className="mt-4 btn-block"
                   color="default"

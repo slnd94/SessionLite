@@ -8,7 +8,7 @@ import { Button } from "reactstrap";
 import api from "../../../../utils/api";
 import SelectPlan from "../../../../components/plan/SelectPlan";
 import Plan from "../../../../components/plan/Plan";
-import TenantUsage from "../../../../components/tenant/admin/TenantUsage";
+import UserCounts from "../../../../components/tenant/admin/UserCounts";
 
 export default function Dashboard() {
   const { t } = useTranslation("common");
@@ -67,7 +67,7 @@ export default function Dashboard() {
                         <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                       </div>
                     </div>
-                    {currentUsage ? <TenantUsage usage={currentUsage} /> : null}
+                    {currentUsage ? <UserCounts usage={currentUsage} /> : null}
                   </div>
                 </>
               ) : null}

@@ -8,7 +8,7 @@ import { Button } from "reactstrap";
 import api from "../../../../utils/api";
 import SelectPlan from "../../../../components/plan/SelectPlan";
 import Plan from "../../../../components/plan/Plan";
-import TenantUsage from "../../../../components/tenant/admin/TenantUsage";
+import UserCounts from "../../../../components/tenant/admin/UserCounts";
 import { tenantPlanEligibility } from "../../../../utils/planUtils";
 
 export default function TenantPlan() {
@@ -87,7 +87,7 @@ export default function TenantPlan() {
                       className={currentPlan.tag ? "popular" : ""}
                     />
                     <Button
-                      className="mt-4 btn-block-md-down"
+                      className="mt-4 btn-block"
                       size="lg"
                       color="secondary"
                       onClick={() => {
@@ -100,10 +100,16 @@ export default function TenantPlan() {
                   <div className="col-12 col-md-6">
                     <div className="row mt-0">
                       <div className="col-12">
+                        <h3>{t("tenant.admin.plan.Plan Limits")}</h3>
+                      </div>
+                    </div>
+                    <UserCounts usage={currentPlan.allowances} />
+                    <div className="row mt-5">
+                      <div className="col-12">
                         <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                       </div>
                     </div>
-                    <TenantUsage usage={currentUsage} />
+                    <UserCounts usage={currentUsage} planEligibility={tenantPlanEligibility({ plan: currentPlan, usage: currentUsage })} />
                   </div>
                 </>
               ) : null}

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const errors = require("@feathersjs/errors");
-exports.TenantUsage = class TenantUsage {
+exports.UserCounts = class UserCounts {
   constructor(options) {
     this.options = options || {};
   }

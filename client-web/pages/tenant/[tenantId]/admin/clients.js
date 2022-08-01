@@ -22,6 +22,7 @@ import UserInvitesList from "../../../../components/tenant/admin/UserInvitesList
 import ManageClientInvite from "../../../../components/tenant/admin/ManageClientInvite";
 import api from "../../../../utils/api";
 import ManageClientUser from "../../../../components/tenant/admin/ManageClientUser";
+import { tenantPlanEligibility } from "../../../../utils/planUtils";
 
 export default function Clients() {
   const { t } = useTranslation("common");
@@ -39,8 +40,10 @@ export default function Clients() {
 
   const [users, setUsers] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [usersRequestItemsSignal, setUsersRequestItemsSignal] =
-    useState(null);
+  const [usersRequestItemsSignal, setUsersRequestItemsSignal] = useState(null);
+
+  const [currentPlan, setCurrentPlan] = useState(null);
+  const [currentUsage, setCurrentUsage] = useState(null);
 
   const fetchInvites = async ({ skip, limit, search }) => {
     const response = await api({
@@ -86,6 +89,36 @@ export default function Clients() {
     }
   };
 
+  const fetchCurrentPlan = async () => {
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-plans/${tenantId}`,
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setCurrentPlan(response.data);
+      return { success: true };
+    } else {
+      setCurrentPlan(null);
+      return { success: false };
+    }
+  };
+
+  const fetchCurrentUsage = async () => {
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-usage/${tenantId}`,
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setCurrentUsage(response.data);
+      return { success: true };
+    } else {
+      setCurrentUsage(null);
+      return { success: false };
+    }
+  };
+
   useEffect(() => {
     if (view === "invites") {
       fetchInvites({ skip: 0, limit: invitesPerPage }).catch(console.error);
@@ -93,6 +126,11 @@ export default function Clients() {
       fetchUsers({ skip: 0, limit: invitesPerPage }).catch(console.error);
     }
   }, [view]);
+
+  useEffect(() => {
+    fetchCurrentPlan();
+    fetchCurrentUsage();
+  }, []);
 
   return (
     <Layout>
@@ -212,6 +250,14 @@ export default function Clients() {
               <AddUserInvitesForm
                 tenant={tenantId}
                 type="client"
+                currentPlan={{
+                  ...currentPlan,
+                  eligibility: tenantPlanEligibility({
+                    plan: currentPlan,
+                    usage: currentUsage,
+                  }),
+                }}
+                currentUsage={currentUsage}
                 onAddInvite={() => {
                   setShowInviteForm(false);
                   if (view === "invites") {
@@ -267,16 +313,12 @@ export default function Clients() {
                       requestItemsSignal={usersRequestItemsSignal}
                       t={t}
                     />
-                  ) : (
-                    null
-                  )}
+                  ) : null}
                   {users && !users.data?.length ? (
                     <h6 className="mt-4">
                       {t("tenant.admin.users.No users found")}
                     </h6>
-                  ) : (
-                    null
-                  )}
+                  ) : null}
                 </div>
               </div>
             </TabPane>
@@ -294,18 +336,12 @@ export default function Clients() {
                       requestItemsSignal={invitesRequestItemsSignal}
                       t={t}
                     />
-                  ) : (
-                    null
-                  )}
+                  ) : null}
                   {invites && !invites.data?.length ? (
                     <h6 className="mt-4">
-                      {t(
-                        "tenant.admin.users.No open invitations found"
-                      )}
+                      {t("tenant.admin.users.No open invitations found")}
                     </h6>
-                  ) : (
-                    null
-                  )}
+                  ) : null}
                 </div>
               </div>
             </TabPane>

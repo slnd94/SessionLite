@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const errors = require("@feathersjs/errors");
+const { tenantPlanEligibility } = require("../../utils/planUtils");
 exports.TenantUserInvites = class TenantUserInvites {
   constructor(options) {
     this.options = options || {};
@@ -44,8 +45,10 @@ exports.TenantUserInvites = class TenantUserInvites {
       if (!data.type || !(data.type === "team" || data.type === "client")) {
         return Promise.reject(new errors.BadRequest("invalid invite"));
       } else {
+        const distinctInvitedEmails = [...new Set(data.inviteEmailAddresses)];
+        const unusedDistinctEmailAddresses = [];
         await Promise.all(
-          data.inviteEmailAddresses.map(async (emailAddress) => {
+          distinctInvitedEmails.map(async (emailAddress) => {
             // check to see if this email has already been used
             const existingInvites = await this.app
               .service("user-invites")
@@ -64,24 +67,82 @@ exports.TenantUserInvites = class TenantUserInvites {
               });
 
               if (existingUsers.total === 0) {
-                try {
-                  await this.app.service("user-invites").create({
-                    tenant: id,
-                    type: data.type,
-                    email: emailAddress,
-                  });
-                } catch (err) {
-                  console.log(
-                    "🚀 ~ file: tenant-users.class.js ~ line 50 ~ TenantUser ~ patch ~ err",
-                    err
-                  );
-                }
+                unusedDistinctEmailAddresses.push(emailAddress);
               }
             }
           })
         );
 
-        return { success: true };
+        // get the current plan and usage
+        const currentPlan = await this.app.service("tenant-plans").get(id);
+        const currentUsage = await this.app.service("tenant-usage").get(id);
+
+        const requestedUsage = {
+          users: {
+            ...currentUsage.users,
+            ...(data.type === "client"
+              ? {
+                  client: {
+                    ...currentUsage.users.client,
+                    invites:
+                      currentUsage.users.client.invites +
+                      unusedDistinctEmailAddresses.length,
+                    total:
+                      currentUsage.users.client.total +
+                      unusedDistinctEmailAddresses.length,
+                  },
+                }
+              : {
+                  team: {
+                    ...currentUsage.users.team,
+                    invites:
+                      currentUsage.users.team.invites +
+                      unusedDistinctEmailAddresses.length,
+                    total:
+                      currentUsage.users.team.total +
+                      unusedDistinctEmailAddresses.length,
+                  },
+                }),
+            ...{
+              total: {
+                ...currentUsage.users.total,
+                invites:
+                  currentUsage.users.total.invites +
+                  unusedDistinctEmailAddresses.length,
+                total:
+                  currentUsage.users.total.total +
+                  unusedDistinctEmailAddresses.length,
+              },
+            },
+          },
+        };
+
+        const planEligibility = tenantPlanEligibility({
+          plan: currentPlan,
+          usage: requestedUsage,
+        });
+        if (planEligibility.eligible) {
+          await Promise.all(
+            unusedDistinctEmailAddresses.map(async (emailAddress) => {
+              try {
+                await this.app.service("user-invites").create({
+                  tenant: id,
+                  type: data.type,
+                  email: emailAddress,
+                });
+              } catch (err) {
+                console.log(
+                  "🚀 ~ file: tenant-users.class.js ~ line 50 ~ TenantUser ~ patch ~ err",
+                  err
+                );
+              }
+            })
+          );
+          return { success: true };
+        } else {
+          // tenant not eligible to invite user(s) under their current plan/usage
+          return Promise.reject(new errors.BadRequest("plan allowances exceeded", { requestedUsage }));
+        }
       }
     } else if (data.resendInvite) {
       // ensure the invite belongs to this tenant
@@ -92,7 +153,7 @@ exports.TenantUserInvites = class TenantUserInvites {
             $select: {
               tenant: 1,
               email: 1,
-              type: 1
+              type: 1,
             },
           },
         });
@@ -109,7 +170,11 @@ exports.TenantUserInvites = class TenantUserInvites {
           // resend the invite
           // send invitation email to user
           this.app.service("emails-sendinblue").create({
-            templateId: this.app.get(invite?.type === "team" ? "invitationTeamEmailTemplate" : "invitationClientEmailTemplate"),
+            templateId: this.app.get(
+              invite?.type === "team"
+                ? "invitationTeamEmailTemplate"
+                : "invitationClientEmailTemplate"
+            ),
             destination: invite.email,
             data: {
               appName: this.app.get("appName"),

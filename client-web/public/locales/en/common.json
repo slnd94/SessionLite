@@ -250,11 +250,21 @@
         "You will gain back one allowed active client user on your {{appName}} plan": "You will gain back one allowed active client user on your {{appName}} plan"
       },
       "plan": {
+        "Manage Plan": "Manage Plan",
         "Your Current Plan":  "Your Current Plan",
         "Your Current Usage": "Your Current Usage",
         "Select Your Plan":  "Select Your Plan",
         "Confirm Your Plan":  "Confirm Your Plan",
         "Plan/Usage Details": "Plan/Usage Details",
+        "Plan Limits": "Plan Limits",
+        "We cannot complete this action now, because it would exceed the limits of your plan.": "We cannot complete this action now, because it would exceed the limits of your plan.",
+        "To subscribe to this plan, you cannot exceed any of the user limits shown here": "To subscribe to this plan, you cannot exceed any of the user limits shown here",
+        "Your current user counts (highlighted counts exceed the plan's limits)": "Your current user counts (highlighted counts exceed the plan's limits)",
+        "If this action were completed, your user counts would look like this (highlighted counts would exceed the plan's limits)": "If this action were completed, your user counts would look like this (highlighted counts would exceed the plan's limits)",
+        "What are your options?": "What are your options?",
+        "Choose a different plan": "Choose a different plan",
+        "Deactivate some existing active users (clients or team members)": "Deactivate some existing active users (clients or team members)",
+        "Revoke some existing invitations (clients or team members)": "Revoke some existing invitations (clients or team members)",
         "Back to plans": "Back to plans",
         "errors": {
           "Tenant not within plan allowances": "The selected plan is not eligible based on your current users.",

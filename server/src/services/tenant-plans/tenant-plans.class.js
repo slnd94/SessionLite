@@ -2,6 +2,7 @@
 const errors = require("@feathersjs/errors");
 const errorMessages = require("../../utils/errorMessages");
 const { api } = require("../../utils/api");
+const { tenantPlanEligibility } = require("../../utils/planUtils");
 
 exports.TenantPlans = class TenantPlans {
   constructor(options) {
@@ -13,39 +14,6 @@ exports.TenantPlans = class TenantPlans {
 
     this.checkAllowance = ({ allowance, usage }) => {
       return !(allowance > -1 && usage > allowance);
-    };
-
-    this.tenantWithinPlanAllowances = ({ plan, tenantUsage }) => {
-      if (
-        (plan.allowances?.users?.team?.active > -1 &&
-          tenantUsage.users.team.active > plan.allowances.users.team.active) ||
-        (plan.allowances?.users?.team?.invites > -1 &&
-          tenantUsage.users.team.invites >
-            plan.allowances.users.team.invites) ||
-        (plan.allowances?.users?.team?.total > -1 &&
-          tenantUsage.users.team.total > plan.allowances.users.team.total) ||
-        (plan.allowances?.users?.client?.active > -1 &&
-          tenantUsage.users.client.active >
-            plan.allowances.users.client.active) ||
-        (plan.allowances?.users?.client?.invites > -1 &&
-          tenantUsage.users.client.invites >
-            plan.allowances.users.client.invites) ||
-        (plan.allowances?.users?.client?.total > -1 &&
-          tenantUsage.users.client.total >
-            plan.allowances.users.client.total) ||
-        (plan.allowances?.users?.total?.active > -1 &&
-          tenantUsage.users.total.active >
-            plan.allowances.users.total.active) ||
-        (plan.allowances?.users?.total?.invites > -1 &&
-          tenantUsage.users.total.invites >
-            plan.allowances.users.total.invites) ||
-        (plan.allowances?.users?.total?.total > -1 &&
-          tenantUsage.users.total.total > plan.allowances.users.total.total)
-      ) {
-        return false;
-      } else {
-        return true;
-      }
     };
   }
 
@@ -61,12 +29,11 @@ exports.TenantPlans = class TenantPlans {
         },
       },
     });
-    
+
     return await this.app.service("plans").get(tenant.plan, params);
   }
 
   async patch(id, data, params) {
-    
     // Get the tenant
     const tenant = await this.app.service("tenants").get(id);
 
@@ -94,12 +61,11 @@ exports.TenantPlans = class TenantPlans {
           );
         } else {
           // is the tenant's usage currently eligible for this plan?
-          if (
-            this.tenantWithinPlanAllowances({
-              plan: requestedPlan,
-              tenantUsage: await this.app.service("tenant-usage").get(id),
-            })
-          ) {
+          const eligibility = tenantPlanEligibility({
+            plan: requestedPlan,
+            usage: await this.app.service("tenant-usage").get(id),
+          });
+          if (eligibility.eligible) {
             // TODO: see if the requested plan is the same one already applied
             if (tenant.plan) {
               // updating the existing tenant plan
