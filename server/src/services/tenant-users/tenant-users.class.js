@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const errors = require("@feathersjs/errors");
+const { tenantPlanEligibility } = require("../../utils/planUtils");
 exports.TenantUsers = class TenantUsers {
   constructor(options) {
     this.options = options || {};
@@ -75,12 +76,12 @@ exports.TenantUsers = class TenantUsers {
     };
   }
 
-  async get(id, params) {
-    if (params?.query?.get === "counts") {
-      return await this.getTenantUserCounts(id);
-    }
-    return false;
-  }
+  // async get(id, params) {
+  //   if (params?.query?.get === "counts") {
+  //     return await this.getTenantUserCounts(id);
+  //   }
+  //   return false;
+  // }
 
   async find(params) {
     // assign the search term on name if provided
@@ -149,6 +150,8 @@ exports.TenantUsers = class TenantUsers {
         query: {
           $select: {
             _id: 1,
+            active: 1,
+            type: 1,
             tenant: 1,
           },
         },
@@ -159,8 +162,63 @@ exports.TenantUsers = class TenantUsers {
         const updateData = {
           ...(Object.hasOwn(data, "active") ? { active: data.active } : {}),
         };
-        // update the user
-        await this.app.service("users").patch(data.updateUser, updateData);
+
+        if (!!updateData.active && !user.active) {
+          // attempting to activate an inactive user
+
+          // We will check the tenant's eligibility for their current plan with the requested usage
+          // get the current plan and usage
+          const currentPlan = await this.app.service("tenant-plans").get(id);
+          const currentUsage = await this.app.service("tenant-usage").get(id);
+
+          const requestedUsage = {
+            users: {
+              ...currentUsage.users,
+              ...(user.type === "client"
+                ? {
+                    client: {
+                      ...currentUsage.users.client,
+                      active: currentUsage.users.client.active + 1,
+                      total: currentUsage.users.client.total + 1,
+                    },
+                  }
+                : {
+                    team: {
+                      ...currentUsage.users.team,
+                      active: currentUsage.users.team.active + 1,
+                      total: currentUsage.users.team.total + 1,
+                    },
+                  }),
+              ...{
+                total: {
+                  ...currentUsage.users.total,
+                  active: currentUsage.users.total.active + 1,
+                  total: currentUsage.users.total.total + 1,
+                },
+              },
+            },
+          };
+
+          const planEligibility = tenantPlanEligibility({
+            plan: currentPlan,
+            usage: requestedUsage,
+          });
+
+          if (planEligibility.eligible) {
+            // update the user
+            await this.app.service("users").patch(data.updateUser, updateData);
+          } else {
+            // tenant not eligible to invite user(s) under their current plan/usage
+            return Promise.reject(
+              new errors.BadRequest("plan allowances exceeded", {
+                requestedUsage,
+              })
+            );
+          }
+        } else {
+          // update the user
+          await this.app.service("users").patch(data.updateUser, updateData);
+        }
 
         // update tenant admin users as needed
         const tenant = await this.app.service("tenants").get(id);
@@ -196,65 +254,67 @@ exports.TenantUsers = class TenantUsers {
 
         return { success: true };
       } else {
-        return Promise.reject(new errors.BadRequest("invalid user"));
-      }
-    } else if (data.deactivateUser) {
-      // check to see the requested user is not the current user
-      if (data.deactivateUser.toString() === params.user._id.toString()) {
-        return Promise.reject(
-          new errors.BadRequest("You cannot modify your own permissions")
-        );
-      }
-      // check that the requested user is in the user's tenant
-      const user = await this.app.service("users").get(data.deactivateUser, {
-        query: {
-          $select: {
-            _id: 1,
-            tenant: 1,
-          },
-        },
-      });
-
-      if (user?.tenant.toString() === id.toString()) {
-        // deactivate the user
-        return this.app
-          .service("users")
-          .patch(data.deactivateUser, { active: false })
-          .then((res) => {
-            return { success: true };
-          });
-      } else {
-        return Promise.reject(new errors.BadRequest("invalid user"));
-      }
-    } else if (data.activateUser) {
-      // check to see the requested user is not the current user
-      if (data.activateUser.toString() === params.user._id.toString()) {
-        return Promise.reject(
-          new errors.BadRequest("You cannot activate yourself")
-        );
-      }
-      // check that the requested user is in the user's tenant
-      const user = await this.app.service("users").get(data.activateUser, {
-        query: {
-          $select: {
-            _id: 1,
-            tenant: 1,
-          },
-        },
-      });
-
-      if (user?.tenant.toString() === id.toString()) {
-        //TODO: Check plan allowances here to see if the user can be activated
-        // deactivate the user
-        return this.app
-          .service("users")
-          .patch(data.activateUser, { active: true })
-          .then((res) => {
-            return { success: true };
-          });
-      } else {
+        // user belongs to a different tenant
         return Promise.reject(new errors.BadRequest("invalid user"));
       }
     }
+    // else if (data.deactivateUser) {
+    //   // check to see the requested user is not the current user
+    //   if (data.deactivateUser.toString() === params.user._id.toString()) {
+    //     return Promise.reject(
+    //       new errors.BadRequest("You cannot modify your own permissions")
+    //     );
+    //   }
+    //   // check that the requested user is in the user's tenant
+    //   const user = await this.app.service("users").get(data.deactivateUser, {
+    //     query: {
+    //       $select: {
+    //         _id: 1,
+    //         tenant: 1,
+    //       },
+    //     },
+    //   });
+
+    //   if (user?.tenant.toString() === id.toString()) {
+    //     // deactivate the user
+    //     return this.app
+    //       .service("users")
+    //       .patch(data.deactivateUser, { active: false })
+    //       .then((res) => {
+    //         return { success: true };
+    //       });
+    //   } else {
+    //     return Promise.reject(new errors.BadRequest("invalid user"));
+    //   }
+    // } else if (data.activateUser) {
+    //   // check to see the requested user is not the current user
+    //   if (data.activateUser.toString() === params.user._id.toString()) {
+    //     return Promise.reject(
+    //       new errors.BadRequest("You cannot activate yourself")
+    //     );
+    //   }
+    //   // check that the requested user is in the user's tenant
+    //   const user = await this.app.service("users").get(data.activateUser, {
+    //     query: {
+    //       $select: {
+    //         _id: 1,
+    //         tenant: 1,
+    //       },
+    //     },
+    //   });
+
+    //   if (user?.tenant.toString() === id.toString()) {
+    //     //TODO: Check plan allowances here to see if the user can be activated
+    //     // deactivate the user
+    //     return this.app
+    //       .service("users")
+    //       .patch(data.activateUser, { active: true })
+    //       .then((res) => {
+    //         return { success: true };
+    //       });
+    //   } else {
+    //     return Promise.reject(new errors.BadRequest("invalid user"));
+    //   }
+    // }
   }
 };

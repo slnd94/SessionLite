@@ -201,6 +201,7 @@ export default function Team() {
               <ManageTeamUser
                 userId={selectedUser?._id}
                 tenant={tenantId}
+                currentPlan={currentPlan}
                 onUpdateUser={() => {
                   // notify user
                   toast(t("tenant.admin.users.User updated"), {

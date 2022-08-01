@@ -73,6 +73,7 @@ exports.TenantUserInvites = class TenantUserInvites {
           })
         );
 
+        // We will check the tenant's eligibility for their current plan with the requested usage
         // get the current plan and usage
         const currentPlan = await this.app.service("tenant-plans").get(id);
         const currentUsage = await this.app.service("tenant-usage").get(id);
@@ -117,10 +118,12 @@ exports.TenantUserInvites = class TenantUserInvites {
           },
         };
 
+        // get the tenant's eligibility for their current plan with the requested usage
         const planEligibility = tenantPlanEligibility({
           plan: currentPlan,
           usage: requestedUsage,
         });
+
         if (planEligibility.eligible) {
           await Promise.all(
             unusedDistinctEmailAddresses.map(async (emailAddress) => {
@@ -141,7 +144,11 @@ exports.TenantUserInvites = class TenantUserInvites {
           return { success: true };
         } else {
           // tenant not eligible to invite user(s) under their current plan/usage
-          return Promise.reject(new errors.BadRequest("plan allowances exceeded", { requestedUsage }));
+          return Promise.reject(
+            new errors.BadRequest("plan allowances exceeded", {
+              requestedUsage,
+            })
+          );
         }
       }
     } else if (data.resendInvite) {
