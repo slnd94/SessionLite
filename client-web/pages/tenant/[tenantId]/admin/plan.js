@@ -8,7 +8,8 @@ import { Button } from "reactstrap";
 import api from "../../../../utils/api";
 import SelectPlan from "../../../../components/plan/SelectPlan";
 import Plan from "../../../../components/plan/Plan";
-import TenantUsage from "../../../../components/tenant/admin/TenantUsage";
+import UserCounts from "../../../../components/tenant/admin/UserCounts";
+import { tenantPlanEligibility } from "../../../../utils/planUtils";
 
 export default function TenantPlan() {
   const { t } = useTranslation("common");
@@ -19,6 +20,7 @@ export default function TenantPlan() {
   } = useContext(TenantContext);
   const [view, setView] = useState("current");
   const [currentPlan, setCurrentPlan] = useState(null);
+  const [currentUsage, setCurrentUsage] = useState(null);
 
   const fetchCurrentPlan = async () => {
     const response = await api({
@@ -35,8 +37,24 @@ export default function TenantPlan() {
     }
   };
 
+  const fetchCurrentUsage = async () => {
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-usage/${tenantId}`,
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setCurrentUsage(response.data);
+      return { success: true };
+    } else {
+      setCurrentUsage(null);
+      return { success: false };
+    }
+  };
+
   useEffect(() => {
     fetchCurrentPlan();
+    fetchCurrentUsage();
   }, []);
 
   useEffect(() => {
@@ -53,7 +71,7 @@ export default function TenantPlan() {
           {view === "current" ? (
             <div className="row">
               {/* {JSON.stringify(tenant.plan)} */}
-              {currentPlan ? (
+              {currentPlan && currentUsage ? (
                 <>
                   <div className="col-12 col-md-6 mb-5">
                     <div className="row mt-0">
@@ -62,11 +80,14 @@ export default function TenantPlan() {
                       </div>
                     </div>
                     <Plan
-                      plan={currentPlan}
+                      plan={{
+                        ...currentPlan,
+                        eligibility: tenantPlanEligibility({ plan: currentPlan, usage: currentUsage })
+                      }}
                       className={currentPlan.tag ? "popular" : ""}
                     />
                     <Button
-                      className="mt-4 btn-block-md-down"
+                      className="mt-4 btn-block"
                       size="lg"
                       color="secondary"
                       onClick={() => {
@@ -79,10 +100,16 @@ export default function TenantPlan() {
                   <div className="col-12 col-md-6">
                     <div className="row mt-0">
                       <div className="col-12">
+                        <h3>{t("tenant.admin.plan.Plan Limits")}</h3>
+                      </div>
+                    </div>
+                    <UserCounts usage={currentPlan.allowances} />
+                    <div className="row mt-5">
+                      <div className="col-12">
                         <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                       </div>
                     </div>
-                    <TenantUsage usage={currentPlan.usage} />
+                    <UserCounts usage={currentUsage} planEligibility={tenantPlanEligibility({ plan: currentPlan, usage: currentUsage })} />
                   </div>
                 </>
               ) : null}
@@ -92,6 +119,7 @@ export default function TenantPlan() {
             <div>
               <SelectPlan
                 currentPlan={currentPlan}
+                currentUsage={currentUsage}
                 backLink={{
                   text: t("Back"),
                   onClick: () => {

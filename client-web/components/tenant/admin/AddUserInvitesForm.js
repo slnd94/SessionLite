@@ -5,29 +5,29 @@ import "react-multi-email/style.css";
 import { toast } from "react-toastify";
 import api from "../../../utils/api";
 import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormFeedback,
   Button,
+  Alert,
 } from "reactstrap";
-// import { useForm, Controller } from "react-hook-form";
+import { useRouter } from "next/router";
 import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
+import PlanUsageCompare from "../../plan/PlanUsageCompare";
 
-function AddUserInvitesForm({ tenant, type, onAddInvite }) {
+function AddUserInvitesForm({ tenant, type, onAddInvite, currentPlan, currentUsage }) {
   const { t } = useTranslation("common");
+  const router = useRouter();
   const [processing, setProcessing] = useState(false);
   const [addEmails, setAddEmails] = useState([]);
   const [emailRequiredError, setEmailRequiredError] = useState(false);
+  const [requestedUsageExceedingPlan, setRequestedUsageExceedingPlan] = useState(null);
 
   return (
     <>
       <p>
-        {t(type === "team" ?
-          "tenant.admin.team.Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you."
-          : "tenant.admin.client.Add email addresses and send invitations to your clients to sign up and start using {{appName}} with you.",
+        {t(
+          type === "team"
+            ? "tenant.admin.team.Add email addresses and send invitations to your team members to sign up and start using {{appName}} with you."
+            : "tenant.admin.client.Add email addresses and send invitations to your clients to sign up and start using {{appName}} with you.",
           { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME }
         )}
       </p>
@@ -65,9 +65,7 @@ function AddUserInvitesForm({ tenant, type, onAddInvite }) {
         <div style={{ color: "red" }}>
           {t("tenant.admin.users.At least one email address is required")}
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
       {processing ? (
         <Loader />
       ) : (
@@ -84,7 +82,7 @@ function AddUserInvitesForm({ tenant, type, onAddInvite }) {
                 url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-user-invites/${tenant}`,
                 params: {
                   inviteEmailAddresses: addEmails,
-                  type
+                  type,
                 },
               });
 
@@ -108,6 +106,13 @@ function AddUserInvitesForm({ tenant, type, onAddInvite }) {
               } else {
                 // setView("error");
                 setProcessing(false);
+                const result = response.response.data;
+                if (
+                  result.code === 400 &&
+                  result.message === "plan allowances exceeded"
+                ) {
+                  setRequestedUsageExceedingPlan(result.data.requestedUsage);
+                }
                 return { success: false };
               }
             }
@@ -116,6 +121,43 @@ function AddUserInvitesForm({ tenant, type, onAddInvite }) {
           {t("tenant.admin.users.Send Invitations")}
         </Button>
       )}
+      {requestedUsageExceedingPlan ? (
+        <Alert color="danger" fade={false} className="mt-5">
+          <h5 className="mb-5">
+            {t(
+              "tenant.admin.plan.We cannot complete this action now, because it would exceed the limits of your plan."
+            )}
+          </h5>
+          <PlanUsageCompare plan={currentPlan} usage={currentUsage} requestedUsage={requestedUsageExceedingPlan} />
+          <Button
+            className="mt-5 btn-block"
+            color="default"
+            onClick={() => {
+              router.push(`/tenant/${tenant}/admin/plan`);
+            }}
+          >
+            {t("tenant.admin.plan.Manage Plan")}
+          </Button>
+          <Button
+            className="mt-2 btn-block"
+            color="default"
+            onClick={() => {
+              router.push(`/tenant/${tenant}/admin/clients`);
+            }}
+          >
+            {t("tenant.admin.client.Manage Clients")}
+          </Button>
+          <Button
+            className="mt-2 btn-block"
+            color="default"
+            onClick={() => {
+              router.push(`/tenant/${tenant}/admin/team`);
+            }}
+          >
+            {t("tenant.admin.team.Manage Team Members")}
+          </Button>
+        </Alert>
+      ) : null}
     </>
   );
 }

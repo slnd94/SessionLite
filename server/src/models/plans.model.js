@@ -12,7 +12,9 @@ module.exports = function (app) {
       name: { type: String, required: true },
       description: { type: String, required: true },
       features: [{ type: String }],
-      paddlePlanId: { type: Number, required: false },
+      paddle: {
+        productId: { type: Number, required: false }
+      },
       allowances: {
         users: {
           client: {

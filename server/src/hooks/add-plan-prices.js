@@ -7,13 +7,14 @@ module.exports = (options = {}) => {
   return async (context) => {
     if(context.method === 'get') {
 
+      //// ONLINE
       const plan = context.result;
       const paddleResponse = await api({
         method: "get",
-        url: `${context.app.get("paddleApiBaseUrl")}/prices\?product_ids=${plan.paddlePlanId}\&customer_country=${context.params.userCountry.code}`,
+        url: `${context.app.get("paddleApiBaseUrl")}/prices\?product_ids=${plan.paddle.productId}\&customer_country=${context.params.userCountry.code}`,
       });
       const paddleProduct = paddleResponse.data.response.products.find(
-        (product) => product.product_id === plan.paddlePlanId && product
+        (product) => product.product_id === plan.paddle.productId && product
       );
 
       context.result = {
@@ -23,12 +24,28 @@ module.exports = (options = {}) => {
           currency: paddleProduct.currency
         }
       }
+      /// ONLINE
+
+      ///  OFFLINE
+      // context.result = {
+      //   ...context.result,
+      //   subscription: {
+      //     price: {
+      //       gross: 0.00
+      //     },
+      //     currency: "CAD",
+      //     interval: "month"
+      //   }
+      // }   
+      ///  OFFLINE
 
     } else if (context.method === 'find') {
       const plans = context.result.data;
 
-      // cancatenated string of planIds example "28237,383763,29272,29280"
-      const planIds = plans.map((plan) => plan.paddlePlanId).join();
+
+      /// ONLINE
+      // concatenated string of planIds example "28237,383763,29272,29280"
+      const planIds = plans.map((plan) => plan.paddle.productId).join();
       const paddleResponse = await api({
         method: "get",
         url: `${context.app.get("paddleApiBaseUrl")}/prices\?product_ids=${planIds}\&customer_country=${context.params.userCountry.code}`,
@@ -37,7 +54,7 @@ module.exports = (options = {}) => {
 
       context.result.data = plans.map((plan) => {
         const product = paddleProducts.find(
-          (product) => product.product_id === plan.paddlePlanId && product
+          (product) => product.product_id === plan.paddle.productId && product
         );
         return {
           ...(product
@@ -51,6 +68,23 @@ module.exports = (options = {}) => {
           ...plan,
         };
       });
+      /// ONLINE
+
+
+      ///  OFFLINE
+      // context.result.data = plans.map((plan) => {
+      //   return {
+      //     subscription: {
+      //       price: {
+      //         gross: 0.00
+      //       },
+      //       currency: "CAD",
+      //       interval: "month"
+      //     },
+      //     ...plan,
+      //   };
+      // });
+      ///  OFFLINE
     }
 
 

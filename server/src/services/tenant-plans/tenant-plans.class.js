@@ -2,6 +2,7 @@
 const errors = require("@feathersjs/errors");
 const errorMessages = require("../../utils/errorMessages");
 const { api } = require("../../utils/api");
+const { tenantPlanEligibility } = require("../../utils/planUtils");
 
 exports.TenantPlans = class TenantPlans {
   constructor(options) {
@@ -11,72 +12,8 @@ exports.TenantPlans = class TenantPlans {
   setup(app) {
     this.app = app;
 
-    this.getTenantUsage = async (tenantId) => {
-      // get the count of active team users
-      const team = await this.app.service("tenant-users").find({
-        query: {
-          tenant: tenantId,
-          active: true,
-          $skip: 0,
-          $limit: 0,
-        },
-      });
-
-      // get the count of active team user invites
-      const teamInvites = await this.app.service("tenant-user-invites").find({
-        query: {
-          tenant: tenantId,
-          $skip: 0,
-          $limit: 0,
-        },
-      });
-
-      return {
-        users: {
-          team: {
-            active: team.total,
-            invites: teamInvites.total,
-            total: team.total + teamInvites.total,
-          },
-        },
-      };
-    };
-
     this.checkAllowance = ({ allowance, usage }) => {
       return !(allowance > -1 && usage > allowance);
-    };
-
-    this.tenantWithinPlanAllowances = async ({ plan, tenantUsage }) => {
-      if (
-        (plan.allowances?.users?.team?.active > -1 &&
-          tenantUsage.users.team.active > plan.allowances.users.team.active) ||
-        (plan.allowances?.users?.team?.invites > -1 &&
-          tenantUsage.users.team.invites >
-            plan.allowances.users.team.invites) ||
-        (plan.allowances?.users?.team?.total > -1 &&
-          tenantUsage.users.team.total > plan.allowances.users.team.total) ||
-        (plan.allowances?.users?.client?.active > -1 &&
-          tenantUsage.users.client.active >
-            plan.allowances.users.client.active) ||
-        (plan.allowances?.users?.client?.invites > -1 &&
-          tenantUsage.users.client.invites >
-            plan.allowances.users.client.invites) ||
-        (plan.allowances?.users?.client?.total > -1 &&
-          tenantUsage.users.client.total >
-            plan.allowances.users.client.total) ||
-        (plan.allowances?.users?.total?.active > -1 &&
-          tenantUsage.users.total.active >
-            plan.allowances.users.total.active) ||
-        (plan.allowances?.users?.total?.invites > -1 &&
-          tenantUsage.users.total.invites >
-            plan.allowances.users.total.invites) ||
-        (plan.allowances?.users?.total?.total > -1 &&
-          tenantUsage.users.total.total > plan.allowances.users.total.total)
-      ) {
-        return false;
-      } else {
-        return true;
-      }
     };
   }
 
@@ -93,12 +30,7 @@ exports.TenantPlans = class TenantPlans {
       },
     });
 
-    const plan = await this.app.service("plans").get(tenant.plan, params);
-    
-    return {
-      ...plan,
-      usage: { users: await this.app.service("tenant-users").get(id, { query: { get: "counts" } }) }
-    };
+    return await this.app.service("plans").get(tenant.plan, params);
   }
 
   async patch(id, data, params) {
@@ -128,15 +60,12 @@ exports.TenantPlans = class TenantPlans {
             new errors.BadRequest("Invalid plan requested")
           );
         } else {
-          // is the tenant currently eligible for this plan?
-          // get the tenant's current allowance usage
-          const tenantUsage = await this.getTenantUsage(id);
-          if (
-            await this.tenantWithinPlanAllowances({
-              plan: requestedPlan,
-              tenantUsage,
-            })
-          ) {
+          // is the tenant's usage currently eligible for this plan?
+          const eligibility = tenantPlanEligibility({
+            plan: requestedPlan,
+            usage: await this.app.service("tenant-usage").get(id),
+          });
+          if (eligibility.eligible) {
             // TODO: see if the requested plan is the same one already applied
             if (tenant.plan) {
               // updating the existing tenant plan
@@ -154,7 +83,7 @@ exports.TenantPlans = class TenantPlans {
                     vendor_id: this.app.get("paddleVendorId"),
                     vendor_auth_code: this.app.get("paddleVendorAuthCode"),
                     subscription_id: tenant.paddle.subscriptionId,
-                    plan_id: requestedPlan.paddlePlanId,
+                    plan_id: requestedPlan.paddle.productId,
                     prorate: true,
                     bill_immediately: true,
                   },

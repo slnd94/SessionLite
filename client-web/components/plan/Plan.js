@@ -3,15 +3,13 @@ import PropTypes from "prop-types";
 import { useTranslation } from "next-i18next";
 import Amount from "../commerce/Amount";
 import { Button, Badge } from "reactstrap";
-import IconText from "../IconText";
 
 const Plan = ({
   plan,
-  onClick,
   className,
   button,
   showTag,
-  showPaymentDetails,
+  showPaymentDetails
 }) => {
   const { t } = useTranslation("common");
 
@@ -23,7 +21,9 @@ const Plan = ({
 
   return (
     <div
-      className={`row section-box mb-2 d-flex flex-direction-vertical justify-content-full align-content-full ${className}`}
+      className={`row section-box mb-2 d-flex flex-direction-vertical justify-content-full align-content-full ${className} ${
+        plan.eligibility && !plan.eligibility.eligible ? "disabled" : ""
+      }`}
     >
       {plan.tag && showTag ? (
         <Badge
@@ -31,12 +31,13 @@ const Plan = ({
           size="xl"
           className="p-1 pt-2 mt-n3 mb-2"
           style={{ height: "40px" }}
-          // style={{ paddingTop: '100px', marginTop: "-20px", marginBottom: "10px" }}
         >
           <h5>{t(`plan.${plan.tag}`)}</h5>
         </Badge>
       ) : null}
       <h4 className={"title"}>{plan.name}</h4>
+
+      {/* {plan.eligibility ? <div>{JSON.stringify(plan.eligibility)}</div> : null} */}
 
       <div className="fs-6 fw-bold">{plan.description}</div>
       <div className="mt-3">
@@ -70,13 +71,17 @@ const Plan = ({
       {showPaymentDetails ? (
         <div className="fw-bold mt-3">{getPlanPaymentDetailsString()}</div>
       ) : null}
+
+      {plan.eligibility && !plan.eligibility.eligible ? (
+        <div className="fw-bold text-dark mt-3">{t("plan.You are not currently eligible for this plan")}</div>
+      ) : null}
       {button ? (
-        <div className="mt-3 d-flex align-items-end justify-content-full">
+        <div className="d-flex align-items-end justify-content-full">
           <Button
             className={"btn-block"}
             size="lg"
             // color="secondary"
-            color={plan.tag ? "secondary" : "primary"}
+            color={plan.tag ? "secondary" : "default"}
             onClick={() => {
               button.onClick();
             }}
@@ -92,7 +97,7 @@ const Plan = ({
 
 Plan.propTypes = {
   plans: PropTypes.array,
-  onSelectPlan: PropTypes.func,
+  button: PropTypes.object
 };
 
 Plan.defaultProps = {

@@ -89,7 +89,7 @@ exports.PaddleWebhooks = class PaddleWebhooks {
         //get the plan
         const plans = await this.app.service("plans").find({
           query: {
-            paddlePlanId: data.subscription_plan_id,
+            "paddle.productId": data.subscription_plan_id,
           },
         });
 
