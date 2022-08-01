@@ -4,22 +4,26 @@ import { ReactMultiEmail, isEmail } from "react-multi-email";
 import "react-multi-email/style.css";
 import { toast } from "react-toastify";
 import api from "../../../utils/api";
-import {
-  Button,
-  Alert,
-} from "reactstrap";
+import { Button, Alert } from "reactstrap";
 import { useRouter } from "next/router";
 import Loader from "../../Loader";
 import { useTranslation } from "next-i18next";
 import PlanUsageCompare from "../../plan/PlanUsageCompare";
 
-function AddUserInvitesForm({ tenant, type, onAddInvite, currentPlan, currentUsage }) {
+function AddUserInvitesForm({
+  tenant,
+  type,
+  onAddInvite,
+  currentPlan,
+  currentUsage,
+}) {
   const { t } = useTranslation("common");
   const router = useRouter();
   const [processing, setProcessing] = useState(false);
   const [addEmails, setAddEmails] = useState([]);
   const [emailRequiredError, setEmailRequiredError] = useState(false);
-  const [requestedUsageExceedingPlan, setRequestedUsageExceedingPlan] = useState(null);
+  const [requestedUsageExceedingPlan, setRequestedUsageExceedingPlan] =
+    useState(null);
 
   return (
     <>
@@ -128,7 +132,11 @@ function AddUserInvitesForm({ tenant, type, onAddInvite, currentPlan, currentUsa
               "tenant.admin.plan.We cannot complete this action now, because it would exceed the limits of your plan."
             )}
           </h5>
-          <PlanUsageCompare plan={currentPlan} usage={currentUsage} requestedUsage={requestedUsageExceedingPlan} />
+          <PlanUsageCompare
+            plan={currentPlan}
+            usage={currentUsage}
+            requestedUsage={requestedUsageExceedingPlan}
+          />
           <Button
             className="mt-5 btn-block"
             color="default"
