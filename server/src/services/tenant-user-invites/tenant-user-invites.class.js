@@ -173,7 +173,7 @@ exports.TenantUserInvites = class TenantUserInvites {
             },
           },
         });
-        if (tenant) {
+        if (tenant?._id) {
           // resend the invite
           // send invitation email to user
           this.app.service("emails-sendinblue").create({
@@ -218,7 +218,7 @@ exports.TenantUserInvites = class TenantUserInvites {
             },
           },
         });
-        if (tenant) {
+        if (tenant?._id) {
           // revoke (remove) the invite
           await this.app.service("user-invites").remove(data.revokeInvite);
           return { success: true };
