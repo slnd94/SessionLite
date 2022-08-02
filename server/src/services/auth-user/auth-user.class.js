@@ -11,6 +11,7 @@ exports.AuthUser = class AuthUser {
   async find (params) {
     // get the user tenant if available
     const tenant = params.user.tenant ? await this.app.service('tenants').get(params.user.tenant) : null;
+    const tenantAdmin = tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === params.user._id.toString()) ? true : false;
 
     // set up the return user obj
     return {
@@ -22,14 +23,17 @@ exports.AuthUser = class AuthUser {
       },
       isVerified: params.user.verification.emailVerified,
       isLocked: params.user.locked,
-      tenantAdmin: tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === params.user._id.toString()) ? true : false,
+      tenantAdmin,
       // tenant if available:
       ...(tenant
         ? {tenant: {
           _id: tenant._id,
           name: tenant.name,
           logo: tenant.logo,
-          plan: tenant.plan
+          ...(tenantAdmin ? {
+            plan: tenant.plan,
+            paddle: tenant.paddle
+          } : {})
         }} : {})
     }
   }
