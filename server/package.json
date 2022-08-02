@@ -31,6 +31,7 @@
     "heroku-postbuild": "export NODE_OPTIONS=--openssl-legacy-provider",
     "start": "src/",
     "lt": "lt --port 3030 --subdomain fnext-dev-server",
+    "st": "st -p 3030 -s fnext-dev-server https",
     "jest": "jest  --forceExit",
     "publishheroku": "cd ../ && git subtree push --prefix server herokunextfeatherstest3-server master || true"
   },
