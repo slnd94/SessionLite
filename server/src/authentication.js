@@ -26,12 +26,13 @@ module.exports = (app) => {
                   .get(context.result.user.tenant)
               : null;
 
-            const tenantAdmin = tenant?.adminUsers &&
-            tenant.adminUsers.find(
-              (x) => x._id.toString() === context.result.user._id.toString()
-            )
-              ? true
-              : false;
+            const tenantAdmin =
+              tenant?.adminUsers &&
+              tenant.adminUsers.find(
+                (x) => x._id.toString() === context.result.user._id.toString()
+              )
+                ? true
+                : false;
 
             // set up the return user obj
             context.result.user = {
@@ -52,11 +53,13 @@ module.exports = (app) => {
                       _id: tenant._id,
                       name: tenant.name,
                       logo: tenant.logo,
-                      ...(tenantAdmin ? {
-                        plan: tenant.plan,
-                        paddle: tenant.paddle
-                      } : {})
-                    }
+                      ...(tenantAdmin
+                        ? {
+                            plan: tenant.plan,
+                            paddle: tenant.paddle,
+                          }
+                        : {}),
+                    },
                   }
                 : {}),
             };

@@ -1,17 +1,25 @@
 /* eslint-disable no-unused-vars */
 exports.AuthUser = class AuthUser {
-  constructor (options) {
+  constructor(options) {
     this.options = options || {};
   }
-  
+
   setup(app) {
     this.app = app;
   }
 
-  async find (params) {
+  async find(params) {
     // get the user tenant if available
-    const tenant = params.user.tenant ? await this.app.service('tenants').get(params.user.tenant) : null;
-    const tenantAdmin = tenant?.adminUsers && tenant.adminUsers.find(x => x._id.toString() === params.user._id.toString()) ? true : false;
+    const tenant = params.user.tenant
+      ? await this.app.service("tenants").get(params.user.tenant)
+      : null;
+    const tenantAdmin =
+      tenant?.adminUsers &&
+      tenant.adminUsers.find(
+        (x) => x._id.toString() === params.user._id.toString()
+      )
+        ? true
+        : false;
 
     // set up the return user obj
     return {
@@ -19,22 +27,27 @@ exports.AuthUser = class AuthUser {
       email: params.user.email,
       name: {
         given: params.user.name.given,
-        family: params.user.name.family
+        family: params.user.name.family,
       },
       isVerified: params.user.verification.emailVerified,
       isLocked: params.user.locked,
       tenantAdmin,
       // tenant if available:
       ...(tenant
-        ? {tenant: {
-          _id: tenant._id,
-          name: tenant.name,
-          logo: tenant.logo,
-          ...(tenantAdmin ? {
-            plan: tenant.plan,
-            paddle: tenant.paddle
-          } : {})
-        }} : {})
-    }
+        ? {
+            tenant: {
+              _id: tenant._id,
+              name: tenant.name,
+              logo: tenant.logo,
+              ...(tenantAdmin
+                ? {
+                    plan: tenant.plan,
+                    paddle: tenant.paddle,
+                  }
+                : {}),
+            },
+          }
+        : {}),
+    };
   }
 };

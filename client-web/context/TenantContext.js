@@ -54,7 +54,7 @@ const getTenant =
 const setTenant =
   (dispatch) =>
   async ({ tenant }) => {
-    console.log("🚀 ~ file: TenantContext.js ~ line 57 ~ tenant", tenant)
+    console.log("🚀 ~ file: TenantContext.js ~ line 57 ~ tenant", tenant);
     dispatch({
       type: "set_tenant",
       payload: {
@@ -64,7 +64,7 @@ const setTenant =
               name: tenant.name,
               logo: tenant.logo,
               ...(tenant.plan ? { plan: tenant.plan } : {}),
-              ...(tenant.paddle ? { paddle: tenant.paddle } : {})              
+              ...(tenant.paddle ? { paddle: tenant.paddle } : {}),
             }
           : null,
       },
@@ -126,8 +126,8 @@ const updateTenantDetails =
         method: "patch",
         url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-details/${id}`,
         params: {
-          name
-        }
+          name,
+        },
       });
       if (response.status >= 200 && response.status < 300) {
         dispatch({ type: "update_tenant_details", payload: {} });

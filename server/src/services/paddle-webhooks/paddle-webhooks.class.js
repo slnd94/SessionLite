@@ -48,7 +48,7 @@ exports.PaddleWebhooks = class PaddleWebhooks {
         const verifier = crypto.createVerify("sha1");
         verifier.update(serialized);
         verifier.end();
-        
+
         // TODO: getting ERR_OSSL_UNSUPPORTED on this call in production (Heroku)
         const verification = verifier.verify(
           this.app.get("paddlePublicKey"),
@@ -69,55 +69,55 @@ exports.PaddleWebhooks = class PaddleWebhooks {
   async create(data, params) {
     // TODO: get virification working on Heroku (ERR_OSSL_UNSUPPORTED)
     // if (this.validateWebhook(data)) {
-      // get the user/tenant
-      const users = await this.app.service("users").find({
+    // get the user/tenant
+    const users = await this.app.service("users").find({
+      query: {
+        email: data.email,
+        $populate: [
+          {
+            path: "tenant",
+          },
+        ],
+      },
+    });
+
+    if (users.total !== 1) {
+      return Promise.reject(new errors.BadRequest("Issue with user account"));
+    } else {
+      const user = users.data[0];
+
+      //get the plan
+      const plans = await this.app.service("plans").find({
         query: {
-          email: data.email,
-          $populate: [
-            {
-              path: "tenant",
-            },
-          ],
+          "paddle.productId": data.subscription_plan_id,
         },
       });
 
-      if (users.total !== 1) {
-        return Promise.reject(new errors.BadRequest("Issue with user account"));
+      if (plans.total !== 1) {
+        return Promise.reject(
+          new errors.BadRequest("Issue with specified plan")
+        );
       } else {
-        const user = users.data[0];
+        const plan = plans.data[0];
 
-        //get the plan
-        const plans = await this.app.service("plans").find({
-          query: {
-            "paddle.productId": data.subscription_plan_id,
-          },
-        });
+        // TODO: Once users are established add in the allowances check here
 
-        if (plans.total !== 1) {
-          return Promise.reject(
-            new errors.BadRequest("Issue with specified plan")
-          );
-        } else {
-          const plan = plans.data[0];
-
-          // TODO: Once users are established add in the allowances check here
-
-          // apply the specified plan to the tenant
-          return await this.app
-            .service("tenants")
-            .patch(user.tenant._id, {
-              plan: plan._id,
-              paddle: {
-                subscriptionId: data.subscription_id,
-                planId: data.subscription_plan_id,
-                userId: data.user_id
-              }
-            })
-            .then((res) => {
-              return { success: true };
-            });
-        }
+        // apply the specified plan to the tenant
+        return await this.app
+          .service("tenants")
+          .patch(user.tenant._id, {
+            plan: plan._id,
+            paddle: {
+              subscriptionId: data.subscription_id,
+              planId: data.subscription_plan_id,
+              userId: data.user_id,
+            },
+          })
+          .then((res) => {
+            return { success: true };
+          });
       }
+    }
     // } else {
     //   return Promise.reject(new errors.Forbidden(errorMessages.forbidden));
     // }

@@ -1,5 +1,11 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
-const { iff, iffElse, isProvider, keep, disallow } = require("feathers-hooks-common");
+const {
+  iff,
+  iffElse,
+  isProvider,
+  keep,
+  disallow,
+} = require("feathers-hooks-common");
 const authenticateUserStanding = require("../../hooks/authenticate-user-standing");
 const assignParamSysAdminUser = require("../../hooks/assign-param-sys-admin-user");
 const assignParamTenantAdminUser = require("../../hooks/assign-param-tenant-admin-user");
@@ -63,14 +69,9 @@ module.exports = {
         isProvider("external"),
         iffElse(
           (context) => context.params.tenantAdminUser,
-          keep(...[
-              ...keepFieldsExternal,
-              ...keepAdminFieldsExternal
-            ]
-          ),
+          keep(...[...keepFieldsExternal, ...keepAdminFieldsExternal]),
           keep(...keepFieldsExternal)
         )
-        
       ),
     ],
     create: [
