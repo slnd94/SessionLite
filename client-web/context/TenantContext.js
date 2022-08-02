@@ -54,7 +54,6 @@ const getTenant =
 const setTenant =
   (dispatch) =>
   async ({ tenant }) => {
-    console.log("🚀 ~ file: TenantContext.js ~ line 57 ~ tenant", tenant);
     dispatch({
       type: "set_tenant",
       payload: {
