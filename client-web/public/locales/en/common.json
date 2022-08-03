@@ -266,6 +266,7 @@
         "Deactivate some existing active users (clients or team members)": "Deactivate some existing active users (clients or team members)",
         "Revoke some existing invitations (clients or team members)": "Revoke some existing invitations (clients or team members)",
         "Back to plans": "Back to plans",
+        "Plan updated": "Plan updated",
         "errors": {
           "Tenant not within plan allowances": "The selected plan is not eligible based on your current users.",
           "What are your options?": "What are your options?",
