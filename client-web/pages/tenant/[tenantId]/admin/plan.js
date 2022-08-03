@@ -135,11 +135,11 @@ export default function TenantPlan() {
                     setView("current");
                   },
                 }}
-                onPlanApplied={async () => {
+                onPlanUpdated={async () => {
                   await fetchCurrentPlan();
                   toast(
                     t(
-                      `tenant.admin.plan.Plan applied.`
+                      `tenant.admin.plan.Plan updated`
                     ),
                     {
                       type: "success",

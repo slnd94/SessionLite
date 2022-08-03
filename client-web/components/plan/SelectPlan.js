@@ -21,7 +21,7 @@ import { tenantPlanEligibility } from "../../utils/planUtils";
 import UserCounts from "../tenant/admin/UserCounts";
 import PlanUsageCompare from "./PlanUsageCompare";
 
-const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanApplied }) => {
+const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanUpdated }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const {
@@ -70,7 +70,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanA
     }
   };
 
-  const confirmPlanApplied = async () => {
+  const confirmPlanUpdated = async () => {
     const checkInterval = setInterval(async () => {
       const response = await api({
         method: "get",
@@ -80,8 +80,8 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanA
         if (response.data.plan === selectedPlan._id) {
           clearInterval(checkInterval);
           getTenant({ id: tenant._id });
-          if(onPlanApplied) {
-            onPlanApplied();
+          if(onPlanUpdated) {
+            onPlanUpdated();
           }
         }
         return { success: true };
@@ -110,7 +110,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanA
         passthrough: `{"user_id": "${auth?.user?._id}", "plan_id": "${selectedPlan._id}"}`,
         successCallback: async (resp) => {
           setView("processing");
-          await confirmPlanApplied();
+          await confirmPlanUpdated();
         },
       });
     }
@@ -266,7 +266,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanA
                 });
 
                 if (response.status >= 200 && response.status < 300) {
-                  await confirmPlanApplied();
+                  await confirmPlanUpdated();
                   return { success: true };
                 } else {
                   setError(response.response.data);
@@ -431,7 +431,7 @@ SelectPlan.propTypes = {
   currentPlan: PropTypes.object,
   currentUsage: PropTypes.object,
   backLink: PropTypes.object,
-  onPlanApplied: PropTypes.func
+  onPlanUpdated: PropTypes.func
 };
 
 SelectPlan.defaultProps = {
