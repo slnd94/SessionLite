@@ -1,6 +1,6 @@
 import createDataContext from "./createDataContext";
 import api from "../utils/api";
-import { parseCookies, setCookie, destroyCookie } from "nookies";
+import { setCookie } from "nookies";
 
 const tenantReducer = (state, action) => {
   switch (action.type) {

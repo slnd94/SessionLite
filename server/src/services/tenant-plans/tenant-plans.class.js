@@ -69,44 +69,85 @@ exports.TenantPlans = class TenantPlans {
             // TODO: see if the requested plan is the same one already applied
             if (tenant.plan) {
               // updating the existing tenant plan
-              // is the tenant currently eligible for this plan?
               // does the tenant have an existing paddle subscription?
               if (tenant.paddle?.subscriptionId) {
-                // update paddle subscription
-                // TODO
-                const paddleResponse = await api({
-                  method: "get",
-                  url: `${this.app.get(
-                    "paddleApiBaseUrl"
-                  )}/subscription/users/update`,
-                  params: {
-                    vendor_id: this.app.get("paddleVendorId"),
-                    vendor_auth_code: this.app.get("paddleVendorAuthCode"),
-                    subscription_id: tenant.paddle.subscriptionId,
-                    plan_id: requestedPlan.paddle.productId,
-                    prorate: true,
-                    bill_immediately: true,
-                  },
-                });
+                if (requestedPlan.requiresCheckout) {
+                  // updating to a paddle subscription
+                  const paddleResponse = await api({
+                    method: "post",
+                    url: `${this.app.get(
+                      "paddleSubscriptionApiBaseUrl"
+                    )}/subscription/users/update`,
+                    params: {
+                      vendor_id: this.app.get("paddleVendorId"),
+                      vendor_auth_code: this.app.get("paddleVendorAuthCode"),
+                      subscription_id: tenant.paddle.subscriptionId,
+                      plan_id: requestedPlan.paddle.productId,
+                      prorate: true,
+                      bill_immediately: true,
+                    },
+                  });
+                  // tenant plan update will be handled in resulting webhook call
+                } else {
+                  // updating to a non-paddle plan
+                  // cancel the existing paddle subscription
+                  const paddleResponse = await api({
+                    method: "post",
+                    url: `${this.app.get(
+                      "paddleSubscriptionApiBaseUrl"
+                    )}/subscription/users_cancel`,
+                    params: {
+                      vendor_id: this.app.get("paddleVendorId"),
+                      vendor_auth_code: this.app.get("paddleVendorAuthCode"),
+                      subscription_id: tenant.paddle.subscriptionId,
+                    },
+                  });
+                  if (
+                    paddleResponse.status === 200 &&
+                    paddleResponse?.data?.success
+                  ) {
+                    // paddle subscription successfully cancelled
+                    // apply the new plan (no need for webhook)
+                    return this.app
+                      .service("tenants")
+                      .patch(id, {
+                        plan: data.plan,
+                        paddle: {
+                          // only keep the userId around for paddle
+                          // omit the subscriptionId and planId
+                          userId: tenant.paddle.userId,
+                        },
+                      })
+                      .then((res) => {
+                        return { success: true };
+                      });
+                  }
+                }
               } else {
                 // no existing paddle subscription
-                // existing paddle user (ie have they have a subscription before?)
-                if (tenant.paddle?.userId) {
-                  // tenant has had a paddle subscription in the past but not currently on a paddle subscription
-                  // TODO: how to handle?  will paddle have the payment method and we can just update?  Or does this require checkout?
+                if (requestedPlan.requiresCheckout) {
+                  // this scenario would need to open a new paddle subscription
+                  // checkout should be completed through the frontend and the update handled through the resulting webhook call
+                  return Promise.reject(
+                    new errors.BadRequest("Requested plan requires checkout")
+                  );
                 } else {
-                  // tenant has never had a paddle subscription.
-                  // TODO: this should require checkout on the frontend.
+                  // updating a non-paddle tenant to a non-paddle plan
+                  // just apply the new plan (don't need to involve paddle at all)
+                  return this.app
+                    .service("tenants")
+                    .patch(id, { plan: data.plan })
+                    .then((res) => {
+                      return { success: true };
+                    });
                 }
               }
             } else {
               // applying tenant plan for the first time
               if (requestedPlan.requiresCheckout) {
-                // Check to see this is a plan the user can apply to this tenant
-                // This endpoint if the user wants to change the plan WITHOUT CHECKOUT
-                // (it is intended for assigning a free plan to the tenant)
-                // Does the specified plan required checkout?
-                // This plan requires checkout, cannot apply it through this endpoint.  Return bad request
+                // we can only directly apply the plan if the tenant does not have an existing paddle subscription, and the requested plan does not require paddle checkout (like a free plan)
+                // Because the tenant does not have a paddle subscription, and this plan requires checkout, cannot apply it through this endpoint.  Return bad request.
+                // checkout should be completed through the frontend and the update handled through the resulting webhook call
                 return Promise.reject(
                   new errors.BadRequest("Requested plan requires checkout")
                 );
@@ -119,9 +160,6 @@ exports.TenantPlans = class TenantPlans {
                 ) {
                   return { success: true };
                 }
-
-                // check to see if the tenant adheres to the requestedPlan allowances
-                // TODO: Once users are established add in the allowances check here
 
                 return this.app
                   .service("tenants")

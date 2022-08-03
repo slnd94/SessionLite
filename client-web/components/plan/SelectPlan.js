@@ -38,8 +38,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
   const [plans, setPlans] = useState(null);
   const [requestingPlans, setRequestingPlans] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [detailPlan, setDetailPlan] =
-    useState(null);
+  const [detailPlan, setDetailPlan] = useState(null);
 
   const fetchPlans = async () => {
     setRequestingPlans(true);
@@ -49,17 +48,19 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setPlans(response.data.data.map((plan) => ({
-        ...plan,
-        ...(currentUsage
-          ? {
-              eligibility: tenantPlanEligibility({
-                plan: plan,
-                usage: currentUsage,
-              }),
-            }
-          : {}),
-      })));
+      setPlans(
+        response.data.data.map((plan) => ({
+          ...plan,
+          ...(currentUsage
+            ? {
+                eligibility: tenantPlanEligibility({
+                  plan: plan,
+                  usage: currentUsage,
+                }),
+              }
+            : {}),
+        }))
+      );
       setRequestingPlans(false);
       return { success: true };
     } else {
@@ -154,7 +155,10 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
                   currentPlan={currentPlan}
                   onSelectPlan={(plan) => {
                     setSelectedPlan(plan);
-                    if (plan.requiresCheckout) {
+                    if (
+                      plan.requiresCheckout &&
+                      !tenant?.paddle?.subscriptionId
+                    ) {
                       setView("checkout");
                     } else {
                       setView("confirm");
@@ -166,11 +170,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
                 />
               </>
             ) : null}
-            <Offcanvas
-              isOpen={!!detailPlan}
-              direction="end"
-              keyboard={true}
-            >
+            <Offcanvas isOpen={!!detailPlan} direction="end" keyboard={true}>
               <OffcanvasHeader
                 toggle={() => {
                   setDetailPlan(null);
@@ -205,7 +205,10 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
                     setDetailPlan(null);
                   }}
                 >
-                  <IconText icon="arrowLeft" text={t("tenant.admin.plan.Back to plans")} />
+                  <IconText
+                    icon="arrowLeft"
+                    text={t("tenant.admin.plan.Back to plans")}
+                  />
                 </Button>
               </OffcanvasBody>
             </Offcanvas>
@@ -233,51 +236,50 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
               showTag={false}
               showPaymentDetails={selectedPlan.requiresCheckout}
             />
-            <div className="d-md-flex justify-content-md-between">
-              <Button
-                className="mt-4 btn-block-md-down"
-                color="default"
-                onClick={() => {
-                  setView("select");
-                  setSelectedPlan(null);
-                  router.push(router.asPath);
-                }}
-              >
-                <IconText icon="arrowLeft" text={t("plan.Change plan")} />
-              </Button>
-              <Button
-                className="mt-4 btn-block-md-down"
-                color="secondary"
-                onClick={async () => {
-                  // apply the plan
-                  setView("processing");
-                  const response = await api({
-                    method: "patch",
-                    url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-plans/${tenant._id}`,
-                    params: {
-                      plan: selectedPlan._id,
-                    },
-                  });
+            <Button
+              className="mt-4 btn-block"
+              color="default"
+              onClick={() => {
+                setView("select");
+                setSelectedPlan(null);
+                router.push(router.asPath);
+              }}
+            >
+              <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+            </Button>
+            <Button
+              className="mt-4 btn-block"
+              color="secondary"
+              onClick={async () => {
+                // apply the plan
+                setView("processing");
+                const response = await api({
+                  method: "patch",
+                  url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-plans/${tenant._id}`,
+                  params: {
+                    plan: selectedPlan._id,
+                  },
+                });
 
-                  if (response.status >= 200 && response.status < 300) {
-                    getTenant({ id: tenant._id });
-                    router.push("/tenant/register/success");
-                    return { success: true };
-                  } else {
-                    setError(response.response.data);
-                    setView("error");
-                    return { success: false };
-                  }
-                }}
-              >
-                <IconText
-                  icon="arrowRight"
-                  iconPosition="end"
-                  text={t("plan.Confirm plan")}
-                />
-              </Button>
-            </div>
+                if (response.status >= 200 && response.status < 300) {
+                  getTenant({ id: tenant._id });
+                  router.push("/tenant/register/success");
+                  return { success: true };
+                } else {
+                  setError(response.response.data);
+                  setView("error");
+                  return { success: false };
+                }
+              }}
+            >
+              <IconText
+                icon="arrowRight"
+                iconPosition="end"
+                text={t("plan.Confirm plan")}
+              />
+            </Button>
           </div>
+          <div className="col-12 col-md-6 mb-5">Hi</div>
         </div>
       </>
     );
@@ -301,19 +303,17 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
               showTag={false}
               showPaymentDetails={true}
             />
-            <div className="d-flex justify-content-between">
-              <Button
-                className="mt-4 btn-block-md-down"
-                color="default"
-                onClick={() => {
-                  setView("select");
-                  setSelectedPlan(null);
-                  router.push(router.asPath);
-                }}
-              >
-                <IconText icon="arrowLeft" text={t("plan.Change plan")} />
-              </Button>
-            </div>
+            <Button
+              className="mt-4 btn-block"
+              color="default"
+              onClick={() => {
+                setView("select");
+                setSelectedPlan(null);
+                router.push(router.asPath);
+              }}
+            >
+              <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+            </Button>
           </div>
           <div className="col-12 col-md-6">
             <h3>{t("plan.Checkout")}</h3>
