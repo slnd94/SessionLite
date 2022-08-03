@@ -88,6 +88,16 @@ exports.TenantPlans = class TenantPlans {
                     },
                   });
                   // tenant plan update will be handled in resulting webhook call
+                  if (
+                    paddleResponse.status === 200 &&
+                    paddleResponse?.data?.success
+                  ) {
+                    // paddle subscription successfully updated
+                    return { success: true };
+                  } else {
+                    // paddle subscription NOT successfully updated
+                    return { success: false };
+                  }
                 } else {
                   // updating to a non-paddle plan
                   // cancel the existing paddle subscription

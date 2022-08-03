@@ -21,7 +21,7 @@ import { tenantPlanEligibility } from "../../utils/planUtils";
 import UserCounts from "../tenant/admin/UserCounts";
 import PlanUsageCompare from "./PlanUsageCompare";
 
-const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
+const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanApplied }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const {
@@ -70,6 +70,29 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
     }
   };
 
+  const confirmPlanApplied = async () => {
+    const checkInterval = setInterval(async () => {
+      const response = await api({
+        method: "get",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/tenants/${auth?.user?.tenant?._id}`,
+      });
+      if (response.status >= 200 && response.status < 300) {
+        if (response.data.plan === selectedPlan._id) {
+          clearInterval(checkInterval);
+          getTenant({ id: tenant._id });
+          if(onPlanApplied) {
+            onPlanApplied();
+          }
+        }
+        return { success: true };
+      } else {
+        clearInterval(checkInterval);
+        setView("error");
+        return { success: false };
+      }
+    }, 1000);
+  };
+
   useEffect(() => {
     let isSubscribed = true;
     fetchPlans().catch(console.error);
@@ -85,28 +108,9 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
         frameStyle: "width:100%;",
         email: auth?.user?.email,
         passthrough: `{"user_id": "${auth?.user?._id}", "plan_id": "${selectedPlan._id}"}`,
-        successCallback: (resp) => {
+        successCallback: async (resp) => {
           setView("processing");
-          let counter = 0;
-          const checkInterval = setInterval(async () => {
-            counter++;
-            const response = await api({
-              method: "get",
-              url: `${process.env.NEXT_PUBLIC_API_URL}/tenants/${auth?.user?.tenant?._id}`,
-            });
-            if (response.status >= 200 && response.status < 300) {
-              if (response.data.plan === selectedPlan._id) {
-                clearInterval(checkInterval);
-                getTenant({ id: tenant._id });
-                router.push("/tenant/register/success");
-              }
-              return { success: true };
-            } else {
-              clearInterval(checkInterval);
-              setView("error");
-              return { success: false };
-            }
-          }, 1000);
+          await confirmPlanApplied();
         },
       });
     }
@@ -262,8 +266,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
                 });
 
                 if (response.status >= 200 && response.status < 300) {
-                  getTenant({ id: tenant._id });
-                  router.push("/tenant/register/success");
+                  await confirmPlanApplied();
                   return { success: true };
                 } else {
                   setError(response.response.data);
@@ -341,6 +344,16 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
     );
   };
 
+  const Success = () => {
+    return (
+      <>
+        <div className="row mt-5">
+          <div className="col-12 d-flex justify-content-center">All Done!</div>
+        </div>
+      </>
+    );
+  };
+
   const Error = () => {
     return (
       <>
@@ -407,6 +420,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
       {view === "confirm" ? <Confirm /> : null}
       {view === "checkout" ? <Checkout /> : null}
       {view === "processing" ? <Processing /> : null}
+      {view === "success" ? <Success /> : null}
       {view === "error" ? <Error /> : null}
     </>
   );
@@ -417,6 +431,7 @@ SelectPlan.propTypes = {
   currentPlan: PropTypes.object,
   currentUsage: PropTypes.object,
   backLink: PropTypes.object,
+  onPlanApplied: PropTypes.func
 };
 
 SelectPlan.defaultProps = {

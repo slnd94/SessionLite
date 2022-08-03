@@ -167,7 +167,10 @@ function Layout({ children, brandName }) {
       <Header brandName={brandName} tenantAdmin={userTenantAdminAuthorized} />
       <main className={`${styles.main} p-4 px-md-5 py-md-4`}>
         {showUserVerification ? <UserUnverified /> : null}
-        {showSelectTenantPlan ? <SelectPlan showProgress={true} /> : null}
+        {showSelectTenantPlan 
+        ? <SelectPlan showProgress={true} onPlanApplied={async () => {
+          router.push("/tenant/register/success");
+        }} /> : null}
         {showChildren ? <>{children}</> : null}
       </main>
       <Footer />
