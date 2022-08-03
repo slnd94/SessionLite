@@ -21,7 +21,7 @@ import { tenantPlanEligibility } from "../../utils/planUtils";
 import UserCounts from "../tenant/admin/UserCounts";
 import PlanUsageCompare from "./PlanUsageCompare";
 
-const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
+const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanApplied }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const {
@@ -80,11 +80,8 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink }) => {
         if (response.data.plan === selectedPlan._id) {
           clearInterval(checkInterval);
           getTenant({ id: tenant._id });
-          console.log("🚀 ~ file: SelectPlan.js ~ line 277 ~ checkInterval ~ currentPlan", currentPlan)
-          if (!currentPlan) {
-            router.push("/tenant/register/success");
-          } else {
-            setView("success");
+          if(onPlanApplied) {
+            onPlanApplied();
           }
         }
         return { success: true };
@@ -434,6 +431,7 @@ SelectPlan.propTypes = {
   currentPlan: PropTypes.object,
   currentUsage: PropTypes.object,
   backLink: PropTypes.object,
+  onPlanApplied: PropTypes.func
 };
 
 SelectPlan.defaultProps = {

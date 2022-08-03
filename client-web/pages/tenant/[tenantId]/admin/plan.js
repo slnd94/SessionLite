@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { Context as TenantContext } from "../../../../context/TenantContext";
 import { useRouter } from "next/router";
 import { Button } from "reactstrap";
+import { toast } from "react-toastify";
 import api from "../../../../utils/api";
 import SelectPlan from "../../../../components/plan/SelectPlan";
 import Plan from "../../../../components/plan/Plan";
@@ -133,6 +134,18 @@ export default function TenantPlan() {
                   onClick: () => {
                     setView("current");
                   },
+                }}
+                onPlanApplied={async () => {
+                  await fetchCurrentPlan();
+                  toast(
+                    t(
+                      `tenant.admin.plan.Plan applied.`
+                    ),
+                    {
+                      type: "success",
+                    }
+                  );
+                  setView("current");
                 }}
               />
             </div>
