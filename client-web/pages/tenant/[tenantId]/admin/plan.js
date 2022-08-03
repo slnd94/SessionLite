@@ -70,7 +70,6 @@ export default function TenantPlan() {
         <div className="col-12">
           {view === "current" ? (
             <div className="row">
-              {/* {JSON.stringify(tenant.plan)} */}
               {currentPlan && currentUsage ? (
                 <>
                   <div className="col-12 col-md-6 mb-5">
@@ -82,7 +81,10 @@ export default function TenantPlan() {
                     <Plan
                       plan={{
                         ...currentPlan,
-                        eligibility: tenantPlanEligibility({ plan: currentPlan, usage: currentUsage })
+                        eligibility: tenantPlanEligibility({
+                          plan: currentPlan,
+                          usage: currentUsage,
+                        }),
                       }}
                       className={currentPlan.tag ? "popular" : ""}
                     />
@@ -109,7 +111,13 @@ export default function TenantPlan() {
                         <h3>{t("tenant.admin.plan.Your Current Usage")}</h3>
                       </div>
                     </div>
-                    <UserCounts usage={currentUsage} planEligibility={tenantPlanEligibility({ plan: currentPlan, usage: currentUsage })} />
+                    <UserCounts
+                      usage={currentUsage}
+                      planEligibility={tenantPlanEligibility({
+                        plan: currentPlan,
+                        usage: currentUsage,
+                      })}
+                    />
                   </div>
                 </>
               ) : null}

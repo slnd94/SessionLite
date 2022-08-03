@@ -1,6 +1,6 @@
 import createDataContext from "./createDataContext";
 import api from "../utils/api";
-import { parseCookies, setCookie, destroyCookie } from "nookies";
+import { setCookie } from "nookies";
 
 const tenantReducer = (state, action) => {
   switch (action.type) {
@@ -62,7 +62,8 @@ const setTenant =
               _id: tenant._id,
               name: tenant.name,
               logo: tenant.logo,
-              plan: tenant.plan
+              ...(tenant.plan ? { plan: tenant.plan } : {}),
+              ...(tenant.paddle ? { paddle: tenant.paddle } : {}),
             }
           : null,
       },
@@ -124,8 +125,8 @@ const updateTenantDetails =
         method: "patch",
         url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-details/${id}`,
         params: {
-          name
-        }
+          name,
+        },
       });
       if (response.status >= 200 && response.status < 300) {
         dispatch({ type: "update_tenant_details", payload: {} });

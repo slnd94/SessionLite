@@ -5,13 +5,16 @@ const { api } = require("../utils/api");
 // eslint-disable-next-line no-unused-vars
 module.exports = (options = {}) => {
   return async (context) => {
-    if(context.method === 'get') {
-
+    if (context.method === "get") {
       //// ONLINE
       const plan = context.result;
       const paddleResponse = await api({
         method: "get",
-        url: `${context.app.get("paddleApiBaseUrl")}/prices\?product_ids=${plan.paddle.productId}\&customer_country=${context.params.userCountry.code}`,
+        url: `${context.app.get(
+          "paddleCheckoutApiBaseUrl"
+        )}/prices\?product_ids=${plan.paddle.productId}\&customer_country=${
+          context.params.userCountry.code
+        }`,
       });
       const paddleProduct = paddleResponse.data.response.products.find(
         (product) => product.product_id === plan.paddle.productId && product
@@ -21,9 +24,9 @@ module.exports = (options = {}) => {
         ...context.result,
         subscription: {
           ...paddleProduct.subscription,
-          currency: paddleProduct.currency
-        }
-      }
+          currency: paddleProduct.currency,
+        },
+      };
       /// ONLINE
 
       ///  OFFLINE
@@ -36,19 +39,21 @@ module.exports = (options = {}) => {
       //     currency: "CAD",
       //     interval: "month"
       //   }
-      // }   
+      // }
       ///  OFFLINE
-
-    } else if (context.method === 'find') {
+    } else if (context.method === "find") {
       const plans = context.result.data;
-
 
       /// ONLINE
       // concatenated string of planIds example "28237,383763,29272,29280"
       const planIds = plans.map((plan) => plan.paddle.productId).join();
       const paddleResponse = await api({
         method: "get",
-        url: `${context.app.get("paddleApiBaseUrl")}/prices\?product_ids=${planIds}\&customer_country=${context.params.userCountry.code}`,
+        url: `${context.app.get(
+          "paddleCheckoutApiBaseUrl"
+        )}/prices\?product_ids=${planIds}\&customer_country=${
+          context.params.userCountry.code
+        }`,
       });
       const paddleProducts = paddleResponse.data.response.products;
 
@@ -61,15 +66,14 @@ module.exports = (options = {}) => {
             ? {
                 subscription: {
                   ...product.subscription,
-                  currency: product.currency
-                }
+                  currency: product.currency,
+                },
               }
             : {}),
           ...plan,
         };
       });
       /// ONLINE
-
 
       ///  OFFLINE
       // context.result.data = plans.map((plan) => {
@@ -86,8 +90,6 @@ module.exports = (options = {}) => {
       // });
       ///  OFFLINE
     }
-
-
 
     return context;
   };

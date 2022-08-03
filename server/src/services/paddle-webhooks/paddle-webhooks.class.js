@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const errors = require("@feathersjs/errors");
 const errorMessages = require("../../utils/errorMessages");
+const { tenantPlanEligibility } = require("../../utils/planUtils");
 const crypto = require("crypto");
 const Serialize = require("php-serialize");
 exports.PaddleWebhooks = class PaddleWebhooks {
@@ -48,7 +49,7 @@ exports.PaddleWebhooks = class PaddleWebhooks {
         const verifier = crypto.createVerify("sha1");
         verifier.update(serialized);
         verifier.end();
-        
+
         // TODO: getting ERR_OSSL_UNSUPPORTED on this call in production (Heroku)
         const verification = verifier.verify(
           this.app.get("paddlePublicKey"),
@@ -67,57 +68,73 @@ exports.PaddleWebhooks = class PaddleWebhooks {
   }
 
   async create(data, params) {
-    // TODO: get virification working on Heroku (ERR_OSSL_UNSUPPORTED)
+    // TODO: get verification working on Heroku (ERR_OSSL_UNSUPPORTED)
     // if (this.validateWebhook(data)) {
-      // get the user/tenant
-      const users = await this.app.service("users").find({
-        query: {
-          email: data.email,
-          $populate: [
-            {
-              path: "tenant",
-            },
-          ],
-        },
-      });
-
-      if (users.total !== 1) {
-        return Promise.reject(new errors.BadRequest("Issue with user account"));
-      } else {
-        const user = users.data[0];
-
-        //get the plan
-        const plans = await this.app.service("plans").find({
-          query: {
-            "paddle.productId": data.subscription_plan_id,
+    // get the user/tenant
+    const users = await this.app.service("users").find({
+      query: {
+        email: data.email,
+        $populate: [
+          {
+            path: "tenant",
           },
-        });
+        ],
+      },
+    });
 
-        if (plans.total !== 1) {
-          return Promise.reject(
-            new errors.BadRequest("Issue with specified plan")
-          );
-        } else {
-          const plan = plans.data[0];
+    if (users.total !== 1) {
+      return Promise.reject(new errors.BadRequest("Issue with user account"));
+    } else {
+      const user = users.data[0];
 
-          // TODO: Once users are established add in the allowances check here
+      switch (data.alert_name) {
+        case "subscription_created":
+        case "subscription_updated":
+          //get the plan
+          const plans = await this.app.service("plans").find({
+            query: {
+              "paddle.productId": data.subscription_plan_id,
+            },
+          });
 
-          // apply the specified plan to the tenant
-          return await this.app
-            .service("tenants")
-            .patch(user.tenant._id, {
-              plan: plan._id,
-              paddle: {
-                subscriptionId: data.subscription_id,
-                planId: data.subscription_plan_id,
-                userId: data.user_id
-              }
-            })
-            .then((res) => {
-              return { success: true };
+          if (plans.total !== 1) {
+            return Promise.reject(
+              new errors.BadRequest("Issue with specified plan")
+            );
+          } else {
+            const plan = plans.data[0];
+
+            // TODO: Once users are established add in the allowances check here
+
+            // is the tenant's usage currently eligible for this plan?
+            const eligibility = tenantPlanEligibility({
+              plan: plan,
+              usage: await this.app
+                .service("tenant-usage")
+                .get(user.tenant._id),
             });
-        }
+            if (eligibility.eligible) {
+              // apply the specified plan to the tenant
+              return await this.app
+                .service("tenants")
+                .patch(user.tenant._id, {
+                  plan: plan._id,
+                  paddle: {
+                    subscriptionId: data.subscription_id,
+                    planId: data.subscription_plan_id,
+                    userId: data.user_id,
+                  },
+                })
+                .then((res) => {
+                  return { success: true };
+                });
+            }
+          }
+          break;
+        case "subscription_cancelled":
+          break;
       }
+    }
     // } else {
     //   return Promise.reject(new errors.Forbidden(errorMessages.forbidden));
     // }
