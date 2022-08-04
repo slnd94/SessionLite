@@ -21,7 +21,13 @@ import { tenantPlanEligibility } from "../../utils/planUtils";
 import UserCounts from "../tenant/admin/UserCounts";
 import PlanUsageCompare from "./PlanUsageCompare";
 
-const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanUpdated }) => {
+const SelectPlan = ({
+  showProgress,
+  currentPlan,
+  currentUsage,
+  backLink,
+  onPlanUpdated,
+}) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const {
@@ -80,7 +86,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanU
         if (response.data.plan === selectedPlan._id) {
           clearInterval(checkInterval);
           getTenant({ id: tenant._id });
-          if(onPlanUpdated) {
+          if (onPlanUpdated) {
             onPlanUpdated();
           }
         }
@@ -233,12 +239,17 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanU
           </div>
         ) : null}
         <div className="row">
+          {selectedPlan && currentPlan && tenant?.paddle?.subscriptionId ? (
+            <div className="col-12 col-md-6 mb-5">
+              <ConfirmConditions />
+            </div>
+          ) : null}
           <div className="col-12 col-md-6 mb-5">
             <h3>{t("plan.Selected Plan")}</h3>
             <Plan
               plan={selectedPlan}
               showTag={false}
-              showPaymentDetails={selectedPlan.requiresCheckout}
+              // showPaymentDetails={selectedPlan.requiresCheckout}
             />
             <Button
               className="mt-4 btn-block"
@@ -249,7 +260,10 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanU
                 router.push(router.asPath);
               }}
             >
-              <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+              <IconText
+                icon="arrowLeft"
+                text={t("plan.Change selected plan")}
+              />
             </Button>
             <Button
               className="mt-4 btn-block"
@@ -278,12 +292,121 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanU
               <IconText
                 icon="arrowRight"
                 iconPosition="end"
-                text={t("plan.Confirm plan")}
+                text={t("plan.Confirm selected plan")}
               />
             </Button>
           </div>
-          <div className="col-12 col-md-6 mb-5">Hi</div>
         </div>
+      </>
+    );
+  };
+
+  const ConfirmConditions = () => {
+    return (
+      <>
+        {selectedPlan.requiresCheckout ? (
+          <>
+            {selectedPlan.subscription?.price?.gross >
+            currentPlan.subscription?.price?.gross ? (
+              <>
+                {/* Upgrading plan */}
+                <h3>{t("tenant.admin.plan.Upgrading Your Plan")}</h3>
+                <ul className="mt-3 ms-n3 fw-bold">
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.The selected plan will be applied immediately"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.Your regular billing cycle dates will remain the same"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.You will be billed now at the prorated cost of the upgrade for the remaining time in this billing cycle"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.Since you have already paid for your current plan this cycle, this amount will be deducted from the upgrade cost"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.You will be billed the full cost of the selected plan at the start of your next billing cycle, and each cycle thereafter"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.We will continue to use your existing payment method for billing"
+                    )}
+                  </li>
+                </ul>
+              </>
+            ) : null}
+            {selectedPlan.subscription?.price?.gross <
+            currentPlan.subscription?.price?.gross ? (
+              <>
+                {/* Downgrading plan */}
+                <h3>{t("tenant.admin.plan.Downgrading Your Plan")}</h3>
+                <ul className="mt-3 ms-n3 fw-bold">
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.The selected plan will be applied immediately"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.Your regular billing cycle dates will remain the same"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.You will receive a prorated credit balance for the remaining time in this billing cycle"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.The credit balance will be applied automatically to your next billing cycle"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.You will be billed the regular cost of the selected plan each cycle thereafter"
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "tenant.admin.plan.conditions.We will continue to use your existing payment method for billing"
+                    )}
+                  </li>
+                </ul>
+              </>
+            ) : null}
+          </>
+        ) : (
+          <>
+            <h3>{t("tenant.admin.plan.Downgrading Your Plan")}</h3>
+            <ul className="mt-3 ms-n3 fw-bold">
+              <li>
+                {t(
+                  "tenant.admin.plan.conditions.The selected plan will be applied immediately"
+                )}
+              </li>
+              <li>
+                {t(
+                  "tenant.admin.plan.conditions.Because you are moving to a free plan, this will be treated as a cancellation of your paid plan"
+                )}
+              </li>
+              <li>
+                {t(
+                  "tenant.admin.plan.conditions.We are unable to grant refunds or credits for any unused portion of your current billing cycle"
+                )}
+              </li>
+            </ul>
+          </>
+        )}
       </>
     );
   };
@@ -315,7 +438,10 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanU
                 router.push(router.asPath);
               }}
             >
-              <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+              <IconText
+                icon="arrowLeft"
+                text={t("plan.Change selected plan")}
+              />
             </Button>
           </div>
           <div className="col-12 col-md-6">
@@ -376,7 +502,7 @@ const SelectPlan = ({ showProgress, currentPlan, currentUsage, backLink, onPlanU
             router.push(router.asPath);
           }}
         >
-          <IconText icon="arrowLeft" text={t("plan.Change plan")} />
+          <IconText icon="arrowLeft" text={t("plan.Change selected plan")} />
         </Button>
       </>
     );
@@ -431,7 +557,7 @@ SelectPlan.propTypes = {
   currentPlan: PropTypes.object,
   currentUsage: PropTypes.object,
   backLink: PropTypes.object,
-  onPlanUpdated: PropTypes.func
+  onPlanUpdated: PropTypes.func,
 };
 
 SelectPlan.defaultProps = {

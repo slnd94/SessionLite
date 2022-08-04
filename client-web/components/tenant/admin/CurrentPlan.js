@@ -35,7 +35,7 @@ function TenantPlanCurrent({ plan, onSelectNew }) {
           onSelectNew();
         }}
       >
-        {t("plan.Change plan")}
+        {t("plan.Change selected plan")}
       </Button>
     </div>
   );
