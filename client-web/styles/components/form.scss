@@ -1,8 +1,12 @@
 @import '../variables.scss';
 
 // form
-.form-control:disabled, .form-control[readonly] {
-  background-color: $gray-400;
+.form-control {
+  padding: 0.5rem 0.5rem;
+  &[disabled], &[readonly] {
+    background-color: $lightest;
+    color: $body-color-light;
+  }
 }
 
 .form-check-input[type=checkbox] {

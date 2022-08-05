@@ -35,7 +35,7 @@ export default function Signin() {
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
           <div className="col-12 col-sm-6">
-            <h5 className={"title"}>{t("auth.Sign In")}</h5>
+            <h3 className={"title"}>{t("auth.Sign In")}</h3>
             <SignInForm
               processing={processing}
               onSubmit={async (data) => {
@@ -64,6 +64,12 @@ export default function Signin() {
                 {t(`auth.Need an account?`)}
               </span>
               <Link href="/auth/signup">{t("auth.Sign up")}</Link>
+            </div>
+            <div className="mt-2">
+              <span style={{ marginRight: "10px" }}>
+                {t(`auth.Forgot your password?`)}
+              </span>
+              <Link href="/auth/passwordreset">{t("auth.Reset your password")}</Link>
             </div>
           </div>
           <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">

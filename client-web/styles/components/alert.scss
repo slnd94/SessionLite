@@ -22,4 +22,8 @@
   &.alert-info {
     border-color: $info;
   }
+
+  a{
+    color: $link-color;
+  }
 }

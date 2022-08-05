@@ -39,12 +39,11 @@ exports.UserAccountVerification = class UserAccountVerification {
                   privacyPolicyUrl: this.app.get('privacyPolicyUrl')
                 }
               });
-            return { _id: res._id, vertificationSetSuccess: true };
+            return { _id: res._id, verificationSetSuccess: true };
           });
         break;
       case 'verify':
         // use the provided code to verify user's email address
-
         if (data.key.toString() === params.user.verification.emailVerificationKey.toString()
             && Date.now() < params.user.verification.emailVerificationKeyExpiryDate) {
           // valid verification key

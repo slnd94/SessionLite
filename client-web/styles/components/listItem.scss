@@ -37,15 +37,16 @@
 
 
 .section-box {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-    rgba(0, 0, 0, 0.08) 0px 0px 4px 1px;
+  // box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  //   rgba(0, 0, 0, 0.08) 0px 0px 4px 1px;
 
   width: 100%;
   min-height: 100px;
   margin: 15px 0px;
   padding: 20px;
-  background-color: $white;
+  background-color: $secondary-light;
   border: 1px solid $lightest;
+  border-radius: $border-radius !important;
 
   // &.popular {
   // background-color: $secondary;
@@ -65,7 +66,7 @@
 }
 .list-item-link {
   cursor: pointer;
-  &:hover {
-    background-color: $white;
-  }
+  // &:hover {
+  //   background-color: $white;
+  // }
 }

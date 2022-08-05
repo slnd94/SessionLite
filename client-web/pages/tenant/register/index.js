@@ -80,7 +80,7 @@ export default function Register() {
       {auth?.status === "SIGNED_IN" ? (
         <>
           <h4 className="title">{t("tenant.Thanks for registering")}</h4>
-          {!auth.user.isVerified ? (
+          {!auth.user.verified ? (
             <p>
               {t(
                 "user.account.verification.We need to verify your account. You should receive an email with a verification link."

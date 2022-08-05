@@ -23,6 +23,7 @@ const emailsSendinblue = require('./emails-sendinblue/emails-sendinblue.service.
 const userInvites = require('./user-invites/user-invites.service.js');
 const tenantUserInvites = require('./tenant-user-invites/tenant-user-invites.service.js');
 const UserCounts = require('./tenant-usage/tenant-usage.service.js');
+const userAccountPasswordReset = require('./user-account-password-reset/user-account-password-reset.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -50,4 +51,5 @@ module.exports = function (app) {
   app.configure(userInvites);
   app.configure(tenantUserInvites);
   app.configure(UserCounts);
+  app.configure(userAccountPasswordReset);
 };

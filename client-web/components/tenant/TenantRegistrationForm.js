@@ -165,7 +165,7 @@ function TenantRegistrationForm({ onSubmit, processing }) {
 
       {processing 
         ? <Loader />
-        : <Button className={'btn-block-sm-down'} type="submit">
+        : <Button className={'btn-block'} type="submit">
             {t('Submit')}
           </Button>
       }

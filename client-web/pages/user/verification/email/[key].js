@@ -42,7 +42,7 @@ export default function VerifyEmail() {
     }
     if (
       auth?.status === "SIGNED_IN" &&
-      !auth?.user?.isVerified &&
+      !auth?.user?.verified &&
       verifiedStatus === ""
     ) {
       setVerifiedStatus("VERIFYING");
@@ -83,7 +83,7 @@ export default function VerifyEmail() {
       <div className="row mt-4">
         {auth?.status === "SIGNED_IN" ? (
           <>
-            {auth.user.isVerified ? (
+            {auth.user.verified ? (
               <div className="col-12">
                 <h3 className="title">{t("Thank You")}</h3>
                 <p>
@@ -135,7 +135,7 @@ export default function VerifyEmail() {
                   onClick={() => {
                     setUserEmailVerification({ id: auth.user._id }).then(
                       (res) => {
-                        if (res.vertificationSetSuccess) {
+                        if (res.verificationSetSuccess) {
                           setVerificationResentSuccess(true);
                           setTimeout(() => {
                             setVerificationResentSuccess(false);

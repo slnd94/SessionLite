@@ -159,6 +159,64 @@ const signout = (dispatch) => async () => {
   return { success: true };
 };
 
+const setPasswordReset =
+  (dispatch) =>
+  async ({ email }) => {
+    try {
+      const response = await api({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/user-account-password-reset`,
+        params: {
+          email
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        dispatch({ type: "set_password_reset", payload: {} });
+        return { success: true, ...response.data };
+      } else {
+        throw response;
+      }
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: err?.response?.data?.message
+          ? err.response.data.message
+          : "Something went wrong with setting up your password reset",
+      });
+      return { success: false };
+    }
+  };
+
+  const passwordReset =
+    (dispatch) =>
+    async ({ password, key }) => {
+      try {
+        const response = await api({
+          method: "patch",
+          url: `${process.env.NEXT_PUBLIC_API_URL}/user-account-password-reset/${key}`,
+          params: {
+            password
+          },
+        });
+        if (response.status >= 200 && response.status < 300) {
+          dispatch({ type: "password_reset", payload: {} });
+          return { success: true, ...response.data };
+        } else {
+          throw response;
+        }
+      } catch (err) {
+        dispatch({
+          type: "add_error",
+          payload: err?.response?.data?.message
+            ? err.response.data.message
+            : "Something went wrong with resetting your password",
+        });
+        return { success: false, message: err?.response?.data?.message
+          ? err.response.data.message
+          : "Something went wrong with resetting your password" };
+      }
+    };
+
 const getFileAuth = (dispatch) => async () => {
   const response = await api({
     method: "get",
@@ -182,7 +240,7 @@ const clearErrorMessage = (dispatch) => () => {
 
 const { Provider, Context } = createDataContext(
   authReducer,
-  { getAuth, signin, signout, signup, getFileAuth, clearErrorMessage },
+  { getAuth, signin, signout, signup, setPasswordReset, passwordReset, getFileAuth, clearErrorMessage },
   { errorMessage: "" }
 );
 

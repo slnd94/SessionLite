@@ -5,25 +5,17 @@ import { useForm, Controller } from "react-hook-form";
 import Loader from '../Loader';
 import { useTranslation } from 'next-i18next';
 
-function SignInForm({ onSubmit, processing }) {
+function ResetPasswordSendLinkForm({ onSubmit, processing }) {
   const { handleSubmit, control, formState: { errors } } = useForm({
     defaultValues: {
-      email: '',
-      password: ''
+      email: ''
     }
   });
 
   const { t } = useTranslation('common');
 
   const formRules = {
-    email: { required: t('auth.Email is required') },
-    password: {
-      required: t('auth.Password is required'),
-      minLength: {
-        value: 6,
-        message: t('auth.Password must have at least <num> characters')
-      }
-    }
+    email: { required: t('auth.Email is required') }
   };
 
   return (
@@ -47,39 +39,20 @@ function SignInForm({ onSubmit, processing }) {
           {errors?.email?.message && errors.email.message}
         </FormFeedback>
       </FormGroup>
-      <FormGroup>
-        <Label>{t('auth.Password')}</Label>
-        <Controller
-          name="password"
-          control={control}
-          rules={formRules.password}
-          render={({ field: { ref, ...field } }) => 
-            <Input
-              {...field}
-              type="password"
-              innerRef={ref}
-              invalid={!!errors?.password}
-            />
-          }
-        />
-        <FormFeedback>
-          {errors?.password?.message && errors.password.message}
-        </FormFeedback>
-      </FormGroup>
       
       {processing 
-        ? <Loader /> 
+        ? <Loader />
         : <Button className={'btn-block'} type="submit">
-            {t('auth.Sign in')}
+            {t('auth.Send link to email')}
           </Button>
       }
     </Form>
   );
 }
 
-SignInForm.propTypes = {
+ResetPasswordSendLinkForm.propTypes = {
   onSubmit: PropTypes.func,
   processing: PropTypes.bool
 };
 
-export default SignInForm
+export default ResetPasswordSendLinkForm

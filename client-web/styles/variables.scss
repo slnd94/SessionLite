@@ -46,6 +46,7 @@ $brown: rgb(108, 89, 78);
 
 $primary: $charcoal !default;
 $secondary: $purple-300 !default;
+$secondary-light: lighten($secondary, 40%) !default;
 $success: $secondary !default;
 $success-light: lighten($success, 30%) !default;
 $info: $blue-200 !default;
@@ -67,7 +68,7 @@ $font-size-base: 1rem;
 
 // // Components
 
-$border-radius: 2px !default;
+$border-radius: 4px !default;
 $border-radius-lg: $border-radius !default;
 $border-radius-sm: $border-radius !default;
 

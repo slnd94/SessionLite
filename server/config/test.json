@@ -11,6 +11,8 @@
   "emailSourceAddress": "emailSourceAddress",
   "welcomeVerificationEmailTemplate": "welcomeVerificationEmailTemplate",
   "emailVerificationExpiryMinutes": "emailVerificationExpiryMinutes",
+  "passwordResetEmailTemplate": "passwordResetEmailTemplate",
+  "passwordResetExpiryMinutes": "passwordResetExpiryMinutes",
   "defaultCurrency": "defaultCurrency",
   "stripePublishableKey": "stripePublishableKey",
   "stripeSecretKey": "stripeSecretKey",

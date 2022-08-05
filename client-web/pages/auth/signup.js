@@ -42,7 +42,7 @@ export default function Signup() {
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
           <div className="col-12 col-sm-6">
-            <h5 className={"title"}>{t("auth.Sign Up")}</h5>
+            <h3 className={"title"}>{t("auth.Sign Up")}</h3>
             <SignUpForm
               processing={processing}
               onSubmit={async (data) => {
@@ -88,7 +88,7 @@ export default function Signup() {
       {auth?.status === "SIGNED_IN" ? (
         <>
           <h4 className="title">{t("auth.Thanks for signing up")}</h4>
-          {!auth.user.isVerified ? (
+          {!auth.user.verified ? (
             <p>
               {t(
                 "user.account.verification.We need to verify your account. You should receive an email with a verification link."
