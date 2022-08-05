@@ -42,7 +42,7 @@ export default function Signup() {
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
           <div className="col-12 col-sm-6">
-            <h5 className={"title"}>{t("auth.Sign Up")}</h5>
+            <h3 className={"title"}>{t("auth.Sign Up")}</h3>
             <SignUpForm
               processing={processing}
               onSubmit={async (data) => {
