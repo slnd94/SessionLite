@@ -1,14 +1,14 @@
 // navs
 
 div.section-nav {
-      display: block;
-      top: 0;
-      left: 0;
-      height: 110vh;
-      padding-top: 30px;
-      // padding-left: 30px;
-      margin-top: -24px;
-      background-color: $lightest;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 110vh;
+  padding-top: 30px;
+  // padding-left: 30px;
+  margin-top: -24px;
+  background-color: $lightest;
   @include media-breakpoint-up(md) {
     &.left-nav-md-up {
       padding-left: 30px;
@@ -65,7 +65,7 @@ div.section-nav {
   .nav-link {
     cursor: pointer;
     color: $body-color-light;
-    padding: .75rem;
+    padding: 0.75rem;
     background-color: $lightest;
     border-color: $lightest;
     border-top-width: 2px;
@@ -131,13 +131,12 @@ div.section-nav {
         color: $dark;
         &:hover {
           color: $secondary !important;
+          svg {
+            color: $secondary;
+          }
         }
         svg {
-          font-size: 3.6rem;
           color: $dark;
-          &:hover {
-            color: $light;
-          }
         }
       }
     }
