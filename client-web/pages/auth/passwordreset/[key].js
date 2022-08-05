@@ -1,11 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { Context as TenantContext } from "../../../context/TenantContext";
 import { Context as AuthContext } from "../../../context/AuthContext";
-import { Context as UserContext } from "../../../context/UserContext";
 import useTenantUserAuth from "../../../hooks/useTenantUserAuth";
 import styles from "../../../styles/User.module.scss";
 import Link from "next/link";
-import { Alert, Button, Progress } from "reactstrap";
+import { Alert, Button } from "reactstrap";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";

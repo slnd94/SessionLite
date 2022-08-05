@@ -101,7 +101,7 @@ function ProfileForm({
       {processing ? (
         <Loader />
       ) : (
-        <Button className={"btn-block-md-down"} type="submit">
+        <Button className={"btn-block"} type="submit">
           {t("user.Save")}
         </Button>
       )}
