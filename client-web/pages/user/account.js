@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import styles from "../../styles/User.module.scss";
-import IconText from "../../components/IconText";
 import TenantLogo from "../../components/tenant/TenantLogo";
 
 export default function Profile() {
@@ -79,9 +78,7 @@ export default function Profile() {
               size="lg"
               viewFileAuth={fileAuth?.viewTenantLogo}
             />
-          ) : (
-            <IconText icon="user" iconContainerClass="display-1 text-light" />
-          )}
+          ) : null}
         </div>
       </div>
     </Layout>

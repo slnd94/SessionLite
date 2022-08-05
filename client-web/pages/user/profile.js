@@ -12,7 +12,6 @@ import { useTranslation } from "next-i18next";
 import api from "../../utils/api";
 import { useRouter } from "next/router";
 import styles from "../../styles/User.module.scss";
-import IconText from "../../components/IconText";
 import TenantLogo from "../../components/tenant/TenantLogo";
 
 export default function Profile({ profile }) {
@@ -84,12 +83,7 @@ export default function Profile({ profile }) {
                   size="lg"
                   viewFileAuth={fileAuth?.viewTenantLogo}
                 />
-              ) : (
-                <IconText
-                  icon="user"
-                  iconContainerClass="display-1 text-light"
-                />
-              )}
+              ) : null}
             </div>
           </>
         ) : auth?.status === "SIGNED_OUT" ? (
