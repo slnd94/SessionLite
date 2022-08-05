@@ -42,9 +42,9 @@ module.exports = (app) => {
                 given: context.result.user.name.given,
                 family: context.result.user.name.family,
               },
-              isVerified: context.result.user.verification.emailVerified,
+              verified: context.result.user.verification.emailVerified,
               locked: context.result.user.locked,
-              active: context.result.user.locked,
+              active: context.result.user.active,
               tenantAdmin,
               // tenant if available:
               ...(tenant

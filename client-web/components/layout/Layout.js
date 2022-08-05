@@ -43,6 +43,7 @@ function Layout({ children, brandName }) {
 
     if (auth?.status) {
       if (
+        router.pathname === "/auth/passwordreset/[key]" ||
         router.pathname === "/user/verification/email/[key]" ||
         router.pathname === "/auth/signout"
       ) {
@@ -52,7 +53,7 @@ function Layout({ children, brandName }) {
           // user is signed out, show the app
           setShowChildren(true);
         } else if (auth.status === "SIGNED_IN") {
-          if (!auth.user.isVerified) {
+          if (!auth.user.verified) {
             setShowUserVerification(true);
           } else {
             if (auth.user.tenant) {
@@ -111,13 +112,13 @@ function Layout({ children, brandName }) {
         setTenant({ tenant: auth.user.tenant });
       }
 
-      if (auth.status === "SIGNED_IN" && auth.user?.isVerified) {
+      if (auth.status === "SIGNED_IN" && auth.user?.verified) {
         getUserCart({ id: auth.user._id });
       }
 
       if (
         auth.status === "SIGNED_OUT" ||
-        (auth.status === "SIGNED_IN" && auth?.user?.isVerified)
+        (auth.status === "SIGNED_IN" && auth?.user?.verified)
       ) {
         // get file auth
         getFileAuth();
@@ -137,7 +138,7 @@ function Layout({ children, brandName }) {
 
 
   const unverifiedUserAccount = () => {
-    return auth.status === "SIGNED_IN" && !auth.user?.isVerified;
+    return auth.status === "SIGNED_IN" && !auth.user?.verified;
   };
 
   return (

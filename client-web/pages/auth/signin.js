@@ -69,7 +69,7 @@ export default function Signin() {
               <span style={{ marginRight: "10px" }}>
                 {t(`auth.Forgot your password?`)}
               </span>
-              <Link href="/auth/resetpassword">{t("auth.Reset your password")}</Link>
+              <Link href="/auth/passwordreset">{t("auth.Reset your password")}</Link>
             </div>
           </div>
           <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">

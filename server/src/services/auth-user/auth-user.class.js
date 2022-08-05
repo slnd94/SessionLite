@@ -29,8 +29,9 @@ exports.AuthUser = class AuthUser {
         given: params.user.name.given,
         family: params.user.name.family,
       },
-      isVerified: params.user.verification.emailVerified,
-      isLocked: params.user.locked,
+      verified: params.user.verification.emailVerified,
+      locked: params.user.locked,
+      active: params.user.active,
       tenantAdmin,
       // tenant if available:
       ...(tenant

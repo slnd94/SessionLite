@@ -88,7 +88,7 @@ export default function Signup() {
       {auth?.status === "SIGNED_IN" ? (
         <>
           <h4 className="title">{t("auth.Thanks for signing up")}</h4>
-          {!auth.user.isVerified ? (
+          {!auth.user.verified ? (
             <p>
               {t(
                 "user.account.verification.We need to verify your account. You should receive an email with a verification link."

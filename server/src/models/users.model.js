@@ -21,6 +21,10 @@ module.exports = function (app) {
       emailVerificationKey: { type: String, required: false },
       emailVerificationKeyExpiryDate: { type: Date, required: false }
     },  
+    passwordReset: {
+      passwordResetKey: { type: String, required: false },
+      passwordResetKeyExpiryDate: { type: Date, required: false }
+    },  
     active: { type: Boolean, required: true, default: true },
     type: {
       type: String,

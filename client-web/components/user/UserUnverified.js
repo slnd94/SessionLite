@@ -58,7 +58,7 @@ const UserUnverified = ({}) => {
                   setUserEmailVerification({ id: auth.user._id }).then(
                     (res) => {
                       setProcessing(false);
-                      if (res.vertificationSetSuccess) {
+                      if (res.verificationSetSuccess) {
                         toast(
                           t(
                             `user.account.verification.Verification mail re-sent. Check your email for the new link.`
@@ -109,7 +109,7 @@ const UserUnverified = ({}) => {
                     if (response.status >= 200 && response.status < 300) {
                       setProcessing(false);
                       getAuth();
-                      if (response.data.vertificationSetSuccess) {
+                      if (response.data.verificationSetSuccess) {
                         setShowEmailUpdateForm(false);
                         toast(
                           t(

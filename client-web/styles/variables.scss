@@ -44,8 +44,9 @@ $water: #4e5d6c !default;
 $darkwater: rgb(75, 78, 74) !default;
 $brown: rgb(108, 89, 78);
 
-$primary: $charcoal !default;
+$primary: $water !default;
 $secondary: $purple-300 !default;
+$secondary-light: lighten($secondary, 40%) !default;
 $success: $secondary !default;
 $success-light: lighten($success, 30%) !default;
 $info: $blue-200 !default;
