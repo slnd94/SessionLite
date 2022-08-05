@@ -211,7 +211,9 @@ const setPasswordReset =
             ? err.response.data.message
             : "Something went wrong with resetting your password",
         });
-        return { success: false };
+        return { success: false, message: err?.response?.data?.message
+          ? err.response.data.message
+          : "Something went wrong with resetting your password" };
       }
     };
 

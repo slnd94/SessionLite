@@ -7,6 +7,7 @@ import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import ResetPasswordSendLinkForm from "../../../components/auth/ResetPasswordSendLinkForm";
+import { Alert } from "reactstrap";
 
 export default function SignOut() {
   const { t } = useTranslation("common");
@@ -21,6 +22,7 @@ export default function SignOut() {
   } = useContext(AuthContext);
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const { clearUser } = useContext(UserContext);
   const { clearTenant } = useContext(TenantContext);
 
@@ -38,37 +40,50 @@ export default function SignOut() {
           <div className="row mt-4">
             <div className="col-12 col-sm-6">
               <h3 className={"title"}>{t("auth.Reset Your Password")}</h3>
-              {success ? (
-                <></>
-              ) : (
-                <>
-                  <h5 className={"title"}>
-                    {t(
-                      "auth.Enter your email and we'll send you a link to reset your password"
-                    )}
-                  </h5>
+              <h5 className={"title"}>
+                {t(
+                  "auth.Enter your email and we'll send you a link to reset your password"
+                )}
+              </h5>
 
-                  <ResetPasswordSendLinkForm
-                    processing={processing}
-                    onSubmit={async (data) => {
-                      // console.log("🚀 ~ file: passwordreset.js ~ line 63 ~ onSubmit={ ~ data", data)
-                      if (data.email) {
-                        setProcessing(true);
-                        const request = await setPasswordReset({
-                          email: data.email,
-                        });
-                        if (request.passwordResetSetSuccess) {
-                          setProcessing(false);
-                          setSuccess(true);
-                        } else {
-                          setProcessing(false);
-                          setSuccess(false);
-                        }
-                      }
-                    }}
-                  />
+              <ResetPasswordSendLinkForm
+                processing={processing}
+                onSubmit={async (data) => {
+                  if (data.email) {
+                    setProcessing(true);
+                    const request = await setPasswordReset({
+                      email: data.email,
+                    });
+                    if (request.passwordResetSetSuccess) {
+                      setProcessing(false);
+                      setSuccess(true);
+                      setError(false);
+                    } else {
+                      setProcessing(false);
+                      setSuccess(false);
+                      setError(true);
+                    }
+                  }
+                }}
+              />
+              {success ? (
+                <>
+                  <Alert className="mt-4" color="success" fade={false}>
+                    {t(
+                      `auth.We have sent you an email with a password reset link.  Check your email for the link.`
+                    )}
+                  </Alert>
                 </>
-              )}
+              ) : null}
+              {error ? (
+                <>
+                  <Alert className="mt-4" color="danger" fade={false}>
+                    {t(
+                      `auth.There was a problem sending you the password reset link`
+                    )}
+                  </Alert>
+                </>
+              ) : null}
               <div className="mt-4">
                 <span style={{ marginRight: "10px" }}>
                   {t(`auth.Remember your password?`)}

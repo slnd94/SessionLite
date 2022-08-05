@@ -28,7 +28,6 @@ exports.UserAccountPasswordReset = class UserAccountPasswordReset {
         const user = existingUsers.data[0];
 
         // set new reset key and send a fresh email to user
-
         // set the expiry date time
         const passwordResetKeyExpiryDate = new Date();
         passwordResetKeyExpiryDate.setMinutes(
@@ -89,7 +88,7 @@ exports.UserAccountPasswordReset = class UserAccountPasswordReset {
           // update the user password
           return this.app
             .service("users")
-            .patch(user._id, { password: data.password })
+            .patch(user._id, { password: data.password, passwordReset: null })
             .then((result) => {
               // return only the user id
               return { passwordResetSuccess: true };
