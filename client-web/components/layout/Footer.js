@@ -10,7 +10,7 @@ function Footer() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Powered by{" "}
+        <span className="me-2">Powered by</span>
         <span className={styles.logo}>
           <Image
             src="/images/poweredByLogoSmall.png"
