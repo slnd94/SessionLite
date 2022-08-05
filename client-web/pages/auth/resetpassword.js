@@ -46,20 +46,20 @@ export default function SignOut() {
               <ResetPasswordSendLinkForm
                 processing={processing}
                 onSubmit={async (data) => {
+                  console.log("🚀 ~ file: resetpassword.js ~ line 63 ~ onSubmit={ ~ data", data)
                   setProcessing(true);
-                  const request = await signin(data);
-                  if (request.success) {
-                    setProcessing(false);
-                    // if (redirect) {
-                    //   router.push({
-                    //     pathname: redirect,
-                    //     query: redirectQuery || {},
-                    //   });
-                    // }
-                  } else {
-                    setProcessing(false);
-                  }
-                  Ï;
+                  // const request = await signin(data);
+                  // if (request.success) {
+                  //   setProcessing(false);
+                  //   // if (redirect) {
+                  //   //   router.push({
+                  //   //     pathname: redirect,
+                  //   //     query: redirectQuery || {},
+                  //   //   });
+                  //   // }
+                  // } else {
+                  //   setProcessing(false);
+                  // }
                 }}
               />
               {/* {errorMessage ? (

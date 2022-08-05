@@ -71,7 +71,7 @@ module.exports = (options = {}) => {
           // reinforce the only fields we want a tenant admin to be able to affect
           if (context.data) {
             context.data = {
-              active: context.data.active
+              ...(Object.hasOwn(context.data, "active") ? { active: context.data.active } : {}),
             };
           }
         }
