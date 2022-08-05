@@ -34,7 +34,7 @@ export default function Home() {
               {auth?.status === "SIGNED_OUT" ? (
                 <Link href="/tenant/register">
                   <a>
-                    <Button>{t("tenant.Try it Free")}</Button>
+                    <Button>{t("tenant.Start for free")}</Button>
                   </a>
                 </Link>
               ) : (

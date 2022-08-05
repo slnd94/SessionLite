@@ -225,7 +225,8 @@ function Header({ brandName, tenantAdmin }) {
                     <NavItem className="d-flex align-items-center me-1">
                       <Link href="/auth/signin" passHref>
                         <NavLink>
-                          <IconText icon="signin" text={t("auth.Sign in")} />
+                          {/* <IconText icon="signin" text={t("auth.Sign in")} /> */}
+                          {t("auth.Sign in")}
                         </NavLink>
                       </Link>
                     </NavItem>
@@ -233,7 +234,7 @@ function Header({ brandName, tenantAdmin }) {
                       <Link href="/tenant/register" passHref>
                         <NavLink>
                           <Button size="lg" color="secondary">
-                            {t("tenant.Try it Free")}
+                            {t("tenant.Start for free")}
                           </Button>
                         </NavLink>
                       </Link>
@@ -401,7 +402,7 @@ function Header({ brandName, tenantAdmin }) {
                       <Link href="/tenant/register" passHref>
                         <NavLink>
                           <Button size="md" color="secondary">
-                            {t("tenant.Try it Free")}
+                            {t("tenant.Start for free")}
                           </Button>
                         </NavLink>
                       </Link>
