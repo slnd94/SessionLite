@@ -222,10 +222,16 @@ function Header({ brandName, tenantAdmin }) {
                 ) : null}
                 {auth?.status === "SIGNED_OUT" ? (
                   <>
+                  <NavItem className="d-flex align-items-center me-1">
+                    <Link href="/pricing" passHref>
+                      <NavLink>
+                        {t("plan.Pricing")}
+                      </NavLink>
+                    </Link>
+                  </NavItem>
                     <NavItem className="d-flex align-items-center me-1">
                       <Link href="/auth/signin" passHref>
                         <NavLink>
-                          {/* <IconText icon="signin" text={t("auth.Sign in")} /> */}
                           {t("auth.Sign in")}
                         </NavLink>
                       </Link>
@@ -404,6 +410,13 @@ function Header({ brandName, tenantAdmin }) {
                           <Button size="md" color="secondary">
                             {t("tenant.Start for free")}
                           </Button>
+                        </NavLink>
+                      </Link>
+                    </NavItem>
+                    <NavItem className="d-flex align-items-center me-3">
+                      <Link href="/pricing" passHref>
+                        <NavLink>
+                          <IconText icon="plan" text={t("plan.Pricing")} />
                         </NavLink>
                       </Link>
                     </NavItem>
