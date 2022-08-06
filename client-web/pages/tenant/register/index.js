@@ -23,6 +23,7 @@ export default function Register() {
   } = useContext(AuthContext);
   const [processing, setProcessing] = useState(false);
   const router = useRouter();
+  const { plan } = router.query;
 
   return (
     <>
@@ -40,7 +41,10 @@ export default function Register() {
                 processing={processing}
                 onSubmit={async (data) => {
                   setProcessing(true);
-                  const request = await registerTenant(data);
+                  const request = await registerTenant({
+                    ...data,
+                    ...(plan ? { tentativePlan: plan } : {})
+                  });
                   getAuth();
 
                   // refresh with new data

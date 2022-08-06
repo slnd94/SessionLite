@@ -7,7 +7,7 @@ const PlanList = ({
   plans,
   currentPlan,
   onSelectPlan,
-  onShowEligibilityDetail,
+  onShowEligibilityDetail
 }) => {
   const { t } = useTranslation("common");
 

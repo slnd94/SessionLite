@@ -12,6 +12,7 @@ exports.TenantRegistration = class TenantRegistration {
   }
 
   async create (data, params) {
+    console.log("🚀 ~ file: tenant-registration.class.js ~ line 15 ~ TenantRegistration ~ create ~ data", data)
     try {
       // see if the user already exists
       const existingUsers = await this.app.service('users').find({
@@ -24,8 +25,14 @@ exports.TenantRegistration = class TenantRegistration {
         return Promise.reject(new errors.BadRequest("User account already exists"));
       } else {
         // create the tenant
+        const djfndjfh = {
+          name: data.businessName,
+          ...(data.tentativePlan ? { tentativePlan: data.tentativePlan } : {})
+        };
+        console.log("🚀 ~ file: tenant-registration.class.js ~ line 32 ~ TenantRegistration ~ create ~ djfndjfh", djfndjfh)
         const tenant = await this.app.service('tenants').create({
-          name: data.businessName
+          name: data.businessName,
+          ...(data.tentativePlan ? { tentativePlan: data.tentativePlan } : {})
         });
 
         if(!tenant._id) {
