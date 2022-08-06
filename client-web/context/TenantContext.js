@@ -62,6 +62,7 @@ const setTenant =
               _id: tenant._id,
               name: tenant.name,
               logo: tenant.logo,
+              ...(tenant.tentativePlan ? { tentativePlan: tenant.tentativePlan } : {}),
               ...(tenant.plan ? { plan: tenant.plan } : {}),
               ...(tenant.paddle ? { paddle: tenant.paddle } : {}),
             }
@@ -72,7 +73,7 @@ const setTenant =
 
 const registerTenant =
   (dispatch) =>
-  async ({ businessName, firstName, lastName, email, password }) => {
+  async ({ businessName, firstName, lastName, email, password, tentativePlan }) => {
     try {
       const response = await api({
         method: "post",
@@ -87,6 +88,7 @@ const registerTenant =
             email,
             password,
           },
+          tentativePlan
         },
       });
       if (response.status >= 200 && response.status < 300) {

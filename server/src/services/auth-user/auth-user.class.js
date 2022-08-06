@@ -42,6 +42,7 @@ exports.AuthUser = class AuthUser {
               logo: tenant.logo,
               ...(tenantAdmin
                 ? {
+                    tentativePlan: tenant.tentativePlan,
                     plan: tenant.plan,
                     paddle: tenant.paddle,
                   }

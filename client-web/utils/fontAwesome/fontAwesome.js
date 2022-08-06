@@ -7,6 +7,7 @@ import faCartArrowDown from "@fortawesome/fontawesome-free-solid/faCartArrowDown
 import faCreditCard from "@fortawesome/fontawesome-free-solid/faCreditCard";
 import faStripe from "@fortawesome/fontawesome-free-brands/faStripe";
 import faHeart from "@fortawesome/fontawesome-free-solid/faHeart";
+import faShield from "@fortawesome/fontawesome-free-solid/faShieldAlt";
 import faHome from "@fortawesome/fontawesome-free-solid/faHome";
 import faEnvelope from "@fortawesome/fontawesome-free-solid/faEnvelope";
 import faUser from "@fortawesome/fontawesome-free-solid/faUser";
@@ -92,7 +93,7 @@ export const icons = {
   settings: faCog,
   tenant: faBuilding,
   brand: faFlag,
-  tenantAdmin: faLock,
+  tenantAdmin: faShield,
   team: faUsers,
   client: faUserGraduate,
   creator: faAddressCard,

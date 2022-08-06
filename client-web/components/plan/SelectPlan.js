@@ -18,7 +18,6 @@ import Plan from "./Plan";
 import { useRouter } from "next/router";
 import IconText from "../IconText";
 import { tenantPlanEligibility } from "../../utils/planUtils";
-import UserCounts from "../tenant/admin/UserCounts";
 import PlanUsageCompare from "./PlanUsageCompare";
 
 const SelectPlan = ({
@@ -26,7 +25,8 @@ const SelectPlan = ({
   currentPlan,
   currentUsage,
   backLink,
-  onPlanUpdated,
+  onSelectPlan,
+  onPlanUpdated
 }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
@@ -99,6 +99,22 @@ const SelectPlan = ({
     }, 1000);
   };
 
+  const selectPlan = (plan) => {
+    if (onSelectPlan) {
+      onSelectPlan(plan);
+    } else {
+      setSelectedPlan(plan);
+      if (
+        plan.requiresCheckout &&
+        !tenant?.paddle?.subscriptionId
+      ) {
+        setView("checkout");
+      } else {
+        setView("confirm");
+      }
+    }
+  }
+
   useEffect(() => {
     let isSubscribed = true;
     fetchPlans().catch(console.error);
@@ -106,19 +122,33 @@ const SelectPlan = ({
   }, []);
 
   useEffect(() => {
+    if(plans?.length && tenant?.tentativePlan) {
+      selectPlan(plans.find(
+        (x) => x._id.toString() === tenant.tentativePlan.toString()
+      ))      
+    }
+  }, [plans]);
+
+  useEffect(() => {
     if (view === "checkout") {
-      Paddle.Checkout.open({
-        product: selectedPlan.paddle.productId,
-        method: "inline",
-        frameTarget: "paddle-inline-checkout",
-        frameStyle: "width:100%;",
-        email: auth?.user?.email,
-        passthrough: `{"user_id": "${auth?.user?._id}", "plan_id": "${selectedPlan._id}"}`,
-        successCallback: async (resp) => {
-          setView("processing");
-          await confirmPlanUpdated();
-        },
-      });
+      console.log("🚀 ~ file: SelectPlan.js ~ line 140 ~ useEffect ~ selectedPlan", selectedPlan)
+      console.log("🚀 ~ file: SelectPlan.js ~ line 159 ~ view", view)
+      console.log('element', document.getElementsByClassName("paddle-inline-checkout"));
+      setTimeout(() => {
+
+        Paddle.Checkout.open({
+          product: selectedPlan.paddle.productId,
+          method: "inline",
+          frameTarget: "paddle-inline-checkout",
+          frameStyle: "width:100%;",
+          email: auth?.user?.email,
+          passthrough: `{"user_id": "${auth?.user?._id}", "plan_id": "${selectedPlan._id}"}`,
+          successCallback: async (resp) => {
+            setView("processing");
+            await confirmPlanUpdated();
+          },
+        });
+      }, 250)
     }
 
     if (view !== "error") {
@@ -164,15 +194,7 @@ const SelectPlan = ({
                   plans={plans}
                   currentPlan={currentPlan}
                   onSelectPlan={(plan) => {
-                    setSelectedPlan(plan);
-                    if (
-                      plan.requiresCheckout &&
-                      !tenant?.paddle?.subscriptionId
-                    ) {
-                      setView("checkout");
-                    } else {
-                      setView("confirm");
-                    }
+                    selectPlan(plan);
                   }}
                   onShowEligibilityDetail={(plan) => {
                     setDetailPlan(plan);

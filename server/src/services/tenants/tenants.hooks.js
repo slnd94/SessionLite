@@ -12,7 +12,7 @@ const assignParamTenantAdminUser = require("../../hooks/assign-param-tenant-admi
 
 const keepFieldsExternal = ["_id", "name", "logo"];
 
-const keepAdminFieldsExternal = ["plan", "paddle"];
+const keepAdminFieldsExternal = ["tentativePlan", "plan", "paddle"];
 
 module.exports = {
   before: {
