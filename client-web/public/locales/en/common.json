@@ -152,7 +152,7 @@
     "Admin": "Admin",
     "Admin Console": "Admin Console",
     "Register": "Register",
-    "Register Your Business": "Register Your Business",
+    "Register Your Business for {{appName}}": "Register Your Business for {{appName}}",
     "Start for free": "Start for free",
     "Business Name": "Business Name",
     "Business name is required": "Business name is required",

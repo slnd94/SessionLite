@@ -35,8 +35,8 @@ export default function Register() {
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
           <div className="col-12 col-md-6">
-            <h1 className={"title"}>{t("tenant.Register Your Business")}</h1>
-            <div className="">
+            <h3>{t("tenant.Register Your Business for {{appName}}", { appName: process.env.NEXT_APP_NAME })}</h3>
+            <div className="mt-4">
               <TenantRegistrationForm
                 processing={processing}
                 onSubmit={async (data) => {
