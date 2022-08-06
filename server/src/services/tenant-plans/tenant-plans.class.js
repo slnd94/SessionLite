@@ -122,6 +122,7 @@ exports.TenantPlans = class TenantPlans {
                       .service("tenants")
                       .patch(id, {
                         plan: data.plan,
+                        tentativePlan: null,
                         paddle: {
                           // only keep the userId around for paddle
                           // omit the subscriptionId and planId
@@ -146,7 +147,7 @@ exports.TenantPlans = class TenantPlans {
                   // just apply the new plan (don't need to involve paddle at all)
                   return this.app
                     .service("tenants")
-                    .patch(id, { plan: data.plan })
+                    .patch(id, { plan: data.plan, tentativePlan: null })
                     .then((res) => {
                       return { success: true };
                     });

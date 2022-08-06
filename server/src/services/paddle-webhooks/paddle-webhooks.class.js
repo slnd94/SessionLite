@@ -119,6 +119,7 @@ exports.PaddleWebhooks = class PaddleWebhooks {
                 .service("tenants")
                 .patch(user.tenant._id, {
                   plan: plan._id,
+                  tentativePlan: null,
                   paddle: {
                     subscriptionId: data.subscription_id,
                     planId: data.subscription_plan_id,
