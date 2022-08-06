@@ -21,15 +21,15 @@ export default function Home() {
     <>
       {auth?.status ? (
         <>
-          <div className="row">
+          <div className="row mt-4">
             <div className="col-12">
-              <h3 className="title">
+              <h3>
                 {t("index.Welcome to")}&nbsp;{process.env.NEXT_APP_NAME}
               </h3>
             </div>
           </div>
 
-          <div className="row mt-5">
+          <div className="row mt-4">
             <div className="col-12">
               {auth?.status === "SIGNED_OUT" ? (
                 <Link href="/tenant/register">

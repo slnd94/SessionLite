@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import Layout from "../../../components/auth/Layout";
 import { Context as AuthContext } from "../../../context/AuthContext";
 import { Context as TenantContext } from "../../../context/TenantContext";
 import { Context as UserContext } from "../../../context/UserContext";
@@ -34,84 +35,71 @@ export default function SignOut() {
   }, []);
 
   return (
-    <>
-      {auth?.status === "SIGNED_OUT" ? (
-        <>
-          <div className="row mt-4">
-            <div className="col-12 col-sm-6">
-              <h3 className={"title"}>{t("auth.Reset Your Password")}</h3>
-              <h5 className={"title"}>
-                {t(
-                  "auth.Enter your email and we'll send you a link to reset your password"
-                )}
-              </h5>
-
-              <ResetPasswordSendLinkForm
-                processing={processing}
-                onSubmit={async (data) => {
-                  if (data.email) {
-                    setProcessing(true);
-                    const request = await setPasswordReset({
-                      email: data.email,
-                    });
-                    if (request.passwordResetSetSuccess) {
-                      setProcessing(false);
-                      setSuccess(true);
-                      setError(false);
-                    } else {
-                      setProcessing(false);
-                      setSuccess(false);
-                      setError(true);
-                    }
-                  }
-                }}
-              />
-              {success ? (
-                <>
-                  <Alert className="mt-4" color="success" fade={false}>
-                    {t(
-                      `auth.We have sent you an email with a password reset link.  Check your email for the link.`
-                    )}
-                  </Alert>
-                </>
-              ) : null}
-              {error ? (
-                <>
-                  <Alert className="mt-4" color="danger" fade={false}>
-                    {t(
-                      `auth.There was a problem sending you the password reset link`
-                    )}
-                  </Alert>
-                </>
-              ) : null}
-              <div className="mt-4">
-                <span style={{ marginRight: "10px" }}>
-                  {t(`auth.Remember your password?`)}
-                </span>
-                <Link href="/auth/signin">{t("auth.Sign in")}</Link>
-              </div>
-              <div className="mt-2">
-                <span style={{ marginRight: "10px" }}>
-                  {t(`auth.Need an account?`)}
-                </span>
-                <Link href="/auth/signup">{t("auth.Sign up")}</Link>
-              </div>
-            </div>
-            <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
-              {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
-                <TenantLogo
-                  handle={tenant.logo.handle}
-                  size="lg"
-                  viewFileAuth={fileAuth?.viewTenantLogo}
-                />
-              ) : (
-                <img src="/images/siteLogo.png" width="400" />
+    <Layout>
+      <>
+        {auth?.status === "SIGNED_OUT" ? (
+          <>
+            <h3 className={"title"}>{t("auth.Reset Your Password")}</h3>
+            <h5 className={"title"}>
+              {t(
+                "auth.Enter your email and we'll send you a link to reset your password"
               )}
+            </h5>
+
+            <ResetPasswordSendLinkForm
+              processing={processing}
+              onSubmit={async (data) => {
+                if (data.email) {
+                  setProcessing(true);
+                  const request = await setPasswordReset({
+                    email: data.email,
+                  });
+                  if (request.passwordResetSetSuccess) {
+                    setProcessing(false);
+                    setSuccess(true);
+                    setError(false);
+                  } else {
+                    setProcessing(false);
+                    setSuccess(false);
+                    setError(true);
+                  }
+                }
+              }}
+            />
+            {success ? (
+              <>
+                <Alert className="mt-4" color="success" fade={false}>
+                  {t(
+                    `auth.We have sent you an email with a password reset link.  Check your email for the link.`
+                  )}
+                </Alert>
+              </>
+            ) : null}
+            {error ? (
+              <>
+                <Alert className="mt-4" color="danger" fade={false}>
+                  {t(
+                    `auth.There was a problem sending you the password reset link`
+                  )}
+                </Alert>
+              </>
+            ) : null}
+            <div className="mt-4">
+              <span style={{ marginRight: "10px" }}>
+                {t(`auth.Remember your password?`)}
+              </span>
+              <Link href="/auth/signin">{t("auth.Sign in")}</Link>
             </div>
-          </div>
-        </>
-      ) : null}
-    </>
+            <div className="mt-2">
+              <span style={{ marginRight: "10px" }}>
+                {t(`auth.Need an account?`)}
+              </span>
+              <Link href="/auth/signup">{t("auth.Sign up")}</Link>
+            </div>
+          </>
+        ) : null}
+      </>
+    </Layout>
   );
 }
 

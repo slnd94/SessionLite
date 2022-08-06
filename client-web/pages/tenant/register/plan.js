@@ -24,7 +24,7 @@ export default function SelectPlan({ plans }) {
   return (
     <>
       <div className="row mt-4">
-        <div className="col-12 col-sm-6">
+        <div className="col-12 col-md-6">
           <h1 className={"title"}>{t("plan.Select Your Plan")}</h1>
         </div>
       </div>

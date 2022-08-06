@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import Layout from "../../../../components/auth/Layout";
 import { Context as TenantContext } from "../../../../context/TenantContext";
 import { Context as AuthContext } from "../../../../context/AuthContext";
 import { Context as UserContext } from "../../../../context/UserContext";
@@ -15,7 +16,6 @@ export default function VerifyEmail() {
   const { t } = useTranslation("common");
   const {
     state: { tenant },
-    getTenant,
   } = useContext(TenantContext);
   const {
     state: { auth },
@@ -80,21 +80,25 @@ export default function VerifyEmail() {
           <Progress value={40} striped={true} color="secondary" />
         </div>
       </div>
-      <div className="row mt-4">
+    <Layout>
         {auth?.status === "SIGNED_IN" ? (
           <>
             {auth.user.verified ? (
-              <div className="col-12">
+              <>
                 <h3 className="title">{t("Thank You")}</h3>
-                <p>
+                <p className="mt-4">
                   {t(
-                    `user.account.verification.Your account has been verified`
+                    `user.account.verification.Your account has been verified.`
                   )}
                 </p>
                 {tenant ? (
                   <Link href={`/tenant/${tenant._id}`}>
                     <a>
-                      <Button size="md" color="secondary" className="m-0 btn-block-md-down">
+                      <Button
+                        size="md"
+                        color="secondary"
+                        className="btn-block"
+                      >
                         {userTenantAdminAuthorized && !tenant.plan ? (
                           <IconText
                             icon="arrowRight"
@@ -110,19 +114,19 @@ export default function VerifyEmail() {
                 ) : (
                   <Link href={"/"}>
                     <a>
-                      <Button size="md" color="secondary" className="m-0">
+                      <Button size="md" color="secondary" className="btn-block">
                         {t("Home")}
                       </Button>
                     </a>
                   </Link>
                 )}
-              </div>
+              </>
             ) : null}
             {verifiedStatus === "FAILED" ? (
-              <div className="col-12">
+              <>
                 <h3 color="danger" fade={false}>
                   {t(
-                    `user.account.verification.Your account could not be verified`
+                    `user.account.verification.Your account could not be verified.`
                   )}
                 </h3>
                 <div className="mt-4">
@@ -131,7 +135,7 @@ export default function VerifyEmail() {
                   )}
                 </div>
                 <Button
-                  className={"mt-4"}
+                  className={"mt-4 btn-block"}
                   onClick={() => {
                     setUserEmailVerification({ id: auth.user._id }).then(
                       (res) => {
@@ -155,13 +159,11 @@ export default function VerifyEmail() {
                     )}
                   </Alert>
                 ) : null}
-              </div>
+              </>
             ) : null}
           </>
-        ) : (
-          null
-        )}
-      </div>
+        ) : null}
+      </Layout>
     </>
   );
 }

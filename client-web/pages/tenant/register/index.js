@@ -1,3 +1,4 @@
+import Layout from "../../../components/auth/Layout";
 import { Context as TenantContext } from "../../../context/TenantContext";
 import { Context as AuthContext } from "../../../context/AuthContext";
 import { useState, useContext } from "react";
@@ -32,80 +33,71 @@ export default function Register() {
           <Progress value={20} striped={true} color="secondary" />
         </div>
       </div>
-      {auth?.status === "SIGNED_OUT" ? (
-        <div className="row mt-4">
-          <div className="col-12 col-sm-6">
-            <h1 className={"title"}>{t("tenant.Register Your Business")}</h1>
-            <div className="">
-              <TenantRegistrationForm
-                processing={processing}
-                onSubmit={async (data) => {
-                  setProcessing(true);
-                  const request = await registerTenant({
-                    ...data,
-                    ...(plan ? { tentativePlan: plan } : {})
-                  });
-                  getAuth();
-
-                  // refresh with new data
-                  await router.push(router.asPath);
-
-                  setProcessing(false);
-                }}
-              />
-              {tenantErrorMessage ? (
-                <Alert color="danger" fade={false}>
-                  {t(`tenant.There was a problem with your registration`)}
-                </Alert>
-              ) : null}
-              <div className="mt-4">
-                <span style={{ marginRight: "10px" }}>
-                  {t(`tenant.Already registered?`)}
-                </span>
-                <Link href="/auth/signin">{t("auth.Sign in")}</Link>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
-            {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
-              <TenantLogo
-                handle={tenant.logo.handle}
-                size="lg"
-                viewFileAuth={fileAuth?.viewTenantLogo}
-              />
-            ) : (
-              <img src="/images/siteLogo.png" width="400" />
-            )}
-          </div>
-        </div>
-      ) : (
-        null
-      )}
-      {auth?.status === "SIGNED_IN" ? (
+      <Layout>
         <>
-          <h4 className="title">{t("tenant.Thanks for registering")}</h4>
-          {!auth.user.verified ? (
-            <p>
-              {t(
-                "user.account.verification.We need to verify your account. You should receive an email with a verification link."
-              )}
-            </p>
-          ) : (
+          {auth?.status === "SIGNED_OUT" ? (
             <>
-              <h6>{t(`auth.What's next?`)}</h6>
-              <p>
-                <Link href="/user/profile">
-                  {t("user.Manage your profile")}
-                </Link>
-                <br />
-                <Link href="/">{t("Browse content")}</Link>
-              </p>
+              <h3>
+                {t("tenant.Register Your Business for {{appName}}", {
+                  appName: process.env.NEXT_APP_NAME,
+                })}
+              </h3>
+              <div className="mt-4">
+                <TenantRegistrationForm
+                  processing={processing}
+                  onSubmit={async (data) => {
+                    setProcessing(true);
+                    const request = await registerTenant({
+                      ...data,
+                      ...(plan ? { tentativePlan: plan } : {}),
+                    });
+                    getAuth();
+
+                    // refresh with new data
+                    await router.push(router.asPath);
+
+                    setProcessing(false);
+                  }}
+                />
+                {tenantErrorMessage ? (
+                  <Alert color="danger" fade={false}>
+                    {t(`tenant.There was a problem with your registration`)}
+                  </Alert>
+                ) : null}
+                <div className="mt-4">
+                  <span style={{ marginRight: "10px" }}>
+                    {t(`tenant.Already registered?`)}
+                  </span>
+                  <Link href="/auth/signin">{t("auth.Sign in")}</Link>
+                </div>
+              </div>
             </>
-          )}
+          ) : null}
+          {auth?.status === "SIGNED_IN" ? (
+            <>
+              <h4 className="title">{t("tenant.Thanks for registering")}</h4>
+              {!auth.user.verified ? (
+                <p>
+                  {t(
+                    "user.account.verification.We need to verify your account. You should receive an email with a verification link."
+                  )}
+                </p>
+              ) : (
+                <>
+                  <h6>{t(`auth.What's next?`)}</h6>
+                  <p>
+                    <Link href="/user/profile">
+                      {t("user.Manage your profile")}
+                    </Link>
+                    <br />
+                    <Link href="/">{t("Browse content")}</Link>
+                  </p>
+                </>
+              )}
+            </>
+          ) : null}
         </>
-      ) : (
-        null
-      )}
+      </Layout>
     </>
   );
 }
