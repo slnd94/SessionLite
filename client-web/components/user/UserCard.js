@@ -15,7 +15,7 @@ const UserCard = ({ user, className, onClick, customButtons }) => {
           className={`row section-box ${className}`}
           onClick={() => (onClick ? onClick() : null)}
         >
-          <div className="col-12 col-md-6">
+          <div className="col-12">
             <h4>{getFullName(user.name)}</h4>
             <div className="mt-2">
               <IconText icon="email" text={user.email} />
@@ -46,7 +46,7 @@ const UserCard = ({ user, className, onClick, customButtons }) => {
               )}
             </div>
           </div>
-          <div className="col-12 col-md-6 text-end">
+          <div className="col-12 text-end">
             {customButtons?.map((button, index) => (
               <Button
                 key={index}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import Layout from "../../../../components/auth/Layout";
 import { Context as TenantContext } from "../../../../context/TenantContext";
 import { Context as AuthContext } from "../../../../context/AuthContext";
 import { Context as UserContext } from "../../../../context/UserContext";
@@ -79,11 +80,11 @@ export default function VerifyEmail() {
           <Progress value={40} striped={true} color="secondary" />
         </div>
       </div>
-      <div className="row mt-4">
+    <Layout>
         {auth?.status === "SIGNED_IN" ? (
           <>
             {auth.user.verified ? (
-              <div className="col-12 col-md-6">
+              <>
                 <h3 className="title">{t("Thank You")}</h3>
                 <p className="mt-4">
                   {t(
@@ -119,10 +120,10 @@ export default function VerifyEmail() {
                     </a>
                   </Link>
                 )}
-              </div>
+              </>
             ) : null}
             {verifiedStatus === "FAILED" ? (
-              <div className="col-12 col-md-6">
+              <>
                 <h3 color="danger" fade={false}>
                   {t(
                     `user.account.verification.Your account could not be verified.`
@@ -158,23 +159,11 @@ export default function VerifyEmail() {
                     )}
                   </Alert>
                 ) : null}
-              </div>
+              </>
             ) : null}
-
-            <div className="col-md-6 d-none d-md-flex justify-content-center align-items-center">
-              {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
-                <TenantLogo
-                  handle={tenant.logo.handle}
-                  size="lg"
-                  viewFileAuth={fileAuth?.viewTenantLogo}
-                />
-              ) : (
-                <img src="/images/siteLogo.png" width="400" />
-              )}
-            </div>
           </>
         ) : null}
-      </div>
+      </Layout>
     </>
   );
 }

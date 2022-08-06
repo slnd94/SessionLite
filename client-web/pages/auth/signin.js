@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Alert } from "reactstrap";
 import Image from "next/image";
+import Layout from "../../components/auth/Layout";
 import styles from "../../styles/Signin.module.scss";
 import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as AuthContext } from "../../context/AuthContext";
@@ -31,10 +32,10 @@ export default function Signin() {
   }, []);
 
   return (
-    <>
-      {auth?.status === "SIGNED_OUT" ? (
-        <div className="row mt-4">
-          <div className="col-12 col-md-6">
+    <Layout>
+      <>
+        {auth?.status === "SIGNED_OUT" ? (
+          <>
             <h3 className={"title"}>{t("auth.Sign In")}</h3>
             <SignInForm
               processing={processing}
@@ -69,42 +70,33 @@ export default function Signin() {
               <span style={{ marginRight: "10px" }}>
                 {t(`auth.Forgot your password?`)}
               </span>
-              <Link href="/auth/passwordreset">{t("auth.Reset your password")}</Link>
+              <Link href="/auth/passwordreset">
+                {t("auth.Reset your password")}
+              </Link>
             </div>
-          </div>
-          <div className="col-md-6 d-none d-md-flex justify-content-center align-items-center">
-            {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
-              <TenantLogo
-                handle={tenant.logo.handle}
-                size="lg"
-                viewFileAuth={fileAuth?.viewTenantLogo}
-              />
-            ) : (
-              <img src="/images/siteLogo.png" width="400" />
-            )}
-          </div>
-        </div>
-      ) : null}
-      {auth?.status === "SIGNED_IN" ? (
-        <>
-          <h4 className="title">{t("auth.You are signed in")}</h4>
-          <h6>{t(`auth.What's next?`)}</h6>
-          <p>
-            {tenant ? (
-              <>
-                <Link href={`/tenant/${tenant._id}`}>
-                  {t("tenant.Tenant Home")}
-                </Link>
-                <br />
-              </>
-            ) : null}
-            <Link href="/user/profile">{t("user.Manage your profile")}</Link>
-            <br />
-            <Link href="/">{t("Browse content")}</Link>
-          </p>
-        </>
-      ) : null}
-    </>
+          </>
+        ) : null}
+        {auth?.status === "SIGNED_IN" ? (
+          <>
+            <h4 className="title">{t("auth.You are signed in")}</h4>
+            <h6>{t(`auth.What's next?`)}</h6>
+            <p>
+              {tenant ? (
+                <>
+                  <Link href={`/tenant/${tenant._id}`}>
+                    {t("tenant.Tenant Home")}
+                  </Link>
+                  <br />
+                </>
+              ) : null}
+              <Link href="/user/profile">{t("user.Manage your profile")}</Link>
+              <br />
+              <Link href="/">{t("Browse content")}</Link>
+            </p>
+          </>
+        ) : null}
+      </>
+    </Layout>
   );
 }
 

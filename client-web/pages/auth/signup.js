@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Alert } from "reactstrap";
+import Layout from "../../components/auth/Layout";
 import styles from "../../styles/Signup.module.scss";
 import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as AuthContext } from "../../context/AuthContext";
@@ -38,11 +39,11 @@ export default function Signup() {
   }, []);
 
   return (
-    <>
-      {auth?.status === "SIGNED_OUT" ? (
-        <div className="row mt-4">
-          <div className="col-12 col-md-6">
-            <h3 className={"title"}>{t("auth.Sign Up")}</h3>
+    <Layout>
+      <>
+        {auth?.status === "SIGNED_OUT" ? (
+          <>
+            <h3 className="title">{t("auth.Sign Up")}</h3>
             <SignUpForm
               processing={processing}
               onSubmit={async (data) => {
@@ -71,52 +72,41 @@ export default function Signup() {
               </span>
               <Link href="/auth/signin">{t("auth.Sign in")}</Link>
             </div>
-          </div>
-          <div className="col-md-6 d-none d-md-flex justify-content-center align-items-center">
-            {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
-              <TenantLogo
-                handle={tenant.logo.handle}
-                size="lg"
-                viewFileAuth={fileAuth?.viewTenantLogo}
-              />
-            ) : (
-              <img src="/images/siteLogo.png" width="400" />
-            )}
-          </div>
-        </div>
-      ) : null}
-      {auth?.status === "SIGNED_IN" ? (
-        <>
-          <h4 className="title">{t("auth.Thanks for signing up")}</h4>
-          {!auth.user.verified ? (
-            <p>
-              {t(
-                "user.account.verification.We need to verify your account. You should receive an email with a verification link."
-              )}
-            </p>
-          ) : (
-            <>
-              <h6>{t(`auth.What's next?`)}</h6>
+          </>
+        ) : null}
+        {auth?.status === "SIGNED_IN" ? (
+          <>
+            <h3 className="title">{t("auth.Thanks for signing up")}</h3>
+            {!auth.user.verified ? (
               <p>
-                {tenant ? (
-                  <>
-                    <Link href={`/tenant/${tenant._id}`}>
-                      {t("tenant.Tenant Home")}
-                    </Link>
-                    <br />
-                  </>
-                ) : null}
-                <Link href="/user/profile">
-                  {t("user.Manage your profile")}
-                </Link>
-                <br />
-                <Link href="/">{t("Browse content")}</Link>
+                {t(
+                  "user.account.verification.We need to verify your account. You should receive an email with a verification link."
+                )}
               </p>
-            </>
-          )}
-        </>
-      ) : null}
-    </>
+            ) : (
+              <>
+                <h6>{t(`auth.What's next?`)}</h6>
+                <p>
+                  {tenant ? (
+                    <>
+                      <Link href={`/tenant/${tenant._id}`}>
+                        {t("tenant.Tenant Home")}
+                      </Link>
+                      <br />
+                    </>
+                  ) : null}
+                  <Link href="/user/profile">
+                    {t("user.Manage your profile")}
+                  </Link>
+                  <br />
+                  <Link href="/">{t("Browse content")}</Link>
+                </p>
+              </>
+            )}
+          </>
+        ) : null}
+      </>
+    </Layout>
   );
 }
 

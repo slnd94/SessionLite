@@ -1,3 +1,4 @@
+import Layout from "../../../components/auth/Layout";
 import { Context as TenantContext } from "../../../context/TenantContext";
 import { Context as AuthContext } from "../../../context/AuthContext";
 import { useState, useContext } from "react";
@@ -28,32 +29,47 @@ export default function RegisterSuccess() {
       icon: "home",
       title: t("tenant.Home"),
       route: `/tenant/${tenant?._id}`,
-      description: t('tenant.sectionLinkDescriptions.home', { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
+      description: t("tenant.sectionLinkDescriptions.home", {
+        tenantName: tenant.name,
+        appName: process.env.NEXT_APP_NAME,
+      }),
     },
     {
       icon: "dashboard",
       title: t("tenant.admin.Admin Dashboard"),
       route: `/tenant/${tenant?._id}/admin/dashboard`,
-      description: t('tenant.sectionLinkDescriptions.admin',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
+      description: t("tenant.sectionLinkDescriptions.admin", {
+        tenantName: tenant.name,
+        appName: process.env.NEXT_APP_NAME,
+      }),
     },
     {
       icon: "brand",
       title: t("tenant.admin.Brand"),
       route: `/tenant/${tenant?._id}/admin/brand`,
-      description: t('tenant.sectionLinkDescriptions.brand',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
+      description: t("tenant.sectionLinkDescriptions.brand", {
+        tenantName: tenant.name,
+        appName: process.env.NEXT_APP_NAME,
+      }),
     },
     {
       icon: "team",
       title: t("tenant.admin.Team"),
       route: `/tenant/${tenant?._id}/admin/team`,
-      description: t('tenant.sectionLinkDescriptions.team',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
+      description: t("tenant.sectionLinkDescriptions.team", {
+        tenantName: tenant.name,
+        appName: process.env.NEXT_APP_NAME,
+      }),
     },
     {
       icon: "client",
       title: t("tenant.admin.Clients"),
       route: `/tenant/${tenant?._id}/admin/clients`,
-      description: t('tenant.sectionLinkDescriptions.clients',  { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })
-    }
+      description: t("tenant.sectionLinkDescriptions.clients", {
+        tenantName: tenant.name,
+        appName: process.env.NEXT_APP_NAME,
+      }),
+    },
   ];
 
   const SectionLink = ({ icon, title, description, route }) => {
@@ -71,9 +87,7 @@ export default function RegisterSuccess() {
                   />
                 </h5>
               </div>
-              <div className="col-12 text-start">
-                {description}
-              </div>
+              <div className="col-12 text-start">{description}</div>
             </div>
           </div>
         </Link>
@@ -88,35 +102,44 @@ export default function RegisterSuccess() {
           <Progress value={100} striped={true} color="secondary" />
         </div>
       </div>
-      <div className="row mt-3">
-        <div className="col-12 d-flex justify-content-center">
-          <h1>
-            <IconText
-              icon="success"
-              iconContainerClass="display-4 text-secondary"
-              text={t("plan.Success!")}
-            />
-          </h1>
+      <Layout>
+        <div className="row mt-3">
+          <div className="col-12 d-flex justify-content-center">
+            <h1>
+              <IconText
+                icon="success"
+                iconContainerClass="display-4 text-secondary"
+                text={t("plan.Success!")}
+              />
+            </h1>
+          </div>
         </div>
-      </div>
-      <div className="row mt-3">
-        <div className="col-12 d-flex justify-content-center fw-bold">
-          <h3>{t("plan.{{tenantName}} is all set up and ready to use {{appName}}.  What's next?", { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME })}</h3>
+        <div className="row mt-3">
+          <div className="col-12 d-flex justify-content-center fw-bold">
+            <h3>
+              {t(
+                "plan.{{tenantName}} is all set up and ready to use {{appName}}.  What's next?",
+                { tenantName: tenant.name, appName: process.env.NEXT_APP_NAME }
+              )}
+            </h3>
+          </div>
         </div>
-      </div>
-      <div className="row mt-3 d-flex justify-content-center">
-        <div className="col-12 col-md-6 text-center">
-          {sectionLinks.map((sectionLink, index) => {
-            return <SectionLink
-            key={index}
-            icon={sectionLink.icon}
-            title={sectionLink.title}
-            route={sectionLink.route}
-            description={sectionLink.description}
-          />
-          })}
+        <div className="row mt-3 d-flex justify-content-center">
+          <div className="col-12">
+            {sectionLinks.map((sectionLink, index) => {
+              return (
+                <SectionLink
+                  key={index}
+                  icon={sectionLink.icon}
+                  title={sectionLink.title}
+                  route={sectionLink.route}
+                  description={sectionLink.description}
+                />
+              );
+            })}
+          </div>
         </div>
-      </div>
+      </Layout>
     </>
   );
 }

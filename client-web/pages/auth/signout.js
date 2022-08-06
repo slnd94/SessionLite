@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import Layout from "../../components/auth/Layout";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as UserContext } from "../../context/UserContext";
@@ -25,23 +26,23 @@ export default function SignOut() {
   }, []);
 
   return (
-    <>
-      {auth?.status === "SIGNED_OUT" ? (
-        <>
-          <h4 className="title">{t("auth.You are signed out")}</h4>
-          <h6>{t(`auth.What's next?`)}</h6>
-          <p>
-            <Link href="/">{t("Browse content")}</Link>
-            <br />
-            <Link href="/auth/signin">{t("auth.Sign in")}</Link>
-            <br />
-            <Link href="/auth/signup">{t("auth.Sign up")}</Link>
-          </p>
-        </>
-      ) : (
-        null
-      )}
-    </>
+    <Layout>
+      <>
+        {auth?.status === "SIGNED_OUT" ? (
+          <>
+            <h4 className="title">{t("auth.You are signed out")}</h4>
+            <h6>{t(`auth.What's next?`)}</h6>
+            <p>
+              <Link href="/">{t("Browse content")}</Link>
+              <br />
+              <Link href="/auth/signin">{t("auth.Sign in")}</Link>
+              <br />
+              <Link href="/auth/signup">{t("auth.Sign up")}</Link>
+            </p>
+          </>
+        ) : null}
+      </>
+    </Layout>
   );
 }
 
