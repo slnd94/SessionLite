@@ -55,13 +55,13 @@ function UpdateEmailForm({ emailFieldLabel, submitButtonLabel, onSubmit, onCance
         <Loader />
       ) : (
         <>
-          <Button className={"btn-block-md-down"} type="submit">
+          <Button className={"btn-block"} type="submit">
             {submitButtonLabel || t("Save")}
           </Button>
           <Button
             size="md"
             color="default"
-            className="btn-block-md-down ms-md-3"
+            className="btn-block"
             onClick={() => {
               onCancel();
             }}

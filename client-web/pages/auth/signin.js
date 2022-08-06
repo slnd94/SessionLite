@@ -34,7 +34,7 @@ export default function Signin() {
     <>
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
-          <div className="col-12 col-sm-6">
+          <div className="col-12 col-md-6">
             <h3 className={"title"}>{t("auth.Sign In")}</h3>
             <SignInForm
               processing={processing}
@@ -72,7 +72,7 @@ export default function Signin() {
               <Link href="/auth/passwordreset">{t("auth.Reset your password")}</Link>
             </div>
           </div>
-          <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
+          <div className="col-md-6 d-none d-md-flex justify-content-center align-items-center">
             {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
               <TenantLogo
                 handle={tenant.logo.handle}

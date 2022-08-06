@@ -15,7 +15,6 @@ export default function VerifyEmail() {
   const { t } = useTranslation("common");
   const {
     state: { tenant },
-    getTenant,
   } = useContext(TenantContext);
   const {
     state: { auth },
@@ -84,17 +83,21 @@ export default function VerifyEmail() {
         {auth?.status === "SIGNED_IN" ? (
           <>
             {auth.user.verified ? (
-              <div className="col-12">
+              <div className="col-12 col-md-6">
                 <h3 className="title">{t("Thank You")}</h3>
-                <p>
+                <p className="mt-4">
                   {t(
-                    `user.account.verification.Your account has been verified`
+                    `user.account.verification.Your account has been verified.`
                   )}
                 </p>
                 {tenant ? (
                   <Link href={`/tenant/${tenant._id}`}>
                     <a>
-                      <Button size="md" color="secondary" className="m-0 btn-block-md-down">
+                      <Button
+                        size="md"
+                        color="secondary"
+                        className="btn-block"
+                      >
                         {userTenantAdminAuthorized && !tenant.plan ? (
                           <IconText
                             icon="arrowRight"
@@ -110,7 +113,7 @@ export default function VerifyEmail() {
                 ) : (
                   <Link href={"/"}>
                     <a>
-                      <Button size="md" color="secondary" className="m-0">
+                      <Button size="md" color="secondary" className="btn-block">
                         {t("Home")}
                       </Button>
                     </a>
@@ -119,10 +122,10 @@ export default function VerifyEmail() {
               </div>
             ) : null}
             {verifiedStatus === "FAILED" ? (
-              <div className="col-12">
+              <div className="col-12 col-md-6">
                 <h3 color="danger" fade={false}>
                   {t(
-                    `user.account.verification.Your account could not be verified`
+                    `user.account.verification.Your account could not be verified.`
                   )}
                 </h3>
                 <div className="mt-4">
@@ -131,7 +134,7 @@ export default function VerifyEmail() {
                   )}
                 </div>
                 <Button
-                  className={"mt-4"}
+                  className={"mt-4 btn-block"}
                   onClick={() => {
                     setUserEmailVerification({ id: auth.user._id }).then(
                       (res) => {
@@ -157,10 +160,20 @@ export default function VerifyEmail() {
                 ) : null}
               </div>
             ) : null}
+
+            <div className="col-md-6 d-none d-md-flex justify-content-center align-items-center">
+              {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
+                <TenantLogo
+                  handle={tenant.logo.handle}
+                  size="lg"
+                  viewFileAuth={fileAuth?.viewTenantLogo}
+                />
+              ) : (
+                <img src="/images/siteLogo.png" width="400" />
+              )}
+            </div>
           </>
-        ) : (
-          null
-        )}
+        ) : null}
       </div>
     </>
   );

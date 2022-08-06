@@ -34,7 +34,7 @@ export default function Register() {
       </div>
       {auth?.status === "SIGNED_OUT" ? (
         <div className="row mt-4">
-          <div className="col-12 col-sm-6">
+          <div className="col-12 col-md-6">
             <h1 className={"title"}>{t("tenant.Register Your Business")}</h1>
             <div className="">
               <TenantRegistrationForm
@@ -66,7 +66,7 @@ export default function Register() {
               </div>
             </div>
           </div>
-          <div className="col-sm-6 d-none d-sm-flex justify-content-center align-items-center">
+          <div className="col-md-6 d-none d-md-flex justify-content-center align-items-center">
             {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
               <TenantLogo
                 handle={tenant.logo.handle}

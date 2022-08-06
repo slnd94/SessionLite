@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Context as AuthContext } from "../../context/AuthContext";
+import { Context as TenantContext } from "../../context/TenantContext";
 import { Context as UserContext } from "../../context/UserContext";
 import { useTranslation } from "next-i18next";
 import { Button, Alert, Progress } from "reactstrap";
@@ -15,6 +16,9 @@ const UserUnverified = ({}) => {
     state: { auth },
     getAuth,
   } = useContext(AuthContext);
+  const {
+    state: { tenant }
+  } = useContext(TenantContext);
   const { setUserEmailVerification } = useContext(UserContext);
   const [processing, setProcessing] = useState(false);
   const [showEmailUpdateForm, setShowEmailUpdateForm] = useState(false);
@@ -36,23 +40,23 @@ const UserUnverified = ({}) => {
         </div>
       </div>
       <div className="row mt-4">
-        <div className="col-12">
-          <h3 className="title">{t("auth.Welcome!")}</h3>
-          <p>
+        <div className="col-12 col-md-6">
+          <h3>{t("auth.Welcome!")}</h3>
+          <p className="mt-4">
             {t("user.account.verification.We need to verify your account.")}
           </p>
           <p>
             {t(
               "user.account.verification.We have sent an email with a verification link to"
-            )}
-            :<span className="fw-bold ms-2">{auth?.user?.email}</span>
+            )}:<br />
+            <span className="fw-bold">{auth?.user?.email}</span>
           </p>
-            <div className="mt-5">
+            <div className="mt-4">
               {t("user.account.verification.Didn't get the email?")}
               <Button
                 size="md"
                 color="default"
-                className="btn-block-md-down ms-md-3"
+                className="btn-block"
                 onClick={() => {
                   setProcessing(true);
                   setUserEmailVerification({ id: auth.user._id }).then(
@@ -149,7 +153,7 @@ const UserUnverified = ({}) => {
                 <Button
                   size="md"
                   color="default"
-                  className="btn-block-md-down ms-md-3"
+                  className="btn-block"
                   onClick={() => {
                     setShowEmailUpdateForm(true);
                   }}
@@ -166,6 +170,17 @@ const UserUnverified = ({}) => {
               </Alert>
             ) : null}
         </div>
+        <div className="col-md-6 d-none d-md-flex justify-content-center align-items-center">
+            {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
+              <TenantLogo
+                handle={tenant.logo.handle}
+                size="lg"
+                viewFileAuth={fileAuth?.viewTenantLogo}
+              />
+            ) : (
+              <img src="/images/siteLogo.png" width="400" />
+            )}
+          </div>
       </div>
     </>
   );
