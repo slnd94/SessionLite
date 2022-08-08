@@ -115,7 +115,7 @@ export default function Layout({ children }) {
         <>
           <div className="row ms-md-n5">
             <div className="col-2 col-xl-2 col-lg-3 col-md-3 pe-0 section-nav left-nav-md-up ms-n4 ms-md-n3">
-              <h6 className="title d-none d-md-block ms-2">
+              <h6 className="title d-none d-md-block ms-2 text-secondary">
                 <IconText icon="tenantAdmin" text={t("tenant.Admin Console")} />
               </h6>
               <ManagementNav
