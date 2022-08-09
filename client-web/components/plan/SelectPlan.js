@@ -26,7 +26,7 @@ const SelectPlan = ({
   currentUsage,
   backLink,
   onSelectPlan,
-  onPlanUpdated
+  onPlanUpdated,
 }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
@@ -104,16 +104,13 @@ const SelectPlan = ({
       onSelectPlan(plan);
     } else {
       setSelectedPlan(plan);
-      if (
-        plan.requiresCheckout &&
-        !tenant?.paddle?.subscriptionId
-      ) {
+      if (plan.requiresCheckout && !tenant?.paddle?.subscriptionId) {
         setView("checkout");
       } else {
         setView("confirm");
       }
     }
-  }
+  };
 
   useEffect(() => {
     let isSubscribed = true;
@@ -122,20 +119,16 @@ const SelectPlan = ({
   }, []);
 
   useEffect(() => {
-    if(plans?.length && tenant?.tentativePlan) {
-      selectPlan(plans.find(
-        (x) => x._id.toString() === tenant.tentativePlan.toString()
-      ))      
+    if (plans?.length && tenant?.tentativePlan) {
+      selectPlan(
+        plans.find((x) => x._id.toString() === tenant.tentativePlan.toString())
+      );
     }
   }, [plans]);
 
   useEffect(() => {
     if (view === "checkout") {
-      console.log("🚀 ~ file: SelectPlan.js ~ line 140 ~ useEffect ~ selectedPlan", selectedPlan)
-      console.log("🚀 ~ file: SelectPlan.js ~ line 159 ~ view", view)
-      console.log('element', document.getElementsByClassName("paddle-inline-checkout"));
       setTimeout(() => {
-
         Paddle.Checkout.open({
           product: selectedPlan.paddle.productId,
           method: "inline",
@@ -148,7 +141,7 @@ const SelectPlan = ({
             await confirmPlanUpdated();
           },
         });
-      }, 250)
+      }, 250);
     }
 
     if (view !== "error") {
@@ -186,10 +179,21 @@ const SelectPlan = ({
                 ) : null}
 
                 <div className="row">
-                  <div className="col-12">
+                  <div className="col-12 d-flex justify-content-between">
                     <h3>{t("plan.Select Your Plan")}</h3>
                   </div>
                 </div>
+
+                {backLink ? (
+                  <IconText
+                    className="text-secondary fw-bold fs-6"
+                    icon="arrowLeft"
+                    text={backLink.text}
+                    onClick={() => {
+                      backLink.onClick();
+                    }}
+                  />
+                ) : null}
                 <PlanList
                   plans={plans}
                   currentPlan={currentPlan}
@@ -333,7 +337,7 @@ const SelectPlan = ({
               <>
                 {/* Upgrading plan */}
                 <h3>{t("tenant.admin.plan.Upgrading Your Plan")}</h3>
-                <ul className="mt-3 ms-n3 fw-bold">
+                <ul className="mt-3 ms-n3">
                   <li>
                     {t(
                       "tenant.admin.plan.conditions.The selected plan will be applied immediately"
@@ -372,7 +376,7 @@ const SelectPlan = ({
               <>
                 {/* Downgrading plan */}
                 <h3>{t("tenant.admin.plan.Downgrading Your Plan")}</h3>
-                <ul className="mt-3 ms-n3 fw-bold">
+                <ul className="mt-3 ms-n3">
                   <li>
                     {t(
                       "tenant.admin.plan.conditions.The selected plan will be applied immediately"
@@ -410,7 +414,7 @@ const SelectPlan = ({
         ) : (
           <>
             <h3>{t("tenant.admin.plan.Downgrading Your Plan")}</h3>
-            <ul className="mt-3 ms-n3 fw-bold">
+            <ul className="mt-3 ms-n3">
               <li>
                 {t(
                   "tenant.admin.plan.conditions.The selected plan will be applied immediately"
@@ -554,7 +558,7 @@ const SelectPlan = ({
 
   return (
     <>
-      {backLink ? (
+      {/* {backLink ? (
         <IconText
           className="mb-3 fw-bold"
           icon="arrowLeft"
@@ -563,7 +567,7 @@ const SelectPlan = ({
             backLink.onClick();
           }}
         />
-      ) : null}
+      ) : null} */}
       {view === "select" ? <Select backLink /> : null}
       {view === "confirm" ? <Confirm /> : null}
       {view === "checkout" ? <Checkout /> : null}

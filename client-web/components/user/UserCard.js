@@ -25,7 +25,7 @@ const UserCard = ({ user, className, onClick, customButtons }) => {
                 <IconText
                   icon="tenantAdmin"
                   text={t("tenant.admin.team.Administrator")}
-                  className="fw-bold"
+                  className="fw-bold text-success"
                 />
               </div>
             ) : (
