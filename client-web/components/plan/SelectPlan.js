@@ -128,15 +128,6 @@ const SelectPlan = ({
 
   useEffect(() => {
     if (view === "checkout") {
-      console.log(
-        "🚀 ~ file: SelectPlan.js ~ line 140 ~ useEffect ~ selectedPlan",
-        selectedPlan
-      );
-      console.log("🚀 ~ file: SelectPlan.js ~ line 159 ~ view", view);
-      console.log(
-        "element",
-        document.getElementsByClassName("paddle-inline-checkout")
-      );
       setTimeout(() => {
         Paddle.Checkout.open({
           product: selectedPlan.paddle.productId,
