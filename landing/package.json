@@ -11,10 +11,6 @@
     "start": "next start",
     "publishheroku": "cd ../ && git subtree push --prefix landing herokunextfeatherstest3-landing master || true"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://gituhb.com/web3templates/nextly-template"
-  },
   "keywords": [
     "nextjs",
     "tailwindcss",
