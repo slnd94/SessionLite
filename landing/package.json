@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3002",
-    "lt": "lt --port 3000 --subdomain fnext-dev-landing https",
-    "st": "st -p 3000 -s fnext-dev-landing https",
+    "lt": "lt --port 3002 --subdomain fnext-dev-landing https",
+    "st": "st -p 3002 -s fnext-dev-landing https",
     "build": "next build",
     "start": "next start",
     "publishheroku": "cd ../ && git subtree push --prefix landing herokunextfeatherstest3-landing master || true"
