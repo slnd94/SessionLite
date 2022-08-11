@@ -8,6 +8,7 @@ module.exports = withTM({
     includePaths: [path.join(__dirname, "styles")],
   },
   env: {
+    NEXT_PUBLIC_LANDING_URL: process.env.LANDING_BASE_URL,
     NEXT_PUBLIC_API_URL: process.env.API_BASE_URL,
     NEXT_PUBLIC_WEB_URL: process.env.WEB_BASE_URL,
     NEXT_APP_NAME: process.env.APP_NAME,
