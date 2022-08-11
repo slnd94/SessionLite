@@ -9,6 +9,10 @@ module.exports = {
     extend: {
       colors: {
         trueGray: colors.trueGray,
+        indigo: {
+          500: "#9365b8",
+          600: "#9365b8"
+        }
       },
     },
     fontFamily: {

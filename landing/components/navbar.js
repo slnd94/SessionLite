@@ -18,13 +18,12 @@ export default function Navbar() {
                     <span>
                       <img
                         src="/img/logo.svg"
-                        alt="N"
-                        width="32"
-                        height="32"
-                        className="w-8"
+                        alt=""
+                        width="214"
+                        height="30"
+                        className="w-214"
                       />
                     </span>
-                    <span>Nextly</span>
                   </a>
                 </Link>
 
