@@ -101,7 +101,7 @@ export default function Navbar() {
             </a>
           </Link>
 
-          <ThemeChanger />
+          {/* <ThemeChanger /> */}
         </div>
       </nav>
     </div>
