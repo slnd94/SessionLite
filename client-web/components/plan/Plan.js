@@ -76,7 +76,7 @@ const Plan = ({
         <div className="fw-bold text-dark mt-3">{t("plan.You are not currently eligible for this plan")}</div>
       ) : null}
       {button ? (
-        <div className="d-flex align-items-end justify-content-full">
+        <div className="d-flex align-items-end justify-content-between">
           <Button
             className={"btn-block"}
             size="lg"

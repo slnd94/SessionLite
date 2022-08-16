@@ -3,8 +3,18 @@ import React from "react";
 import Container from "./container";
 
 export default function Footer() {
-  const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
-  const legal = ["Terms", "Privacy", "Legal"];
+  const navigation = [
+    { label: "Product", href: "/product" },
+    { label: "Features", href: "/features" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Company", href: "/company" },
+    { label: "Blog", href: "/blog" },
+  ];
+  const legal = [
+    { label: "Terms", href: "/terms" },
+    { label: "Privacy", href: "/privacy" },
+    { label: "Legal", href: "/legal" },
+  ];
   return (
     <div className="relative">
       <Container>
@@ -28,9 +38,16 @@ export default function Footer() {
             </div>
 
             <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400">
-              Jumpstart is a free landing page & marketing website template for
-              startups and indie projects. Its built with Next.js & TailwindCSS.
-              And its completely open-source.
+              <p>
+                Traverston Jumpstart is a foundational boilerplate for a
+                multi-tenanted, b2b SaaS application. It is built with Next.js,
+                Node.js, and Mongo DB.
+              </p>
+              <p className="mt-4">
+                It includes user authentication and authorization, tenant
+                context, tenant administrative management, subscription
+                (plan) management and more.
+              </p>
             </div>
             <div className="mt-8">
               {" "}
@@ -57,9 +74,9 @@ export default function Footer() {
           <div>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
               {navigation.map((item, index) => (
-                <Link key={index} href="/">
+                <Link key={index} href={item.href}>
                   <a className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
-                    {item}
+                    {item.label}
                   </a>
                 </Link>
               ))}
@@ -68,9 +85,9 @@ export default function Footer() {
           <div>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
               {legal.map((item, index) => (
-                <Link key={index} href="/">
+                <Link key={index} href={item.href}>
                   <a className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
-                    {item}
+                    {item.label}
                   </a>
                 </Link>
               ))}

@@ -9,6 +9,7 @@ import Benefits from "../components/benefits";
 import Footer from "../components/footer";
 import Testimonials from "../components/testimonials";
 import Cta from "../components/cta";
+import Plans from "../components/plans";
 import Faq from "../components/faq";
 import PopupWidget from "../components/popupWidget";
 
@@ -27,16 +28,6 @@ import PopupWidget from "../components/popupWidget";
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Traverston Jumpstart - Jumpstart Your SaaS Project</title>
-        <meta
-          name="description"
-          content="Nextly is a free landing page template built with next.js & Tailwind CSS"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Navbar />
       <Hero />
       <SectionTitle
         pretitle="Nextly Benefits"
@@ -68,8 +59,6 @@ export default function Home() {
       </SectionTitle>
       <Faq />
       <Cta />
-      <Footer />
-      <PopupWidget />
     </>
   );
 }
