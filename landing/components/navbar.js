@@ -1,15 +1,24 @@
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
 import { Disclosure } from "@headlessui/react";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+
   const navigation = [
     { label: "Product", href: "/product" },
     { label: "Features", href: "/features" },
     { label: "Pricing", href: "/pricing" },
     { label: "Company", href: "/company" },
-    { label: "Blog", href: "/blog" }
+    { label: "Blog", href: "/blog" },
   ];
+
+  useEffect(() => {
+    setOpen(false);
+  }, [router.asPath]);
 
   return (
     <div className="w-full">
@@ -62,12 +71,14 @@ export default function Navbar() {
                   <>
                     {navigation.map((item, index) => (
                       <Link key={index} href={item.href}>
+                        {/* <Disclosure.Button href={item.href}> */}
                         <a className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
                           {item.label}
                         </a>
+                        {/* </Disclosure.Button> */}
                       </Link>
                     ))}
-                    <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}/pricing`}>
+                    <Link href="/pricing">
                       <a className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5">
                         Get Started
                       </a>
@@ -95,13 +106,13 @@ export default function Navbar() {
         </div>
 
         <div className="hidden mr-3 space-x-3 lg:flex nav__item">
-          <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}/pricing`}>
+          <Link href="/pricing">
             <a className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
               Get Started
             </a>
           </Link>
 
-          {/* <ThemeChanger /> */}
+          <ThemeChanger />
         </div>
       </nav>
     </div>
