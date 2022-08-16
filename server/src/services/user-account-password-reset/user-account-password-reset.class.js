@@ -49,7 +49,7 @@ exports.UserAccountPasswordReset = class UserAccountPasswordReset {
               data: {
                 appLogoUrl: `${this.app.get(
                   "appWebBaseUrl"
-                )}/images/siteLogoSmall.png`,
+                )}/images/siteLogo.svg`,
                 givenName: user.name?.given,
                 appPrimaryColor: this.app.get("appPrimaryColor"),
                 appName: this.app.get("appName"),

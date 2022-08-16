@@ -32,7 +32,7 @@ exports.UserAccountVerification = class UserAccountVerification {
                 templateId: this.app.get('welcomeVerificationEmailTemplate'),
                 destination: params.user.email,
                 data: {  
-                  appLogoUrl: `${this.app.get('appWebBaseUrl')}/images/siteLogoSmall.png`,
+                  appLogoUrl: `${this.app.get('appWebBaseUrl')}/images/siteLogo.svg`,
                   appPrimaryColor: this.app.get('appPrimaryColor'),
                   appName: this.app.get('appName'),
                   emailVerificationUrl: `${this.app.get('appWebBaseUrl')}/user/verification/email/${emailVerificationData.emailVerificationKey}`,

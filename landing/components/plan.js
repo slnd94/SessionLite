@@ -27,7 +27,7 @@ const Plan = ({ plan }) => {
                 figure: plan.subscription.price.gross,
                 currencyCode: plan.subscription.currency,
               }}
-              className="mr-4"
+              className="mr-4 text-indigo-600"
               style={{ fontSize: "2.25rem" }}
             />
             <sup className="ms-1 fs-6">
@@ -40,9 +40,9 @@ const Plan = ({ plan }) => {
           </div>
         ) : null}
 
-        <div className="mt-6 fs-6 fw-bold">{plan.description}</div>
+        <div className="mt-6 fs-6 font-bold">{plan.description}</div>
         <div className="mt-6">
-          <ul>
+          <ul style={{ listStyleType: "disc" }}>
             {plan.features.map((feature, index) => (
               <li key={index}>{feature}</li>
             ))}

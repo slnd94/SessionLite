@@ -2,7 +2,7 @@
   border-bottom: 1px solid $lighter;
   border-radius: $border-radius;
   margin: 0;
-  padding: .5rem;
+  padding: 0.5rem;
 
   &.inactive {
     color: $body-color-light;
@@ -13,12 +13,12 @@
   }
 
   .item-header {
-    margin-left:-0.5rem;
+    margin-left: -0.5rem;
   }
 
   .item-type {
     color: $body-color-light;
-    margin-left:-0.5rem;
+    margin-left: -0.5rem;
   }
 
   .item-name {
@@ -34,37 +34,36 @@
   }
 }
 
-
-
 .section-box {
   // box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
   //   rgba(0, 0, 0, 0.08) 0px 0px 4px 1px;
 
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px,rgba(0, 0, 0, 0.05) 0px 2px 2px,rgba(0, 0, 0, 0.05) 0px 4px 4px,rgba(0, 0, 0, 0.05) 0px 8px 8px,rgba(0, 0, 0, 0.05) 0px 16px 16px;
+  // box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px, rgba(0, 0, 0, 0.05) 0px 2px 2px,
+  //   rgba(0, 0, 0, 0.05) 0px 4px 4px, rgba(0, 0, 0, 0.05) 0px 8px 8px,
+  //   rgba(0, 0, 0, 0.05) 0px 16px 16px;
 
   width: 100%;
   min-height: 100px;
   margin: 15px 0px;
   padding: 20px;
-  background-color: $secondary-light;
-  border: 1px solid $lightest;
+  background-color: $lightest;
+  border: 4px solid $lightest;
   border-radius: $border-radius !important;
 
-  // &.popular {
-  // background-color: $secondary;
-  // color: $white;
-  // }
+  &.popular {
+    // background-color: $secondary;
+    // color: $white;
+    border-color: $secondary;
+  }
 
   &.disabled {
     background-color: $lightest;
     color: $body-color-light;
-
   }
 
   // &:hover {
   //   transform: scale(1.0275);
   // }
-
 }
 .list-item-link {
   cursor: pointer;
