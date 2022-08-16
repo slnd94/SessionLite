@@ -39,14 +39,14 @@ export default function Footer() {
 
             <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400">
               <p>
-                Traverston Jumpstart is a foundational boilerplate for a
-                multi-tenanted, b2b SaaS application. It is built with Next.js,
-                Node.js, and Mongo DB.
+                Traverston Jumpstart is a foundational boilerplate for
+                multi-tenanted, b2b SaaS web applications. It is built with
+                Next.js, Node.js, and Mongo DB.
               </p>
               <p className="mt-4">
                 It includes user authentication and authorization, tenant
                 context, tenant administrative management, subscription
-                (plan) management and more.
+                management and more.
               </p>
             </div>
             <div className="mt-8">

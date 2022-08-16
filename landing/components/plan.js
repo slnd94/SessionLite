@@ -41,7 +41,7 @@ const Plan = ({ plan }) => {
         ) : null}
 
         <div className="mt-6 fs-6 font-bold">{plan.description}</div>
-        <div className="mt-6">
+        <div className="mt-6 pl-4">
           <ul style={{ listStyleType: "disc" }}>
             {plan.features.map((feature, index) => (
               <li key={index}>{feature}</li>
