@@ -36,7 +36,7 @@ export default function Layout({ children }) {
               viewFileAuth={fileAuth?.viewTenantLogo}
             />
           ) : (
-            <img src="/images/siteLogo.png" width="400" />
+            <img src="/images/siteLogo.svg" width="400" />
           )}
           {/* </div> */}
         </div>

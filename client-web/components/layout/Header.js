@@ -59,10 +59,10 @@ function Header({ brandName, tenantAdmin }) {
       <Navbar className={`navbar-light bg-white`} color="faded" expand="sm">
         <NavbarBrand href={`${process.env.NEXT_PUBLIC_LANDING_URL}`} className="mr-auto">
           <Image
-            src="/images/logo.svg"
+            src="/images/siteLogo.svg"
             alt={brandName}
             width={214}
-            height={30}
+            height={60}
           />
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />

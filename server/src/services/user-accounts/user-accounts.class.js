@@ -57,7 +57,7 @@ exports.UserAccounts = class UserAccounts {
             data: {
               appLogoUrl: `${this.app.get(
                 "appWebBaseUrl"
-              )}/images/siteLogoSmall.png`,
+              )}/images/siteLogo.svg`,
               appPrimaryColor: this.app.get("appPrimaryColor"),
               appName: this.app.get("appName"),
               emailVerificationUrl: `${this.app.get(

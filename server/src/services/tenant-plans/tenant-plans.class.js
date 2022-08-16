@@ -174,7 +174,7 @@ exports.TenantPlans = class TenantPlans {
 
                 return this.app
                   .service("tenants")
-                  .patch(id, { plan: data.plan })
+                  .patch(id, { plan: data.plan, tentativePlan: null, })
                   .then((res) => {
                     return { success: true };
                   });

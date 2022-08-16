@@ -29,24 +29,16 @@ const Plan = ({
         <Badge
           color="secondary"
           size="xl"
-          className="p-1 pt-2 mt-n3 mb-2"
+          className="d-relative p-1 pt-2 mt-n5 mb-2"
           style={{ height: "40px" }}
         >
           <h5>{t(`plan.${plan.tag}`)}</h5>
         </Badge>
       ) : null}
-      <h4 className={"title"}>{plan.name}</h4>
+      <h3>{plan.name}</h3>
 
       {/* {plan.eligibility ? <div>{JSON.stringify(plan.eligibility)}</div> : null} */}
 
-      <div className="fs-6 fw-bold">{plan.description}</div>
-      <div className="mt-3">
-        <ul>
-          {plan.features.map((feature, index) => (
-            <li key={index}>{feature}</li>
-          ))}
-        </ul>
-      </div>
       {plan.subscription ? (
         <div>
           <Amount
@@ -54,7 +46,7 @@ const Plan = ({
               figure: plan.subscription.price.gross,
               currencyCode: plan.subscription.currency,
             }}
-            className="mr-4"
+            className={plan.eligibility && !plan.eligibility.eligible ? "" : "text-secondary"}
             style={{ fontSize: "2.25rem" }}
             t={t}
           />
@@ -68,6 +60,15 @@ const Plan = ({
         </div>
       ) : null}
 
+      <div className="fs-6 fw-bold">{plan.description}</div>
+      <div className="mt-3">
+        <ul>
+          {plan.features.map((feature, index) => (
+            <li key={index}>{feature}</li>
+          ))}
+        </ul>
+      </div>
+
       {showPaymentDetails ? (
         <div className="fw-bold mt-3">{getPlanPaymentDetailsString()}</div>
       ) : null}
@@ -76,12 +77,12 @@ const Plan = ({
         <div className="fw-bold text-dark mt-3">{t("plan.You are not currently eligible for this plan")}</div>
       ) : null}
       {button ? (
-        <div className="d-flex align-items-end justify-content-full">
+        <div className="d-flex align-items-end justify-content-between">
           <Button
             className={"btn-block"}
             size="lg"
             // color="secondary"
-            color={plan.tag ? "secondary" : "default"}
+            color={button.disabled || (plan.eligibility && !plan.eligibility.eligible) ? "default" : "secondary"}
             onClick={() => {
               button.onClick();
             }}
