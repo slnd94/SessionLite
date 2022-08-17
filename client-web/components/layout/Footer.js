@@ -13,7 +13,7 @@ function Footer() {
         <span className="me-2">Powered by</span>
         <span className={styles.logo}>
           <Image
-            src="/images/poweredByLogoSmall.png"
+            src="/images/poweredByLogo.svg"
             alt="Traverston Logo"
             width={160}
             height={20}
