@@ -9,7 +9,7 @@ export default function Hero() {
         <div className="flex items-center w-full lg:w-1/2">
           <div className="max-w-2xl mb-8">
             <h1 className="text-3xl font-bold leading-snug tracking-tight text-gray-800 lg:text-3xl lg:leading-tight xl:text-5xl xl:leading-tight dark:text-white">
-              The B2B SaaS Boilerplate
+              The SaaS Boilerplate
             </h1>
             {/* <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
               Nextly is a free landing page & marketing website template for
@@ -18,11 +18,11 @@ export default function Hero() {
             </p> */}
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
                 Traverston Jumpstart is a foundational boilerplate for
-                multi-tenanted, b2b SaaS web applications. It is built with
+                multi-tenant Software-as-a-Service (SaaS) web applications. It is built with
                 Next.js, Node.js, and Mongo DB.
               </p>
               <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
-                It includes user authentication and authorization, tenant
+                It includes user authentication and role-based authorization, tenant
                 context, tenant administrative management, subscription
                 management and more.
               </p>

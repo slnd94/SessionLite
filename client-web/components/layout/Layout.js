@@ -166,7 +166,7 @@ function Layout({ children, brandName }) {
       <PaddleLoader />
 
       <Header brandName={brandName} tenantAdmin={userTenantAdminAuthorized} />
-      <main className={`${styles.main} p-4 px-md-5 py-md-4`}>
+      <main className={`${styles.main} px-4 px-md-5 py-4`}>
         {showUserVerification ? <UserUnverified /> : null}
         {showSelectTenantPlan 
         ? <SelectPlan showProgress={true} onPlanUpdated={async () => {

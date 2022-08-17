@@ -179,8 +179,9 @@ const SelectPlan = ({
                 ) : null}
 
                 <div className="row">
-                  <div className="col-12 d-flex justify-content-between">
-                    <h3>{t("plan.Select Your Plan")}</h3>
+                  <div className="col-12">
+                    <h3>{t("plan.Plans and Pricing")}</h3>
+                    <p className="fs-5 text-light">{t("plan.Pick the plan that works best for your business. All paid plans come with a free trial. You can change your plan or cancel at any time.")}</p>
                   </div>
                 </div>
 
@@ -194,6 +195,9 @@ const SelectPlan = ({
                     }}
                   />
                 ) : null}
+
+                <div className="row mt-3">
+                  <div className="col-12">
                 <PlanList
                   plans={plans}
                   currentPlan={currentPlan}
@@ -204,6 +208,8 @@ const SelectPlan = ({
                     setDetailPlan(plan);
                   }}
                 />
+                </div>
+                </div>
               </>
             ) : null}
             <Offcanvas isOpen={!!detailPlan} direction="end" keyboard={true}>

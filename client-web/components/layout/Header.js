@@ -52,8 +52,8 @@ function Header({ brandName, tenantAdmin }) {
 
   return (
     <div
-      className={`header-bar ${
-        auth?.status === "SIGNED_OUT" ? "sticky-top" : ""
+      className={`header-bar px-md-4 ${
+        auth?.status === "SIGNED_OUT" ? "" : ""
       }`}
     >
       <Navbar className={`navbar-light bg-white`} color="faded" expand="sm">
@@ -404,15 +404,6 @@ function Header({ brandName, tenantAdmin }) {
                 ) : null}
                 {auth?.status === "SIGNED_OUT" ? (
                   <>
-                    <NavItem>
-                      <Link href="/tenant/register" passHref>
-                        <NavLink>
-                          <Button size="md" color="secondary">
-                            {t("tenant.Start for free")}
-                          </Button>
-                        </NavLink>
-                      </Link>
-                    </NavItem>
                     <NavItem className="d-flex align-items-center me-3">
                       <Link href="/pricing" passHref>
                         <NavLink>
@@ -424,6 +415,15 @@ function Header({ brandName, tenantAdmin }) {
                       <Link href="/auth/signin" passHref>
                         <NavLink>
                           <IconText icon="signin" text={t("auth.Sign in")} />
+                        </NavLink>
+                      </Link>
+                    </NavItem>
+                    <NavItem>
+                      <Link href="/tenant/register" passHref>
+                        <NavLink>
+                          <Button className="btn-block" size="md" color="secondary">
+                            {t("tenant.Start for free")}
+                          </Button>
                         </NavLink>
                       </Link>
                     </NavItem>

@@ -14,6 +14,7 @@ export default function Navbar() {
     { label: "Pricing", href: "/pricing" },
     { label: "Company", href: "/company" },
     { label: "Blog", href: "/blog" },
+    { label: "Sign in", href: `${process.env.NEXT_PUBLIC_WEB_URL}/auth/signin` },
   ];
 
   useEffect(() => {
