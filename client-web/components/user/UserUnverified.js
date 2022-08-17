@@ -44,9 +44,9 @@ const UserUnverified = ({}) => {
       <Layout>
         <>
           <h3>{t("auth.Welcome!")}</h3>
-          <p className="mt-4">
+          <h5 className="mt-4 mb-4">
             {t("user.account.verification.We need to verify your account.")}
-          </p>
+          </h5>
           <p>
             {t(
               "user.account.verification.We have sent an email with a verification link to"
@@ -58,8 +58,8 @@ const UserUnverified = ({}) => {
             {t("user.account.verification.Didn't get the email?")}
             <Button
               size="md"
-              color="default"
-              className="btn-block"
+              color="secondary"
+              className="btn-block mt-3"
               onClick={() => {
                 setProcessing(true);
                 setUserEmailVerification({ id: auth.user._id }).then((res) => {
@@ -82,7 +82,7 @@ const UserUnverified = ({}) => {
           </div>
 
           {showEmailUpdateForm ? (
-            <div className="mt-5">
+            <div className="mt-4">
               <UpdateEmailForm
                 emailFieldLabel={`${t(
                   "user.account.verification.Update email and send a new verification link to"
@@ -152,12 +152,12 @@ const UserUnverified = ({}) => {
               />
             </div>
           ) : (
-            <div className="mt-5">
+            <div className="mt-4">
               {t("user.account.verification.Not the correct email address?")}
               <Button
                 size="md"
-                color="default"
-                className="btn-block"
+                color="secondary"
+                className="btn-block mt-3"
                 onClick={() => {
                   setShowEmailUpdateForm(true);
                 }}

@@ -86,11 +86,11 @@ export default function VerifyEmail() {
             {auth.user.verified ? (
               <>
                 <h3 className="title">{t("Thank You")}</h3>
-                <p className="mt-4">
+                <h5 className="mt-4 mb-4">
                   {t(
                     `user.account.verification.Your account has been verified.`
                   )}
-                </p>
+                </h5>
                 {tenant ? (
                   <Link href={`/tenant/${tenant._id}`}>
                     <a>
