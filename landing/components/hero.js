@@ -35,7 +35,7 @@ export default function Hero() {
                 href="/pricing"
                 // target="_blank"
                 rel="noopener"
-                className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md ">
+                className="px-8 py-4 text-lg font-medium text-center text-white bg-purple-600 rounded-md ">
                 Start for Free
               </a>
               {/* <a
@@ -76,7 +76,7 @@ export default function Hero() {
       <Container>
         <div className="flex flex-col justify-center">
           <div className="text-xl text-center text-gray-700 dark:text-white">
-            Trusted by <span className="text-indigo-600">2000+</span> customers
+            Trusted by <span className="text-purple-600">2000+</span> customers
             worldwide
           </div>
 

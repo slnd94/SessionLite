@@ -50,7 +50,7 @@ const PlanUsageCompare = ({ plan, usage, requestedUsage }) => {
       )}
       <h5 className="mt-5">{t("tenant.admin.plan.What are your options?")}</h5>
       <ul>
-        <li>{t("tenant.admin.plan.Choose a different plan")}</li>
+        <li>{t("tenant.admin.plan.Consider a different plan")}</li>
         <li>
           {t(
             "tenant.admin.plan.Deactivate some existing active users (clients or team members)"
