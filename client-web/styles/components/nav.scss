@@ -4,11 +4,11 @@ div.section-nav {
   display: block;
   top: 0;
   left: 0;
-  height: 110vh;
+  min-height: 110vh;
   padding-top: 30px;
   // padding-left: 30px;
-  margin-top: -24px;
-  background-color: $lightest;
+  // margin-top: -24px;
+  background-color: $white;
   @include media-breakpoint-up(md) {
     &.left-nav-md-up {
       padding-left: 30px;
@@ -66,8 +66,8 @@ div.section-nav {
     cursor: pointer;
     color: $body-color-light;
     padding: 0.75rem;
-    background-color: $lightest;
-    border-color: $lightest;
+    background-color: $white;
+    border-color: $white;
     border-top-width: 2px;
     border-top-style: solid;
     border-bottom-width: 2px;
@@ -82,7 +82,7 @@ div.section-nav {
       border-color: $lightest;
     }
     &.active {
-      background-color: $white;
+      background-color: $lightest;
       color: $body-color;
       font-weight: 500;
       border-color: $secondary;

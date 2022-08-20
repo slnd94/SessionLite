@@ -181,7 +181,7 @@ const SelectPlan = ({
                 <div className="row">
                   <div className="col-12">
                     <h3>{t("plan.Plans and Pricing")}</h3>
-                    <p className="fs-5">{t("plan.Pick the plan that works best for your business. All paid plans come with a free trial. You can change your plan or cancel at any time.")}</p>
+                    <p className="fs-5">{t("plan.Pick the plan that works best for your business. All paid plans come with a free trial. Change your plan or cancel at any time.")}</p>
                   </div>
                 </div>
 
