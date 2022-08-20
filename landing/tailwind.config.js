@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         trueGray: colors.trueGray,
-        indigo: {
+        purple: {
           500: "#9365b8",
           600: "#9365b8"
         }

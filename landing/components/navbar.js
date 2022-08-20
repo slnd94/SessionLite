@@ -30,7 +30,7 @@ export default function Navbar() {
             <>
               <div className="flex flex-wrap items-center justify-between w-full lg:w-auto">
                 <Link href="/">
-                  <a className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
+                  <a className="flex items-center space-x-2 text-2xl font-medium text-purple-500 dark:text-gray-100">
                     <span>
                       <img
                         src="/img/logo.svg"
@@ -45,7 +45,7 @@ export default function Navbar() {
 
                 <Disclosure.Button
                   aria-label="Toggle Menu"
-                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700"
+                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-purple-500 focus:text-purple-500 focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700"
                 >
                   <svg
                     className="w-6 h-6 fill-current"
@@ -73,14 +73,14 @@ export default function Navbar() {
                     {navigation.map((item, index) => (
                       <Link key={index} href={item.href}>
                         {/* <Disclosure.Button href={item.href}> */}
-                        <a className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
+                        <a className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-purple-500 focus:text-purple-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700">
                           {item.label}
                         </a>
                         {/* </Disclosure.Button> */}
                       </Link>
                     ))}
                     <Link href="/pricing">
-                      <a className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5">
+                      <a className="w-full px-6 py-2 mt-3 text-center text-white bg-purple-600 rounded-md lg:ml-5">
                         Get Started
                       </a>
                     </Link>
@@ -97,7 +97,7 @@ export default function Navbar() {
             {navigation.map((item, index) => (
               <li className="mr-3 nav__item" key={index}>
                 <Link href={item.href}>
-                  <a className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
+                  <a className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-purple-500 focus:text-purple-500 focus:bg-indigo-100 focus:outline-none">
                     {item.label}
                   </a>
                 </Link>
@@ -108,7 +108,7 @@ export default function Navbar() {
 
         <div className="hidden mr-3 space-x-3 lg:flex nav__item">
           <Link href="/pricing">
-            <a className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
+            <a className="px-6 py-2 text-white bg-purple-600 rounded-md md:ml-5">
               Get Started
             </a>
           </Link>
