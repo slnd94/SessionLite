@@ -29,7 +29,7 @@ const Plan = ({
         <Badge
           color="secondary"
           size="xl"
-          className="d-relative p-1 pt-2 mt-n5 mb-2"
+          className="d-relative p-1 pt-2 mt-n4 mb-2"
           style={{ height: "40px" }}
         >
           <h5>{t(`plan.${plan.tag}`)}</h5>
