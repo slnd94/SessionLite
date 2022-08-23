@@ -5,10 +5,51 @@ import {
   DeviceMobileIcon,
   AdjustmentsIcon,
   SunIcon,
+  UserIcon,
+  UserGroupIcon,
+  OfficeBuildingIcon,
+  CurrencyDollarIcon,
+  PlusCircleIcon
 } from "@heroicons/react/outline";
 
 import benefitOneImg from "../public/img/benefit-one.png";
 import benefitTwoImg from "../public/img/benefit-two.png";
+
+const featuresIncluded = {
+  title: "Highlight your benefits",
+  bullets: [
+    {
+      title: "Users and Permissions",
+      desc: "User accounts, authentication and role-based authorization.",
+      icon: <UserIcon />,
+    },
+    {
+      title: "Multi-Tenancy",
+      desc: "Tenant context and administrative management. Each of your customers has their own walled-off application scope and administrative functions.",
+      icon: <OfficeBuildingIcon />,
+    },
+    {
+      title: "Team and Client Management",
+      desc: "Your customers can invite their team members and clients to use your SaaS with them.",
+      icon: <UserGroupIcon />,
+    },
+    {
+      title: "Subscription Management",
+      desc: "Customizable plans and subscriptions, so you can tailor your offering to your customers.",
+      icon: <CurrencyDollarIcon />
+    },
+    {
+      title: "Mobile Responsive",
+      desc: "Looks great on any device, from desktop to mobile phone.",
+      icon: <DeviceMobileIcon />,
+    },
+    {
+      title: "... and Much More",
+      desc: "Traverston Jumpstart includes all you need to get rolling.",
+      icon: <PlusCircleIcon />
+    }
+  ],
+};
 
 const benefitOne = {
   title: "Highlight your benefits",
@@ -56,4 +97,4 @@ const benefitTwo = {
   ],
 };
 
-export { benefitOne, benefitTwo };
+export { featuresIncluded, benefitOne, benefitTwo };
