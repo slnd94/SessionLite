@@ -9,8 +9,8 @@ export default function Home({ plans }) {
         Plans and Pricing
       </h1>
       <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-        Pick the plan that works best for your business. All paid plans come
-        with a free trial. Change your plan or cancel at any time.
+        Pick the plan that works best for you. All paid plans come with a free
+        trial. Change your plan or cancel at any time.
       </p>
       <Plans plans={plans.data} />
     </Container>

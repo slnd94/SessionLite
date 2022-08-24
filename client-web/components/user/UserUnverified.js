@@ -58,7 +58,7 @@ const UserUnverified = ({}) => {
             {t("user.account.verification.Didn't get the email?")}
             <Button
               size="md"
-              color="secondary"
+              color="default"
               className="btn-block mt-3"
               onClick={() => {
                 setProcessing(true);
@@ -156,7 +156,7 @@ const UserUnverified = ({}) => {
               {t("user.account.verification.Not the correct email address?")}
               <Button
                 size="md"
-                color="secondary"
+                color="default"
                 className="btn-block mt-3"
                 onClick={() => {
                   setShowEmailUpdateForm(true);
