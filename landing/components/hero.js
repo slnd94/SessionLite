@@ -16,9 +16,10 @@ export default function Hero() {
             </h1>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
               Are you looking to build and launch a cloud-enabled business
-              application or Software-as-a-Service (SaaS)? You want a
-              development partner who can minimize your time-to-market, but
-              still provide a great user experience.
+              application or Software-as-a-Service (SaaS)?
+            </p>
+            <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
+              You need a development partner who can minimize your time-to-market and provide a great user experience.
             </p>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
               Traverston Jumpstart is our foundational boilerplate for
