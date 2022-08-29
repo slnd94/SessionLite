@@ -79,7 +79,7 @@ function ResetPasswordForm({ onSubmit, processing }) {
 
       {processing 
         ? <Loader /> 
-        : <Button className={'btn-block'} type="submit">
+        : <Button className={'btn-block'} color="primary" type="submit">
             {t('auth.Reset password')}
           </Button>
       }

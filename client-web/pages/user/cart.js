@@ -47,7 +47,7 @@ export default function Cart() {
             <Button
               // size='lg'
               className={"me-4 btn-block-md-down"}
-              color="success"
+              color="primary"
               onClick={() => {
                 router.push({
                   pathname: `/checkout`,

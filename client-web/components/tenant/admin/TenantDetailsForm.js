@@ -58,7 +58,7 @@ function TenantDetailsForm({
       {processing ? (
         <Loader />
       ) : (
-        <Button className={"btn-block"} type="submit">
+        <Button className={"btn-block"} color="primary" type="submit">
           {t("user.Save")}
         </Button>
       )}

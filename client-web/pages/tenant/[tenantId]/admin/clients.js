@@ -143,7 +143,7 @@ export default function Clients() {
             className={"btn-block-md-down"}
             // className={"btn-block"}
             size="md"
-            color="secondary"
+            color="primary"
             onClick={() => {
               // setView("invites");
               setShowInviteForm(true);

@@ -23,21 +23,21 @@ function UserCounts({ usage, planEligibility, className }) {
         <tbody>
           <tr>
             <td>{t("tenant.admin.client.Clients")}</td>
-            <td className={`text-center ${planEligibility?.usageOver?.indexOf("users.client.active") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.client.active)}</td>
-            <td className={`text-center ${planEligibility?.usageOver?.indexOf("users.client.invites") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.client.invites)}</td>
-            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.client.total") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.client.total)}</td>
+            <td className={`text-center ${planEligibility?.usageOver?.indexOf("users.client.active") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.client.active)}</td>
+            <td className={`text-center ${planEligibility?.usageOver?.indexOf("users.client.invites") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.client.invites)}</td>
+            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.client.total") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.client.total)}</td>
           </tr>
           <tr>
             <td>{t("tenant.admin.team.Team Members")}</td>
-            <td className={`text-center ${planEligibility?.usageOver?.indexOf("users.team.active") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.team.active)}</td>
-            <td className={`text-center ${planEligibility?.usageOver?.indexOf("users.team.invites") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.team.invites)}</td>
-            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.team.total") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.team.total)}</td>
+            <td className={`text-center ${planEligibility?.usageOver?.indexOf("users.team.active") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.team.active)}</td>
+            <td className={`text-center ${planEligibility?.usageOver?.indexOf("users.team.invites") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.team.invites)}</td>
+            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.team.total") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.team.total)}</td>
           </tr>
           <tr>
             <td>{t("tenant.admin.users.Total")}</td>
-            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.total.active") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.total.active)}</td>
-            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.total.invites") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.total.invites)}</td>
-            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.total.total") >= 0 ? "text-white bg-secondary" : ""}`}>{usageString(usage?.users.total.total)}</td>
+            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.total.active") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.total.active)}</td>
+            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.total.invites") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.total.invites)}</td>
+            <td className={`text-center fw-bold ${planEligibility?.usageOver?.indexOf("users.total.total") >= 0 ? "text-white bg-primary" : ""}`}>{usageString(usage?.users.total.total)}</td>
           </tr>
         </tbody>
       </table>

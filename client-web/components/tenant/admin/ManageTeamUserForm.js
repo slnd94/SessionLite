@@ -84,7 +84,7 @@ function ManageTeamUserForm({ onSubmit, processing, defaults: { active, tenantAd
       {processing ? (
         <Loader />
       ) : (
-        <Button className={"btn-block"} type="submit" disabled={ownUser}>
+        <Button className={"btn-block"} color="primary" type="submit" disabled={ownUser}>
           {t("user.Save")}
         </Button>
       )}

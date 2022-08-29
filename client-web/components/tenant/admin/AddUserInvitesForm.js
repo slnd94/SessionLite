@@ -75,6 +75,7 @@ function AddUserInvitesForm({
       ) : (
         <Button
           className={"btn-block-md-down mt-3"}
+          color="primary"
           onClick={async () => {
             if (addEmails.length < 1) {
               setEmailRequiredError(true);

@@ -173,7 +173,7 @@ const SelectPlan = ({
                     style={{ opacity: "90%" }}
                   >
                     <div className="col-12">
-                      <Progress value={60} striped={true} color="secondary" />
+                      <Progress value={60} striped={true} color="primary" />
                     </div>
                   </div>
                 ) : null}
@@ -187,7 +187,7 @@ const SelectPlan = ({
 
                 {backLink ? (
                   <IconText
-                    className="text-secondary fw-bold fs-6"
+                    className="text-primary fw-bold fs-6"
                     icon="arrowLeft"
                     text={backLink.text}
                     onClick={() => {
@@ -266,7 +266,7 @@ const SelectPlan = ({
         {showProgress ? (
           <div className="row mt-2 mb-4 pt-2">
             <div className="col-12">
-              <Progress value={80} striped={true} color="secondary" />
+              <Progress value={80} striped={true} color="primary" />
             </div>
           </div>
         ) : null}
@@ -299,7 +299,7 @@ const SelectPlan = ({
             </Button>
             <Button
               className="mt-4 btn-block"
-              color="secondary"
+              color="primary"
               onClick={async () => {
                 // apply the plan
                 setView("processing");
@@ -449,7 +449,7 @@ const SelectPlan = ({
         {showProgress ? (
           <div className="row mt-2 mb-4 pt-2">
             <div className="col-12">
-              <Progress value={80} striped={true} color="secondary" />
+              <Progress value={80} striped={true} color="primary" />
             </div>
           </div>
         ) : null}

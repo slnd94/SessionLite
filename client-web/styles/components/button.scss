@@ -17,7 +17,6 @@
   &.btn-danger {
     color: $white;
     background-color: $danger;
-    background-color: $danger;
     border-color: $danger;
     &:focus,
     &:active {
@@ -28,7 +27,6 @@
   }
   &.btn-warning {
     color: $body-color;
-    background-color: $warning;
     background-color: $warning;
     border-color: $warning;
     &:focus,
@@ -41,7 +39,6 @@
   &.btn-success {
     color: $white;
     background-color: $success;
-    background-color: $success;
     border-color: $success;
     &:focus,
     &:active {
@@ -52,7 +49,6 @@
   }
   &.btn-info {
     color: $white;
-    background-color: $info;
     background-color: $info;
     border-color: $info;
     &:focus,
@@ -65,7 +61,6 @@
   &.btn-primary {
     color: $white;
     background-color: $primary;
-    background-color: $primary;
     border-color: $primary;
     &:focus,
     &:active {
@@ -76,7 +71,6 @@
   }
   &.btn-secondary {
     color: $white;
-    background-color: $secondary;
     background-color: $secondary;
     border-color: $secondary;
     &:focus,
