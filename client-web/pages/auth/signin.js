@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Alert } from "reactstrap";
+import { Alert, Button } from "reactstrap";
 import Image from "next/image";
 import Layout from "../../components/auth/Layout";
 import styles from "../../styles/Signin.module.scss";
@@ -83,15 +83,33 @@ export default function Signin() {
             <p>
               {tenant ? (
                 <>
-                  <Link href={`/tenant/${tenant._id}`}>
+                  <Button
+                    className="mt-4 btn-block"
+                    color="default"
+                    onClick={() => {
+                      router.push(`/tenant/${tenant._id}`);
+                    }}
+                  >
                     {t("tenant.Tenant Home")}
-                  </Link>
+                  </Button>
+                  {/* <Link href={`/tenant/${tenant._id}`}>
+                    {t("tenant.Tenant Home")}
+                  </Link> */}
                   <br />
                 </>
               ) : null}
-              <Link href="/user/profile">{t("user.Manage your profile")}</Link>
+              <Button
+                className="mt-0 btn-block"
+                color="default"
+                onClick={() => {
+                  router.push(`/user/profile`);
+                }}
+              >
+                {t("user.Manage your profile")}
+              </Button>
+              {/* <Link href="/user/profile">{t("user.Manage your profile")}</Link>
               <br />
-              <Link href="/">{t("Browse content")}</Link>
+              <Link href="/">{t("Browse content")}</Link> */}
             </p>
           </>
         ) : null}

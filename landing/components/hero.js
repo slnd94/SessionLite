@@ -19,7 +19,7 @@ export default function Hero() {
               application or Software-as-a-Service (SaaS)?
             </p>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-              You need a development partner who can minimize your time-to-market and provide a great user experience.
+              You need a development partner who can help you get to market quickly and provide a great user experience.
             </p>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
               Traverston Jumpstart is our foundational boilerplate for
@@ -28,7 +28,13 @@ export default function Hero() {
             </p>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
               We've included:
-              <div className="w-full mt-5">
+              
+              {/* <Benefits data={featuresIncluded} /> */}
+              {/* user authentication and role-based authorization, tenant context,
+              tenant administrative management, subscription management and
+              more. */}
+            </p>
+            <div className="w-full pb-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
                 {featuresIncluded.bullets.map((item, index) => (
                   <div className="flex items-start mt-8 space-x-3">
                     <div className="flex items-center justify-center flex-shrink-0 mt-1 bg-purple-500 rounded-md w-11 h-11 ">
@@ -47,11 +53,6 @@ export default function Hero() {
                   </div>
                 ))}
               </div>
-              {/* <Benefits data={featuresIncluded} /> */}
-              {/* user authentication and role-based authorization, tenant context,
-              tenant administrative management, subscription management and
-              more. */}
-            </p>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
               We can build your features on top of this foundation.
             </p>
