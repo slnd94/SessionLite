@@ -77,7 +77,7 @@ export default function VerifyEmail() {
     <>
       <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
         <div className="col-12">
-          <Progress value={40} striped={true} color="secondary" />
+          <Progress value={40} striped={true} color="primary" />
         </div>
       </div>
     <Layout>
@@ -96,7 +96,7 @@ export default function VerifyEmail() {
                     <a>
                       <Button
                         size="md"
-                        color="secondary"
+                        color="primary"
                         className="btn-block"
                       >
                         {userTenantAdminAuthorized && !tenant.plan ? (
@@ -114,7 +114,7 @@ export default function VerifyEmail() {
                 ) : (
                   <Link href={"/"}>
                     <a>
-                      <Button size="md" color="secondary" className="btn-block">
+                      <Button size="md" color="primary" className="btn-block">
                         {t("Home")}
                       </Button>
                     </a>

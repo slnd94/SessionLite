@@ -37,7 +37,7 @@ const UserUnverified = ({}) => {
     <>
       <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
         <div className="col-12">
-          <Progress value={40} striped={true} color="secondary" />
+          <Progress value={40} striped={true} color="primary" />
         </div>
       </div>
 

@@ -82,7 +82,7 @@ export default function RegisterSuccess() {
                 <h5>
                   <IconText
                     icon={icon}
-                    iconContainerClass="display-6 text-secondary"
+                    iconContainerClass="display-6 text-primary"
                     text={title}
                   />
                 </h5>
@@ -99,7 +99,7 @@ export default function RegisterSuccess() {
     <>
       <div className="row mt-2 pt-2" style={{ opacity: "90%" }}>
         <div className="col-12">
-          <Progress value={100} striped={true} color="secondary" />
+          <Progress value={100} striped={true} color="primary" />
         </div>
       </div>
       <Layout>
@@ -108,7 +108,7 @@ export default function RegisterSuccess() {
             <h1>
               <IconText
                 icon="success"
-                iconContainerClass="display-4 text-secondary"
+                iconContainerClass="display-4 text-primary"
                 text={t("plan.Success!")}
               />
             </h1>

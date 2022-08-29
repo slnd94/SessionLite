@@ -92,7 +92,7 @@ export default function TenantPlan() {
                     <Button
                       className="mt-4 btn-block"
                       size="lg"
-                      color="secondary"
+                      color="primary"
                       onClick={() => {
                         setView("select");
                       }}

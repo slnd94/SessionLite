@@ -43,7 +43,7 @@ export default function VerifyEmail() {
                     <h5>
                       <IconText
                         icon="success"
-                        iconContainerClass="display-6 text-secondary"
+                        iconContainerClass="display-6 text-primary"
                         text={t("plan.Success!")}
                       />
                     </h5>
@@ -57,7 +57,7 @@ export default function VerifyEmail() {
                 <div className="row mt-3">
                   <div className="col-12 d-flex justify-content-center">
                     <Link href="/auth/signin" passHref>
-                      <Button className="btn-block" size="md" color="secondary">
+                      <Button className="btn-block" size="md" color="primary">
                         {t("auth.Sign in now")}
                       </Button>
                     </Link>

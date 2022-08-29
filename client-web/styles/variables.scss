@@ -32,6 +32,7 @@ $blue-300: #67B2F2 !default;
 $purple-100: #452f57 !default;
 $purple-200: #6610f2 !default;
 $purple-300: #9365b8 !default;
+$purple-400: #A998B6 !default;
 $pink: #ef2985 !default;
 $salmon: #e7abba !default;
 $teal-100: #20c997 !default;
@@ -40,14 +41,14 @@ $cyan: #4d9ace !default;
 $lime: #54ce4d !default;
 
 $charcoal: #3a3b42 !default;
-$water: #4e5d6c !default;
+$water: #4e5d6c !default; 
 $darkwater: rgb(75, 78, 74) !default;
 $brown: rgb(108, 89, 78);
 
-$primary: $charcoal !default;
-$secondary: $purple-300 !default;
+$primary: $purple-300 !default;
+$secondary: $purple-400 !default;
 $secondary-light: lighten($secondary, 40%) !default;
-$success: $secondary !default;
+$success: $primary !default;
 $success-light: lighten($success, 30%) !default;
 $info: $blue-200 !default;
 $warning: $yellow !default;
@@ -61,7 +62,7 @@ $lightest: $gray-500 !default;
 // // Body
 
 $body-bg: $white !default;
-$body-color: $primary !default;
+$body-color: $charcoal !default;
 $body-color-light: lighten($body-color, 40%) !default;
 // $body-color:                #2B3E50 !default;
 $font-size-base: 1rem;

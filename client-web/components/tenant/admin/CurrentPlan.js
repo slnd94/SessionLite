@@ -30,7 +30,7 @@ function TenantPlanCurrent({ plan, onSelectNew }) {
       <Button
         className="mt-4 btn-block-md-down"
         size="lg"
-        color="secondary"
+        color="primary"
         onClick={() => {
           onSelectNew();
         }}

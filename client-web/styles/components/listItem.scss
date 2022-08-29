@@ -51,9 +51,7 @@
   border-radius: $border-radius-lg !important;
 
   &.popular {
-    // background-color: $secondary;
-    // color: $white;
-    border-color: $secondary;
+    border-color: $primary;
   }
 
   &.disabled {

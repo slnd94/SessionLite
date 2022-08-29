@@ -27,7 +27,7 @@ const Plan = ({
     >
       {plan.tag && showTag ? (
         <Badge
-          color="secondary"
+          color="primary"
           size="xl"
           className="d-relative p-1 pt-2 mt-n4 mb-2"
           style={{ height: "40px" }}
@@ -46,7 +46,7 @@ const Plan = ({
               figure: plan.subscription.price.gross,
               currencyCode: plan.subscription.currency,
             }}
-            className={plan.eligibility && !plan.eligibility.eligible ? "" : "text-secondary"}
+            className={plan.eligibility && !plan.eligibility.eligible ? "" : "text-primary"}
             style={{ fontSize: "2.25rem" }}
             t={t}
           />
@@ -81,8 +81,7 @@ const Plan = ({
           <Button
             className={"btn-block"}
             size="lg"
-            // color="secondary"
-            color={button.disabled || (plan.eligibility && !plan.eligibility.eligible) ? "default" : "secondary"}
+            color={button.disabled || (plan.eligibility && !plan.eligibility.eligible) ? "default" : "primary"}
             onClick={() => {
               button.onClick();
             }}

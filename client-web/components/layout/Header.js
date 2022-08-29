@@ -239,7 +239,7 @@ function Header({ brandName, tenantAdmin }) {
                     <NavItem>
                       <Link href="/tenant/register" passHref>
                         <NavLink>
-                          <Button size="lg" color="secondary">
+                          <Button size="lg" color="primary">
                             {t("tenant.Start for free")}
                           </Button>
                         </NavLink>
@@ -421,7 +421,7 @@ function Header({ brandName, tenantAdmin }) {
                     <NavItem>
                       <Link href="/tenant/register" passHref>
                         <NavLink>
-                          <Button className="btn-block" size="md" color="secondary">
+                          <Button className="btn-block" size="md" color="primary">
                             {t("tenant.Start for free")}
                           </Button>
                         </NavLink>

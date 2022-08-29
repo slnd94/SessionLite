@@ -41,7 +41,7 @@ function ManagementNav({ routePrefix, labelPrefix, subRoutes, className }) {
                     pill
                     color={`${
                       currentPath === "/" + routePrefix + "/" + subRoute.slug
-                        ? "secondary"
+                        ? "primary"
                         : "light"
                     }`}
                     style={{ float: "right", marginTop: "2px" }}

@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
     <AuthProvider>
       <UserProvider>
         <TenantProvider>
-          <Layout brandName="Traverston">
+          <Layout brandName={process.env.NEXT_APP_NAME}>
             <Component {...pageProps} />
           </Layout>
         </TenantProvider>

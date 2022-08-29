@@ -14,7 +14,7 @@ function Footer() {
         <span className={styles.logo}>
           <Image
             src="/images/poweredByLogo.svg"
-            alt="Traverston Logo"
+            alt={`${process.env.NEXT_APP_NAME} Logo`}
             width={160}
             height={20}
           />
