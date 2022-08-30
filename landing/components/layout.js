@@ -9,7 +9,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>Traverston Jumpstart - Jumpstart Your SaaS Project</title>
+        <title>{process.env.NEXT_APP_NAME}</title>
         <meta
           name="description"
           content="Nextly is a free landing page template built with next.js & Tailwind CSS"

@@ -18,7 +18,7 @@ export default function Footer() {
   return (
     <div className="relative">
       <Container>
-        <div className="grid max-w-screen-xl grid-cols-1 gap-10 pt-10 mx-auto mt-5 border-t border-gray-100 dark:border-trueGray-700 lg:grid-cols-5">
+        <div className="grid max-w-screen-xl grid-cols-1 gap-10 pt-10 mx-auto mt-5 mb-10 border-t border-gray-100 dark:border-trueGray-700 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <div>
               {" "}
@@ -67,7 +67,7 @@ export default function Footer() {
             </div>
 
             <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400">
-              Powered by Traverston Digital
+              Copyright © {new Date().getFullYear()} by Traverston Digital. All rights reserved.
             </div>
           </div>
 
@@ -128,7 +128,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="my-10 text-sm text-center text-gray-600 dark:text-gray-400">
+        {/* <div className="my-10 text-sm text-center text-gray-600 dark:text-gray-400">
           Copyright © {new Date().getFullYear()}. Made with ♥ by{" "}
           <a href="https://web3templates.com/" target="_blank" rel="noopener">
             Web3Templates.
@@ -137,7 +137,7 @@ export default function Footer() {
           <a href="https://www.glazestock.com/" target="_blank" rel="noopener ">
             Glazestock
           </a>
-        </div>
+        </div> */}
       </Container>
       {/* Do not remove this */}
       <Backlink />
