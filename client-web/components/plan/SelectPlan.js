@@ -180,35 +180,40 @@ const SelectPlan = ({
 
                 <div className="row">
                   <div className="col-12">
-                    <h3>{t("plan.Plans and Pricing")}</h3>
-                    <p className="fs-5">{t("plan.Pick the plan that works best for you. All paid plans come with a free trial. Change your plan or cancel at any time.")}</p>
+                    <h3>
+                      {backLink ? (
+                        <IconText
+                          className="text-primary fw-bold fs-4 me-4"
+                          icon="arrowLeft"
+                          text={backLink.text}
+                          onClick={() => {
+                            backLink.onClick();
+                          }}
+                        />
+                      ) : null}
+                      {t("plan.Plans and Pricing")}
+                    </h3>
+                    <p className="fs-5">
+                      {t(
+                        "plan.Pick the plan that works best for you. All paid plans come with a free trial. Change your plan or cancel at any time."
+                      )}
+                    </p>
                   </div>
                 </div>
 
-                {backLink ? (
-                  <IconText
-                    className="text-primary fw-bold fs-6"
-                    icon="arrowLeft"
-                    text={backLink.text}
-                    onClick={() => {
-                      backLink.onClick();
-                    }}
-                  />
-                ) : null}
-
-                <div className="row mt-3">
+                <div className="row">
                   <div className="col-12">
-                <PlanList
-                  plans={plans}
-                  currentPlan={currentPlan}
-                  onSelectPlan={(plan) => {
-                    selectPlan(plan);
-                  }}
-                  onShowEligibilityDetail={(plan) => {
-                    setDetailPlan(plan);
-                  }}
-                />
-                </div>
+                    <PlanList
+                      plans={plans}
+                      currentPlan={currentPlan}
+                      onSelectPlan={(plan) => {
+                        selectPlan(plan);
+                      }}
+                      onShowEligibilityDetail={(plan) => {
+                        setDetailPlan(plan);
+                      }}
+                    />
+                  </div>
                 </div>
               </>
             ) : null}
