@@ -10,7 +10,7 @@ module.exports = {
       colors: {
         trueGray: colors.trueGray,
         purple: {
-          500: "#9365b8",
+          500: "#A998B6",
           600: "#9365b8"
         }
       },
