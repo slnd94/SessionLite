@@ -130,7 +130,7 @@ export default function TenantPlan() {
                 currentPlan={currentPlan}
                 currentUsage={currentUsage}
                 backLink={{
-                  text: t("Back"),
+                  text: "",
                   onClick: () => {
                     setView("current");
                   },
