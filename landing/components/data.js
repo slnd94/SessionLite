@@ -9,7 +9,11 @@ import {
   UserGroupIcon,
   OfficeBuildingIcon,
   CurrencyDollarIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
+  MusicNoteIcon,
+  ClipboardIcon,
+  AcademicCapIcon,
+  UsersIcon
 } from "@heroicons/react/outline";
 
 import benefitOneImg from "../public/img/benefit-one.png";
@@ -47,6 +51,29 @@ const featuresIncluded = {
       title: "... and Much More",
       desc: "Traverston Jumpstart includes all you need to get rolling.",
       icon: <PlusCircleIcon />
+    }
+  ],
+};
+
+const whoItsFor = {
+  title: "Who is it For?",
+  desc: "If you run sessions with clients or classes with students, you can benefit from SessionLite today.",
+  image: benefitOneImg,
+  bullets: [
+    {
+      title: "Teachers",
+      desc: "Give your students structured curriculum built around real-time video or asyncronous lessons.",
+      icon: <AcademicCapIcon />,
+    },
+    {
+      title: "Gym and Studio Owners",
+      desc: "Build workouts and and routines from structured templates.",
+      icon: <ClipboardIcon />,
+    },
+    {
+      title: "Service Providers",
+      desc: "Schedule and meet with your clients.  Share materials in a template that can be saved and re-used.",
+      icon: <UsersIcon />,
     }
   ],
 };
@@ -97,4 +124,4 @@ const benefitTwo = {
   ],
 };
 
-export { featuresIncluded, benefitOne, benefitTwo };
+export { featuresIncluded, whoItsFor, benefitOne, benefitTwo };
