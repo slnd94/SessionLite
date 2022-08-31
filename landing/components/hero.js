@@ -8,71 +8,55 @@ import Benefits from "./benefits";
 export default function Hero() {
   return (
     <>
-      <Container className="flex flex-wrap ">
+      <Container className="flex flex-wrap">
         <div className="flex items-center w-full lg:w-1/2">
-          <div className="max-w-2xl mb-8">
-            <h1 className="text-3xl font-bold leading-snug tracking-tight text-gray-800 lg:text-3xl lg:leading-tight xl:text-5xl xl:leading-tight dark:text-white">
-              Your SaaS, Built Fast
+          <div className="max-w-2xl mb-8 lg:mt-12">
+            <h1 className="text-3xl mb-3 font-bold leading-snug tracking-tight text-gray-700 lg:text-3xl lg:leading-tight xl:text-5xl xl:leading-tight dark:text-white">
+              Your Sessions, Your Way
             </h1>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-              Are you looking to build and launch a cloud-enabled business
-              application or Software-as-a-Service (SaaS)?
+              SessionLite allows you to interact with clients and team members in structured sessions.  Communicate with your clients and present your content.  Share files, links, videos and more.
             </p>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-              You need a development partner who can help you get to market quickly and provide a great user experience.
+              Streamline your sessions today!
+            </p>
+            {/* <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
+              String multiple sessions together to form a series.  Easily build structured programming you can use again and again with your clients.
             </p>
             <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-              Traverston Jumpstart is our foundational boilerplate for
-              multi-tenant web applications. We have designed Jumpstart as a
-              great starting point for your applications.
-            </p>
-            <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
+              Sessions can be scheduled or asynchronous. Use SessionLite with single clients or with groups.
+            </p> */}
+            {/* <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
               We've included:
-              
-              {/* <Benefits data={featuresIncluded} /> */}
-              {/* user authentication and role-based authorization, tenant context,
-              tenant administrative management, subscription management and
-              more. */}
             </p>
             <div className="w-full pb-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-                {featuresIncluded.bullets.map((item, index) => (
-                  <div className="flex items-start mt-8 space-x-3">
-                    <div className="flex items-center justify-center flex-shrink-0 mt-1 bg-purple-500 rounded-md w-11 h-11 ">
-                      {React.cloneElement(item.icon, {
-                        className: "w-7 h-7 text-indigo-50",
-                      })}
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200">
-                        {item.title}
-                      </h4>
-                      <p className="mt-1 text-gray-500 dark:text-gray-400">
-                        {item.desc}
-                      </p>
-                    </div>
+              {featuresIncluded.bullets.map((item, index) => (
+                <div className="flex items-start mt-8 space-x-3">
+                  <div className="flex items-center justify-center flex-shrink-0 mt-1 bg-purple-500 rounded-md w-11 h-11 ">
+                    {React.cloneElement(item.icon, {
+                      className: "w-7 h-7 text-indigo-50",
+                    })}
                   </div>
-                ))}
-              </div>
-            <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-              We can build your features on top of this foundation.
-            </p>
-            <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-              Click below to walk through the customer registration process and
-              see how it works. This is our "sandbox" version (not a production
-              SaaS). In this sandbox version you will act as your own customer,
-              registering their business for your SaaS. You can choose the free
-              plan, or a paid plan using our test credit card number (4242 4242
-              4242 4242).
-            </p>
+                  <div>
+                    <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200">
+                      {item.title}
+                    </h4>
+                    <p className="mt-1 text-gray-500 dark:text-gray-400">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div> */}
 
-            <div className="py-3 flex flex-col items-start space-x-3 space-y-3 sm:space-y-0 sm:items-center sm:flex-row">
+            <div className="mt-8 flex flex-col items-start space-x-3 space-y-3 sm:space-y-0 sm:items-center sm:flex-row">
               <a
                 href="/pricing"
                 // target="_blank"
                 rel="noopener"
                 className="px-8 py-4 text-lg font-medium text-center text-white bg-purple-600 rounded-md "
               >
-                Walk through the customer registration
+                Get Started Free
               </a>
               {/* <a
                 href="http://"
@@ -95,12 +79,12 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center w-full lg:w-1/2">
-          <div className="hidden lg:block">
+        <div className="lg:pl-8 lg:py-4 flex items-top justify-center w-full lg:w-1/2">
+          <div className="hidden lg:block lg:px-8">
             <Image
               src={heroImg}
-              width="616"
-              height="617"
+              // width="616"
+              // height="617"
               alt="Hero Illustration"
               layout="intrinsic"
               loading="eager"
@@ -109,7 +93,7 @@ export default function Hero() {
           </div>
         </div>
       </Container>
-      <Container>
+      {/* <Container>
         <div className="flex flex-col justify-center">
           <div className="text-xl text-center text-gray-700 dark:text-white">
             Trusted by <span className="text-purple-600">2000+</span> customers
@@ -134,7 +118,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
     </>
   );
 }

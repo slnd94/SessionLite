@@ -5,7 +5,7 @@ import api from "../utils/api";
 export default function Home({ plans }) {
   return (
     <Container>
-      <h1 className="text-2xl font-bold leading-snug tracking-tight text-gray-800 lg:text-2xl lg:leading-tight xl:text-3xl xl:leading-tight dark:text-white">
+      <h1 className="text-2xl font-bold leading-snug tracking-tight text-gray-700 lg:text-2xl lg:leading-tight xl:text-3xl xl:leading-tight dark:text-white">
         Plans and Pricing
       </h1>
       <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">

@@ -3,7 +3,7 @@ import Hero from "../components/hero";
 import Navbar from "../components/navbar";
 import SectionTitle from "../components/sectionTitle";
 
-import { benefitOne, benefitTwo } from "../components/data";
+import { whoItsFor, benefitOne, benefitTwo } from "../components/data";
 // import Video from "../components/video";
 // import Benefits from "../components/benefits";
 // import Footer from "../components/footer";
@@ -29,12 +29,19 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Benefits data={whoItsFor} />
       <SectionTitle
-        pretitle="Nextly Benefits"
-        title=" Why should you use this landing page">
-        Nextly is a free landing page & marketing website template for startups
-        and indie projects. Its built with Next.js & TailwindCSS. And its
-        completely open-source.
+        pretitle="SessionLite Benefits"
+        title="Why should you use SessionLite?">
+            <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
+              Easily build structured programming you can use again and again with your clients.  You can have recurring sessions, or string multiple sessions together to form a series.
+            </p>
+            <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
+              Sessions can be scheduled or asynchronous. Use SessionLite with single clients or with groups.
+            </p>
+            {/* <p className="py-3 text-xl leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
+              Sessions can be scheduled or asynchronous. Use SessionLite with single clients or with groups.
+            </p> */}
       </SectionTitle>
       <Benefits data={benefitOne} />
       <Benefits imgPos="right" data={benefitTwo} />

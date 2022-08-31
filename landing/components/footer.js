@@ -39,14 +39,7 @@ export default function Footer() {
 
             <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400">
               <p>
-                Traverston Jumpstart is a foundational boilerplate for
-                multi-tenant Software-as-a-Service (SaaS) web applications.
-              </p>
-              <p className="mt-4">
-                It includes user authentication and role-based authorization,
-                tenant context, tenant administrative management, subscription
-                management and more. We have designed Jumpstart as a great
-                starting point for your applications.
+              SessionLite allows you to interact with clients and team members in structured sessions. Communicate with your clients and present your content. Share files, links, videos and more.
               </p>
             </div>
             <div className="mt-8">
@@ -67,7 +60,14 @@ export default function Footer() {
             </div>
 
             <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400">
-              Copyright © {new Date().getFullYear()} by Traverston Digital. All rights reserved.
+              Copyright © {new Date().getFullYear()} by Traverston Digital Solutions. All rights reserved.
+            </div>
+
+            <div className="max-w-md mt-8 text-gray-400 dark:text-gray-500">
+              Illustrations from{" "}
+              <a href="https://www.glazestock.com/" target="_blank" rel="noopener " className="text-gray-500 dark:text-gray-400">
+                Glazestock
+              </a>
             </div>
           </div>
 
@@ -198,7 +198,7 @@ const Backlink = () => {
       href="https://web3templates.com"
       target="_blank"
       rel="noopener"
-      className="absolute flex px-3 py-1 space-x-2 text-sm font-semibold text-gray-900 bg-white border border-gray-300 rounded shadow-sm place-items-center left-5 bottom-5 dark:bg-trueGray-900 dark:border-trueGray-700 dark:text-trueGray-300"
+      className="absolute flex px-3 py-1 space-x-2 text-sm font-semibold text-gray-900 bg-white border border-gray-300 rounded shadow-sm place-items-center left-5 lg:left-16 lg:ml-4 bottom-5 dark:bg-trueGray-900 dark:border-trueGray-700 dark:text-trueGray-300"
     >
       <svg
         width="20"

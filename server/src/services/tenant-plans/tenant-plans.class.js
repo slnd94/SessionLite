@@ -84,7 +84,7 @@ exports.TenantPlans = class TenantPlans {
                       subscription_id: tenant.paddle.subscriptionId,
                       plan_id: requestedPlan.paddle.productId,
                       prorate: true,
-                      bill_immediately: true,
+                      bill_immediately: true
                     },
                   });
                   // tenant plan update will be handled in resulting webhook call
