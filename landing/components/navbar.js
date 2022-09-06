@@ -9,11 +9,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const navigation = [
-    { label: "Product", href: "/product" },
+    // { label: "Product", href: "/product" },
     { label: "Features", href: "/features" },
     { label: "Pricing", href: "/pricing" },
     { label: "Company", href: "/company" },
-    { label: "Blog", href: "/blog" },
+    // { label: "Blog", href: "/blog" },
     { label: "Sign in", href: `${process.env.NEXT_PUBLIC_WEB_URL}/auth/signin` },
   ];
 
@@ -113,7 +113,7 @@ export default function Navbar() {
             </a>
           </Link>
 
-          <ThemeChanger />
+          {/* <ThemeChanger /> */}
         </div>
       </nav>
     </div>

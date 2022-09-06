@@ -193,7 +193,7 @@ const SelectPlan = ({
                       ) : null}
                       {t("plan.Plans and Pricing")}
                     </h3>
-                    <p className="fs-5">
+                    <p className="fs-5 mt-3">
                       {t(
                         "plan.Pick the plan that works best for you. All paid plans come with a free trial. Change your plan or cancel at any time."
                       )}
