@@ -27,7 +27,5 @@
       "usernameField": "email",
       "passwordField": "password"
     }
-  },
-  "mongodb": "mongodb://localhost:27017/jymana-local-dev-1",
-  "//mongodb": "mongodb+srv://jymana-dev:QXwCGpvybjU6R2dy@cluster0.7djuc.mongodb.net/jymana-dev?retryWrites=true&w=majority"
+  }
 }
