@@ -62,7 +62,7 @@ const whoItsFor = {
   bullets: [
     {
       title: "Teachers",
-      desc: "Give your students structured curriculum built around real-time video or asyncronous lessons.",
+      desc: "Give your students structured curriculum built around real-time video or asynchronous lessons.",
       icon: <AcademicCapIcon />,
     },
     {
