@@ -67,7 +67,7 @@ const whoItsFor = {
     },
     {
       title: "Gym and Studio Owners",
-      desc: "Build workouts and and routines from structured templates.",
+      desc: "Build workouts and and routines from structured templates. Embed videos and files. Schedule sessions with specific clients, or let clients sign up for the times they want.",
       icon: <ClipboardIcon />,
     },
     {
