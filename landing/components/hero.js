@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Container from "./container";
 import heroImg from "../public/img/hero.png";
+import phoneImg from "../public/img/phoneScreen1.png";
 import { featuresIncluded } from "./data";
 import Benefits from "./benefits";
 
@@ -83,8 +84,8 @@ export default function Hero() {
           <div className="hidden lg:block lg:px-8">
             <Image
               src={heroImg}
-              // width="616"
-              // height="617"
+              // width="300"
+              // height="460"
               alt="Hero Illustration"
               layout="intrinsic"
               loading="eager"

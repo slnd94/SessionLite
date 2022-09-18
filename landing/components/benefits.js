@@ -9,14 +9,14 @@ export default function Benefits(props) {
     <>
       <Container className="flex flex-wrap mb-20 lg:gap-10 lg:flex-nowrap ">
         <div
-          className={`flex items-center justify-center w-full lg:w-1/2 ${
+          className={`flex items-center justify-center w-full lg:w-1/2 lg:mt-12 ${
             props.imgPos === "right" ? "lg:order-1" : ""
           }`}>
           <div>
             <Image
               src={data.image}
-              width="521"
-              height="482"
+              // width="400"
+              // height="600"
               alt="Benefits"
               layout="intrinsic"
               placeholder="blur"
