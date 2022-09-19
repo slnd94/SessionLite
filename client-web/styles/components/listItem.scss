@@ -8,6 +8,11 @@
     color: $body-color-light;
   }
 
+  &.selected {
+    // color: $primary;
+    background-color: $lightest;
+  }
+
   &.list-item-lg {
     min-height: 3.5rem;
   }
