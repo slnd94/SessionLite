@@ -303,6 +303,9 @@
           "Select a plan with more users allowed": "Select a plan with more users allowed",
           "Deactivate users or revoke invitations to bring your usage within the plan allowance": "Deactivate users or revoke invitations to bring your usage within the plan allowance"
         }
+      },
+      "templates": {
+        "Add New Template": "Add New Template"
       }
     }
   },

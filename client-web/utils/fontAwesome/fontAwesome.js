@@ -26,6 +26,8 @@ import faChartPie from "@fortawesome/fontawesome-free-solid/faChartPie";
 import faExclamationCircle from "@fortawesome/fontawesome-free-solid/faExclamationCircle";
 import faArrowLeft from "@fortawesome/fontawesome-free-solid/faArrowLeft";
 import faArrowRight from "@fortawesome/fontawesome-free-solid/faArrowRight";
+import faChevronLeft from "@fortawesome/fontawesome-free-solid/faChevronLeft";
+import faChevronRight from "@fortawesome/fontawesome-free-solid/faChevronRight";
 import faPlusCircle from "@fortawesome/fontawesome-free-solid/faPlusCircle";
 import faMinusCircle from "@fortawesome/fontawesome-free-solid/faMinusCircle";
 import faTrash from "@fortawesome/fontawesome-free-regular/faTrashAlt";
@@ -65,6 +67,8 @@ export const icons = {
   success: faCheckCircle,
   arrowLeft: faArrowLeft,
   arrowRight: faArrowRight,
+  chevronLeft: faChevronLeft,
+  chevronRight: faChevronRight,
   back: faArrowLeft,
   forward: faArrowRight,
   add: faPlusCircle,
