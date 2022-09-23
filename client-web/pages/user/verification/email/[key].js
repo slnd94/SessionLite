@@ -136,6 +136,7 @@ export default function VerifyEmail() {
                 </div>
                 <Button
                   className={"mt-4 btn-block"}
+                  color="primary"
                   onClick={() => {
                     setUserEmailVerification({ id: auth.user._id }).then(
                       (res) => {

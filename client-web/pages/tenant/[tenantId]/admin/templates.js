@@ -14,7 +14,7 @@ import styles from "../../../../styles/Tenant.module.scss";
 import { Button } from "reactstrap";
 import TemplateListItem from "../../../../components/tenant/admin/TemplateListItem";
 
-export default function Users() {
+export default function Templates() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { tenantId } = router.query;
