@@ -9,6 +9,9 @@ exports.TenantTemplates = class TenantTemplates {
   }
 
   async get(id, params) {
+    // id should be the tenant id
+    // the requested template id should be in params.query.template
+
     if(!params?.query?.template) {
       // No template id supplied.  Return bad request
       return Promise.reject(new errors.BadRequest("Invalid template"));
