@@ -113,8 +113,14 @@ export default function Templates() {
         <div
           className={`${
             selectedTemplate ? "d-none" : ""
-          } d-md-block col-md-6 col-lg-4`}
+          } d-md-block col-md-6 col-lg-5`}
         >
+          {templates?.total === 0 ? (
+            <div className="section-box d-flex justify-content-center align-items-center text-light">
+              {t("tenant.admin.templates.You have not yet added any templates")}
+            </div>
+          ) : null}
+
           <div className="col-12 text-md-end mb-3">
             <Button
               className={"btn-block"}
@@ -126,10 +132,11 @@ export default function Templates() {
             >
               <IconText
                 icon="add"
-                text={t("tenant.admin.templates.Add New Template")}
+                text={t("tenant.admin.templates.Add a New Template")}
               />
             </Button>
           </div>
+
           {templates ? (
             <div>
               <PaginatedList
@@ -160,7 +167,7 @@ export default function Templates() {
         <div
           className={`${
             !selectedTemplate ? "d-none" : ""
-          } d-md-block col-md-6 col-lg-8 mt-3`}
+          } d-md-block col-md-6 col-lg-7 mt-3`}
         >
           {requestingSelectedTemplate ? <Loader /> : null}
           {selectedTemplate ? (
@@ -226,7 +233,21 @@ export default function Templates() {
               />
             </>
           ) : (
-            <>Select a template</>
+            <div
+              className="d-none d-md-flex justify-content-center align-items-start"
+              style={{ paddingTop: "min(150px, 40%)" }}
+            >
+              {templates?.total > 0 ? (
+                <h5 className="text-light">
+                  <IconText
+                    icon="template"
+                    text={t(
+                      "tenant.admin.templates.Select a template to start"
+                    )}
+                  />
+                </h5>
+              ) : null}
+            </div>
           )}
         </div>
       </div>
@@ -236,7 +257,7 @@ export default function Templates() {
             setShowNewTemplateForm(false);
           }}
         >
-          {t("tenant.admin.templates.Add New Template")}
+          {t("tenant.admin.templates.Add a New Template")}
         </OffcanvasHeader>
         <OffcanvasBody>
           <TemplateDetailsForm
