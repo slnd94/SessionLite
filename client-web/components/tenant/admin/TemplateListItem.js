@@ -19,14 +19,14 @@ const TemplateListItem = ({ template, className, selectedTemplate, onClick, cust
       <div className="d-flex align-items-center" style={{gap: "1rem"}}>
         <div style={{flex: 19}}>
           <div className="">
-            <h5>{template.name}</h5>
+            <h6 className="fw-bold">{template.name}</h6>
           </div>
           <div className="">
             <div>{template.description}</div>
           </div>
         </div>
         <div className="text-light" style={{ flex: 1 }}>          
-          <FontAwesomeIcon icon={icons.chevronRight} style={{maxHeight: "1.5rem"}} />
+          <FontAwesomeIcon icon={icons.chevronRight} style={{maxHeight: "1.2rem"}} />
         </div>
       </div>
     </div>

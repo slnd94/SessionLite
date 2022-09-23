@@ -3,16 +3,19 @@ import Layout from "../../../../components/tenant/admin/Layout";
 import { Context as AuthContext } from "../../../../context/AuthContext";
 import { Context as TenantContext } from "../../../../context/TenantContext";
 import useTenantUserAuth from "../../../../hooks/useTenantUserAuth";
-import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import api from "../../../../utils/api";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import Loader from "../../../../components/Loader";
+import confirm from "../../../../utils/confirm";
 import IconText from "../../../../components/IconText";
 import PaginatedList from "../../../../components/PaginatedList";
 import styles from "../../../../styles/Tenant.module.scss";
-import { Button } from "reactstrap";
+import { Button, Offcanvas, OffcanvasBody, OffcanvasHeader } from "reactstrap";
 import TemplateListItem from "../../../../components/tenant/admin/TemplateListItem";
+import TemplateDetailsForm from "../../../../components/tenant/admin/TemplateDetailsForm";
 
 export default function Templates() {
   const { t } = useTranslation("common");
@@ -27,6 +30,13 @@ export default function Templates() {
   const [templates, setTemplates] = useState(null);
   const [requestingTemplates, setRequestingTemplates] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [requestingSelectedTemplate, setRequestingSelectedTemplate] =
+    useState(false);
+  const [templatesRequestItemsSignal, setTemplatesRequestItemsSignal] =
+    useState(null);
+  const [showNewTemplateForm, setShowNewTemplateForm] = useState(false);
+  const [processingTemplateDetails, setProcessingTemplateDetails] =
+    useState(false);
   const templatesPerPage = 5;
 
   const fetchTemplates = async ({ skip, limit }) => {
@@ -48,6 +58,30 @@ export default function Templates() {
     } else {
       setTemplates(null);
       setRequestingTemplates(false);
+      return { success: false };
+    }
+  };
+
+  const selectTemplate = async (templateId) => {
+    if (selectedTemplate?._id !== templateId) {
+      setSelectedTemplate(null);
+    }
+    setRequestingSelectedTemplate(true);
+    const response = await api({
+      method: "get",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-templates/${tenantId}`,
+      params: {
+        template: templateId,
+      },
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setSelectedTemplate(response.data);
+      setRequestingSelectedTemplate(false);
+      return { success: true };
+    } else {
+      setSelectedTemplate(null);
+      setRequestingSelectedTemplate(false);
       return { success: false };
     }
   };
@@ -84,17 +118,14 @@ export default function Templates() {
           <div className="col-12 text-md-end mb-3">
             <Button
               className={"btn-block"}
-              // className={"btn-block"}
               size="md"
               color="primary"
               onClick={() => {
-                // setView("invites");
-                setShowInviteForm(true);
+                setShowNewTemplateForm(true);
               }}
             >
               <IconText
                 icon="add"
-                // iconPosition="end"
                 text={t("tenant.admin.templates.Add New Template")}
               />
             </Button>
@@ -103,24 +134,22 @@ export default function Templates() {
             <div>
               <PaginatedList
                 items={templates}
-                itemComponent={
-                  TemplateListItem
-                }
+                itemComponent={TemplateListItem}
                 itemComponentCustomProps={{
-                  selectedTemplate: selectedTemplate?._id 
+                  selectedTemplate: selectedTemplate?._id,
                 }}
                 itemPropName={"template"}
                 itemsListedName={t("tenant.templates")}
                 itemsPerPage={templatesPerPage}
-                // showPaginationTop
                 showPaginationBottom
                 hidePaginationForSinglePage
                 requestItemsFunc={async ({ skip, limit }) => {
                   await fetchTemplates({ skip, limit });
                 }}
                 requestingItems={requestingTemplates}
+                requestItemsSignal={templatesRequestItemsSignal}
                 itemOnClick={(template) => {
-                  setSelectedTemplate(template);
+                  selectTemplate(template._id);
                 }}
                 showLink={true}
                 t={t}
@@ -133,6 +162,7 @@ export default function Templates() {
             !selectedTemplate ? "d-none" : ""
           } d-md-block col-md-6 col-lg-8 mt-3`}
         >
+          {requestingSelectedTemplate ? <Loader /> : null}
           {selectedTemplate ? (
             <>
               <h5>
@@ -146,13 +176,120 @@ export default function Templates() {
                 />
                 {selectedTemplate.name}
               </h5>
-              <div>{selectedTemplate.description}</div>
+              <TemplateDetailsForm
+                processing={processingTemplateDetails}
+                defaults={selectedTemplate}
+                onSubmit={async (data) => {
+                  confirm(
+                    t(
+                      "tenant.admin.templates.Are you sure you want to update this template?"
+                    )
+                  ).then(async () => {
+                    setProcessingTemplateDetails(true);
+                    const response = await api({
+                      method: "patch",
+                      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-templates/${tenantId}`,
+                      params: {
+                        updateTemplate: {
+                          id: selectedTemplate._id,
+                          ...data,
+                        },
+                      },
+                    });
+
+                    if (response.status >= 200 && response.status < 300) {
+                      setProcessingTemplateDetails(false);
+                      // signal the component to reset the pagination
+                      setTemplatesRequestItemsSignal(Date.now());
+                      selectTemplate(selectedTemplate._id);
+                      toast(
+                        t(`tenant.admin.templates.Template details updated`),
+                        {
+                          type: "success",
+                        }
+                      );
+                      return { success: true };
+                    } else {
+                      setProcessingTemplateDetails(false);
+                      toast(
+                        t(
+                          `tenant.admin.templates.There was a problem updating your template`
+                        ),
+                        {
+                          type: "danger",
+                        }
+                      );
+                      return { success: false };
+                    }
+                  });
+                }}
+              />
             </>
           ) : (
             <>Select a template</>
           )}
         </div>
       </div>
+      <Offcanvas isOpen={showNewTemplateForm} direction="end" keyboard={true}>
+        <OffcanvasHeader
+          toggle={() => {
+            setShowNewTemplateForm(false);
+          }}
+        >
+          {t("tenant.admin.templates.Add New Template")}
+        </OffcanvasHeader>
+        <OffcanvasBody>
+          <TemplateDetailsForm
+            processing={processingTemplateDetails}
+            defaults={{
+              name: "",
+              description: "",
+            }}
+            onSubmit={async (data) => {
+              confirm(
+                t(
+                  "tenant.admin.templates.Are you sure you want to add this template?"
+                )
+              ).then(async () => {
+                setProcessingTemplateDetails(true);
+                const response = await api({
+                  method: "patch",
+                  url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-templates/${tenantId}`,
+                  params: {
+                    addTemplate: data,
+                  },
+                });
+
+                if (response.status >= 200 && response.status < 300) {
+                  setProcessingTemplateDetails(false);
+                  selectTemplate(response.data._id);
+                  // signal the component to reset the pagination
+                  setTemplatesRequestItemsSignal(Date.now());
+                  setShowNewTemplateForm(false);
+                  toast(
+                    t(`tenant.admin.templates.Template added successfully`),
+                    {
+                      type: "success",
+                    }
+                  );
+                  return { success: true };
+                } else {
+                  setProcessingTemplateDetails(false);
+                  toast(
+                    t(
+                      `tenant.admin.templates.There was a problem adding your template`
+                    ),
+                    {
+                      type: "danger",
+                    }
+                  );
+                  return { success: false };
+                }
+              });
+            }}
+          />
+        </OffcanvasBody>
+      </Offcanvas>
     </Layout>
   );
 }
