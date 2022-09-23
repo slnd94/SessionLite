@@ -63,7 +63,20 @@ export default function Layout({ children }) {
     <>
       {userAuthorized ? (
         <div className="row">
-          <div className="col-12">{children}</div>
+        <div className="col-12 col-md-6">{children}</div>
+        <div className="col-md-6 d-none d-md-flex justify-content-center align-items-start" style={{paddingTop: 'min(150px, 40%)'}}>
+          {/* <div style={{ position: 'fixed' }}> */}
+          {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (
+            <TenantLogo
+              handle={tenant.logo.handle}
+              size="lg"
+              viewFileAuth={fileAuth?.viewTenantLogo}
+            />
+          ) : (
+            <img src="/images/siteLogo.svg" style={{width: "60%"}} />
+          )}
+          {/* </div> */}
+        </div>
         </div>
       ) : (
         null
