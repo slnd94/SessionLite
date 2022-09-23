@@ -19,7 +19,7 @@ function UpdateEmailForm({ emailFieldLabel, submitButtonLabel, onSubmit, onCance
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email,
+      email
     },
   });
 

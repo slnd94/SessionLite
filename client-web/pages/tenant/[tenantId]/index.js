@@ -64,42 +64,43 @@ export default function Tenant() {
 
   return (
     <Layout>
-      <div>
-        {rooms ? (
-          <>
-            <PaginatedList
-              items={rooms}
-              itemComponent={({ room }) => {
-                return (
-                  <div
-                    className={`row section-box`}
-                    onClick={() => (onClick ? onClick() : null)}
-                  >
-                    <div className="col-12">
-                      <h5>{room.name}</h5>
+      <div className="row">
+        <div className="col-12">
+          <h3>{tenant.name}</h3>
+          {rooms ? (
+            <>
+              <PaginatedList
+                items={rooms}
+                itemComponent={({ room }) => {
+                  return (
+                    <div
+                      className={`row section-box`}
+                      onClick={() => (onClick ? onClick() : null)}
+                    >
+                      <div className="col-12">
+                        <h5>{room.name}</h5>
+                      </div>
                     </div>
-                  </div>
-                );
-              }}
-              itemPropName={"room"}
-              itemsListedName={t("tenant.rooms")}
-              itemsPerPage={roomsPerPage}
-              showPaginationTop
-              showPaginationBottom
-              hidePaginationForSinglePage
-              requestItemsFunc={async ({ skip, limit }) => {
-                await fetchRooms({ skip, limit });
-              }}
-              requestingItems={requestingRooms}
-              // itemNavRoute={"/room"}
-              showLink={true}
-              t={t}
-              // onRef={ref => (this.paginatedList = ref)}
-            />
-          </>
-        ) : (
-          null
-        )}
+                  );
+                }}
+                itemPropName={"room"}
+                itemsListedName={t("tenant.rooms")}
+                itemsPerPage={roomsPerPage}
+                showPaginationTop
+                showPaginationBottom
+                hidePaginationForSinglePage
+                requestItemsFunc={async ({ skip, limit }) => {
+                  await fetchRooms({ skip, limit });
+                }}
+                requestingItems={requestingRooms}
+                // itemNavRoute={"/room"}
+                showLink={true}
+                t={t}
+                // onRef={ref => (this.paginatedList = ref)}
+              />
+            </>
+          ) : null}
+        </div>
       </div>
     </Layout>
   );

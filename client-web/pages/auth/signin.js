@@ -31,90 +31,64 @@ export default function Signin() {
     clearAuthErrorMessage();
   }, []);
 
+  useEffect(() => {
+    if (auth.status === "SIGNED_IN" && tenant) {
+      router.push(`/tenant/${tenant._id}`);
+    }
+  }, [auth, tenant]);
+
   return (
-    <Layout>
-      <>
-        {auth?.status === "SIGNED_OUT" ? (
+    <>
+      {/* only show the form if user is signed out */}
+      {auth?.status === "SIGNED_OUT" ? (
+        <Layout>
           <>
-            <h3 className={"title"}>{t("auth.Sign In")}</h3>
-            <SignInForm
-              processing={processing}
-              onSubmit={async (data) => {
-                setProcessing(true);
-                const request = await signin(data);
-                if (request.success) {
-                  setProcessing(false);
-                  if (redirect) {
-                    router.push({
-                      pathname: redirect,
-                      query: redirectQuery || {},
-                    });
-                  }
-                } else {
-                  setProcessing(false);
-                }
-              }}
-            />
-            {errorMessage ? (
-              <Alert color="danger" fade={false}>
-                {t(`auth.There was a problem with your sign in`)}
-              </Alert>
+            {auth?.status === "SIGNED_OUT" ? (
+              <>
+                <h3 className={"title"}>{t("auth.Sign In")}</h3>
+                <SignInForm
+                  processing={processing}
+                  onSubmit={async (data) => {
+                    setProcessing(true);
+                    const request = await signin(data);
+                    if (request.success) {
+                      setProcessing(false);
+                      if (redirect) {
+                        router.push({
+                          pathname: redirect,
+                          query: redirectQuery || {},
+                        });
+                      }
+                    } else {
+                      setProcessing(false);
+                    }
+                  }}
+                />
+                {errorMessage ? (
+                  <Alert color="danger" fade={false}>
+                    {t(`auth.There was a problem with your sign in`)}
+                  </Alert>
+                ) : null}
+                <div className="mt-4">
+                  <span style={{ marginRight: "10px" }}>
+                    {t(`auth.Need an account?`)}
+                  </span>
+                  <Link href="/auth/signup">{t("auth.Sign up")}</Link>
+                </div>
+                <div className="mt-2">
+                  <span style={{ marginRight: "10px" }}>
+                    {t(`auth.Forgot your password?`)}
+                  </span>
+                  <Link href="/auth/passwordreset">
+                    {t("auth.Reset your password")}
+                  </Link>
+                </div>
+              </>
             ) : null}
-            <div className="mt-4">
-              <span style={{ marginRight: "10px" }}>
-                {t(`auth.Need an account?`)}
-              </span>
-              <Link href="/auth/signup">{t("auth.Sign up")}</Link>
-            </div>
-            <div className="mt-2">
-              <span style={{ marginRight: "10px" }}>
-                {t(`auth.Forgot your password?`)}
-              </span>
-              <Link href="/auth/passwordreset">
-                {t("auth.Reset your password")}
-              </Link>
-            </div>
           </>
-        ) : null}
-        {auth?.status === "SIGNED_IN" ? (
-          <>
-            <h4 className="title">{t("auth.You are signed in")}</h4>
-            <h6>{t(`auth.What's next?`)}</h6>
-            <p>
-              {tenant ? (
-                <>
-                  <Button
-                    className="mt-4 btn-block"
-                    color="default"
-                    onClick={() => {
-                      router.push(`/tenant/${tenant._id}`);
-                    }}
-                  >
-                    {t("tenant.Tenant Home")}
-                  </Button>
-                  {/* <Link href={`/tenant/${tenant._id}`}>
-                    {t("tenant.Tenant Home")}
-                  </Link> */}
-                  <br />
-                </>
-              ) : null}
-              <Button
-                className="mt-0 btn-block"
-                color="default"
-                onClick={() => {
-                  router.push(`/user/profile`);
-                }}
-              >
-                {t("user.Manage your profile")}
-              </Button>
-              {/* <Link href="/user/profile">{t("user.Manage your profile")}</Link>
-              <br />
-              <Link href="/">{t("Browse content")}</Link> */}
-            </p>
-          </>
-        ) : null}
-      </>
-    </Layout>
+        </Layout>
+      ) : null}
+    </>
   );
 }
 
