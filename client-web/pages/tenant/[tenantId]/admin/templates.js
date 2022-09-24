@@ -37,7 +37,7 @@ export default function Templates() {
   const [showNewTemplateForm, setShowNewTemplateForm] = useState(false);
   const [processingTemplateDetails, setProcessingTemplateDetails] =
     useState(false);
-  const templatesPerPage = 5;
+  const templatesPerPage = 1;
 
   const fetchTemplates = async ({ skip, limit }) => {
     setRequestingTemplates(true);
@@ -52,21 +52,21 @@ export default function Templates() {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setTemplates(response.data);
+      // setTemplates(response.data);
       setRequestingTemplates(false);
-      return { success: true };
+      return { success: true, data: response.data };
     } else {
-      setTemplates(null);
+      // setTemplates(null);
       setRequestingTemplates(false);
       return { success: false };
     }
   };
 
   const selectTemplate = async (templateId) => {
+    setRequestingSelectedTemplate(true);
     if (selectedTemplate?._id !== templateId) {
       setSelectedTemplate(null);
     }
-    setRequestingSelectedTemplate(true);
     const response = await api({
       method: "get",
       url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-templates/${tenantId}`,
@@ -94,7 +94,15 @@ export default function Templates() {
       });
       if (isMember) {
         let isSubscribed = true;
-        fetchTemplates({ skip: 0, limit: templatesPerPage }).catch(
+        fetchTemplates({ skip: 0, limit: templatesPerPage }).then( response => {
+          if (isSubscribed) {
+            if (response.success) {
+              setTemplates(response.data)
+            } else {
+              setTemplates(null)
+            }
+          }
+        }).catch(
           console.error
         );
         return () => (isSubscribed = false);
@@ -151,7 +159,13 @@ export default function Templates() {
                 showPaginationBottom
                 hidePaginationForSinglePage
                 requestItemsFunc={async ({ skip, limit }) => {
-                  await fetchTemplates({ skip, limit });
+                  const response = await fetchTemplates({ skip, limit });
+                  if (response.success) {
+                    setTemplates(response.data)
+                  } else {
+                    setTemplates(null)
+                  }
+                  // setTemplates(templates)
                 }}
                 requestingItems={requestingTemplates}
                 requestItemsSignal={templatesRequestItemsSignal}
@@ -242,7 +256,7 @@ export default function Templates() {
                   <IconText
                     icon="template"
                     text={t(
-                      "tenant.admin.templates.Select a template to start"
+                      "tenant.admin.templates.Select a template"
                     )}
                   />
                 </h5>

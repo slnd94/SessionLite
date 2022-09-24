@@ -38,11 +38,9 @@ export default function Tenant() {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setRooms(response.data);
       setRequestingRooms(false);
-      return { success: true };
+      return { success: true, data: response.data };
     } else {
-      setRooms(null);
       setRequestingRooms(false);
       return { success: false };
     }
@@ -56,7 +54,15 @@ export default function Tenant() {
       });
       if (isMember) {
         let isSubscribed = true;
-        fetchRooms({ skip: 0, limit: roomsPerPage }).catch(console.error);
+        fetchRooms({ skip: 0, limit: roomsPerPage }).then( response => {
+          if (isSubscribed) {
+            if (response.success) {
+              setRooms(response.data);
+            } else {
+              setRooms(null);
+            }
+          }
+        }).catch(console.error);
         return () => (isSubscribed = false);
       }
     }
