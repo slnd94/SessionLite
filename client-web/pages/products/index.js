@@ -24,11 +24,9 @@ export default function Home() {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setProducts(response.data);
       setRequestingProducts(false);
-      return { success: true };
+      return { success: true, data: response.data };
     } else {
-      setProducts(null);
       setRequestingProducts(false);
       return { success: false };
     }
@@ -36,7 +34,15 @@ export default function Home() {
 
   useEffect(() => {
     let isSubscribed = true;
-    fetchProducts({ skip: 0, limit: productsPerPage }).catch(console.error);
+    fetchProducts({ skip: 0, limit: productsPerPage }).then( response => {
+      if (isSubscribed) {
+        if (response.success) {
+          setProducts(response.data);
+        } else {
+          setProducts(null);
+        }
+      }
+    }).catch(console.error);
     return () => (isSubscribed = false);
   }, []);
 

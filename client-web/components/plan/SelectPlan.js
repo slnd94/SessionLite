@@ -54,23 +54,9 @@ const SelectPlan = ({
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setPlans(
-        response.data.data.map((plan) => ({
-          ...plan,
-          ...(currentUsage
-            ? {
-                eligibility: tenantPlanEligibility({
-                  plan: plan,
-                  usage: currentUsage,
-                }),
-              }
-            : {}),
-        }))
-      );
       setRequestingPlans(false);
-      return { success: true };
+      return { success: true, data: response.data.data };
     } else {
-      setPlans(null);
       setRequestingPlans(false);
       return { success: false };
     }
@@ -114,7 +100,29 @@ const SelectPlan = ({
 
   useEffect(() => {
     let isSubscribed = true;
-    fetchPlans().catch(console.error);
+    fetchPlans()
+      .then((response) => {
+        if (isSubscribed) {
+          if (response.success) {
+            setPlans(
+              response.data.map((plan) => ({
+                ...plan,
+                ...(currentUsage
+                  ? {
+                      eligibility: tenantPlanEligibility({
+                        plan: plan,
+                        usage: currentUsage,
+                      }),
+                    }
+                  : {}),
+              }))
+            );
+          } else {
+            setPlans(null);
+          }
+        }
+      })
+      .catch(console.error);
     return () => (isSubscribed = false);
   }, []);
 

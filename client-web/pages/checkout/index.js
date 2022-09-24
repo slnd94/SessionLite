@@ -34,17 +34,23 @@ export default function Checkout() {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setPaymentIntent(response.data);
-      return { success: true };
+      return { success: true, data: response.data };
     } else {
-      setPaymentIntent(null);
       return { success: false };
     }
   };
 
   useEffect(() => {
     let isSubscribed = true;
-    createPaymentIntent();
+    createPaymentIntent().then((response) => {
+      if (isSubscribed) {
+        if (response.success) {
+          setPaymentIntent(response.data);
+        } else {
+          setPaymentIntent(null);
+        }
+      }
+    });
     return () => (isSubscribed = false);
   }, []);
 

@@ -105,25 +105,29 @@ const PaginatedList = (props) => {
   }, [forcePage]);
 
   useEffect(() => {
-    // reset to first page
-    // setPageNumber(0);
-    if (requestItemsFunc) {
-      requestItemsFunc({
-        skip: pageNumber * itemsPerPage,
-        limit: itemsPerPage,
-        search: searchTerm,
-      });
+    if (requestItemsSignal) {
+      // reset to first page
+      // setPageNumber(0);
+      if (requestItemsFunc) {
+        requestItemsFunc({
+          skip: pageNumber * itemsPerPage,
+          limit: itemsPerPage,
+          search: searchTerm,
+        });
+      }
     }
   }, [requestItemsSignal]);
 
   useEffect(() => {
-    setPageNumber(0);
-    if (requestItemsFunc) {
-      requestItemsFunc({
-        skip: 0 * itemsPerPage,
-        limit: itemsPerPage,
-        search: searchTerm,
-      });
+    if (searchTerm !== null) {
+      setPageNumber(0);
+      if (requestItemsFunc) {
+        requestItemsFunc({
+          skip: 0 * itemsPerPage,
+          limit: itemsPerPage,
+          search: searchTerm,
+        });
+      }
     }
   }, [searchTerm]);
 
@@ -136,9 +140,7 @@ const PaginatedList = (props) => {
             setSearchTerm(data.search);
           }}
         />
-      ) : (
-        null
-      )}
+      ) : null}
       {requestingItems && !items.data ? (
         <Loader />
       ) : (
@@ -173,9 +175,7 @@ const PaginatedList = (props) => {
                 }}
               />
             </div>
-          ) : (
-            null
-          )}
+          ) : null}
           <div style={{ marginBottom: ".6rem" }}>
             {renderItems.data &&
               renderItems.data.map((item, index) => {
@@ -234,9 +234,7 @@ const PaginatedList = (props) => {
                 }}
               />
             </div>
-          ) : (
-            null
-          )}
+          ) : null}
         </>
       )}
     </>
