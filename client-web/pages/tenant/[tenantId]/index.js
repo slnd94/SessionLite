@@ -54,15 +54,17 @@ export default function Tenant() {
       });
       if (isMember) {
         let isSubscribed = true;
-        fetchRooms({ skip: 0, limit: roomsPerPage }).then( response => {
-          if (isSubscribed) {
-            if (response.success) {
-              setRooms(response.data);
-            } else {
-              setRooms(null);
+        fetchRooms({ skip: 0, limit: roomsPerPage })
+          .then((response) => {
+            if (isSubscribed) {
+              if (response.success) {
+                setRooms(response.data);
+              } else {
+                setRooms(null);
+              }
             }
-          }
-        }).catch(console.error);
+          })
+          .catch(console.error);
         return () => (isSubscribed = false);
       }
     }

@@ -94,17 +94,17 @@ export default function Templates() {
       });
       if (isMember) {
         let isSubscribed = true;
-        fetchTemplates({ skip: 0, limit: templatesPerPage }).then( response => {
-          if (isSubscribed) {
-            if (response.success) {
-              setTemplates(response.data)
-            } else {
-              setTemplates(null)
+        fetchTemplates({ skip: 0, limit: templatesPerPage })
+          .then((response) => {
+            if (isSubscribed) {
+              if (response.success) {
+                setTemplates(response.data);
+              } else {
+                setTemplates(null);
+              }
             }
-          }
-        }).catch(
-          console.error
-        );
+          })
+          .catch(console.error);
         return () => (isSubscribed = false);
       }
     }
@@ -161,9 +161,9 @@ export default function Templates() {
                 requestItemsFunc={async ({ skip, limit }) => {
                   const response = await fetchTemplates({ skip, limit });
                   if (response.success) {
-                    setTemplates(response.data)
+                    setTemplates(response.data);
                   } else {
-                    setTemplates(null)
+                    setTemplates(null);
                   }
                   // setTemplates(templates)
                 }}
@@ -255,9 +255,7 @@ export default function Templates() {
                 <h5 className="text-light">
                   <IconText
                     icon="template"
-                    text={t(
-                      "tenant.admin.templates.Select a template"
-                    )}
+                    text={t("tenant.admin.templates.Select a template")}
                   />
                 </h5>
               ) : null}
