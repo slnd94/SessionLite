@@ -48,7 +48,7 @@ export default function Templates() {
         tenant: tenantId,
         $skip: skip,
         $limit: limit,
-        ...(search ? { search } : {})
+        ...(search ? { search } : {}),
       },
     });
 
@@ -124,12 +124,6 @@ export default function Templates() {
             selectedTemplate ? "d-none" : ""
           } d-md-block col-md-6 col-lg-5`}
         >
-          {/* {templates?.total === 0 ? (
-            <div className="section-box d-flex justify-content-center align-items-center text-light">
-              {t("tenant.admin.templates.You have not yet added any templates")}
-            </div>
-          ) : null} */}
-
           <div className="col-12 text-md-end mb-3">
             <Button
               className={"btn-block"}
@@ -160,7 +154,11 @@ export default function Templates() {
                 showPaginationBottom
                 hidePaginationForSinglePage
                 requestItemsFunc={async ({ skip, limit, search }) => {
-                  const response = await fetchTemplates({ skip, limit, search });
+                  const response = await fetchTemplates({
+                    skip,
+                    limit,
+                    search,
+                  });
                   if (response.success) {
                     setTemplates(response.data);
                   } else {
