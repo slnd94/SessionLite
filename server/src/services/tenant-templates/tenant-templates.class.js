@@ -12,7 +12,7 @@ exports.TenantTemplates = class TenantTemplates {
     // id should be the tenant id
     // the requested template id should be in params.query.template
 
-    if(!params?.query?.template) {
+    if (!params?.query?.template) {
       // No template id supplied.  Return bad request
       return Promise.reject(new errors.BadRequest("Invalid template"));
     }
@@ -32,7 +32,9 @@ exports.TenantTemplates = class TenantTemplates {
       } else {
         if (!template.tenant.toString() === id.toString()) {
           // template belongs to a different tenant
-          return Promise.reject(new errors.BadRequest("invalid template requested"));
+          return Promise.reject(
+            new errors.BadRequest("invalid template requested")
+          );
         } else {
           return template;
         }
@@ -42,7 +44,7 @@ exports.TenantTemplates = class TenantTemplates {
         "🚀 ~ file: tenant-templates.class.js ~ line 39 ~ TenantTemplates ~ patch ~ err",
         err
       );
-      return { success: false }
+      return { success: false };
     }
   }
 
@@ -102,7 +104,7 @@ exports.TenantTemplates = class TenantTemplates {
                 .service("templates")
                 .patch(template._id, {
                   name: data.updateTemplate.name,
-                  description: data.updateTemplate.description
+                  description: data.updateTemplate.description,
                 })
                 .then((res) => {
                   return { success: true };
@@ -114,7 +116,7 @@ exports.TenantTemplates = class TenantTemplates {
             "🚀 ~ file: tenant-templates.class.js ~ line 39 ~ TenantTemplates ~ patch ~ err",
             err
           );
-          return { success: false }
+          return { success: false };
         }
       }
     }

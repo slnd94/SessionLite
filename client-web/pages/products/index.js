@@ -34,24 +34,24 @@ export default function Home() {
 
   useEffect(() => {
     let isSubscribed = true;
-    fetchProducts({ skip: 0, limit: productsPerPage }).then( response => {
-      if (isSubscribed) {
-        if (response.success) {
-          setProducts(response.data);
-        } else {
-          setProducts(null);
+    fetchProducts({ skip: 0, limit: productsPerPage })
+      .then((response) => {
+        if (isSubscribed) {
+          if (response.success) {
+            setProducts(response.data);
+          } else {
+            setProducts(null);
+          }
         }
-      }
-    }).catch(console.error);
+      })
+      .catch(console.error);
     return () => (isSubscribed = false);
   }, []);
 
   return (
     <div className="row">
       <div className="col-12">
-        <h3 className="title">
-          {t("products.Products")}
-        </h3>
+        <h3 className="title">{t("products.Products")}</h3>
         {products ? (
           <>
             <PaginatedList
@@ -73,9 +73,7 @@ export default function Home() {
               // onRef={ref => (this.paginatedList = ref)}
             />
           </>
-        ) : (
-          null
-        )}
+        ) : null}
       </div>
     </div>
   );
