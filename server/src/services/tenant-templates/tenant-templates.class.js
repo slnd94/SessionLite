@@ -53,8 +53,8 @@ exports.TenantTemplates = class TenantTemplates {
     const searchQuery = params.query.search
       ? {
           $or: [
-            { "name": { $regex: new RegExp(params.query.search, "i") } },
-            { "description": { $regex: new RegExp(params.query.search, "i") } }
+            { name: { $regex: new RegExp(params.query.search, "i") } },
+            { description: { $regex: new RegExp(params.query.search, "i") } },
           ],
         }
       : {};
