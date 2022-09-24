@@ -37,7 +37,7 @@ export default function Templates() {
   const [showNewTemplateForm, setShowNewTemplateForm] = useState(false);
   const [processingTemplateDetails, setProcessingTemplateDetails] =
     useState(false);
-  const templatesPerPage = 1;
+  const templatesPerPage = 5;
 
   const fetchTemplates = async ({ skip, limit }) => {
     setRequestingTemplates(true);
