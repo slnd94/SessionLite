@@ -305,10 +305,12 @@
         }
       },
       "templates": {
+        "No templates found": "No templates found",
         "You have not yet added any templates": "You have not yet added any templates",
         "Add a template to start": "Add a template to start",
+        "Search": "Search",
         "Select a template": "Select a template",
-        "Add a New Template": "Add a New Template",
+        "Add a Template": "Add a Template",
         "New Template": "New Template",
         "Name": "Name",
         "Description": "Description",

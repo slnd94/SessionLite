@@ -39,7 +39,7 @@ export default function Templates() {
     useState(false);
   const templatesPerPage = 5;
 
-  const fetchTemplates = async ({ skip, limit }) => {
+  const fetchTemplates = async ({ skip, limit, search }) => {
     setRequestingTemplates(true);
     const response = await api({
       method: "get",
@@ -48,6 +48,7 @@ export default function Templates() {
         tenant: tenantId,
         $skip: skip,
         $limit: limit,
+        ...(search ? { search } : {})
       },
     });
 
@@ -123,11 +124,11 @@ export default function Templates() {
             selectedTemplate ? "d-none" : ""
           } d-md-block col-md-6 col-lg-5`}
         >
-          {templates?.total === 0 ? (
+          {/* {templates?.total === 0 ? (
             <div className="section-box d-flex justify-content-center align-items-center text-light">
               {t("tenant.admin.templates.You have not yet added any templates")}
             </div>
-          ) : null}
+          ) : null} */}
 
           <div className="col-12 text-md-end mb-3">
             <Button
@@ -140,7 +141,7 @@ export default function Templates() {
             >
               <IconText
                 icon="add"
-                text={t("tenant.admin.templates.Add a New Template")}
+                text={t("tenant.admin.templates.Add a Template")}
               />
             </Button>
           </div>
@@ -158,8 +159,8 @@ export default function Templates() {
                 itemsPerPage={templatesPerPage}
                 showPaginationBottom
                 hidePaginationForSinglePage
-                requestItemsFunc={async ({ skip, limit }) => {
-                  const response = await fetchTemplates({ skip, limit });
+                requestItemsFunc={async ({ skip, limit, search }) => {
+                  const response = await fetchTemplates({ skip, limit, search });
                   if (response.success) {
                     setTemplates(response.data);
                   } else {
@@ -169,6 +170,8 @@ export default function Templates() {
                 }}
                 requestingItems={requestingTemplates}
                 requestItemsSignal={templatesRequestItemsSignal}
+                showSearch={true}
+                searchPlaceholder={t("tenant.admin.templates.Search")}
                 itemOnClick={(template) => {
                   selectTemplate(template._id);
                 }}
@@ -176,6 +179,11 @@ export default function Templates() {
                 t={t}
               />
             </div>
+          ) : null}
+          {templates && !templates.data?.length ? (
+            <h6 className="mt-4">
+              {t("tenant.admin.templates.No templates found")}
+            </h6>
           ) : null}
         </div>
         <div
@@ -269,7 +277,7 @@ export default function Templates() {
             setShowNewTemplateForm(false);
           }}
         >
-          {t("tenant.admin.templates.Add a New Template")}
+          {t("tenant.admin.templates.Add a Template")}
         </OffcanvasHeader>
         <OffcanvasBody>
           <TemplateDetailsForm

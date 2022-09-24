@@ -49,8 +49,20 @@ exports.TenantTemplates = class TenantTemplates {
   }
 
   async find(params) {
+    // assign the search term on name if provided
+    const searchQuery = params.query.search
+      ? {
+          $or: [
+            { "name": { $regex: new RegExp(params.query.search, "i") } },
+            { "description": { $regex: new RegExp(params.query.search, "i") } }
+          ],
+        }
+      : {};
+    delete params.query.search;
+
     return await this.app.service("templates").find({
       query: {
+        ...searchQuery,
         tenant: params.query.tenant,
         $skip: params.query.$skip,
         $limit: params.query.$limit,
