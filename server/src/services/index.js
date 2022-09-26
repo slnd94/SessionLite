@@ -26,6 +26,7 @@ const UserCounts = require('./tenant-usage/tenant-usage.service.js');
 const userAccountPasswordReset = require('./user-account-password-reset/user-account-password-reset.service.js');
 const templates = require('./templates/templates.service.js');
 const tenantTemplates = require('./tenant-templates/tenant-templates.service.js');
+const healthz = require('./healthz/healthz.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -56,4 +57,5 @@ module.exports = function (app) {
   app.configure(userAccountPasswordReset);
   app.configure(templates);
   app.configure(tenantTemplates);
+  app.configure(healthz);
 };
