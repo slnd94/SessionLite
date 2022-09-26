@@ -29,7 +29,7 @@
     "dev": "nodemon src/",
     "production": "NODE_OPTIONS=--openssl-legacy-provider",
     "heroku-postbuild": "export NODE_OPTIONS=--openssl-legacy-provider",
-    "start": "src/",
+    "start": "node src/",
     "lt": "lt --port 3030 --subdomain fnext-dev-server",
     "st": "st -p 3030 -s fnext-dev-server https",
     "jest": "jest  --forceExit",
