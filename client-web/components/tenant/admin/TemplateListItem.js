@@ -26,6 +26,7 @@ const TemplateListItem = ({ template, className, selectedTemplate, onClick, cust
           </div>
         </div>
         <div className="text-light" style={{ flex: 1 }}>          
+          <FontAwesomeIcon icon={icons.chevronRight} style={{maxHeight: "1rem"}} />
         </div>
       </div>
     </div>
