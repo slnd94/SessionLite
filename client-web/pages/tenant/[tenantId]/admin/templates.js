@@ -153,18 +153,20 @@ export default function Templates() {
                 itemsPerPage={templatesPerPage}
                 showPaginationBottom
                 hidePaginationForSinglePage
-                requestItemsFunc={async ({ skip, limit, search }) => {
-                  const response = await fetchTemplates({
+                requestItemsFunc={({ skip, limit, search }) => {
+                  fetchTemplates({
                     skip,
                     limit,
                     search,
-                  });
-                  if (response.success) {
-                    setTemplates(response.data);
-                  } else {
-                    setTemplates(null);
-                  }
-                  // setTemplates(templates)
+                  })
+                    .then((response) => {
+                      if (response.success) {
+                        setTemplates(response.data);
+                      } else {
+                        setTemplates(null);
+                      }
+                    })
+                    .catch(console.error);
                 }}
                 requestingItems={requestingTemplates}
                 requestItemsSignal={templatesRequestItemsSignal}
