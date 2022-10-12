@@ -98,7 +98,15 @@ export default function Tenant() {
                 showPaginationBottom
                 hidePaginationForSinglePage
                 requestItemsFunc={async ({ skip, limit }) => {
-                  await fetchRooms({ skip, limit });
+                  fetchRooms({ skip, limit })
+                    .then((response) => {
+                      if (response.success) {
+                        setRooms(response.data);
+                      } else {
+                        setRooms(null);
+                      }
+                    })
+                    .catch(console.error);
                 }}
                 requestingItems={requestingRooms}
                 // itemNavRoute={"/room"}

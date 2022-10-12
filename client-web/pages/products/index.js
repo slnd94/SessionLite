@@ -20,7 +20,7 @@ export default function Home() {
       params: {
         $skip: skip,
         $limit: limit,
-      },
+      }
     });
 
     if (response.status >= 200 && response.status < 300) {
@@ -63,8 +63,16 @@ export default function Home() {
               showPaginationTop
               showPaginationBottom
               hidePaginationForSinglePage
-              requestItemsFunc={async ({ skip, limit }) => {
-                await fetchProducts({ skip, limit });
+              requestItemsFunc={({ skip, limit }) => {
+                fetchProducts({ skip, limit })
+                  .then((response) => {
+                    if (response.success) {
+                      setProducts(response.data);
+                    } else {
+                      setProducts(null);
+                    }
+                  })
+                  .catch(console.error);
               }}
               requestingItems={requestingProducts}
               itemNavRoute={"/products"}
