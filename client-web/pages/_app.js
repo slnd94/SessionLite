@@ -7,7 +7,7 @@ import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 import { Provider as AuthProvider } from "../context/AuthContext";
 import { Provider as UserProvider } from "../context/UserContext";
 import { Provider as TenantProvider } from "../context/TenantContext";
-import Layout from "../components/layout/Layout";
+import AppLayout from "../components/layout/AppLayout";
 
 function MyApp({ Component, pageProps }) {
   if (process.env.NODE_ENV === 'production') {
@@ -19,9 +19,9 @@ function MyApp({ Component, pageProps }) {
     <AuthProvider>
       <UserProvider>
         <TenantProvider>
-          <Layout brandName={process.env.NEXT_APP_NAME}>
+          <AppLayout brandName={process.env.NEXT_APP_NAME}>
             <Component {...pageProps} />
-          </Layout>
+          </AppLayout>
         </TenantProvider>
       </UserProvider>
     </AuthProvider>

@@ -10,7 +10,7 @@ import Spacer from "../Spacer";
 
 const Stack = createNativeStackNavigator();
 
-const Layout = ({ children }) => {
+const AppLayout = ({ children }) => {
   const {
     state: { auth, fileAuth },
     getAuth,
@@ -145,6 +145,6 @@ function SplashScreen() {
   );
 }
 
-export default Layout;
+export default AppLayout;
 
 const styles = StyleSheet.create({});

@@ -16,7 +16,7 @@ import UserUnverified from "../user/UserUnverified";
 import PaddleLoader from "../commerce/PaddleLoader";
 import SelectPlan from "../plan/SelectPlan";
 
-function Layout({ children, brandName }) {
+function AppLayout({ children, brandName }) {
   const router = useRouter();
   const {
     state: { tenant },
@@ -179,9 +179,9 @@ function Layout({ children, brandName }) {
   );
 }
 
-Layout.propTypes = {
+AppLayout.propTypes = {
   children: PropTypes.object,
   brandName: PropTypes.string,
 };
 
-export default Layout;
+export default AppLayout;

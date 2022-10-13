@@ -37,7 +37,7 @@ const authReducer = (state, action) => {
 };
 
 const getAuth = (dispatch) => async () => {
-  await AsyncStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE2NjU2MDMzMjUsImV4cCI6MTY2NTY4OTcyNSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjM0NzE2ZmM1OTE5MGYwMDU1ZWZjZTIyIiwianRpIjoiNGQ1OGE4ZDctNjMzZC00ODQ4LTk5YmUtZmJlOTNhODE4ODUxIn0.IfItJ2UABfzHwAWJaIfg2pyq_kGKHsEdoNKC59HZ3A4")
+  // await AsyncStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE2NjU2NzczMjIsImV4cCI6MTY2NTc2MzcyMiwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjJkNWJjNjdmYjQyM2IxNzU3ZjJkN2RjIiwianRpIjoiNzI4NTc0YzUtODIzYi00MWY2LTg0YWUtNWUxZDQ1ZTI5NGUzIn0.CSIZb3pknvNjc83Y6NzocsizTCom5nOZynvetvDG0bE")
   // await AsyncStorage.removeItem("accessToken")
   const accessToken = await AsyncStorage.getItem("accessToken");
   if (accessToken) {
