@@ -4,6 +4,7 @@ import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as UserProvider } from "./src/context/UserContext";
 import { Provider as TenantProvider } from "./src/context/TenantContext";
 import AppLayout from './src/components/layout/AppLayout';
+import "./i18n.config";
 
 const App = () => {
   return (  
