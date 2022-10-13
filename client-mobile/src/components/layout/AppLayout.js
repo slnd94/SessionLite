@@ -1,5 +1,5 @@
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
-import { Image, Text } from "@rneui/themed";
+import { Button, Image, Text } from "@rneui/themed";
 import React, { useEffect, useContext } from "react";
 import { Context as AuthContext } from "../../context/AuthContext";
 import { Context as TenantContext } from "../../context/TenantContext";
@@ -15,6 +15,7 @@ const Stack = createNativeStackNavigator();
 const AppLayout = ({ children }) => {
   const {
     state: { auth, fileAuth },
+    signout,
     getAuth,
     getFileAuth,
   } = useContext(AuthContext);
@@ -87,6 +88,7 @@ const AppLayout = ({ children }) => {
 function HomeScreen() {
   const {
     state: { auth, fileAuth },
+    signout
   } = useContext(AuthContext);
   const {
     state: { tenant },
@@ -123,6 +125,10 @@ function HomeScreen() {
           </Text>
         </View>
       </View>
+      <Button title={"Sign Out"} onPress={() => {
+        signout();
+      }} />
+      <Spacer />
     </ScrollView>
   );
 }

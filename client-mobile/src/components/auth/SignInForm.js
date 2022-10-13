@@ -3,6 +3,8 @@ import { Input, Button } from "@rneui/themed";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { inputs, buttons } from "../../styles/global";
+import Spacer from "../Spacer";
 
 const SignInForm = ({ onSubmit, processing }) => {
   const {
@@ -23,7 +25,7 @@ const SignInForm = ({ onSubmit, processing }) => {
       required: t("auth.Email is required"),
       pattern: {
         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        message: "invalid email address",
+        message: t("auth.Invalid email address"),
       },
     },
     password: {
@@ -42,46 +44,47 @@ const SignInForm = ({ onSubmit, processing }) => {
         rules={formRules.email}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            inputStyle={styles.input}
+          inputStyle={styles.inputs.input}
             label={t("auth.Email")}
+            labelStyle={styles.inputs.inputLabel}
             autoCapitalize="none"
             autoComplete="off"
             autoCorrect={false}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
+            errorMessage={errors?.email?.message}
+            errorStyle={styles.inputs.inputValidation}
           />
         )}
         name="email"
       />
-      {errors.email && (
-        <View style={styles.inputValidation}>
-          <Text style={styles.inputValidationText}>{errors.email.message}</Text>
-        </View>
-      )}
 
       <Controller
         control={control}
         rules={formRules.password}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            style={styles.input}
+            inputStyle={styles.inputs.input}
             label={t("auth.Password")}
+            labelStyle={styles.inputs.inputLabel}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             secureTextEntry={true}
+            errorMessage={errors?.password?.message}
+            errorStyle={styles.inputs.inputValidation}
           />
         )}
         name="password"
       />
-      {errors.password && (
-        <View style={styles.inputValidation}>
-          <Text style={styles.inputValidationText}>{errors.password.message}</Text>
-        </View>
-      )}
-
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <Spacer />
+      <Button
+        title="Submit"
+        color="secondary"
+        style={styles.buttons.primary}
+        onPress={handleSubmit(onSubmit)}
+      />
     </View>
   );
 };
@@ -89,27 +92,12 @@ const SignInForm = ({ onSubmit, processing }) => {
 export default SignInForm;
 
 const styles = StyleSheet.create({
+  inputs,
+  buttons,
   container: {
     alignSelf: "stretch",
-    // borderWidth: 4,
-    // borderColor: "#7033f4",
     display: "flex",
     flexDirection: "column",
     alignItems: "stretch",
-    // margin: 30
-    // justifyContent: "flex-end"
   },
-  input: {
-    flex: 1,
-    // width: 500,
-    // borderWidth: 4,
-    // borderColor: "#f43333",
-    // alignSelf: "stretch"
-  },
-  inputValidation: {
-    marginBottom: 30
-  },
-  inputValidationText: {
-    color: "#f43333"
-  }
 });
