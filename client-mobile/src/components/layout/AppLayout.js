@@ -6,6 +6,8 @@ import { Context as TenantContext } from "../../context/TenantContext";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SignIn from "../../screens/SignIn";
+
 import Spacer from "../Spacer";
 
 const Stack = createNativeStackNavigator();
@@ -70,7 +72,7 @@ const AppLayout = ({ children }) => {
               </>
             ) : (
               <>
-                <Stack.Screen name="SignIn" component={SignInScreen} />
+                <Stack.Screen name="SignIn" component={SignIn} />
               </>
             )}
           </>
@@ -122,18 +124,6 @@ function HomeScreen() {
         </View>
       </View>
     </ScrollView>
-  );
-}
-
-function SignInScreen() {
-  const {
-    state: { auth },
-  } = useContext(AuthContext);
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text h1>Sign In</Text>
-      <Text>Status is {auth?.status}</Text>
-    </View>
   );
 }
 
