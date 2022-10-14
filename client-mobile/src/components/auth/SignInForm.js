@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, TextInput, Alert } from "react-native";
-import { Input, Button } from "@rneui/themed";
+import { Input } from "@rneui/themed";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import Button from "../Button";
 import { inputs, buttons } from "../../styles/global";
 import Spacer from "../Spacer";
 
@@ -80,9 +81,9 @@ const SignInForm = ({ onSubmit, processing }) => {
       />
       <Spacer />
       <Button
-        title="Submit"
-        color="secondary"
-        style={styles.buttons.primary}
+        title={t("auth.Sign in")}
+        color="primary"
+        // style={styles.buttons.primary}
         onPress={handleSubmit(onSubmit)}
       />
     </View>

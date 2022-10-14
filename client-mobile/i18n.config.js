@@ -6,21 +6,22 @@ const resources = {
   en: {
     translation: en,
   },
-//   de: {
-//     translation: de,
-//   },
-//   es: {
-//     translation: es,
-//   },
-//   be: {
-//     translation: be,
-//   },
-//   fr: {
-//     translation: fr,
-//   },
+  //   de: {
+  //     translation: de,
+  //   },
+  //   es: {
+  //     translation: es,
+  //   },
+  //   be: {
+  //     translation: be,
+  //   },
+  //   fr: {
+  //     translation: fr,
+  //   },
 };
 
 i18n.use(initReactI18next).init({
+  compatibilityJSON: "v3",
   resources,
   //language to use if translations in user language are not available
   fallbackLng: "en",

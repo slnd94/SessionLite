@@ -1,11 +1,12 @@
 const colors = {
-  white: "#fff",
-  black: "#000",
+  white: "#ffffff",
+  black: "#000000",
   gray100: "#333333",
   gray200: "#828282",
   gray300: "#BDBDBD",
   gray400: "#E0E0E0",
   gray500: "#F2F2F2",
+  gray600: "#F7F7F7",
 
   red: "#e02323",
   orange100: "#ed522f",
@@ -43,7 +44,12 @@ export default {
     success: colors.purple300,
     info: colors.blue200,
     warning: colors.yellow,
-    danger: colors.red
+    danger: colors.red,
+    dark: colors.charcoal,
+    light: colors.gray300,
+    lighter: colors.gray400,
+    lightest: colors.gray500,
+    bodyColor: colors.charcoal
   },
   borderRadius: 8
 };

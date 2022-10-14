@@ -5,6 +5,7 @@ import { Context as AuthContext } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import SignInForm from "../components/auth/SignInForm";
 import Spacer from "../components/Spacer";
+import { StatusBar } from "expo-status-bar";
 
 const SignIn = ({ navigation }) => {
   const {
@@ -17,6 +18,8 @@ const SignIn = ({ navigation }) => {
   const { t } = useTranslation();
 
   return (
+    <>
+    <StatusBar style="auto" />
     <View
       style={{
         margin: 30,
@@ -26,25 +29,13 @@ const SignIn = ({ navigation }) => {
       }}
     >
       <Text h3>{t("auth.Sign In")}</Text>
-      {/* <Text>Status is {auth?.status}</Text> */}
       <Spacer />
       <SignInForm
-        // processing={processing}
         onSubmit={async (data) => {
-          console.log(
-            "🚀 ~ file: SignIn.js ~ line 24 ~ onSubmit={ ~ data",
-            data
-          );
           setProcessing(true);
           const request = await signin(data);
           if (request.success) {
             setProcessing(false);
-            // if (redirect) {
-            //   router.push({
-            //     pathname: redirect,
-            //     query: redirectQuery || {},
-            //   });
-            // }
           } else {
             setProcessing(false);
           }
@@ -56,6 +47,7 @@ const SignIn = ({ navigation }) => {
         </View>
       ) : null}
     </View>
+    </>
   );
 };
 

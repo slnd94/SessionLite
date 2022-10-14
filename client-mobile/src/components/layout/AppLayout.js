@@ -6,40 +6,37 @@ import { Context as TenantContext } from "../../context/TenantContext";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Splash from "../../screens/Splash";
 import SignIn from "../../screens/SignIn";
-
-import Spacer from "../Spacer";
+import App from "../../screens/App";
 
 const Stack = createNativeStackNavigator();
 
 const AppLayout = ({ children }) => {
   const {
-    state: { auth, fileAuth },
-    signout,
+    state: { auth },
     getAuth,
     getFileAuth,
   } = useContext(AuthContext);
   const {
-    state: { tenant },
+    state: { },
     setTenant,
   } = useContext(TenantContext);
 
   // get the auth user
   useEffect(() => {
+    setTimeout(() => {
+      
     getAuth();
-    // setDisposition();
+    }, 3000);
   }, []);
 
-  // get the user's cart and tenant if signed in
+  // get the user's tenant if signed in
   useEffect(() => {
     if (auth?.status) {
       if (auth.user?.tenant) {
         setTenant({ tenant: auth.user.tenant });
       }
-
-      //   if (auth.status === "SIGNED_IN" && auth.user?.verified) {
-      //     getUserCart({ id: auth.user._id });
-      //   }
 
       if (
         auth.status === "SIGNED_OUT" ||
@@ -56,20 +53,13 @@ const AppLayout = ({ children }) => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          // headerStyle: {
-          //   backgroundColor: '#f4511e',
-          // },
-          // headerTintColor: '#fff',
-          // headerTitleStyle: {
-          //   fontWeight: 'bold',
-          // },
         }}
       >
         {auth?.status ? (
           <>
             {auth?.status === "SIGNED_IN" ? (
               <>
-                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="App" component={App} />
               </>
             ) : (
               <>
@@ -78,60 +68,12 @@ const AppLayout = ({ children }) => {
             )}
           </>
         ) : (
-          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="Splash" component={Splash} />
         )}
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-function HomeScreen() {
-  const {
-    state: { auth, fileAuth },
-    signout
-  } = useContext(AuthContext);
-  const {
-    state: { tenant },
-  } = useContext(TenantContext);
-  return (
-    <ScrollView>
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          paddingHorizontal: 20,
-          paddingVertical: 40,
-        }}
-      >
-        <Text h1>Home</Text>
-        <View>
-          <Text>Status is {auth?.status}</Text>
-        </View>
-        <View>
-          <Text>
-            User is {auth?.user ? JSON.stringify(auth.user, null, 2) : null}
-          </Text>
-        </View>
-        <Spacer></Spacer>
-        <View>
-          <Text>
-            FileAuth is {fileAuth ? JSON.stringify(fileAuth, null, 2) : null}
-          </Text>
-        </View>
-        <View>
-          <Text>
-            Tenant is {tenant ? JSON.stringify(tenant, null, 2) : null}
-          </Text>
-        </View>
-      </View>
-      <Button title={"Sign Out"} onPress={() => {
-        signout();
-      }} />
-      <Spacer />
-    </ScrollView>
-  );
-}
 
 function SplashScreen() {
   return (
