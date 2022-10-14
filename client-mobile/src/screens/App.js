@@ -2,31 +2,50 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import React, { useEffect, useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import Home from "./Home";
 import Schedule from "./Schedule";
-import SessionLiteLogoSvg from "../components/svg/SessionLiteLogoSvg";
+import AppLogoSvg from "../components/svg/AppLogoSvg";
+import { colors } from "../styles/variables";
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
-      <View style={styles.appContainer}>
-        <View style={styles.header}>
-          {/* <SessionLiteSvg scale={0.3} /> */}
-        <SessionLiteLogoSvg scale={0.3} />
-        </View>
-        <StatusBar style="auto" />
-        <View style={styles.container}>
-          <Tab.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Schedule" component={Schedule} />
-          </Tab.Navigator>
-        </View>
+    <View style={styles.appContainer}>
+      <View style={styles.header}>
+        {/* <SessionLiteSvg scale={0.3} /> */}
+        <AppLogoSvg scale={0.25} />
       </View>
+      <StatusBar style="auto" />
+      <View style={styles.container}>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === "Home") {
+                iconName = "home";
+              } else if (route.name === "Schedule") {
+                iconName = "calendar";
+              }
+
+              // You can return any component that you like here!\
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            headerShown: false,
+            tabBarActiveTintColor: colors.primary,
+            tabBarInactiveTintColor: colors.light,
+            backgroundColor: colors.lightest
+            // tabBarInactiveBackgroundColor: colors.lightest,
+            // tabBarActiveBackgroundColor: colors.white
+          })}
+        >
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Schedule" component={Schedule} />
+        </Tab.Navigator>
+      </View>
+    </View>
   );
 };
 
@@ -58,7 +77,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0,
     shadowRadius: 0,
-    alignItems: "center"
+    alignItems: "center",
   },
   container: {
     flex: 1,

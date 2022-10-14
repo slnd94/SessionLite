@@ -1,22 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import SessionLiteLogoSvg from "../components/svg/SessionLiteLogoSvg";
+import AppLogoSvg from "../components/svg/AppLogoSvg";
+import SplashBackgroundSvg from "../components/svg/SplashBackgroundSvg";
 import { StatusBar } from "expo-status-bar";
 
 const Splash = () => {
   return (
     <>
-      <StatusBar style="auto" />
       <View
         style={{
-          margin: 30,
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: 100,
+          position: "absolute",
         }}
       >
-        <SessionLiteLogoSvg scale={0.4} />
+        <SplashBackgroundSvg scale={0.45} />
+      </View>
+      <View
+        style={{
+          height: "100%",
+          // marginBottom: 30
+        }}
+      >
+        <StatusBar style="auto" />
+        <View style={{ flex: 5, 
+          alignItems: "center",
+          justifyContent: "center" }}>
+        <AppLogoSvg scale={0.4} />
+        </View>
+        <View style={{ flex: 1 }} />
       </View>
     </>
   );

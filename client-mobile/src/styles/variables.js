@@ -1,4 +1,4 @@
-const colors = {
+const colorSystem = {
   white: "#ffffff",
   black: "#000000",
   gray100: "#333333",
@@ -37,19 +37,24 @@ const colors = {
   brown: "rgb(108, 89, 78)",
 };
 
-export default {
+const variables = {
   colors: {
-    primary: colors.purple300,
-    secondary: colors.purple400,
-    success: colors.purple300,
-    info: colors.blue200,
-    warning: colors.yellow,
-    danger: colors.red,
-    dark: colors.charcoal,
-    light: colors.gray300,
-    lighter: colors.gray400,
-    lightest: colors.gray500,
-    bodyColor: colors.charcoal
+    primary: colorSystem.purple300,
+    secondary: colorSystem.purple400,
+    success: colorSystem.purple300,
+    info: colorSystem.blue200,
+    warning: colorSystem.yellow,
+    danger: colorSystem.red,
+    dark: colorSystem.charcoal,
+    light: colorSystem.gray300,
+    lighter: colorSystem.gray400,
+    lightest: colorSystem.gray500,
+    white: colorSystem.white,
+    bodyColor: colorSystem.charcoal
   },
   borderRadius: 8
 };
+
+export const colors = variables.colors;
+
+export default variables;

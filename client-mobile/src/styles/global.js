@@ -71,3 +71,8 @@ export const buttons = {
     }
   }
 };
+
+export const screen = {
+  flex: 1,
+  backgroundColor: variables.colors.white
+}

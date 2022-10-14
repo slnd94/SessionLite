@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 
-export default function SessionLiteLogoSvg({
+export default function AppLogoSvg({
   scale = 1,
   width = 741,
   height = 113,

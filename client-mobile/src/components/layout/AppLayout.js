@@ -28,7 +28,7 @@ const AppLayout = ({ children }) => {
     setTimeout(() => {
       
     getAuth();
-    }, 3000);
+    }, 2000);
   }, []);
 
   // get the user's tenant if signed in
