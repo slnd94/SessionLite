@@ -47,6 +47,7 @@
     "First Name": "First Name",
     "Last Name": "Last Name",
     "Email is required": "Email is required",
+    "Invalid email address": "Invalid email address",
     "Password is required": "Password is required",
     "Password must have at least <num> characters": "Password must have at least 6 characters",
     "Passwords must match": "Passwords must match",
