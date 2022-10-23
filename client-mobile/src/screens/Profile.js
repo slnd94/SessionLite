@@ -48,7 +48,7 @@ const Home = () => {
             }}
           >
             <View>
-              <Text h2>Schedule</Text>
+              <Text h2>Profile</Text>
             </View>
             <View>
               {tenant?.logo?.handle && fileAuth?.viewTenantLogo ? (

@@ -2,9 +2,11 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import React, { useEffect, useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Home from "./Home";
 import Schedule from "./Schedule";
+import Profile from "./Profile";
+import Settings from "./Settings";
 import AppLogoSvg from "../components/svg/AppLogoSvg";
 import { colors } from "../styles/variables";
 
@@ -28,21 +30,33 @@ const App = () => {
                 iconName = "home";
               } else if (route.name === "Schedule") {
                 iconName = "calendar";
+              } else if (route.name === "Profile") {
+                iconName = "user";
+              } else if (route.name === "Settings") {
+                iconName = "cog";
               }
 
               // You can return any component that you like here!\
-              return <Ionicons name={iconName} size={size} color={color} />;
+              return <FontAwesome5 name={iconName} size={size} color={color} />;
             },
             headerShown: false,
             tabBarActiveTintColor: colors.primary,
-            tabBarInactiveTintColor: colors.light,
-            backgroundColor: colors.lightest
+            // tabBarInactiveTintColor: colors.light,
+            tabBarStyle: {
+              backgroundColor: colors.lightest,
+              borderTopWidth: 1,
+              borderTopColor: colors.lighter,
+              // paddingTop: 20
+              // marginTop: 20
+            },
             // tabBarInactiveBackgroundColor: colors.lightest,
             // tabBarActiveBackgroundColor: colors.white
           })}
         >
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Schedule" component={Schedule} />
+          <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
       </View>
     </View>
