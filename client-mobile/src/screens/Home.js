@@ -28,6 +28,10 @@ const Home = () => {
           paddingHorizontal: 20,
           paddingVertical: 40,
         }}
+        contentContainerStyle={{
+          justifyContent: "space-between"
+        }}
+
       >
         <View
           style={{

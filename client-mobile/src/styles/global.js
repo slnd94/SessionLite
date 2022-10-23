@@ -15,8 +15,8 @@ export const inputs = {
 };
 
 const buttonBase = {
-  margin: 10,
-  paddingVertical: 10,
+  marginVertical: 10,
+  paddingVertical: 12,
   borderRadius: variables.borderRadius,
 };
 
@@ -74,5 +74,6 @@ export const buttons = {
 
 export const screen = {
   flex: 1,
-  backgroundColor: variables.colors.white
+  backgroundColor: variables.colors.white,
+  justifyContent: "space-between"
 }
