@@ -21,15 +21,15 @@ export default function Tenant() {
   const {
     state: { auth },
   } = useContext(AuthContext);
-  const [rooms, setRooms] = useState(null);
-  const [requestingRooms, setRequestingRooms] = useState(false);
-  const roomsPerPage = 2;
+  const [userSessions, setUserSessions] = useState(null);
+  const [requestingUserSessions, setRequestingUserSessions] = useState(false);
+  const userSessionsPerPage = 2;
 
-  const fetchRooms = async ({ skip, limit }) => {
-    setRequestingRooms(true);
+  const fetchUserSessions = async ({ skip, limit }) => {
+    setRequestingUserSessions(true);
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-rooms`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-sessions`,
       params: {
         tenant: tenantId,
         $skip: skip,
@@ -38,10 +38,10 @@ export default function Tenant() {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      setRequestingRooms(false);
+      setRequestingUserSessions(false);
       return { success: true, data: response.data };
     } else {
-      setRequestingRooms(false);
+      setRequestingUserSessions(false);
       return { success: false };
     }
   };
@@ -54,13 +54,13 @@ export default function Tenant() {
       });
       if (isMember) {
         let isSubscribed = true;
-        fetchRooms({ skip: 0, limit: roomsPerPage })
+        fetchUserSessions({ skip: 0, limit: userSessionsPerPage })
           .then((response) => {
             if (isSubscribed) {
               if (response.success) {
-                setRooms(response.data);
+                setUserSessions(response.data);
               } else {
-                setRooms(null);
+                setUserSessions(null);
               }
             }
           })
@@ -75,41 +75,44 @@ export default function Tenant() {
       <div className="row">
         <div className="col-12">
           <h3>{tenant.name}</h3>
-          {rooms ? (
+          {userSessions ? (
             <>
               <PaginatedList
-                items={rooms}
-                itemComponent={({ room }) => {
+                items={userSessions}
+                itemComponent={({ session }) => {
                   return (
                     <div
                       className={`row section-box`}
                       onClick={() => (onClick ? onClick() : null)}
                     >
                       <div className="col-12">
-                        <h5>{room.name}</h5>
+                        <h5>{session.name}</h5>
+                      </div>
+                      <div className="col-12">
+                        {session.description}
                       </div>
                     </div>
                   );
                 }}
-                itemPropName={"room"}
-                itemsListedName={t("tenant.rooms")}
-                itemsPerPage={roomsPerPage}
+                itemPropName={"session"}
+                itemsListedName={t("tenant.userSessions")}
+                itemsPerPage={userSessionsPerPage}
                 showPaginationTop
                 showPaginationBottom
                 hidePaginationForSinglePage
                 requestItemsFunc={async ({ skip, limit }) => {
-                  fetchRooms({ skip, limit })
+                  fetchUserSessions({ skip, limit })
                     .then((response) => {
                       if (response.success) {
-                        setRooms(response.data);
+                        setUserSessions(response.data);
                       } else {
-                        setRooms(null);
+                        setUserSessions(null);
                       }
                     })
                     .catch(console.error);
                 }}
-                requestingItems={requestingRooms}
-                // itemNavRoute={"/room"}
+                requestingItems={requestingUserSessions}
+                // itemNavRoute={"/session"}
                 showLink={true}
                 t={t}
                 // onRef={ref => (this.paginatedList = ref)}
