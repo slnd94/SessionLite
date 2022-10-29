@@ -29,6 +29,7 @@ const tenantTemplates = require('./tenant-templates/tenant-templates.service.js'
 const healthz = require('./healthz/healthz.service.js');
 const sessions = require('./sessions/sessions.service.js');
 const tenantSessions = require('./tenant-sessions/tenant-sessions.service.js');
+const userSessions = require('./user-sessions/user-sessions.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -62,4 +63,5 @@ module.exports = function (app) {
   app.configure(healthz);
   app.configure(sessions);
   app.configure(tenantSessions);
+  app.configure(userSessions);
 };

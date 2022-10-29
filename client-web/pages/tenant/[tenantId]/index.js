@@ -24,15 +24,16 @@ export default function Tenant() {
   } = useContext(AuthContext);
   const [userSessions, setUserSessions] = useState(null);
   const [requestingUserSessions, setRequestingUserSessions] = useState(false);
-  const userSessionsPerPage = 2;
+  const userSessionsPerPage = 5;
 
   const fetchUserSessions = async ({ skip, limit }) => {
     setRequestingUserSessions(true);
     const response = await api({
       method: "get",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/tenant-sessions`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/user-sessions`,
       params: {
         tenant: tenantId,
+        user: auth.user._id,
         $skip: skip,
         $limit: limit,
       },
