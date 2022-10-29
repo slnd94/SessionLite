@@ -1,9 +1,14 @@
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { Image, Text } from "@rneui/themed";
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as TenantContext } from "../context/TenantContext";
+import useTenantUserAuth from "../hooks/useTenantUserAuth";
 import { useTranslation } from "react-i18next";
+import api from "../utils/api";
+import { REACT_APP_API_BASE_URL } from "@env";
+import { getFormattedDateTimeLong } from "../helpers/dateHelpers";
+
 import { screen } from "../styles/global";
 
 import Spacer from "../components/Spacer";
@@ -21,6 +26,55 @@ const Home = () => {
 
   const { t } = useTranslation();
 
+  const [userSessions, setUserSessions] = useState(null);
+  const [requestingUserSessions, setRequestingUserSessions] = useState(false);
+  const userSessionsPerPage = 2;
+
+  const fetchUserSessions = async ({ skip, limit }) => {
+    setRequestingUserSessions(true);
+    const response = await api({
+      method: "get",
+      url: `${REACT_APP_API_BASE_URL}/tenant-sessions`,
+      params: {
+        tenant: tenant._id,
+        $skip: skip,
+        $limit: limit,
+      },
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      setRequestingUserSessions(false);
+      return { success: true, data: response.data };
+    } else {
+      setRequestingUserSessions(false);
+      return { success: false };
+    }
+  };
+
+  useEffect(() => {
+    if (tenant && auth?.status === "SIGNED_IN") {
+      const { isMember } = useTenantUserAuth({
+        tenant,
+        auth,
+      });
+      if (isMember) {
+        let isSubscribed = true;
+        fetchUserSessions({ skip: 0, limit: userSessionsPerPage })
+          .then((response) => {
+            if (isSubscribed) {
+              if (response.success) {
+                setUserSessions(response.data);
+              } else {
+                setUserSessions(null);
+              }
+            }
+          })
+          .catch(console.error);
+        return () => (isSubscribed = false);
+      }
+    }
+  }, [tenant, auth]);
+
   return (
     <View style={styles.screen}>
       <ScrollView
@@ -29,9 +83,8 @@ const Home = () => {
           paddingVertical: 40,
         }}
         contentContainerStyle={{
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
-
       >
         <View
           style={{
@@ -71,10 +124,32 @@ const Home = () => {
             }}
           >
             <View>
-              <Text h4>Welcome, {auth?.user?.name.given} {auth?.user?.name.family}</Text>
+              <Text h4>
+                Welcome, {auth?.user?.name.given} {auth?.user?.name.family}
+              </Text>
             </View>
             {/* <Text>Auth is {auth ? JSON.stringify(auth, null, 2) : null}</Text> */}
           </View>
+        </View>
+        <Spacer />
+        <View>
+          {userSessions ? (
+            <>
+              {userSessions.data.map((session) => (
+                <View key={session._id} style={{ marginVertical: 20 }}>
+                  <View className="col-12">
+                    <Text h5>{session.name}</Text>
+                  </View>
+                  <View className="col-12">
+                    <Text>{session.description}</Text>
+                  </View>
+                  <View className="col-12">
+                    <Text>{getFormattedDateTimeLong(session.start)}</Text>
+                  </View>
+                </View>
+              ))}
+            </>
+          ) : null}
         </View>
         <Spacer />
         <View

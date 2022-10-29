@@ -8,6 +8,7 @@ import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import api from "../../../utils/api";
+import { formatDateLong, formatTime } from "../../../helpers/dateHelpers";
 import { useRouter } from "next/router";
 import styles from "../../../styles/User.module.scss";
 
@@ -90,6 +91,12 @@ export default function Tenant() {
                       </div>
                       <div className="col-12">
                         {session.description}
+                      </div>
+                      <div className="col-12">
+                        {formatDateLong(session.start)}
+                      </div>
+                      <div className="col-12">
+                        {formatTime(session.start)} - {formatTime(session.end)}
                       </div>
                     </div>
                   );
